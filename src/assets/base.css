@@ -1,0 +1,62 @@
+/* src/assets/base.css */
+
+/* Définition des couleurs principales */
+:root {
+  --color-primary-dark: #8c0a0a;
+  /* Rouge foncé du header */
+  --color-primary-light: #ac0c0c;
+  /* Rouge plus clair si utilisé */
+  --color-text-dark: #2c3e50;
+  /* Couleur principale du texte sombre */
+  --color-text-light: #ffffff;
+  /* Couleur du texte clair */
+  --color-background-light: #f9f9f9;
+  /* Fond général des cartes/pages */
+  --color-background-gray: #eef4f8;
+  /* Fond des filtres */
+  --color-border: #ccc;
+  --color-shadow: rgba(0, 0, 0, 0.1);
+  /* Ombre légère */
+  --color-accent-blue: #007bff;
+  /* Bleu du bouton retour */
+}
+
+/* Police (exemple, à adapter si tu as une police spécifique de Figma) */
+body {
+  font-family: 'Arial', sans-serif;
+  /* Remplace par la police de Figma si tu la connais et l'as importée */
+  line-height: 1.6;
+  color: var(--color-text-dark);
+  background: var(--color-background-light);
+  margin: 0;
+  padding: 0;
+}
+
+/* Réinitialisation de base pour les éléments HTML */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-top: 0;
+  margin-bottom: 0.5em;
+  color: var(--color-primary-dark);
+  /* Les titres pourraient être en rouge foncé */
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  /* Pour que les liens héritent de la couleur du texte parent */
+}
+
+button {
+  cursor: pointer;
+}
