@@ -1,25 +1,43 @@
 <template>
   <div id="app">
-    <Header /> <main>
-      <router-view />
+    <Header
+      v-model="appSearchQuery"
+      @toggle-filters="toggleFilters"
+    />
+    <main>
+      <router-view
+        :showCeintureFilter="showCeintureFilter"
+        :searchQuery="appSearchQuery"
+        @toggle-filters="toggleFilters"
+      />
     </main>
   </div>
 </template>
 
 <script setup>
-import { RouterView } from 'vue-router'
-import Header from './components/Header.vue'; // Importe le Header
+import { ref } from 'vue';
+import Header from './components/Header.vue';
+
+const appSearchQuery = ref('');
+const showCeintureFilter = ref(true);
+
+function toggleFilters() {
+  showCeintureFilter.value = !showCeintureFilter.value;
+}
 </script>
 
 <style scoped>
-/* Les styles ici sont pour la mise en page générale de l'application si nécessaire */
 #app {
   display: flex;
   flex-direction: column;
-  min-height: 100vh; /* Pour que le pied de page (si tu en as un) soit en bas */
+  overflow-x: hidden;
+  background-color: var(--color-background-light);
+  min-height: 100vh;
 }
 
 main {
-  flex-grow: 1; /* Permet au contenu principal de prendre l'espace restant */
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: auto;
 }
 </style>

@@ -1,222 +1,238 @@
 <template>
   <div class="home-page">
-    <h1>Judodex</h1>
+    <div class="home-content">
+      <div class="search-and-filters-container">
+        <div class="position-tabs">
+          <button
+            @click="selectedPosition = 'debout'"
+            :class="{ active: selectedPosition === 'debout' }"
+            class="position-tab-button"
+          >
+            DEBOUT
+          </button>
+          <button
+            @click="selectedPosition = 'sol'"
+            :class="{ active: selectedPosition === 'sol' }"
+            class="position-tab-button"
+          >
+            SOL
+          </button>
+        </div>
 
-    <div class="filters-section">
-      <input
-        type="text"
-        v-model="searchQuery"
-        @input="applyFilters"
-        placeholder="Rechercher une technique..."
-        class="search-input"
-      />
-
-      <div class="filter-group">
-        <label for="position-filter">Position:</label>
-        <select id="position-filter" v-model="selectedPosition" @change="applyFilters" class="filter-select">
-          <option value="">Toutes</option>
-          <option value="debout">Debout</option>
-          <option value="sol">Sol</option>
+        <div v-if="showCeintureFilter" class="filter-group">
+          <select v-model="selectedCeinture" class="filter-select">
+            <option value="">Ceinture</option>
+            <option value="blanche">Blanche</option>
+            <option value="jaune">Jaune</option>
+            <option value="orange">Orange</option>
+            <option value="verte">Verte</option>
+            <option value="bleue">Bleue</option>
+            <option value="marron">Marron</option>
+            <option value="noire">Noire</option>
           </select>
+        </div>
       </div>
 
-      <div class="filter-group">
-        <label for="ceinture-filter">Ceinture:</label>
-        <select id="ceinture-filter" v-model="selectedCeinture" @change="applyFilters" class="filter-select">
-          <option value="">Toutes</option>
-          <option value="blanche">Blanche</option>
-          <option value="jaune">Jaune</option>
-          <option value="orange">Orange</option>
-          <option value="verte">Verte</option>
-          <option value="bleue">Bleue</option>
-          <option value="marron">Marron</option>
-          <option value="noire">Noire</option>
-        </select>
+      <div v-if="loading" class="loading-message">Chargement des techniques...</div>
+      <div v-else-if="error" class="error-message">{{ error.message }}</div>
+      <div v-else-if="techniques.length > 0" class="techniques-grid">
+        <TechniqueCard
+          v-for="technique in techniques"
+          :key="technique.id"
+          :title="technique.title"
+          :image="technique.acf.image"
+          @click="goToTechniqueDetails(technique.id)"
+        />
       </div>
-
-      </div>
-    <div v-if="loading" class="message">Chargement des techniques de judo...</div>
-    <div v-else-if="error" class="message error">
-      Erreur lors du chargement : {{ error.message }}. Vérifiez que votre serveur WordPress est bien lancé.
-    </div>
-
-    <div v-else class="techniques-grid">
-      <TechniqueCard
-        v-for="technique in filteredTechniques" :key="technique.id"
-        :title="technique.title"
-        :image="technique.acf.image"
-        @click="goToTechniqueDetails(technique.id)"
-      />
-      <div v-if="filteredTechniques.length === 0 && !loading" class="message">Aucune technique trouvée pour votre recherche.</div>
+      <div v-else class="no-results-message">Aucune technique trouvée.</div>
     </div>
   </div>
 </template>
 
-<script>
-import { ref, onMounted, computed } from 'vue';
-import { useRouter } from 'vue-router';
+<script setup>
+import { ref, watch, onMounted } from 'vue';
 import TechniqueCard from '../components/TechniqueCard.vue';
+import { useRouter } from 'vue-router';
 
-export default {
-  components: {
-    TechniqueCard
-  },
-  setup() {
-    const techniques = ref([]);
-    const loading = ref(true);
-    const error = ref(null);
-    const router = useRouter();
+const props = defineProps({
+  searchQuery: String,
+  showCeintureFilter: Boolean,
+});
 
-    // Variables réactives pour la recherche et les filtres
-    const searchQuery = ref('');
-    const selectedPosition = ref(''); // Vide pour "Toutes"
-    const selectedCeinture = ref(''); // Vide pour "Toutes"
-    // Ajoute d'autres refs pour d'autres filtres si tu les implémentes
+const techniques = ref([]);
+const loading = ref(false);
+const error = ref(null);
+const selectedPosition = ref('');
+const selectedCeinture = ref('');
 
-    // Modifier fetchTechniques pour qu'elle puisse accepter des paramètres de filtre
-    const fetchTechniques = async (filters = {}) => {
-      loading.value = true;
-      error.value = null;
+const router = useRouter();
 
-      // Construire l'URL de l'API avec les paramètres de requête
-      const params = new URLSearchParams();
-      if (filters.search) {
-        params.append('search', filters.search);
-      }
-      if (filters.position) {
-        params.append('position', filters.position);
-      }
-      if (filters.ceinture) {
-        params.append('ceinture', filters.ceinture);
-      }
-      // Ajoute d'autres paramètres pour d'autres filtres
+const fetchTechniques = async () => {
+  loading.value = true;
+  error.value = null;
 
-      const queryString = params.toString();
-      const url = `/api/techniques${queryString ? `?${queryString}` : ''}`;
+  try {
+    const params = new URLSearchParams();
+    if (props.searchQuery) params.append('search', props.searchQuery);
+    if (selectedPosition.value) params.append('position', selectedPosition.value);
+    if (selectedCeinture.value) params.append('ceinture', selectedCeinture.value);
 
-      try {
-        const response = await fetch(url);
-        if (!response.ok) {
-          throw new Error(`Erreur HTTP! Statut: ${response.status}`);
-        }
-        const data = await response.json();
-        techniques.value = data;
-      } catch (e) {
-        error.value = e;
-        console.error("Erreur lors de la récupération des techniques:", e);
-      } finally {
-        loading.value = false;
-      }
-    };
+    const response = await fetch(`/api/techniques?${params.toString()}`);
+    if (!response.ok) throw new Error(`Erreur HTTP! Statut: ${response.status}`);
 
-    // Fonction pour appliquer les filtres et relancer le fetch
-    const applyFilters = () => {
-      fetchTechniques({
-        search: searchQuery.value,
-        position: selectedPosition.value,
-        ceinture: selectedCeinture.value,
-        // ... ajoute d'autres filtres ici
-      });
-    };
-
-    // Pour l'instant, on fait un filtrage côté client pour montrer le concept.
-    // Plus tard, ce `computed` sera moins utile car le filtrage sera côté serveur.
-    const filteredTechniques = computed(() => {
-        // Si l'API filtre déjà, on retourne juste les techniques brutes.
-        // Sinon, on applique le filtrage ici.
-        // Pour l'instant, c'est un placeholder.
-        // La vraie logique de filtrage sera dans la fonction fetchTechniques après l'API.
-        return techniques.value;
-    });
-
-
-    onMounted(() => {
-      // Au montage, charge toutes les techniques sans filtre initial
-      fetchTechniques();
-    });
-
-    const goToTechniqueDetails = (id) => {
-      router.push({ name: 'technique-details', params: { id: id } });
-    };
-
-    return {
-      techniques, // Garde techniques pour le moment, mais filteredTechniques sera utilisé dans le template
-      loading,
-      error,
-      searchQuery,
-      selectedPosition,
-      selectedCeinture,
-      applyFilters,
-      filteredTechniques, // Utilise ceci dans le template
-      goToTechniqueDetails
-    };
+    techniques.value = await response.json();
+  } catch (e) {
+    error.value = e;
+  } finally {
+    loading.value = false;
   }
+};
+
+watch(
+  () => [props.searchQuery, selectedPosition.value, selectedCeinture.value],
+  fetchTechniques,
+  { immediate: true }
+);
+
+function goToTechniqueDetails(id) {
+  router.push({ name: 'technique-details', params: { id } });
 }
 </script>
 
 <style scoped>
 .home-page {
-  padding: 20px;
-  max-width: 1200px;
+  width: 100%;
+  max-width: 100%;
   margin: 0 auto;
 }
 
-h1 {
-  text-align: center;
-  color: #2c3e50;
-  margin-bottom: 30px;
+.home-content {
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
-.filters-section {
+.search-and-filters-container {
   display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
-  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
   margin-bottom: 30px;
+  align-items: center;
+  background-color: white;
   padding: 15px;
-  background-color: #eef4f8;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px var(--color-shadow);
 }
 
-.search-input {
-  flex-grow: 1; /* Prend le plus de place possible */
-  padding: 10px 15px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+.position-tabs {
+  display: flex;
+  width: 100%;
+  border: 1px solid var(--color-primary-dark);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.position-tab-button {
+  flex: 1;
+  padding: 12px 0;
+  background-color: white;
+  border: none;
+  color: var(--color-primary-dark);
   font-size: 1em;
-  max-width: 300px; /* Limite la largeur pour l'esthétique */
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  text-transform: uppercase;
+  text-align: center;
+  border-right: 1px solid var(--color-primary-dark);
+}
+
+.position-tab-button:last-child {
+  border-right: none;
+}
+
+.position-tab-button.active {
+  background-color: var(--color-primary-dark);
+  color: var(--color-text-light);
+}
+
+.position-tab-button:hover:not(.active) {
+  background-color: #f5f5f5;
 }
 
 .filter-group {
   display: flex;
-  align-items: center;
-  gap: 8px;
+  flex-wrap: wrap;
+  gap: 10px;
+  width: 100%;
+  justify-content: center;
 }
 
 .filter-select {
-  padding: 8px 12px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 1em;
+  padding: 10px 15px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
   background-color: white;
+  font-size: 1em;
+  cursor: pointer;
+  flex-grow: 1;
+  min-width: 150px;
 }
 
-.message {
-  text-align: center;
-  font-size: 1.1em;
-  color: #555;
-  margin-top: 20px;
-}
-
-.message.error {
-  color: #d9534f;
-  font-weight: bold;
+.filter-select:focus {
+  border-color: var(--color-accent-blue);
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
 }
 
 .techniques-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   gap: 20px;
+  justify-content: center;
+}
+
+.loading-message,
+.error-message,
+.no-results-message {
+  text-align: center;
+  font-size: 1.2em;
+  color: #555;
+  margin-top: 50px;
+}
+
+.error-message {
+  color: var(--color-primary-dark);
+}
+
+@media (min-width: 1024px) {
+  .home-page {
+    max-width: 100%;
+    padding: 20px 50px;
+    margin: 0;
+  }
+
+  .search-and-filters-container {
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 20px;
+  }
+
+  .position-tabs {
+    width: 100%;
+    max-width: none;
+    flex-basis: auto;
+  }
+
+  .filter-group {
+    flex-basis: 100%;
+    justify-content: flex-start;
+  }
+
+  .techniques-grid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  }
 }
 </style>
