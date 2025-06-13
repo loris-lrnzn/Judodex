@@ -21,7 +21,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import '@/styles/_variables.scss';
+@import '../styles/_variables.scss';
 .technique-card {
   width: 200px;
   height: 200px;
