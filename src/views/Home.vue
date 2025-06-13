@@ -65,7 +65,7 @@ async function fetchTechniques() {
       params.append('ceinture', props.selectedCeintures[0])
     }
 
-    const response = await fetch(`/api/techniques?${params.toString()}`)
+    const response = await fetch(`https://sae401-25.mmi-stdie.fr/lorisl/wp-json/judodex/v1/techniques?${params.toString()}`)
     if (!response.ok) throw new Error(`Erreur HTTP! Statut: ${response.status}`)
 
     techniques.value = await response.json()

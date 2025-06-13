@@ -121,7 +121,7 @@ export default {
       technique.value = null;
 
       try {
-        const response = await fetch(`/api/techniques/${id}`);
+        const response = await fetch(`https://sae401-25.mmi-stdie.fr/lorisl/wp-json/judodex/v1/techniques/${id}`);
         if (!response.ok) {
           if (response.status === 404) throw new Error("Cette technique n'existe pas ou n'est plus disponible.");
           throw new Error(`Erreur HTTP! Statut: ${response.status}`);
