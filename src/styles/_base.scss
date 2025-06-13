@@ -1,0 +1,19 @@
+// src/styles/_base.scss
+@use './variables' as *;
+
+html, body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Righteous', Arial, sans-serif;
+  line-height: 1.6;
+  color: $color-text-dark;
+  background-color: $color-background-light;
+}

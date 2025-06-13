@@ -1,42 +1,53 @@
 <template>
   <div class="technique-details-page">
-    <button @click="goBack" class="back-button">
-      Retour à l'accueil
-    </button>
+    <div class="technique-image-top">
+      <img
+        :src="technique.acf.image"
+        :alt="technique.title"
+        class="detail-image-top"
+        @error="onImageError"
+      />
+    </div>
 
-    <div v-if="loading" class="loading-message">Chargement des détails de la technique...</div>
+    
+
+    <div v-if="loading" class="loading-message">
+      <div class="spinner"></div>
+      Chargement des détails de la technique...
+    </div>
+    
     <div v-else-if="error" class="error-message">{{ error.message }}</div>
+    
     <div v-else-if="technique">
       <h1 class="technique-main-title">{{ technique.title }}</h1>
       
-      <div class="image-section">
-        <img :src="technique.acf.image" :alt="technique.title" class="detail-image" />
-      </div>
 
       <div class="tags-section">
-        <span v-if="technique.position && technique.position.length > 0" class="tag tag-position">
-          {{ technique.position[0].toUpperCase() }}
-        </span>
-        <span v-if="technique.acf.ceinture" class="tag tag-ceinture">
-          {{ technique.acf.ceinture.toUpperCase() }}
-        </span>
+      
         <span v-if="technique.acf.type" class="tag tag-type">
           {{ technique.acf.type.toUpperCase() }}
         </span>
         <span v-if="technique.acf.mouvement" class="tag tag-mouvement">
           {{ technique.acf.mouvement.toUpperCase() }}
         </span>
-        <span v-if="technique.acf.direction" class="tag tag-direction">
-          {{ technique.acf.direction.toUpperCase() }}
-        </span>
+        
       </div>
 
       <div class="lexique-section card">
         <h2 class="card-title">LEXIQUE</h2>
-        <p v-if="technique.acf.traduction">
-          <span class="lexique-term">Traduction :</span> {{ technique.acf.traduction }}
+        <p>
+          <span class="lexique-main">{{ technique.title }}</span>
+          <span v-if="technique.acf.traduction" class="lexique-trad"> — {{ technique.acf.traduction }}</span>
         </p>
-        </div>
+        <p v-if="technique.acf.type">
+          <span class="lexique-main">{{ technique.acf.type }}</span>
+          <span v-if="LEXIQUE[technique.acf.type]" class="lexique-trad"> — {{ LEXIQUE[technique.acf.type] }}</span>
+        </p>
+        <p v-if="technique.acf.mouvement">
+          <span class="lexique-main">{{ technique.acf.mouvement }}</span>
+          <span v-if="LEXIQUE[technique.acf.mouvement]" class="lexique-trad"> — {{ LEXIQUE[technique.acf.mouvement] }}</span>
+        </p>
+      </div>
 
       <div class="video-section card">
         <h2 class="card-title">VIDÉO</h2>
@@ -48,40 +59,54 @@
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen
             class="video-iframe"
+            sandbox="allow-same-origin allow-scripts allow-presentation allow-popups"
           ></iframe>
           <p v-else>Le format du lien vidéo n'est pas reconnu pour l'intégration directe.</p>
         </div>
         <p v-else>Aucune vidéo de démonstration disponible.</p>
       </div>
 
-      <div v-if="technique.related_techniques && technique.related_techniques.length > 0" class="related-techniques-section card">
-        <h2 class="card-title">VOIR D'AUTRES MOUVEMENTS DE BRAS</h2>
+      <div v-if="technique.related_techniques?.length" class="related-techniques-section card">
+        <h2 class="card-title">
+          VOIR D'AUTRES MOUVEMENTS
+          <template v-if="technique.acf.mouvement">
+            DE
+            <span class="lexique-main">
+              {{ LEXIQUE[technique.acf.mouvement] || technique.acf.mouvement }}
+            </span>
+          </template>
+        </h2>
         <div class="related-techniques-grid">
           <TechniqueCard
-            v-for="relatedTech in technique.related_techniques"
+            v-for="relatedTech in technique.related_techniques.slice(0, 6)"
             :key="relatedTech.id"
             :title="relatedTech.title"
             :image="relatedTech.image"
             @click="goToTechniqueDetails(relatedTech.id)"
           />
         </div>
+        
       </div>
-      <div v-else class="no-results-message">Aucune technique similaire trouvée.</div>
-
+      <div><button @click="goBack" class="back-button" aria-label="Retour à l'accueil">
+  Retour à l'accueil
+</button></div>
     </div>
+
     <div v-else class="no-results-message">Technique non trouvée.</div>
   </div>
 </template>
 
 <script>
-import { ref, onMounted, watch } from 'vue';
+import { ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import TechniqueCard from '../components/TechniqueCard.vue';
+import { LEXIQUE } from '@/utils/lexique.js'
+
+
+const fallbackImage = '/images/fallback-image.jpg'; // Mettre le chemin réel de ton image fallback
 
 export default {
-  components: {
-    TechniqueCard
-  },
+  components: { TechniqueCard },
   setup() {
     const route = useRoute();
     const router = useRouter();
@@ -98,17 +123,14 @@ export default {
       try {
         const response = await fetch(`/api/techniques/${id}`);
         if (!response.ok) {
-          if (response.status === 404) {
-            throw new Error("Cette technique n'existe pas ou n'est plus disponible.");
-          }
+          if (response.status === 404) throw new Error("Cette technique n'existe pas ou n'est plus disponible.");
           throw new Error(`Erreur HTTP! Statut: ${response.status}`);
         }
         const data = await response.json();
         technique.value = data;
-
       } catch (e) {
         error.value = e;
-        console.error("Erreur lors de la récupération des détails de la technique:", e);
+        console.error(e);
       } finally {
         loading.value = false;
       }
@@ -119,24 +141,26 @@ export default {
       const regExp = /(?:https?:\/\/)?(?:www\.)?(?:m\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=|embed\/|v\/|)([\w-]{11})(?:\S+)?/;
       const match = url.match(regExp);
       if (match && match[1]) {
-        return `https://www.youtube.com/embed/${match[1]}`; // Correction de l'URL ici
+        return `https://www.youtube.com/embed/${match[1]}`;
       }
       return null;
     };
 
     const goToTechniqueDetails = (id) => {
-      router.push({ name: 'technique-details', params: { id: id } });
+      router.push({ name: 'technique-details', params: { id } });
+    };
+
+    const goBack = () => {
+      router.push({ path: '/' }) // Va toujours à l'accueil
+    };
+
+    const onImageError = (event) => {
+      event.target.src = fallbackImage;
     };
 
     watch(() => route.params.id, (newId) => {
-      if (newId) {
-        fetchTechniqueDetails(newId);
-      }
+      if (newId) fetchTechniqueDetails(newId);
     }, { immediate: true });
-
-    const goBack = () => {
-      router.back();
-    };
 
     return {
       technique,
@@ -144,165 +168,204 @@ export default {
       error,
       goBack,
       getYouTubeEmbedUrl,
-      goToTechniqueDetails
+      goToTechniqueDetails,
+      onImageError,
+      LEXIQUE
     };
   }
-}
+};
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@import '@/styles/_variables.scss';
+
 .technique-details-page {
   padding: 20px;
-  max-width: 800px; /* Ajuste la largeur max */
+  max-width: 800px;
   margin: 0 auto;
-  background-color: var(--color-background-light); /* Fond clair */
+  background-color: $color-background-light;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+
+  .back-button {
+    background-color: $color-primary-dark;
+    color: #fff;
+    padding: 12px 28px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+    margin: 40px auto 0 auto;
+    display: block;
+    width: fit-content;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: darken($color-primary-dark, 10%);
+    }
+  }
+
+  .technique-main-title {
+    color: $color-primary-dark;
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 2.5em;
+    text-transform: uppercase;
+  }
+
+  .image-section {
+    text-align: center;
+    margin-bottom: 30px;
+
+    .detail-image {
+      max-width: 100%;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+  }
+
+  .tags-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 30px;
+
+    .tag {
+      background-color: #eee;
+      color: #333;
+      padding: 8px 15px;
+      border-radius: 20px;
+      font-size: 0.9em;
+      font-weight: bold;
+      text-transform: uppercase;
+      white-space: nowrap;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+
+      &.tag-type { background-color: $color-primary-red; color: white; }
+      &.tag-mouvement { background-color: $color-primary-dark; color: white; }
+    }
+  }
+
+  .card {
+    background-color: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px $color-shadow;
+    margin-bottom: 30px;
+
+    .card-title {
+      color: $color-primary-dark;
+      margin-top: 0;
+      margin-bottom: 20px;
+      border-bottom: 2px solid #eee;
+      padding-bottom: 10px;
+      text-transform: uppercase;
+      font-size: 1.5em;
+      text-align: center;
+    }
+  }
+
+  .lexique-section p {
+    font-size: 1.1em;
+    line-height: 1.8;
+    color: #444;
+
+    .lexique-main {
+      color: $color-primary-dark;
+      font-weight: bold;
+      margin-right: 6px;
+    }
+    .lexique-trad {
+      color: #707070;
+      font-weight: normal;
+    }
+  }
+
+  .video-wrapper {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+
+    .video-iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  }
+
+  .related-techniques-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); // min 160px par card
+    gap: 20px; // espace entre les cards
+    justify-content: center;
+    margin-top: 20px;
+    align-items: stretch; // pour que toutes les cards aient la même hauteur
+  }
+
+  .loading-message, .error-message, .no-results-message {
+    text-align: center;
+    font-size: 1.2em;
+    color: #555;
+    margin-top: 50px;
+  }
+
+  .error-message {
+    color: $color-primary-dark;
+  }
+
+  /* Spinner CSS */
+  .spinner {
+    margin: 0 auto 15px;
+    width: 40px;
+    height: 40px;
+    border: 4px solid lighten($color-accent-blue, 40%);
+    border-top-color: $color-accent-blue;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  .technique-image-top {
+    background: #fff;
+    border-bottom-left-radius: 32px;
+    border-bottom-right-radius: 32px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+    padding: 32px 0 16px 0;
+    text-align: center;
+    margin: -20px -20px 32px -20px; // pour coller à gauche/droite si padding sur le parent
+  }
+
+  .detail-image-top {
+    width: 160px;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 0 0 28px 28px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    background: #fff;
+    display: block;
+    margin: 0 auto;
+  }
 }
 
-.back-button {
-  background-color: var(--color-accent-blue); /* Bleu du bouton */
-  color: var(--color-text-light);
-  padding: 10px 20px; /* Augmente légèrement le padding */
-  border: none;
-  border-radius: 25px; /* Bordure plus arrondie comme Figma */
-  cursor: pointer;
-  font-size: 1em;
-  font-weight: bold;
-  margin-bottom: 25px; /* Plus d'espace sous le bouton */
-  transition: background-color 0.3s ease;
-  display: block; /* Prend toute la largeur si pas assez d'espace */
-  width: fit-content; /* S'adapte au contenu */
-  margin-left: auto; /* Centre ou aligne à droite */
-  margin-right: auto; /* Centre ou aligne à gauche */
-}
-
-.back-button:hover {
-  background-color: #0056b3;
-}
-
-.technique-main-title {
-  color: var(--color-primary-dark); /* Couleur du titre principal */
-  text-align: center;
-  margin-bottom: 25px;
-  font-size: 2.5em; /* Grande taille de police */
-  text-transform: uppercase;
-}
-
-.image-section {
-  text-align: center;
-  margin-bottom: 30px;
-}
-
-.detail-image {
-  max-width: 100%;
-  height: auto;
-  border-radius: 12px; /* Coins arrondis pour l'image principale */
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-
-/* Styles pour les tags (pastilles) */
-.tags-section {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px; /* Espacement entre les tags */
-  margin-bottom: 30px;
-}
-
-.tag {
-  background-color: #eee; /* Couleur de fond par défaut */
-  color: #333;
-  padding: 8px 15px;
-  border-radius: 20px; /* Forme de pastille */
-  font-size: 0.9em;
-  font-weight: bold;
-  text-transform: uppercase;
-  white-space: nowrap; /* Empêche les tags de passer à la ligne */
-  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
-}
-
-/* Couleurs spécifiques pour certains tags si tu le souhaites (comme dans Figma) */
-.tag-position { background-color: #a00; color: white; } /* Rouge pour la position */
-.tag-ceinture { background-color: #ffc107; color: #333; } /* Jaune pour la ceinture */
-.tag-type { background-color: #28a745; color: white; } /* Vert pour le type */
-.tag-mouvement { background-color: #007bff; color: white; } /* Bleu pour le mouvement */
-.tag-direction { background-color: #6f42c1; color: white; } /* Violet pour la direction */
-
-
-/* Styles pour les sections (cards) */
-.card {
-  background-color: white;
-  padding: 25px; /* Plus de padding */
-  border-radius: 12px; /* Rayon de bordure plus grand */
-  box-shadow: 0 4px 10px var(--color-shadow); /* Ombre cohérente */
-  margin-bottom: 30px; /* Espacement entre les sections */
-}
-
-.card-title {
-  color: var(--color-primary-dark); /* Couleur du titre de section */
-  margin-top: 0;
-  margin-bottom: 20px; /* Plus d'espace sous le titre */
-  border-bottom: 2px solid #eee;
-  padding-bottom: 10px;
-  text-transform: uppercase; /* Titres en majuscules */
-  font-size: 1.5em; /* Taille plus grande pour les titres de section */
-}
-
-/* Style spécifique pour le lexique */
-.lexique-section p {
-  font-size: 1.1em;
-  line-height: 1.8;
-  color: #444;
-}
-
-.lexique-term {
-  font-weight: bold;
-  color: var(--color-primary-dark); /* Rend le terme plus visible */
-}
-
-/* Style de la vidéo */
-.video-wrapper {
-  position: relative;
-  width: 100%;
-  padding-bottom: 56.25%; /* Ratio 16:9 (hauteur / largeur = 9/16 = 0.5625) */
-  height: 0;
-  overflow: hidden;
-  border-radius: 8px; /* Coins arrondis pour le lecteur vidéo */
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
-
-.video-iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
+/* à mettre dans TechniqueCard.vue ou dans un style global */
+.technique-card {
+  min-width: 0; // important pour le grid
   width: 100%;
   height: 100%;
-  border: 0;
+  display: flex;
+  flex-direction: column;
 }
-
-/* Styles pour les techniques similaires (grille pour l'instant) */
-.related-techniques-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); /* Plus petites cartes pour les similaires */
-  gap: 15px;
-  justify-content: center;
-  margin-top: 20px;
-}
-
-/* Message si pas de résultats */
-.loading-message, .error-message, .no-results-message {
-  text-align: center;
-  font-size: 1.2em;
-  color: #555;
-  margin-top: 50px;
-}
-
-.error-message {
-  color: var(--color-primary-dark);
-}
-
-/* Correction de l'URL d'embed YouTube dans la fonction getYouTubeEmbedUrl */
-/* Ancien: https://www.youtube.com/embed/${match[1]} */
-/* Nouveau: https://www.youtube.com/embed/${match[1]} */
 </style>

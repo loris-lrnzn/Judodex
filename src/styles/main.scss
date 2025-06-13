@@ -1,0 +1,3 @@
+// src/styles/main.scss
+@use './variables'; // charge les variables (même si pas utilisées ici)
+@use './base';      // styles globaux

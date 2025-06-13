@@ -1,37 +1,73 @@
 <template>
   <div id="app">
     <Header
-      v-model="appSearchQuery"
-      @toggle-filters="toggleFilters"
+      v-model="searchTerm"
+      @toggle-menu="toggleMenu"
+      @update-ceintures="updateCeintures"
     />
+
     <main>
       <router-view
-        :showCeintureFilter="showCeintureFilter"
-        :searchQuery="appSearchQuery"
-        @toggle-filters="toggleFilters"
+        :searchQuery="searchTerm"
+        :selectedCeintures="activeCeintures"
+        :showCeintureFilter="true"
       />
     </main>
+
+    <aside v-if="isMenuOpen" class="side-menu">
+      <nav>
+        <ul>
+          <li><router-link to="/">Accueil</router-link></li>
+          <li><router-link to="/techniques">Techniques</router-link></li>
+          <li><router-link to="/a-propos">À propos</router-link></li>
+        </ul>
+      </nav>
+    </aside>
   </div>
 </template>
 
-<script setup>
-import { ref } from 'vue';
-import Header from './components/Header.vue';
+<script>
+import { ref } from 'vue'
+import Header from './components/Header.vue'
 
-const appSearchQuery = ref('');
-const showCeintureFilter = ref(true);
+export default {
+  name: 'App',
+  components: {
+    Header,
+  },
+  setup() {
+    const searchTerm = ref('')
+    const activeCeintures = ref([])
+    const isMenuOpen = ref(false)
 
-function toggleFilters() {
-  showCeintureFilter.value = !showCeintureFilter.value;
+    function toggleMenu() {
+      isMenuOpen.value = !isMenuOpen.value
+    }
+
+    function updateCeintures(ceintures) {
+      activeCeintures.value = ceintures
+    }
+
+    return {
+      searchTerm,
+      activeCeintures,
+      isMenuOpen,
+      toggleMenu,
+      updateCeintures,
+    }
+  },
 }
 </script>
 
-<style scoped>
+
+<style lang="scss" scoped>
+@use '@/styles/variables' as vars;
+
 #app {
   display: flex;
   flex-direction: column;
   overflow-x: hidden;
-  background-color: var(--color-background-light);
+  background-color: vars.$color-background-light;
   min-height: 100vh;
 }
 
