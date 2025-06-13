@@ -14,7 +14,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://localhost:10003/wp-json/judodex/v1',
+        target: 'https://sae401-25.mmi-stdie.fr/lorisl/wp-json/judodex/v1',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ''),
       },
