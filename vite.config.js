@@ -14,7 +14,7 @@ export default defineConfig(({ mode }) => {
         '@': path.resolve(__dirname, './src'),
       },
     },
-    base: './', // essentiel pour Netlify ou hébergement dans un sous-dossier
+    base: './', 
     server: {
       proxy: isProduction ? undefined : {
         '/api': {

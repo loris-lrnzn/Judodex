@@ -1,36 +1,41 @@
 <template>
   <div class="technique-details-page">
     <div class="technique-image-top">
-      <img
-        :src="technique.acf.image"
-        :alt="technique.title"
-        class="detail-image-top"
-        @error="onImageError"
-      />
+      <img :src="technique.acf.image" :alt="technique.title" class="detail-image-top" @error="onImageError" />
     </div>
 
-    
+
 
     <div v-if="loading" class="loading-message">
       <div class="spinner"></div>
       Chargement des détails de la technique...
     </div>
-    
+
     <div v-else-if="error" class="error-message">{{ error.message }}</div>
-    
+
     <div v-else-if="technique">
       <h1 class="technique-main-title">{{ technique.title }}</h1>
-      
+
+      <div v-if="technique.acf.ceinture" class="belt-tag-wrapper">
+        <span class="belt-tag" :style="{
+          backgroundColor: BELT_COLORS[technique.acf.ceinture.toLowerCase()] || '#999',
+          color: technique.acf.ceinture.toLowerCase() === 'blanche' ? '#000' : '#fff'
+        }">
+          {{ technique.acf.ceinture.toUpperCase() }}
+        </span>
+
+      </div>
+
 
       <div class="tags-section">
-      
+
         <span v-if="technique.acf.type" class="tag tag-type">
           {{ technique.acf.type.toUpperCase() }}
         </span>
         <span v-if="technique.acf.mouvement" class="tag tag-mouvement">
           {{ technique.acf.mouvement.toUpperCase() }}
         </span>
-        
+
       </div>
 
       <div class="lexique-section card">
@@ -45,22 +50,19 @@
         </p>
         <p v-if="technique.acf.mouvement">
           <span class="lexique-main">{{ technique.acf.mouvement }}</span>
-          <span v-if="LEXIQUE[technique.acf.mouvement]" class="lexique-trad"> — {{ LEXIQUE[technique.acf.mouvement] }}</span>
+          <span v-if="LEXIQUE[technique.acf.mouvement]" class="lexique-trad"> — {{ LEXIQUE[technique.acf.mouvement]
+          }}</span>
         </p>
       </div>
 
       <div class="video-section card">
         <h2 class="card-title">VIDÉO</h2>
         <div v-if="technique.acf.lien_video_demonstration" class="video-wrapper">
-          <iframe
-            v-if="getYouTubeEmbedUrl(technique.acf.lien_video_demonstration)"
-            :src="getYouTubeEmbedUrl(technique.acf.lien_video_demonstration)"
-            frameborder="0"
+          <iframe v-if="getYouTubeEmbedUrl(technique.acf.lien_video_demonstration)"
+            :src="getYouTubeEmbedUrl(technique.acf.lien_video_demonstration)" frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-            class="video-iframe"
-            sandbox="allow-same-origin allow-scripts allow-presentation allow-popups"
-          ></iframe>
+            allowfullscreen class="video-iframe"
+            sandbox="allow-same-origin allow-scripts allow-presentation allow-popups"></iframe>
           <p v-else>Le format du lien vidéo n'est pas reconnu pour l'intégration directe.</p>
         </div>
         <p v-else>Aucune vidéo de démonstration disponible.</p>
@@ -77,19 +79,14 @@
           </template>
         </h2>
         <div class="related-techniques-grid">
-          <TechniqueCard
-            v-for="relatedTech in technique.related_techniques.slice(0, 6)"
-            :key="relatedTech.id"
-            :title="relatedTech.title"
-            :image="relatedTech.image"
-            @click="goToTechniqueDetails(relatedTech.id)"
-          />
+          <TechniqueCard v-for="relatedTech in technique.related_techniques.slice(0, 6)" :key="relatedTech.id"
+            :title="relatedTech.title" :image="relatedTech.image" @click="goToTechniqueDetails(relatedTech.id)" />
         </div>
-        
+
       </div>
       <div><button @click="goBack" class="back-button" aria-label="Retour à l'accueil">
-  Retour à l'accueil
-</button></div>
+          Retour à l'accueil
+        </button></div>
     </div>
 
     <div v-else class="no-results-message">Technique non trouvée.</div>
@@ -103,7 +100,7 @@ import TechniqueCard from '../components/TechniqueCard.vue';
 import { LEXIQUE } from '@/utils/lexique.js'
 
 
-const fallbackImage = '/images/fallback-image.jpg'; // Mettre le chemin réel de ton image fallback
+const fallbackImage = '/images/fallback-image.jpg';
 
 export default {
   components: { TechniqueCard },
@@ -162,6 +159,17 @@ export default {
       if (newId) fetchTechniqueDetails(newId);
     }, { immediate: true });
 
+    const BELT_COLORS = {
+      blanche: '#ffffff',
+      jaune: '#f1c40f',
+      orange: '#e67e22',
+      verte: '#27ae60',
+      bleue: '#2980b9',
+      marron: '#8e5e3b',
+      noire: '#000000'
+    };
+
+
     return {
       technique,
       loading,
@@ -170,7 +178,8 @@ export default {
       getYouTubeEmbedUrl,
       goToTechniqueDetails,
       onImageError,
-      LEXIQUE
+      LEXIQUE,
+      BELT_COLORS
     };
   }
 };
@@ -185,7 +194,7 @@ export default {
   margin: 0 auto;
   background-color: $color-background-light;
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 
   .back-button {
     background-color: $color-primary-dark;
@@ -222,9 +231,26 @@ export default {
       max-width: 100%;
       height: auto;
       border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
   }
+
+  .belt-tag-wrapper {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .belt-tag {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 20px;
+    color: white;
+    font-weight: bold;
+    font-size: 1em;
+    text-transform: uppercase;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
+
 
   .tags-section {
     display: flex;
@@ -242,10 +268,17 @@ export default {
       font-weight: bold;
       text-transform: uppercase;
       white-space: nowrap;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
 
-      &.tag-type { background-color: $color-primary-red; color: white; }
-      &.tag-mouvement { background-color: $color-primary-dark; color: white; }
+      &.tag-type {
+        background-color: $color-primary-red;
+        color: white;
+      }
+
+      &.tag-mouvement {
+        background-color: $color-primary-dark;
+        color: white;
+      }
     }
   }
 
@@ -278,6 +311,7 @@ export default {
       font-weight: bold;
       margin-right: 6px;
     }
+
     .lexique-trad {
       color: #707070;
       font-weight: normal;
@@ -291,7 +325,7 @@ export default {
     height: 0;
     overflow: hidden;
     border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 
     .video-iframe {
       position: absolute;
@@ -312,7 +346,9 @@ export default {
     align-items: stretch; // pour que toutes les cards aient la même hauteur
   }
 
-  .loading-message, .error-message, .no-results-message {
+  .loading-message,
+  .error-message,
+  .no-results-message {
     text-align: center;
     font-size: 1.2em;
     color: #555;
@@ -335,14 +371,16 @@ export default {
   }
 
   @keyframes spin {
-    to { transform: rotate(360deg); }
+    to {
+      transform: rotate(360deg);
+    }
   }
 
   .technique-image-top {
     background: #fff;
     border-bottom-left-radius: 32px;
     border-bottom-right-radius: 32px;
-    box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
     padding: 32px 0 16px 0;
     text-align: center;
     margin: -20px -20px 32px -20px; // pour coller à gauche/droite si padding sur le parent
@@ -353,7 +391,7 @@ export default {
     height: 160px;
     object-fit: cover;
     border-radius: 0 0 28px 28px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
     background: #fff;
     display: block;
     margin: 0 auto;
