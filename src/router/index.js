@@ -1,9 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/Home.vue'
-import TechniqueView from '../views/Technique.vue' // <-- IMPORTE LE NOUVEAU COMPOSANT
+import TechniqueView from '../views/Technique.vue'
+import QuizzView from '../views/Quizz.vue' // Import the new Quizz component
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
+  scrollBehavior() {
+    return { top: 0, behavior: 'smooth' }
+  },
   routes: [
     {
       path: '/',
@@ -11,9 +15,14 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: '/techniques/:id', // <-- NOUVELLE ROUTE :id est un paramètre dynamique
+      path: '/techniques/:id',
       name: 'technique-details',
-      component: TechniqueView // Pointez vers le composant Technique.vue
+      component: TechniqueView
+    },
+    {
+      path: '/quizz',
+      name: 'quizz',
+      component: QuizzView
     }
   ]
 })
