@@ -7,7 +7,7 @@
  * disponibles ensuite — ce qui, dans un dojo sans réseau, revient à ne rien
  * promettre du tout. */
 const VERSION = 'judodex-dev'
-const PRECACHE = ['/', '/index.html', '/icon.svg', '/manifest.webmanifest']
+const PRECACHE = ['/', '/techniques', '/dojo', '/mon-judo', '/reglages', '/icon.svg', '/manifest.webmanifest']
 
 /* Le serveur répond « Vary: Origin » sur les ressources versionnées. Les
    fichiers pré-chargés le sont par le service worker, qui n'envoie pas
@@ -27,7 +27,15 @@ self.addEventListener('install', (e) => {
       .open(SHELL)
       // Un `addAll` échoue en bloc dès qu'une seule requête rate ; ici, une
       // ressource manquante ne doit pas empêcher toutes les autres d'entrer.
-      .then((c) => Promise.all(PRECACHE.map((u) => c.add(new Request(u, { cache: 'reload' })).catch(() => {}))))
+      .then((c) =>
+        Promise.all(
+          PRECACHE.map((u) =>
+            fetch(new Request(u, { cache: 'reload' }))
+              .then((res) => (res.ok ? propre(res).then((r) => c.put(u, r)) : null))
+              .catch(() => {}),
+          ),
+        ),
+      )
       .then(() => self.skipWaiting()),
   )
 })
@@ -40,6 +48,14 @@ self.addEventListener('activate', (e) => {
       .then(() => self.clients.claim()),
   )
 })
+
+/* Vercel redirige /index.html vers / (cleanUrls). Une réponse issue d'une
+   redirection est refusée par le navigateur pour une navigation : on la
+   recopie en réponse neuve avant de la mettre en cache. */
+async function propre(res) {
+  if (!res.redirected) return res
+  return new Response(await res.blob(), { status: res.status, statusText: res.statusText, headers: res.headers })
+}
 
 /** Borne la taille du cache média (FIFO). */
 async function trim(cacheName, max) {
@@ -64,14 +80,14 @@ self.addEventListener('fetch', (event) => {
         .then((res) => {
           if (res.ok) {
             const copy = res.clone()
-            caches.open(SHELL).then((c) => c.put(request, copy))
+            propre(copy).then((r) => caches.open(SHELL).then((c) => c.put(request.url, r)))
           }
           return res
         })
         .catch(() =>
           caches
-            .match(request, APPARIER)
-            .then((hit) => hit || caches.match('/index.html', APPARIER))
+            .match(request.url, APPARIER)
+            .then((hit) => hit || caches.match('/', APPARIER))
             .then((r) => r || Response.error()),
         ),
     )
