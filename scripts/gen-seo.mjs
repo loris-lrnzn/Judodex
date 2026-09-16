@@ -12,11 +12,12 @@ import { dirname, join } from 'node:path'
 const racine = join(dirname(fileURLToPath(import.meta.url)), '..')
 const dist = join(racine, 'dist')
 
-/** Lit VITE_SITE_URL dans l'environnement, sinon dans le fichier .env. */
+/** Lit VITE_SITE_URL dans l'environnement, sinon dans .env.production ou .env. */
 function siteUrl() {
   if (process.env.VITE_SITE_URL) return process.env.VITE_SITE_URL
-  const env = join(racine, '.env')
-  if (existsSync(env)) {
+  for (const nom of ['.env.production', '.env']) {
+    const env = join(racine, nom)
+    if (!existsSync(env)) continue
     const m = readFileSync(env, 'utf8').match(/^\s*VITE_SITE_URL\s*=\s*(.+)$/m)
     if (m) return m[1].trim()
   }

@@ -53,10 +53,19 @@ const routes = [
   INTROUVABLE,
 ]
 
+/* Sur un hébergeur sans navigateur utilisable, on publie le site sans pages
+   pré-rendues plutôt que de faire échouer le build. */
+let navigateur
+try {
+  navigateur = await chromium.launch()
+} catch (e) {
+  console.warn('prerender : navigateur indisponible, pages non pré-rendues.\n' + e.message)
+  process.exit(0)
+}
+
 const serveur = await preview({ preview: { port: 4179, strictPort: true }, logLevel: 'silent' })
 const base = `http://localhost:4179`
 
-const navigateur = await chromium.launch()
 const contexte = await navigateur.newContext({
   viewport: { width: 1280, height: 900 },
   // Le service worker mettrait en cache la page rendue au lieu de la servir.
