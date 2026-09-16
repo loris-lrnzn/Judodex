@@ -1,0 +1,293 @@
+@import 'tailwindcss';
+
+/* ═══════════════════════════════════════════════════════════════════════
+   JUDODEX — Direction artistique « notation technique de mouvement »
+
+   Le judo s'enseigne par diagrammes : vecteurs de force, arcs de rotation,
+   empreintes de pas. L'interface est cette planche technique.
+   En thème sombre, la planche devient un cyanotype (bleu de Prusse).
+
+   Trois couleurs seulement : le trait, le bleu de repérage, le rouge de
+   signalement. Les familles se distinguent par leur glyphe de mouvement
+   autant que par leur teinte de crayon.
+
+   Toutes les teintes de texte tiennent le rapport 7:1 contre les deux fonds,
+   le vermillon excepté : porté à 4.5:1, il reste un signal et non un corps de
+   texte. Vérifié par `npm run contraste`.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+@theme {
+  --font-sans: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+  --font-jp: 'Shippori Mincho B1', 'Noto Serif JP', ui-serif, serif;
+
+  --color-field: var(--c-field);
+  --color-plate: var(--c-plate);
+  --color-ink: var(--c-ink);
+  --color-soft: var(--c-soft);
+  --color-faint: var(--c-faint);
+  --color-rule: var(--c-rule);
+  --color-edge: var(--c-edge);
+  --color-blue: var(--c-blue);
+  --color-signal: var(--c-signal);
+}
+
+:root {
+  color-scheme: dark;
+
+  /* Le tatami : la seule surface sur laquelle le judo se pratique.
+     Un vert profond et franchement chromatique, sur lequel le vermillon,
+     sa complémentaire, porte au maximum. */
+  --c-field: #0f2e20;
+  --c-plate: #153a2a;
+  --c-ink: #edf3ea;
+  --c-soft: #cadacc;
+  --c-faint: #b4c7b9;
+  /* Trait de construction : décor, jamais seule marque d'une commande. */
+  --c-rule: #265640;
+  /* Bord d'une commande. Contrasté à 3:1 contre le tapis, comme l'exige la
+     lisibilité d'une limite de contrôle — un écran de téléphone au bord du
+     tatami n'est pas un écran de bureau dans une pièce sombre. */
+  --c-edge: #3d8b67;
+  --c-grid: rgba(237, 243, 234, 0.08);
+  --c-blue: #99c6ff;
+  --c-signal: #ff6c53;
+
+  /* Teintes de crayon technique, posées sur le tapis. Le vert de l'ashi-waza
+     est tiré vers le jaune pour se détacher du fond. */
+  --c-te: #91c9ee;
+  --c-koshi: #f6b57d;
+  --c-ashi: #cfe98f;
+  --c-sutemi: #e3b3e6;
+  --c-ne: #e8ca77;
+
+  /* Mêmes teintes en version profonde, pour les cellules qui passent en négatif. */
+  --c-te-hi: #1f4f6b;
+  --c-koshi-hi: #8c400f;
+  --c-ashi-hi: #3d5c1e;
+  --c-sutemi-hi: #5e3466;
+  --c-ne-hi: #6a4d12;
+}
+
+body {
+  @apply bg-field text-ink font-sans antialiased;
+  font-feature-settings: 'ss02', 'cv05';
+}
+
+/* Titres de partie : jamais plus larges que leur colonne. */
+.display {
+  font-size: clamp(2.5rem, 11vw, 4.6rem);
+  font-weight: 700;
+  line-height: 0.9;
+  letter-spacing: -0.045em;
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
+::selection { background: var(--c-blue); color: var(--c-field); }
+
+:focus-visible { outline: 2px solid var(--c-blue); outline-offset: 2px; }
+
+/* Les quartiers de la rose sont des boutons dessinés. L'anneau de focus par
+   défaut cerne la boîte englobante du chemin — un rectangle qui déborde du
+   disque — au lieu du quartier : on le remplace par un trait sur le quartier
+   lui-même, qui reste une indication de focus bien visible. */
+.rose-secteur:focus-visible {
+  outline: none;
+  stroke: var(--c-blue);
+  stroke-width: 2.5;
+}
+
+* { scrollbar-width: thin; scrollbar-color: var(--c-rule) transparent; }
+
+/* Le bandeau de navigation défile plutôt que de pousser la page : sur les
+   écrans les plus étroits, quatre onglets ne tiennent pas à côté des
+   commandes. La barre elle-même reste invisible. */
+.rail-nav { scrollbar-width: none; }
+.rail-nav::-webkit-scrollbar { display: none; }
+
+/* ── Papier millimétré : substrat des planches ─────────────────────── */
+.grid-paper {
+  background-image:
+    linear-gradient(var(--c-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--c-grid) 1px, transparent 1px);
+  background-size: 24px 24px;
+  background-position: -1px -1px;
+}
+.grid-fine {
+  background-image:
+    linear-gradient(var(--c-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--c-grid) 1px, transparent 1px);
+  background-size: 8px 8px;
+}
+
+/* ── Réticules de repérage aux angles d'une planche ────────────────── */
+.plate {
+  position: relative;
+  border: 1px solid var(--c-rule);
+}
+.plate::before,
+.plate::after {
+  content: '';
+  position: absolute;
+  width: 11px;
+  height: 11px;
+  pointer-events: none;
+  background-image: linear-gradient(var(--c-ink), var(--c-ink)), linear-gradient(var(--c-ink), var(--c-ink));
+  background-size: 11px 1px, 1px 11px;
+  background-position: center, center;
+  background-repeat: no-repeat;
+  opacity: 0.55;
+}
+.plate::before { top: 4px; left: 4px; }
+.plate::after { bottom: 4px; right: 4px; }
+
+/* ── Ligne de cote : traits d'extrémité, comme sur un plan ─────────── */
+.dimension {
+  position: relative;
+  height: 1px;
+  background: var(--c-rule);
+}
+.dimension::before,
+.dimension::after {
+  content: '';
+  position: absolute;
+  top: -3px;
+  width: 1px;
+  height: 7px;
+  background: var(--c-ink);
+}
+.dimension::before { left: 0; }
+.dimension::after { right: 0; }
+
+/* ── Étiquettes d'annotation ───────────────────────────────────────── */
+.annot {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+/* ── Kuzushi : le déséquilibre, appliqué aux spécimens ─────────────── */
+.tilt { transform: rotate(-4deg); }
+.tilt-r { transform: rotate(3deg); }
+
+/* ── Le sceau de validation : un tampon de contrôle, pas un ornement ─ */
+@keyframes stamp {
+  0% { transform: scale(2.2) rotate(-26deg); opacity: 0; }
+  60% { transform: scale(0.94) rotate(4deg); opacity: 1; }
+  100% { transform: scale(1) rotate(-8deg); opacity: 1; }
+}
+.stamp-in { animation: stamp 0.38s cubic-bezier(0.2, 1.5, 0.4, 1) both; }
+
+/* ── Vecteur de force : le survol pousse au lieu de soulever ───────── */
+.vector-push { transition: transform 0.22s cubic-bezier(0.3, 0.8, 0.2, 1); }
+.group:hover .vector-push { transform: translate(3px, -2px); }
+
+.card-cv {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 208px;
+}
+
+img.lazy { opacity: 0; transition: opacity 0.5s ease; }
+img.lazy.loaded { opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   TERRAIN TACTILE — ce qu'un carnet consulté au bord du tatami exige
+
+   Le carnet se lit debout, une main sur la ceinture, l'autre sur l'écran.
+   Ce bloc règle ce que la souris n'avait jamais eu à poser : la surface
+   réelle du doigt, l'absence de survol, et les bords que l'appareil mange.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+html {
+  /* iOS regonfle le texte au passage en paysage : la planche doit garder
+     ses proportions. */
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  /* Pas de rebond élastique derrière la planche : en mode application, le
+     fond vert qui apparaît sous l'en-tête trahit la page web. */
+  overscroll-behavior-y: none;
+}
+
+/* Le délai de 300 ms hérité du double-tap n'a plus lieu d'être : chaque
+   commande répond au doigt levé. */
+a, button, select, summary, [role='button'] {
+  touch-action: manipulation;
+}
+
+/* ── Ancres sous l'en-tête collant ─────────────────────────────────── */
+:target,
+[id] {
+  scroll-margin-top: 4.5rem;
+}
+
+/* ── Surface du doigt ──────────────────────────────────────────────────
+   Une commande dessinée fait 32 px de haut : c'est la bonne mesure pour
+   l'œil sur un écran de bureau, pas pour le doigt, qui en réclame 44.
+   Au pointeur grossier, les commandes marquées reprennent leur hauteur
+   réelle — étendre une zone invisible ferait se chevaucher les voisines
+   d'un même rang, et le doigt tomberait sur la mauvaise. */
+@media (pointer: coarse) {
+  .tap {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* ── Retour au doigt ───────────────────────────────────────────────────
+   Sans survol, une commande tactile ne dit rien tant qu'elle n'a pas agi.
+   L'appui la fait fléchir : c'est le seul accusé de réception possible. */
+@media (hover: none) {
+  a:active,
+  button:active,
+  select:active,
+  [role='button']:active {
+    opacity: 0.6;
+    transition: opacity 0.06s ease;
+  }
+}
+
+/* ── Bandes défilantes ─────────────────────────────────────────────────
+   Les rangs d'onglets se prennent au pouce : le défilement s'arrête net
+   plutôt que d'entraîner la page derrière lui. */
+.rail-nav,
+.rail-x {
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
+}
+.rail-x { scrollbar-width: none; }
+.rail-x::-webkit-scrollbar { display: none; }
+.rail-x > * { scroll-snap-align: start; }
+
+/* ── Encoches et barres système ────────────────────────────────────────
+   La page couvre tout l'écran (viewport-fit=cover) : à elle de tenir ses
+   marges à l'écart de l'encoche et de la barre d'accueil. */
+/* À n'appliquer qu'à un élément sans marge horizontale propre : ces
+   déclarations écraseraient une classe utilitaire posée sur le même nœud. */
+.safe-x {
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+.safe-b {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+/* En application installée sur iOS, la barre d'état est translucide : le
+   bandeau se glisse dessous et se rehausse d'autant. */
+.safe-t {
+  padding-top: env(safe-area-inset-top);
+}

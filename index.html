@@ -1,31 +1,47 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
   <head>
-    <meta charset="UTF-8">
-    <link rel="icon" href="favico.png">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Judodex</title>
-    <meta name="description" content="Répertoire de référence des techniques de judo. Fiches, traductions, vidéos et quiz.">
-    <meta name="theme-color" content="#0A0A0A">
-    <!-- Open Graph -->
-    <meta property="og:type"        content="website">
-    <meta property="og:title"       content="Judodex">
-    <meta property="og:description" content="Répertoire de référence des techniques de judo. Fiches, traductions, vidéos et quiz.">
-    <meta property="og:image"       content="favico.png">
-    <meta name="twitter:card"       content="summary">
-    <meta name="twitter:title"      content="Judodex">
-    <meta name="twitter:description" content="Répertoire de référence des techniques de judo.">
-    <!-- PWA -->
-    <link rel="manifest" href="manifest.webmanifest">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Judodex">
-    <link rel="apple-touch-icon" href="favico.png">
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://www.youtube-nocookie.com" />
+    <link rel="preconnect" href="https://i.ytimg.com" />
+    <link rel="dns-prefetch" href="https://www.youtube.com" />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=Shippori+Mincho+B1:wght@700;800&display=swap" rel="stylesheet" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <meta name="theme-color" content="#0f2e20" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Judodex" />
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/icon.svg" />
+    <meta name="description" content="Le carnet du judoka : 104 techniques, décomposition Kuzushi-Tsukuri-Kake, révision espacée et suivi de progression." />
+    <link rel="canonical" href="%VITE_SITE_URL%/" />
+
+    <!-- Ce que voient les robots d'aperçu, qui n'exécutent pas le script :
+         les mêmes balises sont ensuite réécrites page par page à l'exécution. -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Judodex" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:title" content="Judodex — Le carnet du judoka" />
+    <meta property="og:description" content="104 techniques de judo décomposées en kuzushi, tsukuri et kake, avec révision espacée et suivi de progression." />
+    <meta property="og:url" content="%VITE_SITE_URL%/" />
+    <meta property="og:image" content="%VITE_SITE_URL%/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Judodex — le carnet du judoka" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Judodex — Le carnet du judoka" />
+    <meta name="twitter:description" content="104 techniques de judo décomposées en kuzushi, tsukuri et kake, avec révision espacée et suivi de progression." />
+    <meta name="twitter:image" content="%VITE_SITE_URL%/og.png" />
+
+    <title>Judodex — Le carnet du judoka</title>
   </head>
   <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.js"></script>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

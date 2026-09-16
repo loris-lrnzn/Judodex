@@ -1,0 +1,311 @@
+{
+ "jaune": [
+  {
+   "label": "Ukemi",
+   "id": "D-A66tfc-7g",
+   "domain": "nage"
+  },
+  {
+   "label": "Esquives",
+   "id": "Ib6Dtpl3YGM",
+   "domain": "nage"
+  },
+  {
+   "label": "Situations d'étude",
+   "id": "838LtyQF87w",
+   "domain": "nage"
+  },
+  {
+   "label": "Contrôle plat ventre dessus",
+   "id": "DsG6OPqVBP4",
+   "domain": "katame"
+  },
+  {
+   "label": "Contrôle dos plat ventre dessous",
+   "id": "bmB_G0xRFnc",
+   "domain": "katame"
+  },
+  {
+   "label": "Garde dessus",
+   "id": "C7hRZuA530E",
+   "domain": "katame"
+  },
+  {
+   "label": "Kami shiho dessous",
+   "id": "7262gC4yQUU",
+   "domain": "katame"
+  },
+  {
+   "label": "Kuzure kesa gatame dessous",
+   "id": "vUMGL_mx9yI",
+   "domain": "katame"
+  },
+  {
+   "label": "Demi garde dessous",
+   "id": "1PKkdZcWnCo",
+   "domain": "katame"
+  },
+  {
+   "label": "Demi garde dessus",
+   "id": "rZ91V2pmGUQ",
+   "domain": "katame"
+  },
+  {
+   "label": "Garde dessous",
+   "id": "2AKOsDzIyvo",
+   "domain": "katame"
+  },
+  {
+   "label": "Garde papillon dessous",
+   "id": "GhQNRnf7p8k",
+   "domain": "katame"
+  },
+  {
+   "label": "Garde papillon dessus",
+   "id": "ZAooYz5hUBw",
+   "domain": "katame"
+  },
+  {
+   "label": "Position quadrupédique N/S dessus",
+   "id": "_doHxUr2Igg",
+   "domain": "katame"
+  },
+  {
+   "label": "Position quadrupédique N/S dessous",
+   "id": "MF3RoKjByZA",
+   "domain": "katame"
+  },
+  {
+   "label": "Tate shiho gatame dessous",
+   "id": "TavU3ep6sU0",
+   "domain": "katame"
+  },
+  {
+   "label": "Yoko shiho gatame dessous",
+   "id": "r6mHabc4iLc",
+   "domain": "katame"
+  }
+ ],
+ "orange": [
+  {
+   "label": "Approche du nage no kata",
+   "id": "GNJ0Fpc_Myg",
+   "domain": "nage"
+  },
+  {
+   "label": "Bascule AR/AV",
+   "id": "0FzOdo4rdNc",
+   "domain": "nage"
+  },
+  {
+   "label": "Bascule AV/AR",
+   "id": "kED4SgIxPUw",
+   "domain": "nage"
+  },
+  {
+   "label": "Ukemi",
+   "id": "64BprkLgaHQ",
+   "domain": "nage"
+  },
+  {
+   "label": "Enchaînements d'attaques",
+   "id": "gP1nIc2mheU",
+   "domain": "nage"
+  },
+  {
+   "label": "Riposte après esquive",
+   "id": "cK39oiHN1Ek",
+   "domain": "nage"
+  },
+  {
+   "label": "Situation d'étude",
+   "id": "5r2PpUFBtWo",
+   "domain": "nage"
+  },
+  {
+   "label": "Contrôle plat ventre dessous",
+   "id": "7kiXDjA5fis",
+   "domain": "katame"
+  },
+  {
+   "label": "Contrôle plat ventre dessus",
+   "id": "aaAYOUk4ALM",
+   "domain": "katame"
+  },
+  {
+   "label": "Les différentes positions du ne waza",
+   "id": "j9YwkaoWKwg",
+   "domain": "katame"
+  },
+  {
+   "label": "Garde dessous",
+   "id": "GNdB7XYSKTs",
+   "domain": "katame"
+  },
+  {
+   "label": "Garde dessus",
+   "id": "oYc6nie9O18",
+   "domain": "katame"
+  },
+  {
+   "label": "Demi garde dessous",
+   "id": "5yInpWI-iNk",
+   "domain": "katame"
+  },
+  {
+   "label": "Demi garde dessus",
+   "id": "eL28fMAfuMc",
+   "domain": "katame"
+  },
+  {
+   "label": "Garde papillon dessous",
+   "id": "mNuOu2cqanc",
+   "domain": "katame"
+  },
+  {
+   "label": "Garde papillon dessus",
+   "id": "5TmKEragjtU",
+   "domain": "katame"
+  },
+  {
+   "label": "Position quadrupédique N/S dessus",
+   "id": "Xhfdh9vKZF4",
+   "domain": "katame"
+  },
+  {
+   "label": "Position quadrupédique N/S dessous",
+   "id": "0b48Z8Lmx5c",
+   "domain": "katame"
+  }
+ ],
+ "verte": [
+  {
+   "label": "Esquives",
+   "id": "72WhYCCf5EM",
+   "domain": "nage"
+  },
+  {
+   "label": "Principe de défense-Ushiro goshi",
+   "id": "2TUlqR1Pa-A",
+   "domain": "nage"
+  },
+  {
+   "label": "Principe du GO NO SEN",
+   "id": "4aw6aa0-33c",
+   "domain": "nage"
+  },
+  {
+   "label": "Situation d'étude",
+   "id": "TZI-yISUwRo",
+   "domain": "nage"
+  },
+  {
+   "label": "Contrôle dos quadrupédique dessus",
+   "id": "Z3MfmxkQgLk",
+   "domain": "katame"
+  },
+  {
+   "label": "Contrôle dos quadrupédique dessous",
+   "id": "LJzNLxAIids",
+   "domain": "katame"
+  },
+  {
+   "label": "Contrôle dos plat ventre dessus",
+   "id": "NOmWkN89FwM",
+   "domain": "katame"
+  },
+  {
+   "label": "Position demi garde dessous",
+   "id": "QshuetA3Hgk",
+   "domain": "katame"
+  },
+  {
+   "label": "Position demi garde dessus",
+   "id": "1CgKEiodRrY",
+   "domain": "katame"
+  },
+  {
+   "label": "Position garde dessous",
+   "id": "YiAwifTw2jE",
+   "domain": "katame"
+  },
+  {
+   "label": "Position garde dessus",
+   "id": "43KCGxoKzw0",
+   "domain": "katame"
+  },
+  {
+   "label": "Position garde papillon dessous",
+   "id": "mS6749FsKOI",
+   "domain": "katame"
+  },
+  {
+   "label": "Position garde papillon dessus",
+   "id": "f5NydrwoKjQ",
+   "domain": "katame"
+  },
+  {
+   "label": "Les bras de levier",
+   "id": "4oAj28XlQzA",
+   "domain": "katame"
+  },
+  {
+   "label": "Position quadrupédique N/S dessous",
+   "id": "pg5TVUjJUZ4",
+   "domain": "katame"
+  }
+ ],
+ "bleue": [
+  {
+   "label": "Situation d'étude - 3secteurs de chute",
+   "id": "XO04oP0d3CU",
+   "domain": "nage"
+  },
+  {
+   "label": "Feinte ou confusion",
+   "id": "-0hY2T0GcQA",
+   "domain": "nage"
+  },
+  {
+   "label": "Principes du GO NO SEN",
+   "id": "X03WfM-v160",
+   "domain": "nage"
+  },
+  {
+   "label": "Garde dessus",
+   "id": "1T1x3mW8CRA",
+   "domain": "katame"
+  },
+  {
+   "label": "Renversement par le bras",
+   "id": "0gkR3F5K2Xo",
+   "domain": "katame"
+  },
+  {
+   "label": "Garde dessous",
+   "id": "J9X6O5pY0nU",
+   "domain": "katame"
+  },
+  {
+   "label": "Contrôle plat ventre dessous",
+   "id": "4TYJS_srTik",
+   "domain": "katame"
+  },
+  {
+   "label": "Contrôle dos quadrupédique",
+   "id": "0z6t96-pZ64",
+   "domain": "katame"
+  },
+  {
+   "label": "Contrôle dos dessous",
+   "id": "ySsXXE5iZJg",
+   "domain": "katame"
+  },
+  {
+   "label": "Juji gatame dessous",
+   "id": "JVRRfGJv8mc",
+   "domain": "katame"
+  }
+ ],
+ "marron": []
+}

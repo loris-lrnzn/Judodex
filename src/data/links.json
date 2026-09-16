@@ -1,0 +1,2779 @@
+{
+ "o-goshi": [
+  {
+   "slug": "harai-goshi",
+   "type": "enchainement",
+   "context": "si uke bloque le bassin, la jambe prend le relais",
+   "situation": {
+    "deplacement": "plante",
+    "garde": "ai-yotsu"
+   },
+   "defense": "bloque-bassin"
+  },
+  {
+   "slug": "tai-otoshi",
+   "type": "enchainement",
+   "context": "si uke se recule, on passe au barrage sans hanche",
+   "situation": {
+    "deplacement": "recule",
+    "garde": "ai-yotsu"
+   }
+  },
+  {
+   "slug": "ushiro-goshi",
+   "type": "contre",
+   "context": "uke absorbe l'entrée et soulève",
+   "situation": {
+    "deplacement": "plante",
+    "garde": "ai-yotsu"
+   },
+   "defense": "bloque-bassin"
+  },
+  {
+   "slug": "kesa-gatame",
+   "type": "liaison-sol",
+   "context": "si uke roule sur le côté, on suit à la hanche",
+   "situation": {
+    "garde": "ai-yotsu"
+   },
+   "attestation": "usage"
+  },
+  {
+   "slug": "o-goshi",
+   "type": "redoublement",
+   "context": "uke s'assoit : on remonte la hanche et on recharge",
+   "situation": {
+    "deplacement": "plante",
+    "garde": "ai-yotsu"
+   },
+   "defense": "bloque-bassin",
+   "attestation": "usage"
+  }
+ ],
+ "uki-goshi": [
+  {
+   "slug": "o-goshi",
+   "type": "enchainement",
+   "context": "si uke se redresse, on charge plus profond",
+   "situation": {
+    "deplacement": "avance"
+   }
+  },
+  {
+   "slug": "harai-goshi",
+   "type": "enchainement",
+   "context": "si le tour est bloqué, on fauche la cuisse"
+  },
+  {
+   "slug": "kesa-gatame",
+   "type": "liaison-sol",
+   "context": "la chute est basse : on accompagne au contrôle latéral",
+   "attestation": "usage"
+  },
+  {
+   "slug": "utsuri-goshi",
+   "type": "contre",
+   "context": "uke reprend la hanche et transfère",
+   "defense": "bloque-bassin",
+   "attestation": "usage"
+  }
+ ],
+ "harai-goshi": [
+  {
+   "slug": "uchi-mata-hanche",
+   "type": "enchainement",
+   "context": "si uke écarte les appuis, la jambe passe à l'intérieur",
+   "situation": {
+    "garde": "ai-yotsu"
+   }
+  },
+  {
+   "slug": "o-uchi-gari",
+   "type": "enchainement",
+   "context": "si uke recule pour fuir l'entrée",
+   "situation": {
+    "deplacement": "recule",
+    "garde": "ai-yotsu"
+   }
+  },
+  {
+   "slug": "ushiro-goshi",
+   "type": "contre",
+   "context": "uke encaisse et soulève par la taille",
+   "situation": {
+    "deplacement": "plante",
+    "garde": "ai-yotsu"
+   }
+  },
+  {
+   "slug": "utsuri-goshi",
+   "type": "contre",
+   "context": "uke soulève puis change de hanche",
+   "situation": {
+    "garde": "ai-yotsu"
+   }
+  },
+  {
+   "slug": "kuzure-kesa-gatame",
+   "type": "liaison-sol",
+   "context": "si uke se réceptionne à plat ventre, on garde le bras et on ceinture",
+   "situation": {
+    "garde": "ai-yotsu"
+   },
+   "attestation": "usage"
+  },
+  {
+   "slug": "harai-goshi",
+   "type": "redoublement",
+   "context": "le fauchage manque : on reprend appui et on refauche",
+   "situation": {
+    "deplacement": "plante",
+    "garde": "ai-yotsu"
+   },
+   "defense": "bloque-bassin",
+   "attestation": "usage"
+  },
+  {
+   "slug": "hane-goshi-gaeshi",
+   "type": "contre",
+   "context": "le fauchage est bloqué et retourné",
+   "situation": {
+    "garde": "ai-yotsu"
+   },
+   "defense": "bloque-bassin",
+   "attestation": "usage"
+  }
+ ],
+ "hane-goshi": [
+  {
+   "slug": "harai-goshi",
+   "type": "enchainement",
+   "context": "si le genou d'uke bloque l'aile",
+   "situation": {
+    "deplacement": "plante",
+    "garde": "ai-yotsu"
+   }
+  },
+  {
+   "slug": "hane-makikomi",
+   "type": "enchainement",
+   "context": "si uke résiste au lancer, on enroule",
+   "situation": {
+    "deplacement": "plante",
+    "garde": "ai-yotsu"
+   }
+  },
+  {
+   "slug": "hane-goshi-gaeshi",
+   "type": "contre",
+   "context": "uke abaisse son centre et renverse",
+   "situation": {
+    "deplacement": "avance",
+    "garde": "ai-yotsu"
+   }
+  },
+  {
+   "slug": "ushiro-goshi",
+   "type": "contre",
+   "context": "uke encaisse et soulève",
+   "situation": {
+    "deplacement": "plante",
+    "garde": "ai-yotsu"
+   }
+  },
+  {
+   "slug": "kuzure-kesa-gatame",
+   "type": "liaison-sol",
+   "context": "si le rebond manque, on descend en contrôlant le bras haut",
+   "situation": {
+    "garde": "ai-yotsu"
+   },
+   "attestation": "usage"
+  },
+  {
+   "slug": "hane-goshi",
+   "type": "redoublement",
+   "context": "si le rebond est absorbé, on relance la hanche",
+   "situation": {
+    "deplacement": "plante",
+    "garde": "ai-yotsu"
+   },
+   "defense": "bloque-bassin",
+   "attestation": "usage"
+  }
+ ],
+ "koshi-guruma": [
+  {
+   "slug": "o-goshi",
+   "type": "enchainement",
+   "context": "si uke dégage sa tête du bras",
+   "situation": {
+    "garde": "ai-yotsu"
+   }
+  },
+  {
+   "slug": "tai-otoshi",
+   "type": "enchainement",
+   "context": "si uke recule hors du contact de hanche",
+   "situation": {
+    "deplacement": "recule",
+    "garde": "ai-yotsu"
+   }
+  },
+  {
+   "slug": "kata-gatame",
+   "type": "liaison-sol",
+   "context": "la tête est déjà prise : le contrôle d'épaule s'enchaîne seul",
+   "situation": {
+    "garde": "ai-yotsu"
+   },
+   "attestation": "usage"
+  },
+  {
+   "slug": "koshi-guruma",
+   "type": "redoublement",
+   "context": "le tour est bloqué : on ressort et on retourne",
+   "situation": {
+    "deplacement": "plante",
+    "garde": "ai-yotsu"
+   },
+   "defense": "bloque-bassin",
+   "attestation": "usage"
+  },
+  {
+   "slug": "ushiro-goshi",
+   "type": "contre",
+   "context": "le tour est encaissé et soulevé",
+   "situation": {
+    "garde": "ai-yotsu"
+   },
+   "defense": "bloque-bassin",
+   "attestation": "usage"
+  }
+ ],
+ "tsuri-goshi": [
+  {
+   "slug": "tsurikomi-goshi",
+   "type": "enchainement",
+   "context": "si uke se baisse, on entre plus bas",
+   "defense": "casse-avant"
+  },
+  {
+   "slug": "o-goshi",
+   "type": "enchainement",
+   "context": "si la ceinture échappe"
+  },
+  {
+   "slug": "kesa-gatame",
+   "type": "liaison-sol",
+   "context": "la ceinture tenue devient le contrôle au sol",
+   "situation": {
+    "deplacement": "avance"
+   },
+   "attestation": "usage"
+  },
+  {
+   "slug": "ushiro-goshi",
+   "type": "contre",
+   "context": "uke devance la charge et soulève",
+   "situation": {
+    "deplacement": "avance"
+   },
+   "defense": "bloque-bassin",
+   "attestation": "usage"
+  }
+ ],
+ "tsurikomi-goshi": [
+  {
+   "slug": "o-goshi",
+   "type": "enchainement",
+   "context": "si uke résiste au soulèvement",
+   "situation": {
+    "deplacement": "plante",
+    "garde": "ai-yotsu"
+   }
+  },
+  {
+   "slug": "sode-tsurikomi-goshi",
+   "type": "enchainement",
+   "context": "si la manche est plus accessible que le revers",
+   "situation": {
+    "garde": "ai-yotsu"
+   }
+  },
+  {
+   "slug": "ko-uchi-gari",
+   "type": "enchainement",
+   "context": "en amorce pour ouvrir la garde",
+   "situation": {
+    "garde": "ai-yotsu"
+   }
+  },
+  {
+   "slug": "kuzure-kesa-gatame",
+   "type": "liaison-sol",
+   "context": "si uke tourne le ventre, on suit le revers déjà saisi",
+   "situation": {
+    "deplacement": "tourne",
+    "garde": "ai-yotsu"
+   },
+   "attestation": "usage"
+  },
+  {
+   "slug": "tsurikomi-goshi",
+   "type": "redoublement",
+   "context": "uke résiste au tirage : on insiste sur le même appui",
+   "situation": {
+    "deplacement": "plante",
+    "garde": "ai-yotsu"
+   },
+   "defense": "bras-tendus",
+   "attestation": "usage"
+  },
+  {
+   "slug": "ushiro-goshi",
+   "type": "contre",
+   "context": "la hanche est bloquée puis soulevée",
+   "situation": {
+    "garde": "ai-yotsu"
+   },
+   "defense": "bloque-bassin",
+   "attestation": "usage"
+  }
+ ],
+ "sode-tsurikomi-goshi": [
+  {
+   "slug": "uchi-mata-hanche",
+   "type": "enchainement",
+   "context": "si uke recule le bassin",
+   "situation": {
+    "deplacement": "recule",
+    "garde": "kenka-yotsu"
+   }
+  },
+  {
+   "slug": "tsurikomi-goshi",
+   "type": "enchainement",
+   "context": "si la saisie de manche se défait",
+   "situation": {
+    "garde": "kenka-yotsu"
+   }
+  },
+  {
+   "slug": "kuzure-kesa-gatame",
+   "type": "liaison-sol",
+   "context": "les deux manches sont tenues : on descend sans lâcher",
+   "situation": {
+    "garde": "kenka-yotsu"
+   },
+   "attestation": "usage"
+  },
+  {
+   "slug": "sode-tsurikomi-goshi",
+   "type": "redoublement",
+   "context": "la manche est reprise, on relance immédiatement",
+   "situation": {
+    "deplacement": "plante",
+    "garde": "kenka-yotsu"
+   },
+   "attestation": "usage"
+  },
+  {
+   "slug": "te-guruma",
+   "type": "contre",
+   "context": "uke passe le bras sous la cuisse pendant l'entrée",
+   "situation": {
+    "garde": "kenka-yotsu"
+   },
+   "defense": "bloque-bassin",
+   "attestation": "usage"
+  }
+ ],
+ "kubi-nage": [
+  {
+   "slug": "koshi-guruma",
+   "type": "enchainement",
+   "context": "quand le contact de hanche devient disponible",
+   "situation": {
+    "deplacement": "avance"
+   }
+  },
+  {
+   "slug": "o-goshi",
+   "type": "enchainement",
+   "context": "si uke se redresse"
+  },
+  {
+   "slug": "kesa-gatame",
+   "type": "liaison-sol",
+   "context": "la tête tenue, on descend au contrôle en écharpe",
+   "attestation": "usage"
+  }
+ ],
+ "ushiro-goshi": [
+  {
+   "slug": "utsuri-goshi",
+   "type": "enchainement",
+   "context": "si uke reste en l'air, on change de hanche"
+  },
+  {
+   "slug": "tate-shiho-gatame",
+   "type": "liaison-sol",
+   "context": "uke retombe face à soi : on monte à cheval",
+   "attestation": "usage"
+  }
+ ],
+ "utsuri-goshi": [
+  {
+   "slug": "ushiro-goshi",
+   "type": "enchainement",
+   "context": "si le transfert ne se fait pas, on projette devant"
+  },
+  {
+   "slug": "kesa-gatame",
+   "type": "liaison-sol",
+   "context": "le transfert termine sur le côté, contrôle immédiat",
+   "attestation": "usage"
+  }
+ ],
+ "uchi-mata-hanche": [
+  {
+   "slug": "uchi-mata-jambe",
+   "type": "enchainement",
+   "context": "si le contact de hanche se perd en déplacement",
+   "situation": {
+    "garde": "ai-yotsu"
+   }
+  },
+  {
+   "slug": "harai-goshi",
+   "type": "enchainement",
+   "context": "si la jambe ne passe pas entre les appuis",
+   "situation": {
+    "deplacement": "avance",
+    "garde": "ai-yotsu"
+   }
+  },
+  {
+   "slug": "uchi-mata-makikomi",
+   "type": "enchainement",
+   "context": "si uke résiste au lancer",
+   "situation": {
+    "deplacement": "plante",
+    "garde": "ai-yotsu"
+   }
+  },
+  {
+   "slug": "uchi-mata-sukashi",
+   "type": "contre",
+   "context": "uke dérobe sa jambe et laisse tourner dans le vide",
+   "situation": {
+    "deplacement": "tourne",
+    "garde": "ai-yotsu"
+   }
+  },
+  {
+   "slug": "utsuri-goshi",
+   "type": "contre",
+   "context": "uke soulève et change de hanche",
+   "situation": {
+    "garde": "ai-yotsu"
+   }
+  },
+  {
+   "slug": "kuzure-kesa-gatame",
+   "type": "liaison-sol",
+   "context": "si uke retombe sur le ventre, on ceinture par-dessus",
+   "situation": {
+    "garde": "ai-yotsu"
+   },
+   "attestation": "usage"
+  },
+  {
+   "slug": "uchi-mata-hanche",
+   "type": "redoublement",
+   "context": "le fauchage intérieur rate : on replace et on relance",
+   "situation": {
+    "deplacement": "plante",
+    "garde": "ai-yotsu"
+   },
+   "defense": "bloque-bassin",
+   "attestation": "usage"
+  },
+  {
+   "slug": "te-guruma",
+   "type": "contre",
+   "context": "uke saisit la jambe restée au sol",
+   "situation": {
+    "garde": "ai-yotsu"
+   },
+   "defense": "bloque-bassin",
+   "attestation": "usage"
+  }
+ ],
+ "ippon-seoi-nage": [
+  {
+   "slug": "morote-seoi-nage",
+   "type": "enchainement",
+   "context": "si le bras d'uke échappe sous l'aisselle",
+   "situation": {
+    "garde": "ai-yotsu"
+   }
+  },
+  {
+   "slug": "tai-otoshi",
+   "type": "enchainement",
+   "context": "si uke bloque le passage sous le bras",
+   "situation": {
+    "deplacement": "plante",
+    "garde": "ai-yotsu"
+   }
+  },
+  {
+   "slug": "o-uchi-gari",
+   "type": "enchainement",
+   "context": "si uke recule pour éviter l'entrée",
+   "situation": {
+    "deplacement": "recule",
+    "garde": "ai-yotsu"
+   }
+  },
+  {
+   "slug": "ura-nage",
+   "type": "contre",
+   "context": "uke ceinture et projette vers l'arrière",
+   "situation": {
+    "garde": "ai-yotsu"
+   }
+  },
+  {
+   "slug": "kesa-gatame",
+   "type": "liaison-sol",
+   "context": "le bras est déjà sous l'aisselle : on s'assoit au contrôle",
+   "situation": {
+    "garde": "ai-yotsu"
+   },
+   "attestation": "usage"
+  },
+  {
+   "slug": "ippon-seoi-nage",
+   "type": "redoublement",
+   "context": "si l'entrée est repoussée, on ressort et on rentre à nouveau",
+   "situation": {
+    "deplacement": "plante",
+    "garde": "ai-yotsu"
+   },
+   "defense": "casse-avant",
+   "attestation": "usage"
+  },
+  {
+   "slug": "tani-otoshi",
+   "type": "contre",
+   "context": "uke se casse en avant et bloque la jambe",
+   "situation": {
+    "deplacement": "plante",
+    "garde": "ai-yotsu"
+   },
+   "defense": "casse-avant",
+   "attestation": "usage"
+  },
+  {
+   "slug": "te-guruma",
+   "type": "contre",
+   "context": "le bras passe sous la cuisse pendant l'entrée",
+   "situation": {
+    "garde": "ai-yotsu"
+   },
+   "defense": "casse-avant",
+   "attestation": "usage"
+  }
+ ],
+ "morote-seoi-nage": [
+  {
+   "slug": "ippon-seoi-nage",
+   "type": "enchainement",
+   "context": "si la saisie de revers se défait",
+   "situation": {
+    "garde": "ai-yotsu"
+   }
+  },
+  {
+   "slug": "seoi-otoshi",
+   "type": "enchainement",
+   "context": "si uke reste trop bas pour être chargé",
+   "situation": {
+    "garde": "ai-yotsu"
+   }
+  },
+  {
+   "slug": "ko-uchi-gari",
+   "type": "enchainement",
+   "context": "en amorce pour casser la garde",
+   "situation": {
+    "garde": "ai-yotsu"
+   }
+  },
+  {
+   "slug": "ura-nage",
+   "type": "contre",
+   "context": "uke ceinture et projette vers l'arrière",
+   "situation": {
+    "garde": "ai-yotsu"
+   }
+  },
+  {
+   "slug": "kuzure-kesa-gatame",
+   "type": "liaison-sol",
+   "context": "si uke amortit, on conserve la manche et on passe au sol",
+   "situation": {
+    "garde": "ai-yotsu"
+   },
+   "attestation": "usage"
+  },
+  {
+   "slug": "morote-seoi-nage",
+   "type": "redoublement",
+   "context": "uke se casse en avant : on reprend l'entrée plus bas",
+   "situation": {
+    "deplacement": "plante",
+    "garde": "ai-yotsu"
+   },
+   "defense": "casse-avant",
+   "attestation": "usage"
+  },
+  {
+   "slug": "tani-otoshi",
+   "type": "contre",
+   "context": "uke s'assoit derrière et bloque",
+   "situation": {
+    "deplacement": "plante",
+    "garde": "ai-yotsu"
+   },
+   "defense": "casse-avant",
+   "attestation": "usage"
+  }
+ ],
+ "tai-otoshi": [
+  {
+   "slug": "ko-uchi-gari",
+   "type": "enchainement",
+   "context": "si uke enjambe le barrage",
+   "situation": {
+    "garde": "kenka-yotsu"
+   }
+  },
+  {
+   "slug": "ippon-seoi-nage",
+   "type": "enchainement",
+   "context": "si uke se penche sur l'entrée",
+   "situation": {
+    "garde": "kenka-yotsu"
+   }
+  },
+  {
+   "slug": "o-uchi-gari",
+   "type": "enchainement",
+   "context": "si uke recule",
+   "situation": {
+    "deplacement": "recule",
+    "garde": "kenka-yotsu"
+   }
+  },
+  {
+   "slug": "kuzure-kesa-gatame",
+   "type": "liaison-sol",
+   "context": "si uke enjambe la barre, on suit la manche au sol",
+   "situation": {
+    "garde": "kenka-yotsu"
+   },
+   "attestation": "usage"
+  },
+  {
+   "slug": "tai-otoshi",
+   "type": "redoublement",
+   "context": "la barre est enjambée : on replace la jambe et on répète",
+   "situation": {
+    "deplacement": "plante",
+    "garde": "kenka-yotsu"
+   },
+   "attestation": "usage"
+  },
+  {
+   "slug": "tani-otoshi",
+   "type": "contre",
+   "context": "uke enjambe la barre et s'assoit derrière",
+   "situation": {
+    "garde": "kenka-yotsu"
+   },
+   "attestation": "usage"
+  }
+ ],
+ "kata-guruma": [
+  {
+   "slug": "sukui-nage",
+   "type": "enchainement",
+   "context": "si le passage sous le corps se ferme"
+  },
+  {
+   "slug": "obi-tori-gaeshi",
+   "type": "contre",
+   "context": "uke bloque et retourne par la ceinture"
+  },
+  {
+   "slug": "kami-shiho-gatame",
+   "type": "liaison-sol",
+   "context": "uke retombe sur le dos, tête vers soi : contrôle par le haut",
+   "attestation": "usage"
+  },
+  {
+   "slug": "kata-guruma",
+   "type": "redoublement",
+   "context": "uke se redresse : on replonge sous le bras",
+   "situation": {
+    "deplacement": "plante"
+   },
+   "defense": "casse-avant",
+   "attestation": "usage"
+  },
+  {
+   "slug": "tawara-gaeshi",
+   "type": "contre",
+   "context": "uke bloque le passage sous le bras et retourne",
+   "defense": "casse-avant",
+   "attestation": "usage"
+  }
+ ],
+ "eri-seoi-nage": [
+  {
+   "slug": "ippon-seoi-nage",
+   "type": "enchainement",
+   "context": "si la saisie de col se défait"
+  },
+  {
+   "slug": "ko-uchi-gari",
+   "type": "enchainement",
+   "context": "en amorce pour casser la posture"
+  },
+  {
+   "slug": "kesa-gatame",
+   "type": "liaison-sol",
+   "context": "le revers ne se lâche pas et devient le contrôle",
+   "situation": {
+    "deplacement": "avance"
+   },
+   "attestation": "usage"
+  },
+  {
+   "slug": "tani-otoshi",
+   "type": "contre",
+   "context": "l'entrée basse est bloquée par-derrière",
+   "defense": "casse-avant",
+   "attestation": "usage"
+  }
+ ],
+ "seoi-otoshi": [
+  {
+   "slug": "ippon-seoi-nage",
+   "type": "enchainement",
+   "context": "si uke se redresse et peut être chargé"
+  },
+  {
+   "slug": "tai-otoshi",
+   "type": "enchainement",
+   "context": "si le passage sous le bras est fermé"
+  },
+  {
+   "slug": "kata-gatame",
+   "type": "liaison-sol",
+   "context": "la chute est proche : on bloque tête et bras",
+   "situation": {
+    "deplacement": "plante"
+   },
+   "attestation": "usage"
+  },
+  {
+   "slug": "tani-otoshi",
+   "type": "contre",
+   "context": "uke laisse passer et bloque la jambe arrière",
+   "situation": {
+    "deplacement": "plante"
+   },
+   "defense": "casse-avant",
+   "attestation": "usage"
+  }
+ ],
+ "sukui-nage": [
+  {
+   "slug": "kata-guruma",
+   "type": "enchainement",
+   "context": "si uke se penche en avant"
+  },
+  {
+   "slug": "o-uchi-gari",
+   "type": "enchainement",
+   "context": "si uke recule un appui",
+   "situation": {
+    "deplacement": "recule"
+   }
+  },
+  {
+   "slug": "tate-shiho-gatame",
+   "type": "liaison-sol",
+   "context": "la cuillère dépose uke sur le dos, on se met à cheval",
+   "attestation": "usage"
+  },
+  {
+   "slug": "ura-nage",
+   "type": "contre",
+   "context": "uke se redresse pendant la cuillère",
+   "attestation": "usage"
+  }
+ ],
+ "morote-gari": [
+  {
+   "slug": "kuchiki-taoshi",
+   "type": "enchainement",
+   "context": "si une seule jambe reste accessible"
+  },
+  {
+   "slug": "hikikomi-gaeshi",
+   "type": "contre",
+   "context": "uke tire et retourne en tombant",
+   "situation": {
+    "deplacement": "tourne"
+   }
+  },
+  {
+   "slug": "obi-tori-gaeshi",
+   "type": "contre",
+   "context": "uke bloque la pénétration et soulève",
+   "situation": {
+    "deplacement": "plante"
+   }
+  },
+  {
+   "slug": "yoko-shiho-gatame",
+   "type": "liaison-sol",
+   "context": "les jambes prises, on remonte directement en travers",
+   "attestation": "usage"
+  },
+  {
+   "slug": "morote-gari",
+   "type": "redoublement",
+   "context": "la première attaque est sprawlée : on repart en avant",
+   "situation": {
+    "deplacement": "recule"
+   },
+   "defense": "recule-jambe",
+   "attestation": "usage"
+  },
+  {
+   "slug": "tawara-gaeshi",
+   "type": "contre",
+   "context": "uke se baisse et retourne par-dessus",
+   "defense": "casse-avant",
+   "attestation": "usage"
+  }
+ ],
+ "sumi-otoshi": [
+  {
+   "slug": "uki-otoshi",
+   "type": "enchainement",
+   "context": "si l'angle passe vers l'avant"
+  },
+  {
+   "slug": "kesa-gatame",
+   "type": "liaison-sol",
+   "context": "uke s'assoit plutôt qu'il ne tombe : on le couche au contrôle",
+   "attestation": "usage"
+  }
+ ],
+ "uki-otoshi": [
+  {
+   "slug": "sumi-otoshi",
+   "type": "enchainement",
+   "context": "si l'angle passe vers l'arrière"
+  },
+  {
+   "slug": "uki-waza",
+   "type": "enchainement",
+   "context": "en se laissant descendre au sol"
+  },
+  {
+   "slug": "kesa-gatame",
+   "type": "liaison-sol",
+   "context": "si la chute est amortie, on suit la manche",
+   "attestation": "usage"
+  }
+ ],
+ "yama-arashi": [
+  {
+   "slug": "harai-goshi",
+   "type": "enchainement",
+   "context": "si le fauchage prime sur la traction",
+   "situation": {
+    "garde": "kenka-yotsu"
+   }
+  },
+  {
+   "slug": "kesa-gatame",
+   "type": "liaison-sol",
+   "context": "la tempête de montagne se prolonge au contrôle",
+   "situation": {
+    "garde": "kenka-yotsu"
+   },
+   "attestation": "usage"
+  },
+  {
+   "slug": "ushiro-goshi",
+   "type": "contre",
+   "context": "uke encaisse et soulève",
+   "situation": {
+    "deplacement": "plante",
+    "garde": "kenka-yotsu"
+   },
+   "defense": "bloque-bassin",
+   "attestation": "usage"
+  }
+ ],
+ "kibisu-gaeshi": [
+  {
+   "slug": "ko-soto-gari",
+   "type": "enchainement",
+   "context": "si uke replace son appui",
+   "situation": {
+    "garde": "kenka-yotsu"
+   }
+  },
+  {
+   "slug": "kuchiki-taoshi",
+   "type": "enchainement",
+   "context": "si la saisie remonte à la cuisse",
+   "situation": {
+    "garde": "kenka-yotsu"
+   }
+  },
+  {
+   "slug": "yoko-shiho-gatame",
+   "type": "liaison-sol",
+   "context": "le talon arraché, on enchaîne au contrôle latéral",
+   "situation": {
+    "garde": "kenka-yotsu"
+   },
+   "attestation": "usage"
+  },
+  {
+   "slug": "kibisu-gaeshi",
+   "type": "redoublement",
+   "context": "le talon est dégagé : on reprend l'autre talon",
+   "situation": {
+    "deplacement": "recule",
+    "garde": "kenka-yotsu"
+   },
+   "defense": "recule-jambe",
+   "attestation": "usage"
+  },
+  {
+   "slug": "tawara-gaeshi",
+   "type": "contre",
+   "context": "la plongée est reprise par le haut",
+   "situation": {
+    "garde": "kenka-yotsu"
+   },
+   "defense": "casse-avant",
+   "attestation": "usage"
+  }
+ ],
+ "kuchiki-taoshi": [
+  {
+   "slug": "morote-gari",
+   "type": "enchainement",
+   "context": "si les deux jambes deviennent accessibles",
+   "situation": {
+    "garde": "kenka-yotsu"
+   }
+  },
+  {
+   "slug": "kibisu-gaeshi",
+   "type": "enchainement",
+   "context": "si uke recule la jambe saisie",
+   "situation": {
+    "deplacement": "recule",
+    "garde": "kenka-yotsu"
+   },
+   "defense": "recule-jambe"
+  },
+  {
+   "slug": "yoko-shiho-gatame",
+   "type": "liaison-sol",
+   "context": "une jambe tenue : on passe la hanche et on contrôle en travers",
+   "situation": {
+    "garde": "kenka-yotsu"
+   },
+   "attestation": "usage"
+  },
+  {
+   "slug": "kuchiki-taoshi",
+   "type": "redoublement",
+   "context": "la jambe est retirée : on saisit l'autre",
+   "situation": {
+    "deplacement": "recule",
+    "garde": "kenka-yotsu"
+   },
+   "defense": "recule-jambe",
+   "attestation": "usage"
+  },
+  {
+   "slug": "tawara-gaeshi",
+   "type": "contre",
+   "context": "uke enroule le buste et renverse",
+   "situation": {
+    "garde": "kenka-yotsu"
+   },
+   "defense": "casse-avant",
+   "attestation": "usage"
+  }
+ ],
+ "obi-otoshi": [
+  {
+   "slug": "tsuri-goshi",
+   "type": "enchainement",
+   "context": "si uke se redresse, on charge sur la hanche",
+   "situation": {
+    "deplacement": "avance"
+   }
+  },
+  {
+   "slug": "kuzure-kesa-gatame",
+   "type": "liaison-sol",
+   "context": "la ceinture reste tenue jusqu'au sol",
+   "attestation": "usage"
+  }
+ ],
+ "obi-tori-gaeshi": [
+  {
+   "slug": "daki-wakare",
+   "type": "enchainement",
+   "context": "si uke se retourne pendant le soulèvement",
+   "situation": {
+    "deplacement": "tourne",
+    "garde": "kenka-yotsu"
+   }
+  },
+  {
+   "slug": "tate-shiho-gatame",
+   "type": "liaison-sol",
+   "context": "le retournement finit à cheval",
+   "situation": {
+    "deplacement": "tourne",
+    "garde": "kenka-yotsu"
+   },
+   "attestation": "usage"
+  },
+  {
+   "slug": "ura-nage",
+   "type": "contre",
+   "context": "la ceinture prise, uke renverse en arrière",
+   "situation": {
+    "garde": "kenka-yotsu"
+   },
+   "attestation": "usage"
+  }
+ ],
+ "te-guruma": [
+  {
+   "slug": "kata-guruma",
+   "type": "enchainement",
+   "context": "si uke se penche davantage"
+  },
+  {
+   "slug": "sukui-nage",
+   "type": "enchainement",
+   "context": "si le flanc reste fermé"
+  },
+  {
+   "slug": "yoko-shiho-gatame",
+   "type": "liaison-sol",
+   "context": "uke est déposé sur le dos : contrôle en travers sans transition",
+   "attestation": "usage"
+  }
+ ],
+ "uchi-mata-sukashi": [
+  {
+   "slug": "uchi-mata-jambe",
+   "type": "enchainement",
+   "context": "si uke se rétablit, on reprend l'attaque"
+  },
+  {
+   "slug": "kuzure-kesa-gatame",
+   "type": "liaison-sol",
+   "context": "uke tombe seul en avant : on suit la manche",
+   "attestation": "usage"
+  }
+ ],
+ "de-ashi-barai": [
+  {
+   "slug": "okuri-ashi-barai",
+   "type": "enchainement",
+   "context": "si le premier pied échappe, on prend les deux"
+  },
+  {
+   "slug": "ko-uchi-gari",
+   "type": "enchainement",
+   "context": "si uke se stabilise sur place"
+  },
+  {
+   "slug": "tsubame-gaeshi",
+   "type": "contre",
+   "context": "uke retire le pied et balaie à son tour"
+  },
+  {
+   "slug": "kesa-gatame",
+   "type": "liaison-sol",
+   "context": "le balayage seul ne compte pas : on suit au sol",
+   "attestation": "usage"
+  },
+  {
+   "slug": "de-ashi-barai",
+   "type": "redoublement",
+   "context": "le pied revient : on balaie de nouveau au pas suivant",
+   "situation": {
+    "deplacement": "avance"
+   },
+   "attestation": "usage"
+  }
+ ],
+ "okuri-ashi-barai": [
+  {
+   "slug": "de-ashi-barai",
+   "type": "enchainement",
+   "context": "si un seul pied reste accessible"
+  },
+  {
+   "slug": "hiza-guruma",
+   "type": "enchainement",
+   "context": "si uke arrête son déplacement"
+  },
+  {
+   "slug": "kesa-gatame",
+   "type": "liaison-sol",
+   "context": "uke tombe sur le flanc, on accompagne",
+   "attestation": "usage"
+  },
+  {
+   "slug": "okuri-ashi-barai",
+   "type": "redoublement",
+   "context": "on accompagne le déplacement et on rebalaie plus loin",
+   "situation": {
+    "deplacement": "avance"
+   },
+   "attestation": "usage"
+  },
+  {
+   "slug": "tsubame-gaeshi",
+   "type": "contre",
+   "context": "le pied se relève et renvoie le balayage",
+   "attestation": "usage"
+  }
+ ],
+ "hiza-guruma": [
+  {
+   "slug": "sasae-tsurikomi-ashi",
+   "type": "enchainement",
+   "context": "si uke recule le genou, on bloque la cheville"
+  },
+  {
+   "slug": "o-uchi-gari",
+   "type": "enchainement",
+   "context": "si uke bascule vers l'arrière"
+  },
+  {
+   "slug": "kesa-gatame",
+   "type": "liaison-sol",
+   "context": "si la roue est incomplète, on couche uke et on contrôle",
+   "attestation": "usage"
+  },
+  {
+   "slug": "hiza-guruma",
+   "type": "redoublement",
+   "context": "si uke enjambe, on repose le pied et on relance la roue",
+   "situation": {
+    "deplacement": "plante"
+   },
+   "attestation": "usage"
+  },
+  {
+   "slug": "de-ashi-barai",
+   "type": "contre",
+   "context": "uke enjambe et balaie l'appui resté au sol",
+   "attestation": "usage"
+  }
+ ],
+ "sasae-tsurikomi-ashi": [
+  {
+   "slug": "hiza-guruma",
+   "type": "enchainement",
+   "context": "si uke fléchit la jambe"
+  },
+  {
+   "slug": "harai-tsurikomi-ashi",
+   "type": "enchainement",
+   "context": "si le blocage doit devenir balayage"
+  },
+  {
+   "slug": "ko-uchi-gari",
+   "type": "enchainement",
+   "context": "si uke retire la cheville"
+  },
+  {
+   "slug": "kuzure-kesa-gatame",
+   "type": "liaison-sol",
+   "context": "le blocage fait tourner uke : on suit le revers",
+   "situation": {
+    "deplacement": "tourne"
+   },
+   "attestation": "usage"
+  },
+  {
+   "slug": "sasae-tsurikomi-ashi",
+   "type": "redoublement",
+   "context": "uke passe la jambe : on rebloque l'autre appui",
+   "situation": {
+    "deplacement": "plante"
+   },
+   "attestation": "usage"
+  },
+  {
+   "slug": "tsubame-gaeshi",
+   "type": "contre",
+   "context": "le pied bloqué se dégage et contre-balaie",
+   "attestation": "usage"
+  }
+ ],
+ "harai-tsurikomi-ashi": [
+  {
+   "slug": "sasae-tsurikomi-ashi",
+   "type": "enchainement",
+   "context": "si uke bloque l'appui au lieu de le retirer",
+   "situation": {
+    "deplacement": "plante"
+   }
+  },
+  {
+   "slug": "de-ashi-barai",
+   "type": "enchainement",
+   "context": "si uke reprend son déplacement"
+  },
+  {
+   "slug": "kesa-gatame",
+   "type": "liaison-sol",
+   "context": "chute latérale, contrôle dans la continuité",
+   "attestation": "usage"
+  },
+  {
+   "slug": "tsubame-gaeshi",
+   "type": "contre",
+   "context": "uke esquive et rebalaie l'appui",
+   "situation": {
+    "deplacement": "tourne"
+   },
+   "attestation": "usage"
+  }
+ ],
+ "ko-uchi-gari": [
+  {
+   "slug": "morote-seoi-nage",
+   "type": "enchainement",
+   "context": "si uke réagit en avançant",
+   "situation": {
+    "garde": "kenka-yotsu"
+   }
+  },
+  {
+   "slug": "tai-otoshi",
+   "type": "enchainement",
+   "context": "si uke résiste vers l'avant",
+   "situation": {
+    "deplacement": "plante",
+    "garde": "kenka-yotsu"
+   }
+  },
+  {
+   "slug": "ko-soto-gari",
+   "type": "enchainement",
+   "context": "si le talon échappe à l'intérieur",
+   "situation": {
+    "garde": "kenka-yotsu"
+   }
+  },
+  {
+   "slug": "ko-uchi-makikomi",
+   "type": "enchainement",
+   "context": "si uke tient debout, on enroule",
+   "situation": {
+    "garde": "kenka-yotsu"
+   }
+  },
+  {
+   "slug": "ko-uchi-gaeshi",
+   "type": "contre",
+   "context": "uke dérobe la jambe et renverse",
+   "situation": {
+    "garde": "kenka-yotsu"
+   }
+  },
+  {
+   "slug": "tate-shiho-gatame",
+   "type": "liaison-sol",
+   "context": "uke tombe en arrière entre les jambes : on monte à cheval",
+   "situation": {
+    "deplacement": "avance",
+    "garde": "kenka-yotsu"
+   },
+   "attestation": "usage"
+  },
+  {
+   "slug": "ko-uchi-gari",
+   "type": "redoublement",
+   "context": "on insiste en marchant, uke reculant à chaque fauche",
+   "situation": {
+    "deplacement": "recule",
+    "garde": "kenka-yotsu"
+   },
+   "defense": "recule-jambe",
+   "attestation": "usage"
+  }
+ ],
+ "o-uchi-gari": [
+  {
+   "slug": "ippon-seoi-nage",
+   "type": "enchainement",
+   "context": "si uke résiste en avançant",
+   "situation": {
+    "deplacement": "plante",
+    "garde": "ai-yotsu"
+   }
+  },
+  {
+   "slug": "ko-uchi-gari",
+   "type": "enchainement",
+   "context": "si uke change d'appui",
+   "situation": {
+    "garde": "ai-yotsu"
+   }
+  },
+  {
+   "slug": "harai-goshi",
+   "type": "enchainement",
+   "context": "si uke se penche en avant",
+   "situation": {
+    "garde": "ai-yotsu"
+   }
+  },
+  {
+   "slug": "o-uchi-gaeshi",
+   "type": "contre",
+   "context": "uke esquive la jambe et renverse",
+   "situation": {
+    "deplacement": "tourne",
+    "garde": "ai-yotsu"
+   }
+  },
+  {
+   "slug": "tate-shiho-gatame",
+   "type": "liaison-sol",
+   "context": "la jambe est déjà engagée : on remonte à cheval",
+   "situation": {
+    "garde": "ai-yotsu"
+   },
+   "attestation": "usage"
+  },
+  {
+   "slug": "o-uchi-gari",
+   "type": "redoublement",
+   "context": "si la première fauche ne passe pas, on repique sur l'autre appui",
+   "situation": {
+    "deplacement": "plante",
+    "garde": "ai-yotsu"
+   },
+   "defense": "recule-jambe",
+   "attestation": "usage"
+  }
+ ],
+ "o-soto-gari": [
+  {
+   "slug": "ko-uchi-gari",
+   "type": "enchainement",
+   "context": "si uke recule la jambe visée",
+   "situation": {
+    "deplacement": "recule",
+    "garde": "ai-yotsu"
+   },
+   "defense": "recule-jambe"
+  },
+  {
+   "slug": "o-uchi-gari",
+   "type": "enchainement",
+   "context": "si uke écarte les appuis",
+   "situation": {
+    "garde": "ai-yotsu"
+   }
+  },
+  {
+   "slug": "o-soto-otoshi",
+   "type": "enchainement",
+   "context": "si le fauchage ne passe pas, on pose en barrage",
+   "situation": {
+    "garde": "ai-yotsu"
+   }
+  },
+  {
+   "slug": "o-soto-makikomi",
+   "type": "enchainement",
+   "context": "si uke se rétablit, on enroule",
+   "situation": {
+    "garde": "ai-yotsu"
+   }
+  },
+  {
+   "slug": "o-soto-gaeshi",
+   "type": "contre",
+   "context": "uke charge la jambe attaquée et fauche à son tour",
+   "situation": {
+    "deplacement": "avance",
+    "garde": "ai-yotsu"
+   }
+  },
+  {
+   "slug": "kesa-gatame",
+   "type": "liaison-sol",
+   "context": "uke part en arrière, on descend au contrôle en écharpe",
+   "situation": {
+    "deplacement": "recule",
+    "garde": "ai-yotsu"
+   },
+   "attestation": "usage"
+  },
+  {
+   "slug": "o-soto-gari",
+   "type": "redoublement",
+   "context": "uke encaisse : on replace la hanche et on fauche à nouveau",
+   "situation": {
+    "deplacement": "plante",
+    "garde": "ai-yotsu"
+   },
+   "defense": "bloque-bassin",
+   "attestation": "usage"
+  }
+ ],
+ "ko-soto-gari": [
+  {
+   "slug": "ko-soto-gake",
+   "type": "enchainement",
+   "context": "si le balayage doit devenir crochet",
+   "situation": {
+    "garde": "kenka-yotsu"
+   }
+  },
+  {
+   "slug": "ko-uchi-gari",
+   "type": "enchainement",
+   "context": "si uke replace l'appui à l'intérieur",
+   "situation": {
+    "garde": "kenka-yotsu"
+   }
+  },
+  {
+   "slug": "o-soto-gari",
+   "type": "enchainement",
+   "context": "si uke charge la jambe arrière",
+   "situation": {
+    "deplacement": "avance",
+    "garde": "kenka-yotsu"
+   }
+  },
+  {
+   "slug": "yoko-shiho-gatame",
+   "type": "liaison-sol",
+   "context": "la chute se fait sur le côté, contrôle en travers",
+   "situation": {
+    "garde": "kenka-yotsu"
+   },
+   "attestation": "usage"
+  }
+ ],
+ "ko-soto-gake": [
+  {
+   "slug": "ko-soto-gari",
+   "type": "enchainement",
+   "context": "si le crochet glisse",
+   "situation": {
+    "garde": "kenka-yotsu"
+   }
+  },
+  {
+   "slug": "tani-otoshi",
+   "type": "enchainement",
+   "context": "si tori accompagne au sol",
+   "situation": {
+    "garde": "kenka-yotsu"
+   }
+  },
+  {
+   "slug": "kuzure-kesa-gatame",
+   "type": "liaison-sol",
+   "context": "le crochet emmène au sol, on garde le revers",
+   "situation": {
+    "garde": "kenka-yotsu"
+   },
+   "attestation": "usage"
+  },
+  {
+   "slug": "ko-soto-gake",
+   "type": "redoublement",
+   "context": "le crochet glisse : on recrochète immédiatement",
+   "situation": {
+    "deplacement": "plante",
+    "garde": "kenka-yotsu"
+   },
+   "attestation": "usage"
+  }
+ ],
+ "ko-uchi-gaeshi": [
+  {
+   "slug": "ko-uchi-gari",
+   "type": "enchainement",
+   "context": "en reprise immédiate de l'attaque"
+  },
+  {
+   "slug": "tate-shiho-gatame",
+   "type": "liaison-sol",
+   "context": "le contre renvoie uke sur le dos, on monte à cheval",
+   "attestation": "usage"
+  }
+ ],
+ "o-uchi-gaeshi": [
+  {
+   "slug": "o-uchi-gari",
+   "type": "enchainement",
+   "context": "en reprise immédiate de l'attaque"
+  },
+  {
+   "slug": "tate-shiho-gatame",
+   "type": "liaison-sol",
+   "context": "uke retombe entre les jambes : on remonte à cheval",
+   "attestation": "usage"
+  }
+ ],
+ "o-soto-gaeshi": [
+  {
+   "slug": "o-soto-gari",
+   "type": "enchainement",
+   "context": "en reprise immédiate de l'attaque"
+  },
+  {
+   "slug": "kesa-gatame",
+   "type": "liaison-sol",
+   "context": "le renvoi couche uke en arrière, contrôle immédiat",
+   "attestation": "usage"
+  }
+ ],
+ "hane-goshi-gaeshi": [
+  {
+   "slug": "hane-goshi",
+   "type": "enchainement",
+   "context": "en reprise immédiate de l'attaque"
+  },
+  {
+   "slug": "kuzure-kesa-gatame",
+   "type": "liaison-sol",
+   "context": "le retournement place au sol sans lâcher le bras",
+   "attestation": "usage"
+  }
+ ],
+ "ashi-guruma": [
+  {
+   "slug": "hiza-guruma",
+   "type": "enchainement",
+   "context": "si le contact descend vers le genou"
+  },
+  {
+   "slug": "o-guruma",
+   "type": "enchainement",
+   "context": "si le contact remonte sur le ventre"
+  },
+  {
+   "slug": "kuzure-kesa-gatame",
+   "type": "liaison-sol",
+   "context": "si la roue s'arrête, on suit uke au sol",
+   "attestation": "usage"
+  }
+ ],
+ "o-guruma": [
+  {
+   "slug": "harai-goshi",
+   "type": "enchainement",
+   "context": "si le contact descend sur la hanche"
+  },
+  {
+   "slug": "ashi-guruma",
+   "type": "enchainement",
+   "context": "si le contact descend sur les cuisses"
+  },
+  {
+   "slug": "kuzure-kesa-gatame",
+   "type": "liaison-sol",
+   "context": "grande roue amortie : on conserve la saisie et on contrôle",
+   "attestation": "usage"
+  }
+ ],
+ "o-soto-guruma": [
+  {
+   "slug": "o-soto-gari",
+   "type": "enchainement",
+   "context": "si une seule jambe est chargée",
+   "situation": {
+    "garde": "ai-yotsu"
+   }
+  },
+  {
+   "slug": "ko-soto-gari",
+   "type": "enchainement",
+   "context": "si uke recule un appui",
+   "situation": {
+    "deplacement": "recule",
+    "garde": "ai-yotsu"
+   }
+  },
+  {
+   "slug": "kesa-gatame",
+   "type": "liaison-sol",
+   "context": "les deux jambes fauchées, la chute se prolonge au contrôle",
+   "situation": {
+    "garde": "ai-yotsu"
+   },
+   "attestation": "usage"
+  },
+  {
+   "slug": "o-soto-gaeshi",
+   "type": "contre",
+   "context": "la jambe passe et le contre part dans la foulée",
+   "situation": {
+    "garde": "ai-yotsu"
+   },
+   "attestation": "usage"
+  }
+ ],
+ "o-soto-otoshi": [
+  {
+   "slug": "o-soto-gari",
+   "type": "enchainement",
+   "context": "si uke garde du poids sur la jambe",
+   "situation": {
+    "garde": "ai-yotsu"
+   }
+  },
+  {
+   "slug": "ko-uchi-gari",
+   "type": "enchainement",
+   "context": "si uke recule hors du barrage",
+   "situation": {
+    "deplacement": "recule",
+    "garde": "ai-yotsu"
+   }
+  },
+  {
+   "slug": "kesa-gatame",
+   "type": "liaison-sol",
+   "context": "sans fauchage, uke s'écroule en arrière : on suit",
+   "situation": {
+    "garde": "ai-yotsu"
+   },
+   "attestation": "usage"
+  },
+  {
+   "slug": "o-soto-gaeshi",
+   "type": "contre",
+   "context": "uke transfère le poids et renvoie en arrière",
+   "situation": {
+    "garde": "ai-yotsu"
+   },
+   "attestation": "usage"
+  }
+ ],
+ "tsubame-gaeshi": [
+  {
+   "slug": "de-ashi-barai",
+   "type": "enchainement",
+   "context": "en reprise immédiate de l'attaque"
+  },
+  {
+   "slug": "yoko-shiho-gatame",
+   "type": "liaison-sol",
+   "context": "le contre-balayage couche uke sur le flanc",
+   "attestation": "usage"
+  }
+ ],
+ "uchi-mata-jambe": [
+  {
+   "slug": "uchi-mata-hanche",
+   "type": "enchainement",
+   "context": "si le contact de hanche se retrouve",
+   "situation": {
+    "garde": "ai-yotsu"
+   }
+  },
+  {
+   "slug": "ko-uchi-gari",
+   "type": "enchainement",
+   "context": "si uke resserre les appuis",
+   "situation": {
+    "garde": "ai-yotsu"
+   }
+  },
+  {
+   "slug": "uchi-mata-makikomi",
+   "type": "enchainement",
+   "context": "si uke résiste au lancer",
+   "situation": {
+    "deplacement": "plante",
+    "garde": "ai-yotsu"
+   }
+  },
+  {
+   "slug": "uchi-mata-sukashi",
+   "type": "contre",
+   "context": "uke dérobe sa jambe et laisse tourner dans le vide",
+   "situation": {
+    "deplacement": "tourne",
+    "garde": "ai-yotsu"
+   }
+  },
+  {
+   "slug": "kuzure-kesa-gatame",
+   "type": "liaison-sol",
+   "context": "si uke retombe sur le ventre, on ceinture par-dessus",
+   "situation": {
+    "garde": "ai-yotsu"
+   },
+   "attestation": "usage"
+  },
+  {
+   "slug": "uchi-mata-jambe",
+   "type": "redoublement",
+   "context": "si la cuisse échappe, on refauche sur le pas suivant",
+   "situation": {
+    "deplacement": "tourne",
+    "garde": "ai-yotsu"
+   },
+   "attestation": "usage"
+  },
+  {
+   "slug": "te-guruma",
+   "type": "contre",
+   "context": "la cuisse est saisie pendant le fauchage",
+   "situation": {
+    "garde": "ai-yotsu"
+   },
+   "attestation": "usage"
+  },
+  {
+   "slug": "ura-nage",
+   "type": "contre",
+   "context": "uke se redresse et projette en arrière",
+   "situation": {
+    "garde": "ai-yotsu"
+   },
+   "attestation": "usage"
+  }
+ ],
+ "tomoe-nage": [
+  {
+   "slug": "yoko-tomoe-nage",
+   "type": "enchainement",
+   "context": "si l'angle se décale sur le côté"
+  },
+  {
+   "slug": "sumi-gaeshi",
+   "type": "enchainement",
+   "context": "si uke se penche et ferme l'espace"
+  },
+  {
+   "slug": "ude-hishigi-juji-gatame",
+   "type": "liaison-sol",
+   "context": "en liaison au sol si uke ne chute pas",
+   "attestation": "usage"
+  },
+  {
+   "slug": "tomoe-nage",
+   "type": "redoublement",
+   "context": "si uke enjambe, on replace le pied et on relance",
+   "situation": {
+    "deplacement": "avance"
+   },
+   "attestation": "usage"
+  }
+ ],
+ "sumi-gaeshi": [
+  {
+   "slug": "tomoe-nage",
+   "type": "enchainement",
+   "context": "si uke se redresse",
+   "situation": {
+    "garde": "kenka-yotsu"
+   }
+  },
+  {
+   "slug": "hikikomi-gaeshi",
+   "type": "enchainement",
+   "context": "si uke plonge sur les jambes",
+   "situation": {
+    "garde": "kenka-yotsu"
+   }
+  },
+  {
+   "slug": "kuzure-kesa-gatame",
+   "type": "liaison-sol",
+   "context": "le sacrifice place déjà au sol : on remonte au contrôle",
+   "situation": {
+    "garde": "kenka-yotsu"
+   },
+   "attestation": "usage"
+  }
+ ],
+ "ura-nage": [
+  {
+   "slug": "yoko-guruma",
+   "type": "enchainement",
+   "context": "si la bascule part sur le côté"
+  },
+  {
+   "slug": "tawara-gaeshi",
+   "type": "enchainement",
+   "context": "si uke se penche davantage"
+  },
+  {
+   "slug": "tate-shiho-gatame",
+   "type": "liaison-sol",
+   "context": "uke retombe derrière soi, on se retourne à cheval",
+   "situation": {
+    "deplacement": "tourne"
+   },
+   "attestation": "usage"
+  }
+ ],
+ "tawara-gaeshi": [
+  {
+   "slug": "ura-nage",
+   "type": "enchainement",
+   "context": "si uke se redresse"
+  },
+  {
+   "slug": "hikikomi-gaeshi",
+   "type": "enchainement",
+   "context": "si la chute part sur le côté"
+  },
+  {
+   "slug": "kami-shiho-gatame",
+   "type": "liaison-sol",
+   "context": "le sac de riz dépose uke tête vers soi",
+   "attestation": "usage"
+  }
+ ],
+ "hikikomi-gaeshi": [
+  {
+   "slug": "sumi-gaeshi",
+   "type": "enchainement",
+   "context": "si la garde se referme"
+  },
+  {
+   "slug": "ude-hishigi-juji-gatame",
+   "type": "liaison-sol",
+   "context": "en liaison au sol après le retournement",
+   "situation": {
+    "deplacement": "tourne"
+   },
+   "attestation": "usage"
+  }
+ ],
+ "yoko-otoshi": [
+  {
+   "slug": "tani-otoshi",
+   "type": "enchainement",
+   "context": "si uke recule le bassin",
+   "situation": {
+    "deplacement": "recule"
+   }
+  },
+  {
+   "slug": "yoko-gake",
+   "type": "enchainement",
+   "context": "si l'appui glisse au lieu de bloquer",
+   "situation": {
+    "deplacement": "plante"
+   }
+  },
+  {
+   "slug": "yoko-shiho-gatame",
+   "type": "liaison-sol",
+   "context": "la chute latérale place directement en travers",
+   "attestation": "usage"
+  }
+ ],
+ "tani-otoshi": [
+  {
+   "slug": "yoko-otoshi",
+   "type": "enchainement",
+   "context": "si un seul appui est atteignable"
+  },
+  {
+   "slug": "ko-soto-gake",
+   "type": "enchainement",
+   "context": "si tori reste debout"
+  },
+  {
+   "slug": "kuzure-kesa-gatame",
+   "type": "liaison-sol",
+   "context": "le sacrifice arrière finit au contrôle latéral",
+   "attestation": "usage"
+  }
+ ],
+ "yoko-gake": [
+  {
+   "slug": "yoko-otoshi",
+   "type": "enchainement",
+   "context": "si uke bloque la cheville",
+   "situation": {
+    "deplacement": "plante"
+   }
+  },
+  {
+   "slug": "de-ashi-barai",
+   "type": "enchainement",
+   "context": "si tori reste debout"
+  },
+  {
+   "slug": "yoko-shiho-gatame",
+   "type": "liaison-sol",
+   "context": "le crochet couche uke sur le flanc",
+   "attestation": "usage"
+  }
+ ],
+ "yoko-guruma": [
+  {
+   "slug": "ura-nage",
+   "type": "enchainement",
+   "context": "si la bascule repart vers l'arrière"
+  },
+  {
+   "slug": "kuzure-kesa-gatame",
+   "type": "liaison-sol",
+   "context": "la roue latérale enchaîne au contrôle",
+   "attestation": "usage"
+  }
+ ],
+ "yoko-wakare": [
+  {
+   "slug": "uki-waza",
+   "type": "enchainement",
+   "context": "si uke ralentit sa marche"
+  },
+  {
+   "slug": "kuzure-kesa-gatame",
+   "type": "liaison-sol",
+   "context": "la séparation place déjà au sol, on remonte",
+   "attestation": "usage"
+  }
+ ],
+ "yoko-tomoe-nage": [
+  {
+   "slug": "tomoe-nage",
+   "type": "enchainement",
+   "context": "si uke revient dans l'axe",
+   "situation": {
+    "deplacement": "avance"
+   }
+  },
+  {
+   "slug": "ude-hishigi-juji-gatame",
+   "type": "liaison-sol",
+   "context": "en liaison au sol si la projection ne conclut pas",
+   "attestation": "usage"
+  }
+ ],
+ "daki-wakare": [
+  {
+   "slug": "ushiro-goshi",
+   "type": "enchainement",
+   "context": "si uke reste de face"
+  },
+  {
+   "slug": "kuzure-kesa-gatame",
+   "type": "liaison-sol",
+   "context": "en liaison au sol après la chute",
+   "attestation": "usage"
+  }
+ ],
+ "uki-waza": [
+  {
+   "slug": "yoko-otoshi",
+   "type": "enchainement",
+   "context": "si uke résiste latéralement",
+   "situation": {
+    "deplacement": "plante"
+   }
+  },
+  {
+   "slug": "sumi-gaeshi",
+   "type": "enchainement",
+   "context": "si uke se penche en avant"
+  },
+  {
+   "slug": "yoko-shiho-gatame",
+   "type": "liaison-sol",
+   "context": "le sacrifice flottant termine en travers",
+   "attestation": "usage"
+  }
+ ],
+ "hane-makikomi": [
+  {
+   "slug": "hane-goshi",
+   "type": "enchainement",
+   "context": "si l'enroulement n'est plus nécessaire"
+  },
+  {
+   "slug": "harai-makikomi",
+   "type": "enchainement",
+   "context": "si le genou ne monte pas"
+  },
+  {
+   "slug": "kesa-gatame",
+   "type": "liaison-sol",
+   "context": "l'enroulement dépose les deux corps : on dégage au contrôle",
+   "attestation": "usage"
+  },
+  {
+   "slug": "hane-goshi-gaeshi",
+   "type": "contre",
+   "context": "uke bloque le rebond et renvoie",
+   "situation": {
+    "deplacement": "plante"
+   },
+   "defense": "bloque-bassin",
+   "attestation": "usage"
+  }
+ ],
+ "harai-makikomi": [
+  {
+   "slug": "harai-goshi",
+   "type": "enchainement",
+   "context": "si l'enroulement n'est plus nécessaire",
+   "situation": {
+    "garde": "ai-yotsu"
+   }
+  },
+  {
+   "slug": "soto-makikomi",
+   "type": "enchainement",
+   "context": "si le fauchage ne porte pas",
+   "situation": {
+    "garde": "ai-yotsu"
+   }
+  },
+  {
+   "slug": "kuzure-kesa-gatame",
+   "type": "liaison-sol",
+   "context": "on suit l'enroulement jusqu'au contrôle",
+   "situation": {
+    "garde": "ai-yotsu"
+   },
+   "attestation": "usage"
+  }
+ ],
+ "uchi-mata-makikomi": [
+  {
+   "slug": "uchi-mata-jambe",
+   "type": "enchainement",
+   "context": "si uke ne résiste plus au lancer",
+   "situation": {
+    "deplacement": "plante",
+    "garde": "ai-yotsu"
+   }
+  },
+  {
+   "slug": "harai-makikomi",
+   "type": "enchainement",
+   "context": "si la jambe ne passe pas entre les appuis",
+   "situation": {
+    "deplacement": "avance",
+    "garde": "ai-yotsu"
+   }
+  },
+  {
+   "slug": "kuzure-kesa-gatame",
+   "type": "liaison-sol",
+   "context": "l'enroulement conduit au sol sans lâcher le bras",
+   "situation": {
+    "garde": "ai-yotsu"
+   },
+   "attestation": "usage"
+  },
+  {
+   "slug": "ura-nage",
+   "type": "contre",
+   "context": "uke devance l'enroulement et renverse",
+   "situation": {
+    "garde": "ai-yotsu"
+   },
+   "attestation": "usage"
+  }
+ ],
+ "soto-makikomi": [
+  {
+   "slug": "uchi-makikomi",
+   "type": "enchainement",
+   "context": "si le bras se prend par l'intérieur"
+  },
+  {
+   "slug": "harai-makikomi",
+   "type": "enchainement",
+   "context": "si une jambe peut faucher"
+  },
+  {
+   "slug": "kuzure-kesa-gatame",
+   "type": "liaison-sol",
+   "context": "le bras enroulé reste tenu au sol",
+   "attestation": "usage"
+  },
+  {
+   "slug": "tani-otoshi",
+   "type": "contre",
+   "context": "uke devance l'enroulement en bloquant derrière",
+   "attestation": "usage"
+  }
+ ],
+ "uchi-makikomi": [
+  {
+   "slug": "soto-makikomi",
+   "type": "enchainement",
+   "context": "si le bras se prend par l'extérieur"
+  },
+  {
+   "slug": "kuzure-kesa-gatame",
+   "type": "liaison-sol",
+   "context": "l'enroulement intérieur finit au contrôle",
+   "attestation": "usage"
+  }
+ ],
+ "o-soto-makikomi": [
+  {
+   "slug": "o-soto-gari",
+   "type": "enchainement",
+   "context": "si uke tombe sans enroulement",
+   "situation": {
+    "garde": "ai-yotsu"
+   }
+  },
+  {
+   "slug": "kesa-gatame",
+   "type": "liaison-sol",
+   "context": "la chute enroulée place en écharpe",
+   "situation": {
+    "garde": "ai-yotsu"
+   },
+   "attestation": "usage"
+  },
+  {
+   "slug": "o-soto-gaeshi",
+   "type": "contre",
+   "context": "uke devance l'enroulement et contre",
+   "situation": {
+    "garde": "ai-yotsu"
+   },
+   "attestation": "usage"
+  }
+ ],
+ "ko-uchi-makikomi": [
+  {
+   "slug": "ko-uchi-gari",
+   "type": "enchainement",
+   "context": "si uke tombe sans enroulement",
+   "situation": {
+    "garde": "kenka-yotsu"
+   }
+  },
+  {
+   "slug": "tomoe-nage",
+   "type": "enchainement",
+   "context": "si uke recule fortement",
+   "situation": {
+    "deplacement": "recule",
+    "garde": "kenka-yotsu"
+   }
+  },
+  {
+   "slug": "yoko-shiho-gatame",
+   "type": "liaison-sol",
+   "context": "l'enroulement bas termine en travers",
+   "situation": {
+    "garde": "kenka-yotsu"
+   },
+   "attestation": "usage"
+  },
+  {
+   "slug": "ko-uchi-makikomi",
+   "type": "redoublement",
+   "context": "l'enroulement rate : on repique aussitôt",
+   "situation": {
+    "deplacement": "recule",
+    "garde": "kenka-yotsu"
+   },
+   "attestation": "usage"
+  },
+  {
+   "slug": "ko-uchi-gaeshi",
+   "type": "contre",
+   "context": "uke retire l'appui avant l'enroulement",
+   "situation": {
+    "garde": "kenka-yotsu"
+   },
+   "defense": "recule-jambe",
+   "attestation": "usage"
+  }
+ ],
+ "kesa-gatame": [
+  {
+   "slug": "kuzure-kesa-gatame",
+   "type": "enchainement",
+   "context": "si uke dégage le bras enserré"
+  },
+  {
+   "slug": "kata-gatame",
+   "type": "enchainement",
+   "context": "si uke pousse de l'avant-bras",
+   "situation": {
+    "deplacement": "avance"
+   }
+  },
+  {
+   "slug": "ushiro-kesa-gatame",
+   "type": "enchainement",
+   "context": "si uke se retourne vers le ventre",
+   "situation": {
+    "deplacement": "tourne"
+   }
+  },
+  {
+   "slug": "ude-garami",
+   "type": "enchainement",
+   "context": "si le bras libre d'uke se lève"
+  }
+ ],
+ "kuzure-kesa-gatame": [
+  {
+   "slug": "kesa-gatame",
+   "type": "enchainement",
+   "context": "si le passage sous l'épaule se ferme"
+  },
+  {
+   "slug": "makura-kesa-gatame",
+   "type": "enchainement",
+   "context": "si la tête vient sur la cuisse",
+   "situation": {
+    "deplacement": "avance"
+   }
+  },
+  {
+   "slug": "ude-hishigi-juji-gatame",
+   "type": "enchainement",
+   "context": "si le bras éloigné se tend"
+  }
+ ],
+ "ushiro-kesa-gatame": [
+  {
+   "slug": "kesa-gatame",
+   "type": "enchainement",
+   "context": "si uke se tourne vers tori",
+   "situation": {
+    "deplacement": "tourne"
+   }
+  },
+  {
+   "slug": "ura-gatame",
+   "type": "enchainement",
+   "context": "si uke passe sur le ventre"
+  }
+ ],
+ "makura-kesa-gatame": [
+  {
+   "slug": "kesa-gatame",
+   "type": "enchainement",
+   "context": "si la tête glisse de la cuisse"
+  },
+  {
+   "slug": "kuzure-kesa-gatame",
+   "type": "enchainement",
+   "context": "si le bras passe sous l'épaule"
+  }
+ ],
+ "kata-gatame": [
+  {
+   "slug": "kesa-gatame",
+   "type": "enchainement",
+   "context": "si le bras d'uke redescend"
+  },
+  {
+   "slug": "tate-shiho-gatame",
+   "type": "enchainement",
+   "context": "si uke se remet de face"
+  },
+  {
+   "slug": "ude-hishigi-juji-gatame",
+   "type": "enchainement",
+   "context": "si le bras coincé peut être tendu"
+  }
+ ],
+ "yoko-shiho-gatame": [
+  {
+   "slug": "kuzure-yoko-shiho-gatame",
+   "type": "enchainement",
+   "context": "si un bras doit changer de passage"
+  },
+  {
+   "slug": "kami-shiho-gatame",
+   "type": "enchainement",
+   "context": "si uke se tourne vers tori",
+   "situation": {
+    "deplacement": "tourne"
+   }
+  },
+  {
+   "slug": "tate-shiho-gatame",
+   "type": "enchainement",
+   "context": "si uke se met de face"
+  },
+  {
+   "slug": "ude-hishigi-juji-gatame",
+   "type": "enchainement",
+   "context": "si le bras éloigné se tend"
+  }
+ ],
+ "kuzure-yoko-shiho-gatame": [
+  {
+   "slug": "yoko-shiho-gatame",
+   "type": "enchainement",
+   "context": "quand la forme classique redevient possible",
+   "situation": {
+    "deplacement": "avance"
+   }
+  },
+  {
+   "slug": "kami-shiho-gatame",
+   "type": "enchainement",
+   "context": "si tori remonte vers la tête"
+  }
+ ],
+ "kami-shiho-gatame": [
+  {
+   "slug": "kuzure-kami-shiho-gatame",
+   "type": "enchainement",
+   "context": "si uke dégage un bras"
+  },
+  {
+   "slug": "yoko-shiho-gatame",
+   "type": "enchainement",
+   "context": "si uke se tourne sur le côté",
+   "situation": {
+    "deplacement": "tourne"
+   }
+  },
+  {
+   "slug": "ude-garami",
+   "type": "enchainement",
+   "context": "si un bras d'uke se plie"
+  }
+ ],
+ "kuzure-kami-shiho-gatame": [
+  {
+   "slug": "kami-shiho-gatame",
+   "type": "enchainement",
+   "context": "quand la ceinture redevient saisissable",
+   "situation": {
+    "deplacement": "avance"
+   }
+  },
+  {
+   "slug": "ude-hishigi-juji-gatame",
+   "type": "enchainement",
+   "context": "si le bras contrôlé se tend"
+  }
+ ],
+ "tate-shiho-gatame": [
+  {
+   "slug": "kuzure-tate-shiho-gatame",
+   "type": "enchainement",
+   "context": "si uke dégage un bras"
+  },
+  {
+   "slug": "ude-hishigi-juji-gatame",
+   "type": "enchainement",
+   "context": "si uke pousse des deux bras",
+   "situation": {
+    "deplacement": "avance"
+   }
+  },
+  {
+   "slug": "okuri-eri-jime",
+   "type": "enchainement",
+   "context": "si uke se retourne sur le ventre",
+   "situation": {
+    "deplacement": "tourne"
+   }
+  },
+  {
+   "slug": "kami-shiho-gatame",
+   "type": "enchainement",
+   "context": "si uke passe sur le ventre"
+  }
+ ],
+ "kuzure-tate-shiho-gatame": [
+  {
+   "slug": "tate-shiho-gatame",
+   "type": "enchainement",
+   "context": "quand le contrôle classique revient",
+   "situation": {
+    "deplacement": "avance"
+   }
+  },
+  {
+   "slug": "ude-hishigi-juji-gatame",
+   "type": "enchainement",
+   "context": "si le bras enserré se tend"
+  }
+ ],
+ "hon-gesa-gatame": [
+  {
+   "slug": "kesa-gatame",
+   "type": "enchainement",
+   "context": "forme d'usage courant"
+  },
+  {
+   "slug": "kuzure-kesa-gatame",
+   "type": "enchainement",
+   "context": "si le bras passe sous l'épaule"
+  }
+ ],
+ "uki-gatame": [
+  {
+   "slug": "ude-hishigi-juji-gatame",
+   "type": "enchainement",
+   "context": "si le bras d'uke se tend"
+  },
+  {
+   "slug": "kesa-gatame",
+   "type": "enchainement",
+   "context": "si uke résiste et se tourne"
+  }
+ ],
+ "ura-gatame": [
+  {
+   "slug": "ushiro-kesa-gatame",
+   "type": "enchainement",
+   "context": "si uke revient sur le dos",
+   "situation": {
+    "deplacement": "avance"
+   }
+  },
+  {
+   "slug": "okuri-eri-jime",
+   "type": "enchainement",
+   "context": "si le revers devient accessible",
+   "situation": {
+    "deplacement": "avance"
+   }
+  }
+ ],
+ "nami-juji-jime": [
+  {
+   "slug": "gyaku-juji-jime",
+   "type": "enchainement",
+   "context": "si une main peut se retourner",
+   "situation": {
+    "deplacement": "tourne"
+   }
+  },
+  {
+   "slug": "kata-juji-jime",
+   "type": "enchainement",
+   "context": "si une seule main s'inverse"
+  },
+  {
+   "slug": "ude-hishigi-juji-gatame",
+   "type": "enchainement",
+   "context": "si uke se défend en tendant un bras"
+  }
+ ],
+ "gyaku-juji-jime": [
+  {
+   "slug": "nami-juji-jime",
+   "type": "enchainement",
+   "context": "si les deux mains se retournent vers le bas",
+   "situation": {
+    "deplacement": "tourne"
+   }
+  },
+  {
+   "slug": "kata-juji-jime",
+   "type": "enchainement",
+   "context": "si une seule main s'inverse"
+  }
+ ],
+ "kata-juji-jime": [
+  {
+   "slug": "nami-juji-jime",
+   "type": "enchainement",
+   "context": "si les deux paumes passent vers le bas"
+  },
+  {
+   "slug": "gyaku-juji-jime",
+   "type": "enchainement",
+   "context": "si les deux paumes passent vers le haut"
+  }
+ ],
+ "hadaka-jime": [
+  {
+   "slug": "okuri-eri-jime",
+   "type": "enchainement",
+   "context": "si le revers devient accessible",
+   "situation": {
+    "deplacement": "avance"
+   }
+  },
+  {
+   "slug": "kata-ha-jime",
+   "type": "enchainement",
+   "context": "si un bras d'uke se lève"
+  }
+ ],
+ "okuri-eri-jime": [
+  {
+   "slug": "kata-ha-jime",
+   "type": "enchainement",
+   "context": "si un bras d'uke se lève"
+  },
+  {
+   "slug": "hadaka-jime",
+   "type": "enchainement",
+   "context": "si le revers échappe"
+  }
+ ],
+ "kata-ha-jime": [
+  {
+   "slug": "okuri-eri-jime",
+   "type": "enchainement",
+   "context": "si le bras d'uke retombe"
+  },
+  {
+   "slug": "hadaka-jime",
+   "type": "enchainement",
+   "context": "si le revers n'est plus tenu"
+  }
+ ],
+ "sankaku-jime": [
+  {
+   "slug": "ude-hishigi-sankaku-gatame",
+   "type": "enchainement",
+   "context": "si uke dégage la tête, la pression passe au coude"
+  },
+  {
+   "slug": "ude-hishigi-juji-gatame",
+   "type": "enchainement",
+   "context": "si le bras enfermé se tend"
+  },
+  {
+   "slug": "tate-shiho-gatame",
+   "type": "enchainement",
+   "context": "si le triangle s'ouvre"
+  }
+ ],
+ "kata-te-jime": [
+  {
+   "slug": "nami-juji-jime",
+   "type": "enchainement",
+   "context": "si la seconde saisie devient possible",
+   "situation": {
+    "deplacement": "avance"
+   }
+  },
+  {
+   "slug": "tsukkomi-jime",
+   "type": "enchainement",
+   "context": "si la main peut s'enfoncer"
+  }
+ ],
+ "morote-jime": [
+  {
+   "slug": "kata-te-jime",
+   "type": "enchainement",
+   "context": "si une saisie se perd"
+  },
+  {
+   "slug": "ryote-jime",
+   "type": "enchainement",
+   "context": "si les deux poings ferment les revers"
+  }
+ ],
+ "ryote-jime": [
+  {
+   "slug": "morote-jime",
+   "type": "enchainement",
+   "context": "si la prise s'élargit"
+  },
+  {
+   "slug": "tsukkomi-jime",
+   "type": "enchainement",
+   "context": "si un poing peut s'enfoncer"
+  }
+ ],
+ "sode-guruma-jime": [
+  {
+   "slug": "okuri-eri-jime",
+   "type": "enchainement",
+   "context": "si tori passe dans le dos"
+  },
+  {
+   "slug": "kata-te-jime",
+   "type": "enchainement",
+   "context": "si la manche échappe"
+  }
+ ],
+ "ashi-gatame-jime": [
+  {
+   "slug": "sankaku-jime",
+   "type": "enchainement",
+   "context": "si la jambe passe autour du cou"
+  }
+ ],
+ "tsukkomi-jime": [
+  {
+   "slug": "nami-juji-jime",
+   "type": "enchainement",
+   "context": "si les deux mains peuvent saisir"
+  },
+  {
+   "slug": "kata-te-jime",
+   "type": "enchainement",
+   "context": "si une seule main reste engagée"
+  }
+ ],
+ "ude-hishigi-juji-gatame": [
+  {
+   "slug": "sankaku-jime",
+   "type": "enchainement",
+   "context": "si uke se retourne pour fuir",
+   "situation": {
+    "deplacement": "tourne"
+   }
+  },
+  {
+   "slug": "ude-hishigi-ude-gatame",
+   "type": "enchainement",
+   "context": "si uke plie le coude"
+  },
+  {
+   "slug": "ude-garami",
+   "type": "enchainement",
+   "context": "si le bras reste plié et proche"
+  }
+ ],
+ "ude-garami": [
+  {
+   "slug": "ude-hishigi-juji-gatame",
+   "type": "enchainement",
+   "context": "si le bras se tend"
+  },
+  {
+   "slug": "kesa-gatame",
+   "type": "enchainement",
+   "context": "si uke dégage le bras"
+  }
+ ],
+ "ude-hishigi-ude-gatame": [
+  {
+   "slug": "ude-hishigi-juji-gatame",
+   "type": "enchainement",
+   "context": "si le contrôle passe aux jambes"
+  },
+  {
+   "slug": "ude-hishigi-hiza-gatame",
+   "type": "enchainement",
+   "context": "si le genou peut porter sur le coude"
+  }
+ ],
+ "ude-hishigi-hiza-gatame": [
+  {
+   "slug": "ude-hishigi-juji-gatame",
+   "type": "enchainement",
+   "context": "si uke se redresse"
+  },
+  {
+   "slug": "ude-hishigi-ude-gatame",
+   "type": "enchainement",
+   "context": "si le genou glisse du coude"
+  }
+ ],
+ "ude-hishigi-waki-gatame": [
+  {
+   "slug": "ude-hishigi-juji-gatame",
+   "type": "enchainement",
+   "context": "si uke tourne pour fuir",
+   "situation": {
+    "deplacement": "tourne"
+   }
+  },
+  {
+   "slug": "ude-hishigi-hara-gatame",
+   "type": "enchainement",
+   "context": "si l'appui passe du flanc au ventre"
+  }
+ ],
+ "ude-hishigi-hara-gatame": [
+  {
+   "slug": "ude-hishigi-juji-gatame",
+   "type": "enchainement",
+   "context": "si uke se retourne",
+   "situation": {
+    "deplacement": "tourne"
+   }
+  },
+  {
+   "slug": "ude-hishigi-waki-gatame",
+   "type": "enchainement",
+   "context": "si le bras remonte sous l'aisselle"
+  }
+ ],
+ "ude-hishigi-ashi-gatame": [
+  {
+   "slug": "ude-hishigi-hiza-gatame",
+   "type": "enchainement",
+   "context": "si le contrôle passe au genou"
+  },
+  {
+   "slug": "ude-hishigi-juji-gatame",
+   "type": "enchainement",
+   "context": "si les jambes peuvent enfermer le buste"
+  }
+ ],
+ "ude-hishigi-sankaku-gatame": [
+  {
+   "slug": "sankaku-jime",
+   "type": "enchainement",
+   "context": "si la pression passe sur le cou"
+  },
+  {
+   "slug": "ude-hishigi-juji-gatame",
+   "type": "enchainement",
+   "context": "si le bras sort du triangle"
+  }
+ ]
+}

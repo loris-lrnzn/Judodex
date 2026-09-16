@@ -1,0 +1,1694 @@
+{
+ "o-goshi": {
+  "intro": "La grande hanche est la projection de référence pour comprendre le levier du bassin. Tori passe son bras autour de la taille d'uke, place ses hanches sous les siennes et le fait basculer par une simple extension des jambes.",
+  "phases": [
+   "Tirer uke vers l'avant sur la pointe des pieds, une main au revers, l'autre à la manche. Le déséquilibre doit être franc avant tout déplacement.",
+   "Pivoter dos à uke, pieds à l'intérieur de sa garde, bassin plus bas que le sien. Le bras libre enveloppe la taille et colle les deux corps l'un à l'autre.",
+   "Tendre les jambes pour soulever, faire tourner le bassin, accompagner la chute avec les bras. La rotation se poursuit jusqu'au sol."
+  ],
+  "keyPoints": [
+   "Le contact hanche contre hanche transmet la force, sans lui rien ne part",
+   "Descendre son centre de gravité avant de soulever",
+   "Le bras de ceinture serre, il ne tire pas",
+   "Le déséquilibre précède le pivot, jamais l'inverse"
+  ],
+  "combinations": {
+   "Tai-Otoshi": "si uke résiste latéralement",
+   "Harai-Goshi": "si uke recule",
+   "Ippon-Seoi-Nage": "sur feinte d'épaule"
+  }
+ },
+ "uki-goshi": {
+  "intro": "La hanche flottante projette sans soulever : tori se place de côté et fait tourner uke autour de son bassin. C'est la forme la plus légère des techniques de hanche, et la première du Nage no kata.",
+  "phases": [
+   "Amener uke vers l'avant et légèrement sur le côté, jusqu'à ce que son poids passe sur un seul appui.",
+   "Entrer de biais, une hanche seulement au contact, le bras enroulé autour de la taille. Le bassin reste à hauteur, il ne descend pas.",
+   "Tourner le buste et la hanche d'un même mouvement. Uke bascule par la rotation, pas par le soulèvement."
+  ],
+  "keyPoints": [
+   "Une seule hanche au contact, d'où le mot flottante",
+   "La rotation remplace le soulèvement",
+   "Garder le buste droit pendant tout le tour",
+   "Le bras de ceinture fixe uke contre soi"
+  ],
+  "combinations": {
+   "O-Goshi": "quand uke se redresse",
+   "Harai-Goshi": "quand uke bloque du bassin",
+   "Ko-Soto-Gari": "quand uke recule d'un pas"
+  }
+ },
+ "harai-goshi": {
+  "intro": "La hanche fauchée associe le levier du bassin au balayage de la jambe. Tori charge uke sur la hanche puis fauche sa cuisse vers l'arrière, ce qui ouvre la projection sans avoir à le soulever complètement.",
+  "phases": [
+   "Déséquilibrer uke vers l'avant droit, la main de manche haute, jusqu'à charger son poids sur l'avant du pied.",
+   "Pivoter en plaçant la hanche contre celle d'uke, appui solide sur une seule jambe, buste engagé vers l'avant.",
+   "Faucher l'extérieur de la cuisse d'uke avec l'arrière de la jambe tendue, en continuant de tourner les épaules."
+  ],
+  "keyPoints": [
+   "La jambe fauche tendue, orteils pointés",
+   "L'appui reste stable pendant tout le fauchage",
+   "Le buste plonge en même temps que la jambe monte",
+   "Le contact de hanche précède le balayage"
+  ],
+  "combinations": {
+   "Uchi-Mata": "si uke écarte les appuis",
+   "O-Soto-Gari": "si uke recule pour fuir",
+   "Ko-Uchi-Gari": "en attaque préalable pour ouvrir la garde"
+  }
+ },
+ "hane-goshi": {
+  "intro": "La hanche bondissante projette uke en le soulevant sur une jambe repliée en forme d'aile. Le contact se fait à la fois par la hanche et par la cuisse, ce qui donne à la technique sa poussée caractéristique vers le haut.",
+  "phases": [
+   "Tirer uke vers l'avant haut pour l'amener sur la pointe des pieds, poitrine contre poitrine.",
+   "Entrer en pivotant, la jambe d'attaque repliée genou vers l'extérieur, la cuisse glissée contre celle d'uke.",
+   "Détendre la jambe repliée vers le haut en tournant les épaules. Uke passe par-dessus l'aile ainsi formée."
+  ],
+  "keyPoints": [
+   "Genou vers l'extérieur, la jambe forme une aile et non un crochet",
+   "Le soulèvement vient de la cuisse autant que de la hanche",
+   "L'appui reste fléchi pour garder l'équilibre",
+   "La poussée est ascendante avant d'être rotative"
+  ],
+  "combinations": {
+   "Harai-Goshi": "si uke bloque le genou",
+   "Uchi-Mata": "si uke resserre les appuis",
+   "O-Uchi-Gari": "en attaque d'ouverture"
+  }
+ },
+ "koshi-guruma": {
+  "intro": "La roue de hanche fait tourner uke autour du bassin de tori, le bras passé derrière sa nuque. Le contrôle de la tête remplace celui de la ceinture et rend la technique très sûre en début d'apprentissage.",
+  "phases": [
+   "Déséquilibrer uke vers l'avant en tirant sur la manche, tête et épaules amenées vers le bas.",
+   "Pivoter dos à uke en passant le bras autour de sa nuque, hanches engagées en travers de sa ligne d'appui.",
+   "Tourner l'ensemble du corps en gardant la tête d'uke serrée. Il décrit une roue complète autour du bassin."
+  ],
+  "keyPoints": [
+   "Le bras verrouille la nuque, il ne l'étrangle pas",
+   "Les hanches dépassent la ligne des appuis d'uke",
+   "La rotation part des jambes, pas des bras",
+   "Garder uke collé pendant tout le tour"
+  ],
+  "combinations": {
+   "O-Goshi": "si uke dégage la tête",
+   "Seoi-Nage": "si uke se redresse",
+   "Tai-Otoshi": "si uke recule"
+  }
+ },
+ "tsuri-goshi": {
+  "intro": "La hanche soulevée se saisit par-dessus la ceinture d'uke, ce qui donne un contrôle très ferme du bassin. Elle existe en forme haute, par-dessus le bras, et en forme basse, par-dessous.",
+  "phases": [
+   "Prendre la ceinture d'uke et l'amener vers l'avant, son poids reporté sur ses orteils.",
+   "Entrer dos à lui, bassin sous le sien, la prise de ceinture verrouillant les deux corps ensemble.",
+   "Soulever par extension des jambes en tirant sur la ceinture, puis basculer uke par la rotation des hanches."
+  ],
+  "keyPoints": [
+   "La prise de ceinture remplace la prise de taille",
+   "Soulever d'abord, tourner ensuite",
+   "Les genoux fléchissent avant de se tendre",
+   "Le dos reste droit pendant le soulèvement"
+  ],
+  "combinations": {
+   "O-Goshi": "si la prise de ceinture échappe",
+   "Tsurikomi-Goshi": "si uke se baisse",
+   "Harai-Goshi": "si uke recule le bassin"
+  }
+ },
+ "tsurikomi-goshi": {
+  "intro": "La hanche tirée soulevée combine une traction haute sur le revers et une entrée basse sous le bassin d'uke. Tori passe sous son centre de gravité et le fait basculer par un mouvement de pêche.",
+  "phases": [
+   "Tirer le revers vers le haut et l'avant pour redresser uke et l'amener sur la pointe des pieds.",
+   "Entrer très bas, genoux nettement fléchis, bassin sous celui d'uke, la main de revers restant haute.",
+   "Tendre les jambes en continuant de tirer vers le haut, puis faire tourner les hanches pour projeter."
+  ],
+  "keyPoints": [
+   "La main de revers tire vers le haut, jamais vers le bas",
+   "L'entrée est plus basse que sur O-Goshi",
+   "Le mouvement imite le geste de la pêche à la ligne",
+   "Les deux bras travaillent dans le même sens"
+  ],
+  "combinations": {
+   "O-Goshi": "si uke résiste au soulèvement",
+   "Koshi-Guruma": "si uke baisse la tête",
+   "Ko-Uchi-Gari": "en attaque d'ouverture"
+  }
+ },
+ "sode-tsurikomi-goshi": {
+  "intro": "Variante de la hanche tirée soulevée où tori contrôle les deux manches d'uke. En levant le bras d'uke très haut, il ouvre complètement son flanc et supprime toute possibilité de blocage des bras.",
+  "phases": [
+   "Lever la manche d'uke au-dessus de sa tête pour dégager son flanc et l'amener vers l'avant.",
+   "Pivoter sous son bras levé, bassin engagé, les deux manches toujours contrôlées.",
+   "Tendre les jambes en tirant les deux bras dans le sens de la rotation. Uke bascule par-dessus la hanche."
+  ],
+  "keyPoints": [
+   "Le bras d'uke monte haut, sinon le flanc reste fermé",
+   "Les deux manches sont tenues jusqu'au bout",
+   "L'entrée passe sous le bras levé",
+   "La traction des bras guide la chute"
+  ],
+  "combinations": {
+   "Uchi-Mata": "si uke recule le bassin",
+   "Harai-Goshi": "si uke ferme le flanc"
+  }
+ },
+ "kubi-nage": {
+  "intro": "La projection par le cou fait tourner uke autour du bassin de tori, contrôlé par un enroulement de la nuque sans saisie de judogi. Proche de Koshi-guruma, elle s'en distingue par un contact de hanche moins marqué.",
+  "phases": [
+   "Casser la posture d'uke vers l'avant en tirant la manche, sa tête amenée sous l'épaule de tori.",
+   "Enrouler le bras autour de la nuque et pivoter en engageant la hanche en travers de sa ligne d'appui.",
+   "Tourner le buste et les hanches ensemble. Uke décrit une roue autour du point de contact."
+  ],
+  "keyPoints": [
+   "L'enroulement contrôle la nuque, il ne comprime pas la gorge",
+   "Le buste d'uke est cassé avant l'entrée",
+   "La rotation naît des jambes",
+   "Le contact de hanche reste léger"
+  ],
+  "combinations": {
+   "Koshi-Guruma": "si le contact de hanche est disponible",
+   "O-Goshi": "si uke se redresse"
+  }
+ },
+ "ushiro-goshi": {
+  "intro": "La hanche arrière est un contre : au moment où uke attaque de la hanche, tori l'accompagne, le soulève par la taille et le fait retomber devant lui. C'est un renversement de l'attaque adverse en projection.",
+  "phases": [
+   "Absorber l'entrée d'uke en fléchissant les jambes et en le laissant venir contre soi.",
+   "Passer les deux bras autour de sa taille et le soulever à la verticale par extension des jambes.",
+   "Se dérober sur le côté en le laissant redescendre, puis diriger sa chute vers l'avant de soi."
+  ],
+  "keyPoints": [
+   "Absorber l'attaque plutôt que la bloquer",
+   "Soulever avec les jambes, dos droit",
+   "Le contre se déclenche pendant l'entrée d'uke, pas après",
+   "Diriger la chute au lieu de simplement lâcher"
+  ],
+  "combinations": {
+   "O-Goshi": "contre de cette attaque",
+   "Harai-Goshi": "contre de cette attaque",
+   "Hane-Goshi": "contre de cette attaque"
+  }
+ },
+ "utsuri-goshi": {
+  "intro": "La hanche de transfert répond à une attaque de hanche en soulevant uke puis en changeant de côté pour le reprendre sur l'autre hanche. Le nom désigne ce transfert d'un appui à l'autre pendant que l'adversaire est en l'air.",
+  "phases": [
+   "Encaisser l'attaque d'uke en abaissant son centre et en le ceinturant.",
+   "Le soulever à la verticale, puis faire passer sa hanche de l'autre côté pendant qu'il reste en suspension.",
+   "Le charger sur la nouvelle hanche et le projeter par une rotation du bassin."
+  ],
+  "keyPoints": [
+   "Le transfert se fait pendant la suspension",
+   "Le soulèvement doit être franc pour libérer le passage",
+   "Le dos reste droit, la force vient des jambes",
+   "La reprise se fait sans reposer uke au sol"
+  ],
+  "combinations": {
+   "O-Goshi": "contre de cette attaque",
+   "Harai-Goshi": "contre de cette attaque",
+   "Uchi-Mata": "contre de cette attaque"
+  }
+ },
+ "uchi-mata-hanche": {
+  "intro": "Forme de hanche d'uchi-mata : tori charge uke sur son bassin avant de faucher l'intérieur de la cuisse. Le contact de hanche est ici prépondérant, ce qui rapproche cette forme de Harai-goshi.",
+  "phases": [
+   "Déséquilibrer uke vers l'avant, les appuis écartés, le poids sur une seule jambe.",
+   "Entrer en pivotant, hanche contre hanche, la jambe d'attaque glissée entre les cuisses d'uke.",
+   "Faucher l'intérieur de la cuisse vers le haut et l'arrière en tournant les épaules vers le bas."
+  ],
+  "keyPoints": [
+   "Le contact de hanche précède le fauchage",
+   "La jambe fauche vers le haut, pas vers l'arrière seulement",
+   "Les épaules plongent quand la jambe monte",
+   "L'appui reste orienté dans le sens de la projection"
+  ],
+  "combinations": {
+   "Harai-Goshi": "si la jambe ne passe pas entre les appuis",
+   "O-Soto-Gari": "si uke recule",
+   "Ko-Uchi-Gari": "en attaque d'ouverture",
+   "Seoi-Nage": "si uke se penche en avant"
+  }
+ },
+ "ippon-seoi-nage": {
+  "intro": "La projection par-dessus une épaule charge uke sur le dos en contrôlant un seul de ses bras, coincé sous l'aisselle. C'est la forme la plus directe des techniques d'épaule et l'une des plus efficaces en compétition.",
+  "phases": [
+   "Tirer la manche vers le haut et l'avant pour amener uke sur la pointe des pieds et dégager son aisselle.",
+   "Pivoter dos à uke en passant le bras sous le sien, coude verrouillé sous son aisselle, genoux fléchis sous son centre.",
+   "Tendre les jambes et enrouler les épaules vers l'avant. Uke passe par-dessus le dos en tournant."
+  ],
+  "keyPoints": [
+   "Le coude passe sous l'aisselle, pas devant la poitrine",
+   "Les genoux descendent sous le centre de gravité d'uke",
+   "La traction de manche ne relâche jamais",
+   "Le dos s'enroule au moment du lancer"
+  ],
+  "combinations": {
+   "Tai-Otoshi": "si uke bloque le passage sous le bras",
+   "Ko-Uchi-Gari": "en attaque d'ouverture",
+   "O-Uchi-Gari": "si uke recule",
+   "Morote-Seoi-Nage": "si le bras échappe"
+  }
+ },
+ "morote-seoi-nage": {
+  "intro": "La projection par-dessus les deux épaules charge uke sur le dos en gardant les deux saisies, revers et manche. Le contrôle est plus large qu'en ippon-seoi-nage, ce qui la rend plus sûre à l'étude.",
+  "phases": [
+   "Tirer les deux bras vers le haut et l'avant pour redresser uke et l'installer sur ses orteils.",
+   "Pivoter dos à lui, le coude de la main de revers glissé sous son aisselle, bassin engagé sous le sien.",
+   "Détendre les jambes et enrouler le buste vers l'avant en tirant les deux bras dans le sens de la chute."
+  ],
+  "keyPoints": [
+   "Les deux saisies restent actives jusqu'au sol",
+   "Le coude se glisse sous l'aisselle, il ne pousse pas",
+   "Les épaules d'uke passent au-dessus de celles de tori",
+   "La poussée vient des jambes"
+  ],
+  "combinations": {
+   "Ippon-Seoi-Nage": "si la saisie de revers lâche",
+   "Tai-Otoshi": "si uke résiste en reculant le bassin",
+   "O-Uchi-Gari": "si uke se recule"
+  }
+ },
+ "tai-otoshi": {
+  "intro": "Le renversement du corps fait trébucher uke par-dessus une jambe tendue placée en barrage devant sa cheville. Rien n'est soulevé : c'est la rotation des bras et le blocage de l'appui qui projettent.",
+  "phases": [
+   "Tirer uke vers l'avant droit pour charger son poids sur un seul pied.",
+   "Pivoter et placer la jambe tendue en barrage devant sa cheville, sans contact de hanche.",
+   "Faire tourner les bras comme un volant vers le bas. Uke bascule par-dessus le barrage."
+  ],
+  "keyPoints": [
+   "Aucun soulèvement, la jambe sert de barrage",
+   "La hanche reste dégagée, elle ne porte pas",
+   "Les bras tournent ensemble, l'un tire, l'autre pousse",
+   "La jambe de barrage reste tendue"
+  ],
+  "combinations": {
+   "Ippon-Seoi-Nage": "si uke bloque le barrage",
+   "O-Uchi-Gari": "si uke recule",
+   "Ko-Uchi-Gari": "en attaque d'ouverture"
+  }
+ },
+ "kata-guruma": {
+  "intro": "La roue d'épaule charge uke en travers des épaules de tori avant de le faire rouler au sol. Elle demande une entrée très basse et un dos solide, et se pratique aujourd'hui sans saisie des jambes en compétition.",
+  "phases": [
+   "Tirer uke vers l'avant et le déséquilibrer sur son appui avancé.",
+   "Descendre sous son centre, une épaule sous son ventre, en engageant le corps entre ses jambes.",
+   "Se redresser en le faisant rouler d'une épaule à l'autre, puis l'accompagner au sol."
+  ],
+  "keyPoints": [
+   "L'entrée est plus basse que sur toute autre technique de bras",
+   "Le dos reste droit, la force vient des jambes",
+   "Uke roule, il n'est pas jeté",
+   "Le contrôle du bras ne se relâche pas"
+  ],
+  "combinations": {
+   "Morote-Gari": "si uke se recule",
+   "Sukui-Nage": "si le passage sous le corps est fermé"
+  }
+ },
+ "eri-seoi-nage": {
+  "intro": "Variante de la projection d'épaule où tori contrôle le col d'uke plutôt que sa manche. La saisie haute casse la posture vers l'avant et ouvre le passage sous le bras.",
+  "phases": [
+   "Tirer le col vers le bas et l'avant pour casser la posture d'uke.",
+   "Pivoter dos à lui en passant l'avant-bras sous son aisselle, genoux fléchis sous son centre.",
+   "Se redresser et enrouler les épaules. Uke bascule par-dessus le dos."
+  ],
+  "keyPoints": [
+   "La saisie de col casse la posture avant l'entrée",
+   "L'avant-bras reste collé sous l'aisselle",
+   "Les hanches passent sous celles d'uke",
+   "La traction du col accompagne la chute"
+  ],
+  "combinations": {
+   "Ippon-Seoi-Nage": "si la saisie de col se défait",
+   "Ko-Uchi-Gari": "en attaque d'ouverture"
+  }
+ },
+ "seoi-otoshi": {
+  "intro": "Chute par l'épaule : tori charge uke comme pour une projection d'épaule, mais pose un genou et une jambe en barrage au lieu de le soulever. Uke chute par-dessus l'obstacle formé au sol.",
+  "phases": [
+   "Casser la posture d'uke vers l'avant en tirant les deux bras.",
+   "Entrer dos à lui en glissant le bras sous son aisselle, puis poser un genou et tendre l'autre jambe en barrage.",
+   "Faire tourner les bras vers le bas. Uke bascule par-dessus la jambe tendue."
+  ],
+  "keyPoints": [
+   "Le barrage remplace le soulèvement",
+   "Le genou posé stabilise l'ensemble",
+   "Les bras conduisent la rotation",
+   "L'entrée reste sous le centre d'uke"
+  ],
+  "combinations": {
+   "Ippon-Seoi-Nage": "si uke reste haut",
+   "Tai-Otoshi": "si le passage sous le bras est fermé"
+  }
+ },
+ "sukui-nage": {
+  "intro": "La projection en ramassant renverse uke par l'arrière en cueillant ses jambes ou son bassin, sans saisir le judogi. Elle intervient souvent quand uke avance ou attaque de la hanche.",
+  "phases": [
+   "Se placer sur le côté d'uke et absorber son avancée.",
+   "Passer les bras autour de son bassin ou de ses cuisses et le ramasser vers soi.",
+   "Le basculer vers l'arrière en le faisant tourner autour de son axe."
+  ],
+  "keyPoints": [
+   "Le ramassage part du bassin, pas des bras seuls",
+   "Le corps de tori descend avant de remonter",
+   "La bascule est rotative, pas verticale",
+   "Accompagner la chute pour la contrôler"
+  ],
+  "combinations": {
+   "Morote-Gari": "si uke garde ses appuis écartés",
+   "O-Uchi-Gari": "si uke recule"
+  }
+ },
+ "morote-gari": {
+  "intro": "Le fauchage à deux mains abat uke en cueillant ses deux jambes en pénétrant vers l'avant. Proche du plaquage de lutte, elle est aujourd'hui interdite en compétition mais reste étudiée au dojo.",
+  "phases": [
+   "Casser la distance en avançant brusquement, buste bas et dos droit.",
+   "Saisir les deux jambes derrière les genoux et pousser l'épaule contre le bassin d'uke.",
+   "Tirer les jambes vers soi en poussant du buste. Uke tombe vers l'arrière."
+  ],
+  "keyPoints": [
+   "La tête reste haute, le dos droit",
+   "La poussée d'épaule et la traction des bras sont simultanées",
+   "L'entrée se fait en une seule accélération",
+   "Accompagner uke pour maîtriser sa chute"
+  ],
+  "combinations": {
+   "Sukui-Nage": "si uke recule un appui",
+   "Kata-Guruma": "si uke se penche en avant"
+  }
+ },
+ "sumi-otoshi": {
+  "intro": "La chute dans le coin projette uke par une simple action des bras dans la direction de son angle mort arrière. Aucune jambe n'intervient : tout repose sur la justesse du déséquilibre.",
+  "phases": [
+   "Amener uke dans son angle arrière en tirant et poussant les deux bras en diagonale.",
+   "Se déplacer pour rester face à lui pendant que son poids passe derrière ses talons.",
+   "Prolonger l'action des bras vers le coin. Uke tombe sans qu'aucun appui ne soit touché."
+  ],
+  "keyPoints": [
+   "Le déséquilibre fait tout le travail",
+   "Les bras agissent en sens contraire, comme un volant",
+   "Le déplacement de tori maintient l'angle",
+   "Aucun contact de jambe n'est nécessaire"
+  ],
+  "combinations": {
+   "Uki-Otoshi": "si l'angle passe vers l'avant",
+   "Tai-Otoshi": "si uke résiste en avançant"
+  }
+ },
+ "uki-otoshi": {
+  "intro": "La chute flottante projette uke vers l'avant par la seule action des bras, souvent en posant un genou au sol. Première technique du Nage no kata, elle est l'illustration la plus pure du principe de déséquilibre.",
+  "phases": [
+   "Tirer uke vers l'avant bas jusqu'à ce que son poids dépasse la pointe de ses pieds.",
+   "Descendre en posant un genou en arrière pour créer un vide devant lui.",
+   "Prolonger la traction en spirale vers le sol. Uke bascule dans le vide ainsi ouvert."
+  ],
+  "keyPoints": [
+   "Aucun contact d'appui, seul le déséquilibre agit",
+   "Le genou posé accompagne, il ne bloque pas",
+   "La traction décrit une courbe, pas une ligne",
+   "Le rythme importe plus que la force"
+  ],
+  "combinations": {
+   "Seoi-Nage": "si uke se redresse",
+   "Tai-Otoshi": "si uke avance fort"
+  }
+ },
+ "yama-arashi": {
+  "intro": "La tempête de montagne associe une saisie simultanée du col et de la manche du même côté à un fauchage de la jambe. Technique ancienne et rare, elle demande une coordination inhabituelle des deux mains.",
+  "phases": [
+   "Saisir le col et la manche du même côté, puis tirer uke vers l'avant haut.",
+   "Entrer de biais en amenant la hanche au contact, la jambe prête à faucher.",
+   "Faucher l'appui avancé d'uke en tournant fortement les épaules vers le bas."
+  ],
+  "keyPoints": [
+   "Les deux saisies sont du même côté",
+   "La traction est ascendante avant d'être rotative",
+   "Le fauchage et la rotation sont simultanés",
+   "L'entrée se fait en diagonale"
+  ],
+  "combinations": {}
+ },
+ "kibisu-gaeshi": {
+  "intro": "Le renversement par le talon abat uke en cueillant son talon d'une main pendant que l'autre le repousse. L'appui saisi ne peut plus se reposer, et uke tombe vers l'arrière.",
+  "phases": [
+   "Casser la distance et abaisser le buste pour atteindre la jambe d'uke.",
+   "Saisir le talon ou la cheville et le tirer vers soi et vers le haut.",
+   "Repousser le buste d'uke de l'autre main. Il bascule sur l'appui restant."
+  ],
+  "keyPoints": [
+   "La saisie prend le talon, pas le mollet",
+   "Traction et poussée agissent en sens contraire",
+   "Le buste de tori reste bas et le dos droit",
+   "L'appui saisi est immédiatement soulevé"
+  ],
+  "combinations": {
+   "Ko-Soto-Gari": "si uke replace son appui",
+   "O-Soto-Gari": "si uke recule"
+  }
+ },
+ "kuchiki-taoshi": {
+  "intro": "L'abattage de la souche renverse uke en saisissant une seule jambe, comme on fait tomber un arbre mort. Une main contrôle le judogi, l'autre bloque ou tire l'appui.",
+  "phases": [
+   "Déséquilibrer uke vers l'arrière en poussant sur le revers.",
+   "Descendre pour saisir l'arrière de son genou ou de sa cuisse.",
+   "Tirer la jambe vers le haut en poussant le buste vers l'arrière. Uke tombe sur le dos."
+  ],
+  "keyPoints": [
+   "Une seule jambe est saisie",
+   "La poussée du haut et la traction du bas sont simultanées",
+   "Le buste reste engagé vers l'avant",
+   "L'appui restant est visé, pas contourné"
+  ],
+  "combinations": {
+   "Morote-Gari": "si les deux jambes sont accessibles",
+   "Kibisu-Gaeshi": "si uke recule la jambe saisie"
+  }
+ },
+ "obi-otoshi": {
+  "intro": "La chute par la ceinture renverse uke en le contrôlant par l'obi et en le faisant basculer vers l'arrière. La prise de ceinture donne un contrôle direct du centre de gravité.",
+  "phases": [
+   "Prendre la ceinture d'uke, de face ou de côté, et casser sa posture.",
+   "Engager le corps contre le sien et le soulever légèrement par la prise de ceinture.",
+   "Le faire basculer vers l'arrière en tournant, la ceinture guidant la chute."
+  ],
+  "keyPoints": [
+   "La ceinture contrôle directement le centre de gravité",
+   "Le soulèvement est court, la bascule fait le reste",
+   "Le corps de tori reste collé",
+   "La chute est accompagnée jusqu'au sol"
+  ],
+  "combinations": {
+   "Tsuri-Goshi": "si uke se redresse",
+   "Ushiro-Goshi": "si uke attaque de la hanche"
+  }
+ },
+ "obi-tori-gaeshi": {
+  "intro": "Renversement par saisie de ceinture, employé en contre lorsque uke plonge sur les jambes. Tori bloque la pénétration, prend la ceinture et retourne l'attaque en projection.",
+  "phases": [
+   "Bloquer l'entrée d'uke en écartant les appuis et en abaissant le bassin.",
+   "Saisir sa ceinture dans le dos et le soulever en se redressant.",
+   "Le faire basculer sur le côté ou l'arrière en pivotant."
+  ],
+  "keyPoints": [
+   "Le blocage précède la saisie",
+   "La ceinture se prend dans le dos, pas sur le flanc",
+   "Le redressement vient des jambes",
+   "La bascule utilise l'élan d'uke"
+  ],
+  "combinations": {
+   "Morote-Gari": "contre de cette attaque",
+   "Kata-Guruma": "contre de cette attaque"
+  }
+ },
+ "te-guruma": {
+  "intro": "La roue de main fait tourner uke autour d'un axe horizontal en le soulevant par la cuisse et le buste. Comme les autres saisies de jambe, elle est interdite en compétition mais reste un exercice d'étude.",
+  "phases": [
+   "Casser la posture d'uke sur le côté pour ouvrir son flanc.",
+   "Passer une main sous sa cuisse et l'autre au revers, puis le soulever à l'horizontale.",
+   "Le faire tourner comme une roue et l'accompagner au sol sur le dos."
+  ],
+  "keyPoints": [
+   "Le soulèvement vient des jambes, dos droit",
+   "Les deux mains agissent en sens contraire",
+   "Uke tourne autour d'un axe horizontal",
+   "La chute est accompagnée, jamais lâchée"
+  ],
+  "combinations": {
+   "Kata-Guruma": "si uke se penche en avant",
+   "Sukui-Nage": "si le flanc reste fermé"
+  }
+ },
+ "uchi-mata-sukashi": {
+  "intro": "Esquive de l'intérieur de cuisse : au moment où uke lance son uchi-mata, tori dérobe sa jambe et le laisse tourner dans le vide. Le contre ne demande aucune force, seulement du timing.",
+  "phases": [
+   "Sentir l'entrée d'uke et laisser sa jambe d'attaque monter.",
+   "Retirer la jambe visée et pivoter légèrement pour ouvrir l'espace.",
+   "Accompagner la rotation d'uke vers l'avant. Il tombe emporté par son propre élan."
+  ],
+  "keyPoints": [
+   "Le contre repose entièrement sur le moment choisi",
+   "La jambe se dérobe, elle ne bloque pas",
+   "Les saisies restent actives pour guider la chute",
+   "Aucune force n'est opposée à l'attaque"
+  ],
+  "combinations": {
+   "Uchi-Mata": "contre de cette attaque"
+  }
+ },
+ "de-ashi-barai": {
+  "intro": "Le balayage du pied avançant fauche l'appui d'uke à l'instant précis où il se pose, avant qu'il ne soit chargé. C'est l'école du timing : mal placé dans le temps, le balayage ne produit rien.",
+  "phases": [
+   "Accompagner le déplacement d'uke et attendre l'instant où son pied se pose sans être encore chargé.",
+   "Se placer de côté, les bras dirigeant son poids vers le pied visé.",
+   "Balayer la plante du pied avec la voûte plantaire, en tournant les bras vers le bas."
+  ],
+  "keyPoints": [
+   "Le pied est balayé avant d'être chargé",
+   "Le balayage se fait avec la voûte, pas avec la pointe",
+   "Les bras conduisent la chute vers le sol",
+   "Le mouvement suit le rythme d'uke, il ne le contrarie pas"
+  ],
+  "combinations": {
+   "Okuri-Ashi-Barai": "si le premier pied échappe",
+   "Ko-Uchi-Gari": "si uke se stabilise",
+   "Seoi-Nage": "si uke se redresse"
+  }
+ },
+ "okuri-ashi-barai": {
+  "intro": "Le balayage des deux pieds cueille les appuis d'uke pendant un déplacement latéral, au moment où ils se rapprochent. Les deux pieds partent ensemble, ce qui rend la chute totale.",
+  "phases": [
+   "Conduire uke dans un déplacement latéral régulier pour installer un rythme.",
+   "Attendre l'instant où ses pieds se rapprochent, poids réparti entre les deux.",
+   "Balayer les deux pieds dans le sens du déplacement en élevant les bras du côté opposé."
+  ],
+  "keyPoints": [
+   "Les deux pieds sont balayés d'un seul geste",
+   "Le balayage suit le sens du déplacement",
+   "Le rythme est installé avant l'attaque",
+   "Les bras montent pendant que les pieds partent"
+  ],
+  "combinations": {
+   "De-Ashi-Barai": "si un seul pied est accessible",
+   "Hiza-Guruma": "si uke arrête son déplacement"
+  }
+ },
+ "hiza-guruma": {
+  "intro": "La roue du genou fait tourner uke autour d'un point fixe posé sur son genou. Le pied de tori ne fauche pas, il bloque : c'est la rotation des bras qui projette.",
+  "phases": [
+   "Tirer uke vers l'avant en diagonale pour charger son appui avancé.",
+   "Poser la plante du pied contre l'extérieur de son genou, jambe tendue, sans pousser.",
+   "Faire tourner les bras comme un volant. Uke pivote autour du point d'appui bloqué."
+  ],
+  "keyPoints": [
+   "Le pied bloque, il ne fauche pas",
+   "La jambe d'appui reste tendue",
+   "La rotation vient entièrement des bras",
+   "Le point de blocage est le genou, pas la cuisse"
+  ],
+  "combinations": {
+   "Sasae-Tsurikomi-Ashi": "si uke recule le genou",
+   "O-Soto-Gari": "si uke bascule vers l'arrière"
+  }
+ },
+ "sasae-tsurikomi-ashi": {
+  "intro": "L'appui du pied tiré soulevé bloque la cheville d'uke pendant que les bras le tirent vers le haut et l'avant. Le blocage bas et la traction haute forment ensemble un levier complet.",
+  "phases": [
+   "Tirer les deux bras vers le haut et l'avant pour amener uke sur la pointe des pieds.",
+   "Poser la plante du pied contre sa cheville, jambe tendue, sans forcer.",
+   "Prolonger la traction en tournant les bras vers le bas. Uke pivote par-dessus le blocage."
+  ],
+  "keyPoints": [
+   "La traction est ascendante, le blocage est bas",
+   "Le pied se pose, il ne frappe pas",
+   "La jambe reste tendue pendant toute l'action",
+   "Les bras font tourner uke autour du point bloqué"
+  ],
+  "combinations": {
+   "De-Ashi-Barai": "si uke retire la cheville",
+   "Hiza-Guruma": "si uke fléchit la jambe",
+   "Seoi-Nage": "si uke résiste en avançant"
+  }
+ },
+ "harai-tsurikomi-ashi": {
+  "intro": "Le fauchage du pied tiré soulevé combine une traction haute des bras et un balayage large de la jambe avancée d'uke. À la différence de sasae, le pied ne bloque pas mais balaie.",
+  "phases": [
+   "Tirer uke vers le haut et l'avant pour alléger son appui avancé.",
+   "Amener la jambe au contact de sa cheville en gardant les bras hauts.",
+   "Balayer largement l'appui dans le sens de la traction, bras tournant vers le bas."
+  ],
+  "keyPoints": [
+   "Le balayage est large, pas un simple blocage",
+   "La traction précède toujours le balayage",
+   "Le pied reste tendu, orteils pointés",
+   "Les bras dirigent la chute en diagonale"
+  ],
+  "combinations": {
+   "Sasae-Tsurikomi-Ashi": "si uke bloque l'appui",
+   "De-Ashi-Barai": "si uke se déplace"
+  }
+ },
+ "ko-uchi-gari": {
+  "intro": "Le petit fauchage intérieur cueille le talon d'uke de l'intérieur pour le renverser vers l'arrière. Très employée en amorce, elle ouvre la garde et prépare une seconde attaque.",
+  "phases": [
+   "Pousser uke vers l'arrière pour charger le talon visé.",
+   "Glisser la plante du pied contre l'intérieur de son talon.",
+   "Faucher le talon dans le sens de sa marche en poussant le buste vers l'arrière."
+  ],
+  "keyPoints": [
+   "Le fauchage vise le talon, pas le mollet",
+   "La poussée du buste accompagne le fauchage",
+   "Le pied balaie au ras du tapis",
+   "Elle sert autant d'amorce que de finition"
+  ],
+  "combinations": {
+   "Seoi-Nage": "si uke réagit en avançant",
+   "Tai-Otoshi": "si uke résiste",
+   "O-Soto-Gari": "si uke recule le poids",
+   "Ko-Soto-Gari": "si le talon échappe"
+  }
+ },
+ "o-uchi-gari": {
+  "intro": "Le grand fauchage intérieur envoie la jambe entre celles d'uke pour faucher sa cuisse de l'intérieur vers l'arrière. La poussée du buste et le fauchage doivent partir ensemble.",
+  "phases": [
+   "Déséquilibrer uke vers l'arrière en poussant les deux bras.",
+   "Entrer une jambe entre les siennes, le mollet contre l'intérieur de sa cuisse.",
+   "Faucher vers l'arrière en larges cercles tout en poussant le buste dans la même direction."
+  ],
+  "keyPoints": [
+   "Le fauchage prend la cuisse, pas le pied",
+   "Poussée du haut et fauchage du bas sont simultanés",
+   "Le corps de tori avance avec l'attaque",
+   "Le mouvement décrit un arc, pas une ligne"
+  ],
+  "combinations": {
+   "Seoi-Nage": "si uke résiste en avançant",
+   "Morote-Seoi-Nage": "si uke se redresse",
+   "Ko-Uchi-Gari": "si uke change d'appui",
+   "Harai-Goshi": "si uke se penche"
+  }
+ },
+ "o-soto-gari": {
+  "intro": "Le grand fauchage extérieur abat uke vers l'arrière en fauchant sa jambe d'appui par l'extérieur. C'est l'une des premières projections enseignées, et l'une des plus puissantes.",
+  "phases": [
+   "Tirer uke vers son arrière droit pour charger tout son poids sur une seule jambe.",
+   "Poser le pied avancé à côté de la sienne, buste engagé, épaule pressant vers l'arrière.",
+   "Faucher sa jambe chargée avec l'arrière de la cuisse en pivotant les épaules vers le bas."
+  ],
+  "keyPoints": [
+   "La jambe fauchée doit porter tout le poids",
+   "Le pied d'appui se pose à hauteur du sien",
+   "L'épaule pousse pendant que la jambe fauche",
+   "Le fauchage part de la hanche, pas du genou"
+  ],
+  "combinations": {
+   "Ko-Uchi-Gari": "si uke recule la jambe visée",
+   "Harai-Goshi": "si uke se penche en avant",
+   "Seoi-Nage": "si uke résiste vers l'avant",
+   "O-Uchi-Gari": "si uke écarte les appuis"
+  }
+ },
+ "ko-soto-gari": {
+  "intro": "Le petit fauchage extérieur balaie le talon d'uke par l'extérieur, dans le prolongement de son déplacement. Discrète et rapide, elle demande peu de force mais un placement exact.",
+  "phases": [
+   "Amener le poids d'uke sur son talon extérieur en tirant en diagonale.",
+   "Se placer légèrement de côté, hors de sa ligne d'attaque.",
+   "Balayer le talon vers l'extérieur en poussant le buste dans la diagonale opposée."
+  ],
+  "keyPoints": [
+   "Le talon est visé de l'extérieur",
+   "Tori sort de la ligne d'attaque d'uke",
+   "Le balayage suit la diagonale de son poids",
+   "Peu de force, beaucoup de précision"
+  ],
+  "combinations": {
+   "Ko-Uchi-Gari": "si uke replace l'appui",
+   "O-Soto-Gari": "si uke charge la jambe arrière",
+   "Seoi-Nage": "si uke avance"
+  }
+ },
+ "ko-soto-gake": {
+  "intro": "Le petit crochet extérieur accroche la jambe d'uke par l'extérieur au lieu de la balayer. Le crochet retient l'appui pendant que le buste le pousse vers l'arrière.",
+  "phases": [
+   "Charger le poids d'uke sur sa jambe extérieure.",
+   "Crocheter cette jambe avec le mollet ou le talon, sans la balayer.",
+   "Pousser le buste vers l'arrière en maintenant le crochet. L'appui bloqué ne peut se replacer."
+  ],
+  "keyPoints": [
+   "Le crochet retient, le balayage propulse",
+   "La poussée du buste fait tomber, pas la jambe",
+   "Le contact reste bas sur la jambe",
+   "Le crochet ne se relâche pas avant la chute"
+  ],
+  "combinations": {
+   "Ko-Soto-Gari": "si le crochet glisse",
+   "O-Soto-Gari": "si uke charge davantage l'appui"
+  }
+ },
+ "ko-uchi-gaeshi": {
+  "intro": "Contre du petit fauchage intérieur : au moment où uke fauche, tori retire la jambe visée et retourne l'attaque en le poussant vers son propre déséquilibre.",
+  "phases": [
+   "Sentir l'arrivée du fauchage et alléger la jambe visée.",
+   "Retirer la jambe et se replacer en gardant les saisies actives.",
+   "Pousser uke dans la direction de son propre mouvement pendant qu'il est sur un seul appui."
+  ],
+  "keyPoints": [
+   "La jambe se dérobe, elle ne résiste pas",
+   "Le contre part pendant l'attaque, pas après",
+   "Les saisies guident la chute",
+   "L'élan d'uke fournit toute l'énergie"
+  ],
+  "combinations": {
+   "Ko-Uchi-Gari": "contre de cette attaque"
+  }
+ },
+ "o-uchi-gaeshi": {
+  "intro": "Contre du grand fauchage intérieur : tori esquive la jambe qui entre puis exploite le déséquilibre d'uke, engagé vers l'avant sur un seul appui.",
+  "phases": [
+   "Reculer la jambe visée au moment où celle d'uke s'engage.",
+   "Se replacer de côté en conservant les deux saisies.",
+   "Renverser uke dans le sens de son entrée, vers son côté découvert."
+  ],
+  "keyPoints": [
+   "L'esquive précède le contre",
+   "Uke se retrouve sur un seul appui",
+   "Le contre suit sa direction d'attaque",
+   "Les bras conduisent le renversement"
+  ],
+  "combinations": {
+   "O-Uchi-Gari": "contre de cette attaque"
+  }
+ },
+ "o-soto-gaeshi": {
+  "intro": "Contre du grand fauchage extérieur : tori absorbe l'attaque, garde son équilibre sur la jambe visée et renvoie uke vers l'arrière par le même mouvement.",
+  "phases": [
+   "Fléchir et charger la jambe attaquée pour absorber le fauchage.",
+   "Rester collé à uke en le laissant s'engager au-delà de son équilibre.",
+   "Faucher à son tour la jambe restée au sol en poussant le buste vers l'arrière."
+  ],
+  "keyPoints": [
+   "La jambe attaquée se charge au lieu de fuir",
+   "Le contact reste étroit pendant l'absorption",
+   "Le contre reprend le geste d'uke à son compte",
+   "La poussée d'épaule accompagne le fauchage"
+  ],
+  "combinations": {
+   "O-Soto-Gari": "contre de cette attaque"
+  }
+ },
+ "hane-goshi-gaeshi": {
+  "intro": "Contre de la hanche bondissante : tori bloque le soulèvement, décale son bassin et renverse uke pendant que celui-ci est en appui sur une seule jambe.",
+  "phases": [
+   "Abaisser le centre de gravité pour empêcher le soulèvement.",
+   "Sortir la hanche de l'axe d'attaque tout en gardant les saisies.",
+   "Faucher l'appui restant d'uke ou le basculer vers son côté ouvert."
+  ],
+  "keyPoints": [
+   "Descendre le centre annule le soulèvement",
+   "Le décalage de hanche ouvre l'angle du contre",
+   "Uke n'a plus qu'un appui disponible",
+   "Les saisies dirigent la chute"
+  ],
+  "combinations": {
+   "Hane-Goshi": "contre de cette attaque"
+  }
+ },
+ "ashi-guruma": {
+  "intro": "La roue de jambe fait tourner uke par-dessus la jambe tendue de tori, placée en travers de ses cuisses. Aucun fauchage : la jambe sert d'axe autour duquel le corps pivote.",
+  "phases": [
+   "Tirer uke vers l'avant pour charger son poids sur l'avant des pieds.",
+   "Placer la jambe tendue en travers de ses cuisses, plus haut que sur un barrage de cheville.",
+   "Faire tourner les bras vers le bas. Uke roule par-dessus la jambe comme sur un axe."
+  ],
+  "keyPoints": [
+   "La jambe reste tendue et immobile",
+   "Le contact se fait haut, à la cuisse",
+   "La rotation vient des bras et du buste",
+   "Aucun fauchage n'intervient"
+  ],
+  "combinations": {
+   "Hiza-Guruma": "si le contact glisse vers le genou",
+   "De-Ashi-Barai": "si uke déplace l'appui"
+  }
+ },
+ "o-guruma": {
+  "intro": "La grande roue projette uke par-dessus une jambe tendue placée en travers de son ventre, très haut sur le corps. Le point de contact élevé donne à la rotation une grande amplitude.",
+  "phases": [
+   "Tirer uke vers l'avant haut jusqu'à ce que son poids passe sur ses orteils.",
+   "Lancer la jambe tendue en travers de son bas-ventre, sans contact de hanche.",
+   "Faire tourner les épaules vers le bas. Uke décrit une grande roue par-dessus la jambe."
+  ],
+  "keyPoints": [
+   "Le contact est plus haut que sur toute autre roue",
+   "La jambe reste tendue, elle ne fauche pas",
+   "La hanche ne porte pas le poids d'uke",
+   "L'amplitude de rotation fait la projection"
+  ],
+  "combinations": {
+   "Harai-Goshi": "si le contact descend sur la hanche",
+   "Uchi-Mata": "si la jambe passe entre les appuis"
+  }
+ },
+ "o-soto-guruma": {
+  "intro": "La grande roue extérieure fauche les deux jambes d'uke d'un seul mouvement par l'extérieur. Elle prolonge o-soto-gari en emportant l'appui arrière en plus de l'appui chargé.",
+  "phases": [
+   "Déséquilibrer uke vers son arrière, poids réparti sur ses deux appuis.",
+   "Engager le buste et lancer la jambe tendue derrière ses deux cuisses.",
+   "Faucher les deux jambes ensemble en poussant les épaules vers l'arrière."
+  ],
+  "keyPoints": [
+   "Les deux jambes sont fauchées d'un même geste",
+   "La jambe passe derrière les deux cuisses",
+   "La poussée du buste précède le fauchage",
+   "Le déséquilibre est arrière et centré"
+  ],
+  "combinations": {
+   "O-Soto-Gari": "si une seule jambe est chargée",
+   "Ko-Soto-Gari": "si uke recule un appui"
+  }
+ },
+ "o-soto-otoshi": {
+  "intro": "Le grand renversement extérieur pose la jambe derrière celle d'uke en barrage, sans faucher, et le fait basculer par la poussée du buste. Forme sûre et stable, elle précède souvent l'étude d'o-soto-gari.",
+  "phases": [
+   "Tirer uke vers son arrière droit pour charger sa jambe d'appui.",
+   "Poser la jambe derrière la sienne, en barrage, le pied au sol.",
+   "Pousser l'épaule et faire tourner les bras vers l'arrière bas. Uke bascule par-dessus le barrage."
+  ],
+  "keyPoints": [
+   "La jambe se pose, elle ne fauche pas",
+   "Le barrage reste fixe pendant la bascule",
+   "La poussée vient de l'épaule et des bras",
+   "Forme plus stable que le fauchage"
+  ],
+  "combinations": {
+   "O-Soto-Gari": "si uke garde du poids sur la jambe",
+   "Ko-Uchi-Gari": "si uke recule"
+  }
+ },
+ "tsubame-gaeshi": {
+  "intro": "Le contre de l'hirondelle répond à un balayage par un balayage : tori retire le pied visé et fauche à son tour, dans le même temps. Le nom évoque la volte d'un oiseau.",
+  "phases": [
+   "Sentir l'arrivée du balayage d'uke et alléger le pied visé.",
+   "Retirer ce pied en le laissant passer sous l'attaque.",
+   "Balayer immédiatement l'appui d'uke, resté seul chargé, dans le même sens."
+  ],
+  "keyPoints": [
+   "Le retrait et la riposte forment un seul geste",
+   "Le pied passe au-dessus du balayage adverse",
+   "Le contre exploite l'appui unique d'uke",
+   "Tout repose sur le timing, non sur la force"
+  ],
+  "combinations": {
+   "De-Ashi-Barai": "contre de cette attaque"
+  }
+ },
+ "uchi-mata-jambe": {
+  "intro": "Forme de jambe d'uchi-mata : le fauchage de l'intérieur de la cuisse domine, avec un contact de hanche réduit. Plus mobile que la forme de hanche, elle se lance sur un uke en déplacement.",
+  "phases": [
+   "Amener uke vers l'avant, appuis écartés, poids sur une seule jambe.",
+   "Entrer en pivotant sur un appui, la jambe d'attaque lancée entre ses cuisses.",
+   "Faucher l'intérieur de la cuisse vers le haut et l'arrière en plongeant les épaules."
+  ],
+  "keyPoints": [
+   "Le fauchage prime sur le contact de hanche",
+   "La jambe monte haut entre les cuisses",
+   "L'appui unique de tori doit rester stable",
+   "Le buste plonge quand la jambe monte"
+  ],
+  "combinations": {
+   "O-Uchi-Gari": "si uke resserre les appuis",
+   "Ko-Uchi-Gari": "en attaque d'ouverture",
+   "Harai-Goshi": "si la jambe ne passe pas",
+   "O-Soto-Gari": "si uke recule"
+  }
+ },
+ "tomoe-nage": {
+  "intro": "La projection en cercle sacrifie l'équilibre de tori, qui se laisse tomber sur le dos en plaçant un pied sur le ventre d'uke pour le faire passer par-dessus lui. Le corps d'uke décrit un cercle complet.",
+  "phases": [
+   "Tirer uke vers l'avant pour l'amener au-dessus de son appui.",
+   "Se laisser descendre en glissant sous lui, un pied posé sur le bas de son ventre.",
+   "Détendre la jambe vers le haut en tirant les bras. Uke décrit un cercle et retombe derrière la tête de tori."
+  ],
+  "keyPoints": [
+   "Le pied se pose sur le ventre, jamais sur la poitrine",
+   "Tori descend sous uke avant de pousser",
+   "La traction des bras ne relâche pas",
+   "La poussée est ascendante, pas frontale"
+  ],
+  "combinations": {
+   "Ko-Uchi-Gari": "en attaque d'ouverture",
+   "Ne-waza": "enchaînement direct au sol"
+  }
+ },
+ "sumi-gaeshi": {
+  "intro": "Le renversement dans le coin projette uke vers l'arrière en le soulevant avec le cou-de-pied placé à l'intérieur de sa cuisse. Il se pratique en garde fermée, souvent quand uke se penche en avant.",
+  "phases": [
+   "Casser la posture d'uke vers l'avant en contrôlant son dos ou sa ceinture.",
+   "Se laisser tomber en arrière en glissant le cou-de-pied contre l'intérieur de sa cuisse.",
+   "Soulever la jambe en tirant les bras en diagonale. Uke bascule dans le coin arrière."
+  ],
+  "keyPoints": [
+   "Le cou-de-pied soulève l'intérieur de la cuisse",
+   "La chute de tori doit être franche",
+   "La direction est diagonale, vers un coin",
+   "Le contrôle du haut du corps ne se relâche pas"
+  ],
+  "combinations": {
+   "Ko-Uchi-Gari": "si uke se redresse",
+   "O-Uchi-Gari": "si uke écarte les appuis"
+  }
+ },
+ "ura-nage": {
+  "intro": "La projection arrière est un contre : tori encaisse une attaque, ceinture uke et se laisse tomber en arrière en le projetant par-dessus son épaule. Elle demande un dos solide et un engagement total.",
+  "phases": [
+   "Absorber l'attaque d'uke en abaissant le centre de gravité et en le ceinturant.",
+   "Le soulever contre soi en se cambrant vers l'arrière.",
+   "Se laisser tomber en pivotant pour l'envoyer par-dessus l'épaule, puis accompagner sa chute."
+  ],
+  "keyPoints": [
+   "Le contre part pendant l'attaque d'uke",
+   "La ceinture se prend haut, sous les bras",
+   "Le soulèvement vient des jambes et de la cambrure",
+   "Tori pivote pour ne pas tomber sous uke"
+  ],
+  "combinations": {
+   "Seoi-Nage": "contre de cette attaque",
+   "Harai-Goshi": "contre de cette attaque"
+  }
+ },
+ "tawara-gaeshi": {
+  "intro": "Le renversement du sac de riz retourne uke par-dessus la tête de tori quand celui-ci se penche en avant, ceinturé autour du buste. Le nom vient du geste de basculer un sac chargé sur l'épaule.",
+  "phases": [
+   "Ceinturer uke autour du buste au moment où il se baisse vers l'avant.",
+   "Se laisser tomber en arrière en le tirant contre soi.",
+   "Le faire passer par-dessus la tête en poursuivant la rotation vers l'arrière."
+  ],
+  "keyPoints": [
+   "La ceinture enserre le buste, pas les bras seuls",
+   "La chute vers l'arrière donne l'élan",
+   "Uke passe au-dessus de la tête, pas de l'épaule",
+   "Le mouvement continue jusqu'au retournement complet"
+  ],
+  "combinations": {
+   "Tomoe-Nage": "si uke reste haut",
+   "Morote-Gari": "si uke plonge sur les jambes"
+  }
+ },
+ "hikikomi-gaeshi": {
+  "intro": "Le renversement en tirant répond à une plongée d'uke sur les jambes : tori le tire contre lui en se laissant tomber, puis le retourne sur le côté. La chute contrôlée devient l'arme du contre.",
+  "phases": [
+   "Bloquer la pénétration d'uke en saisissant sa ceinture ou son dos.",
+   "Se laisser tomber en arrière en le tirant fermement contre soi.",
+   "Le faire rouler sur le côté en pivotant, pour finir en position supérieure."
+  ],
+  "keyPoints": [
+   "La saisie du dos précède la chute",
+   "Tirer uke contre soi, ne pas le repousser",
+   "La rotation latérale donne la position dominante",
+   "Le contre se prolonge naturellement au sol"
+  ],
+  "combinations": {
+   "Morote-Gari": "contre de cette attaque",
+   "Kata-Guruma": "contre de cette attaque"
+  }
+ },
+ "yoko-otoshi": {
+  "intro": "La chute de côté sacrifie l'équilibre de tori sur le flanc en bloquant la cheville d'uke avec la jambe étendue. Uke, tiré de côté, trébuche par-dessus l'obstacle.",
+  "phases": [
+   "Tirer uke sur le côté pour charger son appui latéral.",
+   "Se laisser tomber sur le flanc en étendant la jambe contre sa cheville.",
+   "Prolonger la traction des bras vers le bas. Uke bascule par-dessus la jambe étendue."
+  ],
+  "keyPoints": [
+   "La jambe se pose au sol, elle ne fauche pas",
+   "La chute de tori est latérale, pas arrière",
+   "La traction des bras conduit tout le mouvement",
+   "Le déséquilibre doit être franchement de côté"
+  ],
+  "combinations": {
+   "Tani-Otoshi": "si uke recule le bassin",
+   "Yoko-Gake": "si l'appui glisse"
+  }
+ },
+ "tani-otoshi": {
+  "intro": "La chute dans la vallée place la jambe de tori derrière les deux appuis d'uke pendant qu'il se laisse tomber sur le côté. Uke, privé de recul, tombe en arrière comme dans un creux.",
+  "phases": [
+   "Amener le poids d'uke vers son arrière en poussant le buste.",
+   "Étendre la jambe derrière ses deux appuis en se laissant descendre sur le flanc.",
+   "Pousser les épaules vers l'arrière bas. Uke tombe par-dessus la jambe barrée."
+  ],
+  "keyPoints": [
+   "La jambe barre les deux appuis à la fois",
+   "La chute de tori accompagne la poussée",
+   "Le buste pousse pendant que le corps descend",
+   "Uke ne doit plus pouvoir reculer le pied"
+  ],
+  "combinations": {
+   "Yoko-Otoshi": "si un seul appui est atteignable",
+   "Ko-Uchi-Gari": "en attaque d'ouverture"
+  }
+ },
+ "yoko-gake": {
+  "intro": "Le crochet de côté balaie la cheville d'uke pendant que tori se laisse tomber sur le flanc dans la même direction. Le sacrifice ajoute au balayage un poids que le seul pied ne fournirait pas.",
+  "phases": [
+   "Tirer uke en diagonale pour charger son appui extérieur.",
+   "Balayer sa cheville avec la plante du pied en se laissant tomber sur le flanc.",
+   "Poursuivre la traction vers le sol dans le sens du balayage."
+  ],
+  "keyPoints": [
+   "Le balayage et la chute partent ensemble",
+   "Tori tombe du même côté qu'uke",
+   "Le pied balaie au ras du tapis",
+   "La traction des bras oriente la chute"
+  ],
+  "combinations": {
+   "Yoko-Otoshi": "si uke bloque la cheville",
+   "De-Ashi-Barai": "si uke se déplace"
+  }
+ },
+ "yoko-guruma": {
+  "intro": "La roue de côté fait tourner uke par-dessus le corps de tori qui se laisse tomber sur le flanc. Employée en contre d'une attaque de hanche, elle transforme la poussée adverse en rotation.",
+  "phases": [
+   "Encaisser l'attaque d'uke en le ceinturant et en abaissant le centre.",
+   "Se laisser tomber sur le côté en glissant sous lui.",
+   "L'entraîner dans une rotation latérale par-dessus le corps de tori."
+  ],
+  "keyPoints": [
+   "Tori glisse sous uke plutôt que de résister",
+   "La rotation est latérale, non arrière",
+   "La ceinture maintient le contact pendant le tour",
+   "L'élan de l'attaque adverse est réutilisé"
+  ],
+  "combinations": {
+   "Tomoe-Nage": "si uke reste haut et de face"
+  }
+ },
+ "yoko-wakare": {
+  "intro": "La séparation de côté fait chuter uke en se laissant glisser sous lui perpendiculairement, coupant sa progression. Tori disparaît littéralement de sa trajectoire.",
+  "phases": [
+   "Amener uke vers l'avant en le tirant en ligne droite.",
+   "Se laisser tomber en travers de sa progression, corps perpendiculaire au sien.",
+   "Poursuivre la traction. Uke, privé d'appui devant lui, bascule vers l'avant."
+  ],
+  "keyPoints": [
+   "Tori se place en travers, pas dans l'axe",
+   "La traction ne s'interrompt pas pendant la chute",
+   "Uke doit être lancé vers l'avant",
+   "Le corps de tori crée un vide, pas un obstacle"
+  ],
+  "combinations": {
+   "Uki-Waza": "si uke ralentit sa marche"
+  }
+ },
+ "yoko-tomoe-nage": {
+  "intro": "Variante latérale de la projection en cercle : tori se laisse tomber de côté plutôt que sur le dos, ce qui ouvre un angle différent et surprend une garde fermée.",
+  "phases": [
+   "Tirer uke vers l'avant en diagonale pour l'amener sur un seul appui.",
+   "Se laisser descendre sur le flanc en posant le pied sur son bas-ventre.",
+   "Détendre la jambe en diagonale en tirant les bras. Uke tourne sur le côté."
+  ],
+  "keyPoints": [
+   "La chute est latérale, pas dorsale",
+   "Le pied reste bas sur le ventre",
+   "L'angle de projection est diagonal",
+   "La traction des bras guide la rotation"
+  ],
+  "combinations": {
+   "Tomoe-Nage": "si uke revient dans l'axe"
+  }
+ },
+ "daki-wakare": {
+  "intro": "La séparation élevée saisit uke à bras-le-corps par l'arrière, le soulève et le fait basculer sur le côté en se laissant tomber avec lui. Elle se rencontre souvent en liaison debout-sol.",
+  "phases": [
+   "Ceinturer uke par l'arrière autour du buste.",
+   "Le soulever contre soi par extension des jambes.",
+   "Se laisser tomber sur le côté en le faisant pivoter, pour arriver au sol en position dominante."
+  ],
+  "keyPoints": [
+   "La ceinture enserre le buste, bras compris si possible",
+   "Le soulèvement précède la rotation",
+   "La chute latérale place tori au-dessus",
+   "Le contrôle se prolonge au sol"
+  ],
+  "combinations": {
+   "Ushiro-Goshi": "si uke reste de face"
+  }
+ },
+ "uki-waza": {
+  "intro": "La technique flottante fait chuter uke vers l'avant pendant que tori se laisse glisser au sol en étendant une jambe. Aucun blocage : c'est la continuité de la traction qui projette.",
+  "phases": [
+   "Tirer uke vers l'avant en le maintenant sur la pointe des pieds.",
+   "Se laisser descendre sur le flanc en étendant une jambe le long de son appui.",
+   "Prolonger la traction en spirale. Uke bascule dans le vide ouvert devant lui."
+  ],
+  "keyPoints": [
+   "Aucun blocage franc de l'appui",
+   "La traction se poursuit pendant toute la chute",
+   "Le mouvement reste continu et souple",
+   "Le nom flottante décrit l'absence de heurt"
+  ],
+  "combinations": {
+   "Yoko-Otoshi": "si uke résiste latéralement",
+   "Sumi-Gaeshi": "si uke se penche en avant"
+  }
+ },
+ "hane-makikomi": {
+  "intro": "La hanche bondissante enroulée prolonge hane-goshi par un enroulement du bras d'uke : tori tourne avec lui et tombe à ses côtés. L'enroulement supprime toute possibilité de dégagement.",
+  "phases": [
+   "Déséquilibrer uke vers l'avant et entrer comme pour hane-goshi.",
+   "Enrouler son bras sous l'aisselle en poursuivant la rotation.",
+   "Se laisser tomber en tournant, entraînant uke dans le même mouvement."
+  ],
+  "keyPoints": [
+   "L'enroulement du bras verrouille uke",
+   "Tori tombe avec uke, non après lui",
+   "La rotation ne s'interrompt jamais",
+   "La jambe garde son action d'aile"
+  ],
+  "combinations": {
+   "Hane-Goshi": "si l'enroulement échoue",
+   "Harai-Goshi": "si le genou ne monte pas"
+  }
+ },
+ "harai-makikomi": {
+  "intro": "Le fauchage de hanche enroulé prolonge harai-goshi par un enroulement du bras : tori s'engage complètement et tombe avec uke. La technique gagne en puissance ce qu'elle perd en réversibilité.",
+  "phases": [
+   "Entrer comme pour harai-goshi en fauchant la cuisse d'uke.",
+   "Enrouler son bras contre son propre corps pour le verrouiller.",
+   "Poursuivre la rotation jusqu'au sol en tombant avec lui."
+  ],
+  "keyPoints": [
+   "Le bras d'uke est enroulé, pas seulement tiré",
+   "Le fauchage précède l'enroulement",
+   "Tori accepte de tomber avec uke",
+   "La rotation se prolonge après le contact au sol"
+  ],
+  "combinations": {
+   "Harai-Goshi": "si l'enroulement n'est pas nécessaire"
+  }
+ },
+ "uchi-mata-makikomi": {
+  "intro": "Uchi-mata enroulé : après le fauchage de l'intérieur de la cuisse, tori enroule le bras d'uke et tombe avec lui. Forme très engagée, fréquente en compétition quand uke résiste au lancer.",
+  "phases": [
+   "Entrer en uchi-mata et faucher l'intérieur de la cuisse.",
+   "Enrouler le bras d'uke contre son corps en poursuivant la rotation.",
+   "Se laisser tomber en tournant. Uke est entraîné par l'enroulement."
+  ],
+  "keyPoints": [
+   "L'enroulement compense la résistance d'uke",
+   "La jambe garde son fauchage vers le haut",
+   "La chute commune fait partie de la technique",
+   "La rotation reste continue jusqu'au sol"
+  ],
+  "combinations": {
+   "Uchi-Mata": "si uke ne résiste pas au lancer"
+  }
+ },
+ "soto-makikomi": {
+  "intro": "L'enroulement extérieur saisit le bras d'uke par l'extérieur, l'enroule contre le corps de tori qui pivote et tombe avec lui. Aucune jambe n'intervient réellement : tout tient dans la rotation.",
+  "phases": [
+   "Casser la posture d'uke vers l'avant en tirant son bras.",
+   "Passer sous ce bras et l'enrouler par l'extérieur contre son propre buste.",
+   "Pivoter et se laisser tomber. Uke est enroulé jusqu'au sol."
+  ],
+  "keyPoints": [
+   "Le bras est enroulé par l'extérieur",
+   "La rotation part des épaules et du bassin",
+   "Tori tombe en même temps qu'uke",
+   "Le contact reste étroit pendant tout le tour"
+  ],
+  "combinations": {
+   "Uchi-Makikomi": "si le bras passe par l'intérieur"
+  }
+ },
+ "uchi-makikomi": {
+  "intro": "L'enroulement intérieur prend le bras d'uke par l'intérieur avant de l'entraîner dans une rotation commune. L'angle diffère de la forme extérieure, mais le principe d'enroulement reste le même.",
+  "phases": [
+   "Contrôler le bras d'uke en le tirant vers l'intérieur.",
+   "Passer sous son bras et l'enrouler contre soi.",
+   "Pivoter et se laisser tomber en entraînant uke dans la rotation."
+  ],
+  "keyPoints": [
+   "Le bras est pris par l'intérieur",
+   "La rotation doit être lancée avant la chute",
+   "Le contact ne se relâche pas",
+   "Tori accompagne uke jusqu'au sol"
+  ],
+  "combinations": {
+   "Soto-Makikomi": "si le bras passe par l'extérieur"
+  }
+ },
+ "o-soto-makikomi": {
+  "intro": "Grand fauchage extérieur enroulé : après le fauchage, tori enroule le bras d'uke et tombe avec lui vers l'arrière. L'enroulement empêche uke de se rétablir sur son appui.",
+  "phases": [
+   "Entrer en o-soto-gari et faucher la jambe chargée.",
+   "Enrouler le bras d'uke contre son corps en continuant la rotation.",
+   "Se laisser tomber vers l'arrière avec lui, la rotation se prolongeant au sol."
+  ],
+  "keyPoints": [
+   "Le fauchage lance le mouvement",
+   "L'enroulement interdit le rétablissement",
+   "La chute est commune et engagée",
+   "La rotation continue après l'impact"
+  ],
+  "combinations": {
+   "O-Soto-Gari": "si uke ne se rétablit pas"
+  }
+ },
+ "ko-uchi-makikomi": {
+  "intro": "Petit fauchage intérieur enroulé : le fauchage du talon se prolonge par un enroulement du corps, tori tombant avec uke vers l'avant. Elle transforme une amorce en projection complète.",
+  "phases": [
+   "Faucher le talon d'uke de l'intérieur comme en ko-uchi-gari.",
+   "Enrouler son buste ou son bras en avançant contre lui.",
+   "Se laisser tomber vers l'avant en poursuivant la rotation jusqu'au sol."
+  ],
+  "keyPoints": [
+   "Le fauchage ouvre, l'enroulement conclut",
+   "Tori avance au lieu de rester en place",
+   "La chute commune fait partie du geste",
+   "Le contrôle se prolonge au sol"
+  ],
+  "combinations": {
+   "Ko-Uchi-Gari": "si uke tombe sans enroulement"
+  }
+ },
+ "kesa-gatame": {
+  "intro": "L'immobilisation en écharpe contrôle uke sur le côté, un bras enserré sous l'aisselle et la tête maintenue. C'est le contrôle fondamental du travail au sol, celui par lequel commence tout apprentissage.",
+  "keyPoints": [
+   "Le bras d'uke est bloqué sous l'aisselle, pas seulement tenu",
+   "La tête est plaquée contre soi par le bras de nuque",
+   "Les jambes forment un compas large, une devant, une derrière",
+   "Le poids repose sur uke, pas sur les appuis",
+   "La poitrine reste basse et collée"
+  ],
+  "combinations": {
+   "Kuzure-Kesa-Gatame": "si uke dégage le bras",
+   "Ushiro-Kesa-Gatame": "si uke se retourne",
+   "Kata-Gatame": "si uke pousse de l'avant-bras"
+  }
+ },
+ "kuzure-kesa-gatame": {
+  "intro": "Variante de l'écharpe où le bras de tori passe sous l'épaule d'uke au lieu d'enserrer sa tête. Le contrôle du haut du corps y gagne en solidité ce qu'il perd en pression sur la nuque.",
+  "keyPoints": [
+   "Le bras passe sous l'épaule et saisit le col ou le tapis",
+   "Le bras d'uke reste bloqué sous l'aisselle",
+   "Le bassin descend pour peser sur la poitrine",
+   "Les appuis s'écartent dès qu'uke pousse"
+  ],
+  "combinations": {
+   "Kesa-Gatame": "si le passage sous l'épaule se ferme",
+   "Makura-Kesa-Gatame": "si la tête devient accessible"
+  }
+ },
+ "ushiro-kesa-gatame": {
+  "intro": "Écharpe arrière : tori contrôle uke depuis sa tête, dos tourné vers ses jambes. La position surprend et rend les retournements habituels inopérants.",
+  "keyPoints": [
+   "Tori est assis vers la tête, dos aux jambes d'uke",
+   "Un bras contrôle le bras proche, l'autre s'appuie au sol",
+   "Le poids porte sur la poitrine d'uke",
+   "Les jambes s'écartent pour résister au pont"
+  ],
+  "combinations": {
+   "Kesa-Gatame": "si uke se tourne vers tori",
+   "Kata-Gatame": "si le bras remonte"
+  }
+ },
+ "makura-kesa-gatame": {
+  "intro": "Écharpe en oreiller : la tête d'uke repose sur la cuisse de tori, qui la contrôle comme sur un coussin. Le nom décrit exactement la position de la nuque.",
+  "keyPoints": [
+   "La tête d'uke repose sur la cuisse",
+   "Le bras proche reste bloqué sous l'aisselle",
+   "La cuisse empêche uke de tourner la tête",
+   "Le poids reste réparti vers la poitrine"
+  ],
+  "combinations": {
+   "Kesa-Gatame": "si la tête glisse de la cuisse"
+  }
+ },
+ "kata-gatame": {
+  "intro": "L'immobilisation par l'épaule coince le bras d'uke contre sa propre nuque, les deux serrés ensemble par les bras de tori. Le contrôle est très étroit et laisse peu d'espace pour respirer largement.",
+  "keyPoints": [
+   "Le bras d'uke est plaqué contre sa propre tête",
+   "Les mains de tori se joignent derrière la nuque",
+   "La poitrine pèse sur l'épaule bloquée",
+   "Les jambes s'écartent pour tenir le déséquilibre"
+  ],
+  "combinations": {
+   "Kesa-Gatame": "si le bras d'uke redescend",
+   "Tate-Shiho-Gatame": "si uke se met de face"
+  }
+ },
+ "yoko-shiho-gatame": {
+  "intro": "L'immobilisation par les quatre coins de côté place tori perpendiculairement à uke, poitrine contre poitrine, un bras passé entre ses jambes et l'autre autour de son cou.",
+  "keyPoints": [
+   "Tori est perpendiculaire à uke",
+   "Un bras passe entre les jambes, l'autre autour du cou",
+   "La poitrine écrase le sternum d'uke",
+   "Les appuis restent larges et bas"
+  ],
+  "combinations": {
+   "Kuzure-Yoko-Shiho-Gatame": "si le bras change de passage",
+   "Kami-Shiho-Gatame": "si uke tourne vers tori"
+  }
+ },
+ "kuzure-yoko-shiho-gatame": {
+  "intro": "Variante latérale des quatre coins où l'un des bras change de passage, souvent sous la nuque ou sous le bras éloigné. Le contrôle s'adapte aux défenses d'uke sans changer de position générale.",
+  "keyPoints": [
+   "Un seul bras modifie son passage",
+   "La perpendicularité et le poids restent identiques",
+   "Le changement suit la défense d'uke",
+   "La poitrine ne se relève jamais"
+  ],
+  "combinations": {
+   "Yoko-Shiho-Gatame": "quand la forme classique redevient possible"
+  }
+ },
+ "kami-shiho-gatame": {
+  "intro": "Les quatre coins par-dessus contrôlent uke depuis sa tête, les deux mains saisissant sa ceinture de chaque côté. Le poids porte sur le thorax, ce qui rend la respiration difficile.",
+  "keyPoints": [
+   "Tori est placé au-dessus de la tête d'uke",
+   "Les deux mains saisissent la ceinture sur les flancs",
+   "Le poids porte sur la poitrine, pas sur les bras",
+   "Les appuis de pieds s'écartent contre le pont"
+  ],
+  "combinations": {
+   "Kuzure-Kami-Shiho-Gatame": "si uke dégage un bras",
+   "Tate-Shiho-Gatame": "si uke se tourne"
+  }
+ },
+ "kuzure-kami-shiho-gatame": {
+  "intro": "Variante des quatre coins par-dessus où un bras contrôle l'épaule ou le bras d'uke au lieu de sa ceinture. Elle répond aux défenses de bras sans céder la position.",
+  "keyPoints": [
+   "Un bras contrôle le bras d'uke, l'autre la ceinture",
+   "La tête reste basse contre le tapis",
+   "Le poids demeure sur la poitrine",
+   "La position s'ajuste sans se relever"
+  ],
+  "combinations": {
+   "Kami-Shiho-Gatame": "quand la ceinture redevient saisissable"
+  }
+ },
+ "tate-shiho-gatame": {
+  "intro": "L'immobilisation verticale place tori à cheval sur uke, jambes crochetées sous les siennes. C'est la position dominante par excellence, d'où découlent nombre d'étranglements et de clés.",
+  "keyPoints": [
+   "Tori est à cheval, poitrine contre poitrine",
+   "Les pieds crochètent sous les cuisses d'uke",
+   "Un bras contrôle la tête ou le bras",
+   "Le bassin reste bas pour éviter le renversement"
+  ],
+  "combinations": {
+   "Kuzure-Tate-Shiho-Gatame": "si uke dégage un bras",
+   "Kami-Shiho-Gatame": "si uke se met sur le ventre"
+  }
+ },
+ "kuzure-tate-shiho-gatame": {
+  "intro": "Variante de l'immobilisation verticale où le contrôle du haut du corps change, souvent en enserrant un bras et la tête ensemble. La position à cheval demeure inchangée.",
+  "keyPoints": [
+   "Le bras et la tête d'uke sont enserrés ensemble",
+   "La position à cheval ne bouge pas",
+   "Les crochets de jambes restent actifs",
+   "Le buste reste bas et collé"
+  ],
+  "combinations": {
+   "Tate-Shiho-Gatame": "quand le contrôle classique redevient possible"
+  }
+ },
+ "hon-gesa-gatame": {
+  "intro": "Forme fondamentale de l'immobilisation en écharpe, telle qu'elle est codifiée dans le Katame no kata. Elle sert de référence à toutes les variantes de kesa-gatame.",
+  "keyPoints": [
+   "Position de référence, sans adaptation",
+   "Le bras d'uke est enserré sous l'aisselle",
+   "La tête est contrôlée par le bras de nuque",
+   "Les appuis forment un compas ouvert"
+  ],
+  "combinations": {
+   "Kesa-Gatame": "forme d'usage courant"
+  }
+ },
+ "uki-gatame": {
+  "intro": "L'immobilisation flottante contrôle uke par le poids du buste seul, sans que tori ne s'assoie ni ne verrouille de saisie profonde. Elle sert souvent de transition vers une clé de bras.",
+  "keyPoints": [
+   "Le contrôle repose sur le poids du buste",
+   "Tori reste mobile, prêt à enchaîner",
+   "Un genou pèse sur le flanc ou le ventre",
+   "La position prépare une clé plutôt qu'elle ne dure"
+  ],
+  "combinations": {
+   "Kesa-Gatame": "si uke résiste et se tourne"
+  }
+ },
+ "ura-gatame": {
+  "intro": "L'immobilisation arrière contrôle uke depuis son dos, alors qu'il est sur le ventre ou sur le côté. Elle ferme les retournements et prépare l'étranglement.",
+  "keyPoints": [
+   "Le contrôle se prend depuis le dos d'uke",
+   "Le poids empêche le retournement",
+   "Les bras verrouillent le buste ou le col",
+   "La position ouvre directement sur un étranglement"
+  ],
+  "combinations": {
+   "Ushiro-Kesa-Gatame": "si uke revient sur le dos"
+  }
+ },
+ "nami-juji-jime": {
+  "intro": "Étranglement en croix normal : les deux mains saisissent les revers d'uke, paumes vers le bas, bras croisés. La pression se fait par écartement des coudes et rapprochement du buste.",
+  "keyPoints": [
+   "Les deux paumes sont tournées vers le bas",
+   "Les saisies se prennent haut, près du cou",
+   "La pression vient des coudes qui s'écartent",
+   "Le buste descend vers uke pendant le serrage"
+  ],
+  "combinations": {
+   "Gyaku-Juji-Jime": "si une main peut se retourner",
+   "Kata-Juji-Jime": "si une seule saisie est haute"
+  }
+ },
+ "gyaku-juji-jime": {
+  "intro": "Étranglement en croix inversé : les deux paumes sont tournées vers le haut, ce qui rapproche les avant-bras des carotides. Le serrage est plus direct que dans la forme normale.",
+  "keyPoints": [
+   "Les deux paumes sont tournées vers le haut",
+   "Les avant-bras portent sur les côtés du cou",
+   "Les coudes se rapprochent au lieu de s'écarter",
+   "Le buste avance pour accompagner le serrage"
+  ],
+  "combinations": {
+   "Nami-Juji-Jime": "si les mains se retournent",
+   "Kata-Juji-Jime": "si une seule main s'inverse"
+  }
+ },
+ "kata-juji-jime": {
+  "intro": "Étranglement en demi-croix : une paume vers le haut, l'autre vers le bas. Cette forme mixte se rencontre souvent en situation réelle, quand une seule saisie a pu être placée profondément.",
+  "keyPoints": [
+   "Une paume vers le haut, une vers le bas",
+   "La saisie profonde donne la pression principale",
+   "Les avant-bras se croisent devant le cou",
+   "Le poids du buste complète le serrage"
+  ],
+  "combinations": {
+   "Nami-Juji-Jime": "si les deux paumes se retournent vers le bas",
+   "Gyaku-Juji-Jime": "si les deux se retournent vers le haut"
+  }
+ },
+ "hadaka-jime": {
+  "intro": "Étranglement à mains nues, sans aucune saisie de judogi : l'avant-bras passe devant la gorge d'uke, l'autre main verrouillant la prise. Il se place généralement depuis le dos.",
+  "keyPoints": [
+   "Aucune saisie de judogi n'est utilisée",
+   "L'avant-bras porte sur les côtés du cou",
+   "La seconde main verrouille sans pousser la nuque",
+   "Le buste se colle au dos d'uke"
+  ],
+  "combinations": {
+   "Okuri-Eri-Jime": "si le revers devient accessible",
+   "Kata-Ha-Jime": "si un bras d'uke se lève"
+  }
+ },
+ "okuri-eri-jime": {
+  "intro": "Étranglement par les revers glissés : depuis le dos d'uke, une main glisse profondément dans le revers opposé pendant que l'autre tire le revers inférieur. Le serrage vient de l'opposition des deux mains.",
+  "keyPoints": [
+   "La main glisse loin dans le revers opposé",
+   "L'autre main tire le revers vers le bas",
+   "Les deux mains agissent en sens contraire",
+   "Le contrôle du dos précède le serrage"
+  ],
+  "combinations": {
+   "Hadaka-Jime": "si le revers échappe",
+   "Kata-Ha-Jime": "si un bras d'uke se lève"
+  }
+ },
+ "kata-ha-jime": {
+  "intro": "Étranglement par un revers, complété par le contrôle d'un bras d'uke relevé derrière sa nuque. Le bras bloqué empêche toute défense du côté serré.",
+  "keyPoints": [
+   "Une main saisit le revers profondément",
+   "L'autre bras remonte le bras d'uke derrière sa nuque",
+   "Le bras bloqué ferme la défense",
+   "Le serrage vient de la traction du revers"
+  ],
+  "combinations": {
+   "Okuri-Eri-Jime": "si le bras d'uke retombe",
+   "Hadaka-Jime": "si le revers n'est plus tenu"
+  }
+ },
+ "sankaku-jime": {
+  "intro": "Étranglement en triangle : les jambes de tori enferment le cou et un bras d'uke, formant une figure fermée. La pression s'exerce entre la cuisse et l'épaule d'uke lui-même.",
+  "keyPoints": [
+   "Le triangle enferme le cou et un seul bras",
+   "Le pli du genou se referme sur la cheville opposée",
+   "La pression naît de l'épaule d'uke contre son cou",
+   "Le bassin se rapproche pour serrer"
+  ],
+  "combinations": {
+   "Ude-Hishigi-Juji-Gatame": "si uke dégage la tête",
+   "Tate-Shiho-Gatame": "si le triangle s'ouvre"
+  }
+ },
+ "kata-te-jime": {
+  "intro": "Étranglement à une main : une seule saisie de revers serre le cou, l'autre bras servant d'appui contre l'épaule ou la nuque d'uke. Simple à placer, il demande une saisie très haute.",
+  "keyPoints": [
+   "Une seule main serre le revers",
+   "Le second bras sert d'appui, pas de saisie",
+   "La saisie doit être haute pour porter",
+   "Le buste pousse dans le sens du serrage"
+  ],
+  "combinations": {
+   "Nami-Juji-Jime": "si la seconde saisie devient possible"
+  }
+ },
+ "morote-jime": {
+  "intro": "Étranglement à deux mains sur les revers, la pression naissant du rapprochement simultané des deux avant-bras. La forme est directe et se place de face comme de dos.",
+  "keyPoints": [
+   "Les deux mains saisissent les revers",
+   "Les avant-bras se rapprochent ensemble",
+   "La pression porte sur les côtés du cou",
+   "Le buste accompagne le serrage"
+  ],
+  "combinations": {
+   "Kata-Te-Jime": "si une saisie se perd"
+  }
+ },
+ "ryote-jime": {
+  "intro": "Étranglement à deux mains où les deux poings ferment les revers de part et d'autre de la gorge. Le serrage est frontal, obtenu par la rotation des poignets.",
+  "keyPoints": [
+   "Les deux poings ferment les revers",
+   "La rotation des poignets crée la pression",
+   "Le serrage est frontal, non latéral",
+   "Les coudes restent proches du corps"
+  ],
+  "combinations": {
+   "Morote-Jime": "si la prise s'élargit"
+  }
+ },
+ "sode-guruma-jime": {
+  "intro": "Étranglement en roue par la manche : tori serre le cou d'uke entre son propre revers et sa manche, en faisant tourner l'ensemble comme une roue. Fréquent depuis la garde.",
+  "keyPoints": [
+   "Une main tient le revers, l'autre la manche",
+   "La rotation des bras produit le serrage",
+   "Le mouvement décrit une roue autour du cou",
+   "Le contrôle des jambes maintient uke en place"
+  ],
+  "combinations": {
+   "Okuri-Eri-Jime": "si tori passe dans le dos"
+  }
+ },
+ "ashi-gatame-jime": {
+  "intro": "Étranglement par la jambe : la jambe de tori exerce la pression sur le cou d'uke, souvent en appui contre son propre revers. La force du membre inférieur rend la technique redoutable.",
+  "keyPoints": [
+   "La jambe remplace le bras pour serrer",
+   "Le revers d'uke sert souvent de point d'appui",
+   "Le bassin doit être bien placé pour porter",
+   "La pression se règle finement, elle vient vite"
+  ],
+  "combinations": {
+   "Sankaku-Jime": "si la jambe passe autour du cou"
+  }
+ },
+ "tsukkomi-jime": {
+  "intro": "Étranglement par poussée : une main entre en poussant dans le revers pendant que l'autre tire le revers opposé. Le nom décrit l'enfoncement du poing contre le cou.",
+  "keyPoints": [
+   "Une main pousse, l'autre tire",
+   "Le poing s'enfonce contre le côté du cou",
+   "Les deux actions sont simultanées",
+   "Le buste avance pour appuyer la poussée"
+  ],
+  "combinations": {
+   "Nami-Juji-Jime": "si les deux mains peuvent saisir",
+   "Hadaka-Jime": "si le revers échappe"
+  }
+ },
+ "ude-hishigi-juji-gatame": {
+  "intro": "Luxation du coude en croix : tori croise les jambes sur le buste d'uke et étend son bras entre ses cuisses, le poignet retourné vers le haut. C'est la clé la plus employée en compétition.",
+  "keyPoints": [
+   "Le bras d'uke est étendu entre les cuisses",
+   "Le pouce d'uke est orienté vers le haut",
+   "Les genoux se serrent pour bloquer le bras",
+   "Le bassin monte pendant que les épaules descendent",
+   "Les jambes contrôlent la tête et le buste"
+  ],
+  "combinations": {
+   "Sankaku-Jime": "si uke se retourne",
+   "Tate-Shiho-Gatame": "si le bras se dégage",
+   "Ude-Hishigi-Ude-Gatame": "si uke plie le coude"
+  }
+ },
+ "ude-garami": {
+  "intro": "Le coude enroulé plie le bras d'uke à angle droit et le fait tourner comme une manivelle. La contrainte porte sur le coude et l'épaule à la fois.",
+  "keyPoints": [
+   "Le bras est plié à angle droit",
+   "Les deux mains forment une figure en huit",
+   "La rotation part de l'épaule de tori",
+   "Le coude d'uke reste bloqué contre le tapis"
+  ],
+  "combinations": {
+   "Kesa-Gatame": "si uke dégage le bras",
+   "Juji-Gatame": "si le bras se tend"
+  }
+ },
+ "ude-hishigi-ude-gatame": {
+  "intro": "Luxation du coude par le bras : tori bloque le bras tendu d'uke avec ses deux mains et fait levier avec son épaule ou sa poitrine. Elle se place souvent quand uke pousse d'un bras.",
+  "keyPoints": [
+   "Le bras d'uke doit rester tendu",
+   "Les deux mains bloquent au-dessus du coude",
+   "Le levier vient de la poitrine ou de l'épaule",
+   "La pression est progressive, jamais brusque"
+  ],
+  "combinations": {
+   "Juji-Gatame": "si le contrôle passe aux jambes"
+  }
+ },
+ "ude-hishigi-hiza-gatame": {
+  "intro": "Luxation du coude par le genou : le genou de tori appuie sur le coude d'uke pendant que ses mains maintiennent le bras tendu. Elle se place typiquement depuis la garde.",
+  "keyPoints": [
+   "Le genou porte directement sur le coude",
+   "Le bras d'uke est maintenu tendu",
+   "La saisie de manche fixe le poignet",
+   "Le bassin pivote pour augmenter la pression"
+  ],
+  "combinations": {
+   "Juji-Gatame": "si uke se redresse",
+   "Ude-Hishigi-Ude-Gatame": "si le genou glisse"
+  }
+ },
+ "ude-hishigi-waki-gatame": {
+  "intro": "Luxation du coude par l'aisselle : tori coince le bras tendu d'uke sous son aisselle et fait levier en abaissant le buste. La technique est puissante et demande beaucoup de contrôle.",
+  "keyPoints": [
+   "Le bras est serré sous l'aisselle",
+   "Le coude est placé au-dessus du point d'appui",
+   "Le levier vient de l'abaissement du buste",
+   "La pression doit rester lente et maîtrisée"
+  ],
+  "combinations": {
+   "Juji-Gatame": "si uke tourne pour fuir"
+  }
+ },
+ "ude-hishigi-hara-gatame": {
+  "intro": "Luxation du coude par l'abdomen : le ventre de tori sert de point d'appui au bras tendu d'uke. Le levier se forme entre les mains qui tirent et le ventre qui pousse.",
+  "keyPoints": [
+   "Le ventre sert d'appui au coude",
+   "Les mains tirent le poignet vers soi",
+   "La poussée du bassin crée le levier",
+   "Le bras d'uke reste parfaitement tendu"
+  ],
+  "combinations": {
+   "Juji-Gatame": "si uke se retourne"
+  }
+ },
+ "ude-hishigi-ashi-gatame": {
+  "intro": "Luxation du coude par la jambe : la jambe de tori appuie sur le bras tendu d'uke, souvent en travers du coude. La puissance du membre inférieur remplace celle des bras.",
+  "keyPoints": [
+   "La jambe appuie en travers du coude",
+   "Le poignet est maintenu par les mains",
+   "Le bras d'uke doit rester tendu",
+   "La pression se règle au millimètre"
+  ],
+  "combinations": {
+   "Ude-Hishigi-Hiza-Gatame": "si le contrôle passe au genou"
+  }
+ },
+ "ude-hishigi-sankaku-gatame": {
+  "intro": "Luxation du coude en triangle : les jambes forment le triangle habituel autour du cou et d'un bras, mais la contrainte est portée sur le coude plutôt que sur les carotides.",
+  "keyPoints": [
+   "Le triangle de jambes enferme cou et bras",
+   "La pression est dirigée sur le coude",
+   "Le bras d'uke est étendu hors du triangle",
+   "Le bassin se rapproche pour tendre le bras"
+  ],
+  "combinations": {
+   "Sankaku-Jime": "si la pression passe sur le cou",
+   "Juji-Gatame": "si le bras se libère du triangle"
+  }
+ }
+}

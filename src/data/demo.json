@@ -1,0 +1,173 @@
+{
+  "name": "Judodex",
+  "description": "Catalogue des techniques de judo, leurs décompositions et le programme français de passage de grade.",
+  "scrapedAt": "2026-08-08T20:56:38.785Z",
+  "count": 3,
+  "techniques": [
+    {
+      "slug": "o-goshi",
+      "name": "O-Goshi",
+      "translation": "Grande hanche",
+      "kanji": "大腰",
+      "family": "koshi-waza",
+      "level": "Débutant",
+      "youtubeId": "yhu1mfy2vJ4",
+      "intro": "La grande hanche est la projection de référence pour comprendre le levier du bassin. Tori passe son bras autour de la taille d'uke, place ses hanches sous les siennes et le fait basculer par une simple extension des jambes.",
+      "phases": [
+        {
+          "kanji": "崩し",
+          "label": "Kuzushi",
+          "meaning": "Déséquilibre",
+          "description": "Tirer uke vers l'avant sur la pointe des pieds, une main au revers, l'autre à la manche. Le déséquilibre doit être franc avant tout déplacement."
+        },
+        {
+          "kanji": "作り",
+          "label": "Tsukuri",
+          "meaning": "Placement",
+          "description": "Pivoter dos à uke, pieds à l'intérieur de sa garde, bassin plus bas que le sien. Le bras libre enveloppe la taille et colle les deux corps l'un à l'autre."
+        },
+        {
+          "kanji": "掛け",
+          "label": "Kake",
+          "meaning": "Exécution",
+          "description": "Tendre les jambes pour soulever, faire tourner le bassin, accompagner la chute avec les bras. La rotation se poursuit jusqu'au sol."
+        }
+      ],
+      "keyPoints": [
+        "Le contact hanche contre hanche transmet la force, sans lui rien ne part",
+        "Descendre son centre de gravité avant de soulever",
+        "Le bras de ceinture serre, il ne tire pas",
+        "Le déséquilibre précède le pivot, jamais l'inverse"
+      ],
+      "combinations": [
+        {
+          "slug": "harai-goshi",
+          "type": "enchainement",
+          "context": "si uke bloque le bassin, la jambe prend le relais"
+        },
+        {
+          "slug": "tai-otoshi",
+          "type": "enchainement",
+          "context": "si uke se recule, on passe au barrage sans hanche"
+        },
+        {
+          "slug": "ushiro-goshi",
+          "type": "contre",
+          "context": "uke absorbe l'entrée et soulève"
+        }
+      ],
+      "ffjudoId": "NLJ1mX_3pAQ",
+      "youtubeDuration": 86,
+      "ffjudoDuration": 91
+    },
+    {
+      "slug": "o-soto-gari",
+      "name": "O-Soto-Gari",
+      "translation": "Grand fauchage extérieur",
+      "kanji": "大外刈",
+      "family": "ashi-waza",
+      "level": "Débutant",
+      "youtubeId": "c-A_nP7mKAc",
+      "intro": "Le grand fauchage extérieur abat uke vers l'arrière en fauchant sa jambe d'appui par l'extérieur. C'est l'une des premières projections enseignées, et l'une des plus puissantes.",
+      "phases": [
+        {
+          "kanji": "崩し",
+          "label": "Kuzushi",
+          "meaning": "Déséquilibre",
+          "description": "Tirer uke vers son arrière droit pour charger tout son poids sur une seule jambe."
+        },
+        {
+          "kanji": "作り",
+          "label": "Tsukuri",
+          "meaning": "Placement",
+          "description": "Poser le pied avancé à côté de la sienne, buste engagé, épaule pressant vers l'arrière."
+        },
+        {
+          "kanji": "掛け",
+          "label": "Kake",
+          "meaning": "Exécution",
+          "description": "Faucher sa jambe chargée avec l'arrière de la cuisse en pivotant les épaules vers le bas."
+        }
+      ],
+      "keyPoints": [
+        "La jambe fauchée doit porter tout le poids",
+        "Le pied d'appui se pose à hauteur du sien",
+        "L'épaule pousse pendant que la jambe fauche",
+        "Le fauchage part de la hanche, pas du genou"
+      ],
+      "combinations": [
+        {
+          "slug": "ko-uchi-gari",
+          "type": "enchainement",
+          "context": "si uke recule la jambe visée"
+        },
+        {
+          "slug": "o-uchi-gari",
+          "type": "enchainement",
+          "context": "si uke écarte les appuis"
+        },
+        {
+          "slug": "o-soto-otoshi",
+          "type": "enchainement",
+          "context": "si le fauchage ne passe pas, on pose en barrage"
+        },
+        {
+          "slug": "o-soto-makikomi",
+          "type": "enchainement",
+          "context": "si uke se rétablit, on enroule"
+        },
+        {
+          "slug": "o-soto-gaeshi",
+          "type": "contre",
+          "context": "uke charge la jambe attaquée et fauche à son tour"
+        }
+      ],
+      "ffjudoId": "ccf_KhtecpA",
+      "youtubeDuration": 105,
+      "ffjudoDuration": 118
+    },
+    {
+      "slug": "kesa-gatame",
+      "name": "Kesa-Gatame",
+      "translation": "Immobilisation en écharpe",
+      "kanji": "袈裟固",
+      "family": "osaekomi-waza",
+      "level": "Débutant",
+      "youtubeId": "NDaQuJOFBYk",
+      "intro": "L'immobilisation en écharpe contrôle uke sur le côté, un bras enserré sous l'aisselle et la tête maintenue. C'est le contrôle fondamental du travail au sol, celui par lequel commence tout apprentissage.",
+      "phases": [],
+      "keyPoints": [
+        "Le bras d'uke est bloqué sous l'aisselle, pas seulement tenu",
+        "La tête est plaquée contre soi par le bras de nuque",
+        "Les jambes forment un compas large, une devant, une derrière",
+        "Le poids repose sur uke, pas sur les appuis",
+        "La poitrine reste basse et collée"
+      ],
+      "combinations": [
+        {
+          "slug": "kuzure-kesa-gatame",
+          "type": "enchainement",
+          "context": "si uke dégage le bras enserré"
+        },
+        {
+          "slug": "kata-gatame",
+          "type": "enchainement",
+          "context": "si uke pousse de l'avant-bras"
+        },
+        {
+          "slug": "ushiro-kesa-gatame",
+          "type": "enchainement",
+          "context": "si uke se retourne vers le ventre"
+        },
+        {
+          "slug": "ude-garami",
+          "type": "enchainement",
+          "context": "si le bras libre d'uke se lève"
+        }
+      ],
+      "ffjudoId": "ZAUGx0gYHpE",
+      "youtubeDuration": 57,
+      "ffjudoDuration": 77
+    }
+  ]
+}
