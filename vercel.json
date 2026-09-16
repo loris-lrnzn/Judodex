@@ -1,5 +1,31 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "rewrites": [
+    {
+      "source": "/techniques",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/dojo",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/dojo/:path*",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/mon-judo",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/reglages",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/technique/:slug",
+      "destination": "/index.html"
+    }
+  ],
   "headers": [
     {
       "source": "/assets/(.*)",
