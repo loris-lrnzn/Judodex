@@ -13,7 +13,7 @@ export function Toast({ message }: { message: string | null }) {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 8 }}
-            className="bg-ink text-field border-l-[3px] border-signal px-4 py-2.5 text-[12px] uppercase tracking-[0.14em] font-mono shadow-[0_16px_40px_-20px_rgba(0,0,0,.6)]"
+            className="bg-ink text-field border-l-[3px] border-signal px-4 py-2.5 text-[14px] font-medium shadow-[0_16px_40px_-20px_rgba(0,0,0,.6)]"
           >
             {message}
           </fm.div>

@@ -47,11 +47,11 @@ const RESUMES: Partial<Record<Route['name'], { titre: string; description: strin
   profil: {
     titre: 'Mon judo — bilan personnel',
     description:
-      "Où tombent vos adversaires, ce que vous savez opposer dans chaque garde, et ce que vous faites quand uke se défend.",
+      "Où tombent tes adversaires, ce que tu sais opposer dans chaque garde, et ce que tu fais quand uke se défend.",
   },
   reglages: {
     titre: 'Réglages',
-    description: 'Votre garde, la direction des projections et la sauvegarde du carnet. Tout reste dans ce navigateur.',
+    description: 'Ta garde, la direction des projections et la sauvegarde du carnet. Tout reste dans ce navigateur.',
   },
   notFound: { titre: 'Page introuvable', description: ACCUEIL },
 }

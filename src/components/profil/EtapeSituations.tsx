@@ -68,7 +68,7 @@ export function EtapeSituations({ dex, profil, bilan, survol, ouvert, onSurvol, 
               </p>
               <div className="space-y-5">
                 {situations.vides.slice(0, 3).map((c) => (
-                  <div key={c} className="min-w-0 border-t border-ink pt-3">
+                  <div key={c} className="min-w-0 border-t border-rule pt-3">
                     <div className="flex flex-wrap items-center gap-2">
                       <button
                         onClick={() => onOuvrir(ouvert === c ? null : c)}
@@ -100,7 +100,7 @@ export function EtapeSituations({ dex, profil, bilan, survol, ouvert, onSurvol, 
                               ✓
                             </button>
                             <span className="min-w-0 flex-1">
-                              <span className="block truncate text-[13.5px] text-soft">{t.name}</span>
+                              <span className="block truncate text-[14px] text-soft">{t.name}</span>
                               <span className="annot block truncate text-faint">{t.translation}</span>
                             </span>
                           </li>

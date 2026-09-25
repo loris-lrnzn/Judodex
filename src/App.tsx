@@ -51,13 +51,13 @@ export default function App() {
     return () => window.removeEventListener('keydown', onKey)
   }, [])
 
-  const go = useCallback((r: Route) => navigate(r), [navigate])
+  const go = useCallback((r: Route, opts?: { hash?: string }) => navigate(r, opts), [navigate])
 
   return (
     <NavProvider value={go}>
     <LazyMotion features={() => import('./lib/motionFeatures').then((m) => m.default)} strict>
       <MotionConfig reducedMotion="user">
-        <AppShell route={route} dex={dex} annonce={annonce} onSearch={() => setPaletteOpen(true)}>
+        <AppShell route={route} annonce={annonce} onSearch={() => setPaletteOpen(true)}>
           {/* Pas d'animation de sortie : l'écran suivant ne doit jamais attendre. */}
           <fm.div key={route.name + ('slug' in route ? route.slug : '')} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.2 }}>
             <Garde key={route.name + ('slug' in route ? route.slug : '')}>

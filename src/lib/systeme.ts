@@ -102,7 +102,7 @@ export function monter(
     ...libres.flatMap((b) => {
       const cible = parSlug.get(b.slug)
       if (!cible || liens.some((x) => x.lien.slug === b.slug && x.lien.type === b.type)) return []
-      return [{ technique: cible, lien: { slug: b.slug, type: b.type, context: 'ajoutée à votre système' } as Combination }]
+      return [{ technique: cible, lien: { slug: b.slug, type: b.type, context: 'ajoutée à ton système' } as Combination }]
     }),
   ]
   const estLibre = (l: Combination) => libres.some((b) => b.slug === l.slug && b.type === l.type)

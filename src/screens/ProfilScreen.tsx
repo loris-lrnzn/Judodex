@@ -67,8 +67,7 @@ export function ProfilScreen({ dex }: Props) {
       {/* ── L'ouvrage et son fil ── */}
       <div className="pt-10">
         <div className="flex flex-wrap items-baseline gap-x-3 gap-y-2">
-          <h2 className="text-[13px] font-semibold uppercase tracking-[0.14em]">Mon judo</h2>
-          <span className="font-jp text-[13px] text-faint">私の柔道</span>
+          <h2 className="font-jp text-[1.25rem] font-bold">Mon judo</h2>
           <span className="annot ml-auto text-faint">
             {bilan.places.length} technique{bilan.places.length > 1 ? 's' : ''} au répertoire
           </span>

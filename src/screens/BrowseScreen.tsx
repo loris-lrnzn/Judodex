@@ -2,12 +2,12 @@ import { useState } from 'react'
 import { AnimatePresence, m as fm } from 'framer-motion'
 import type { Judodex } from '../hooks/useJudodex'
 import { useBrowseFilters } from '../hooks/useBrowseFilters'
-import { FAMILY_META, GROUP_META, kanjiSize } from '../lib/families'
+import { FAMILY_META, GROUP_META } from '../lib/families'
 import { BELTS } from '../lib/belts'
 import { BeltMark } from '../components/BeltMark'
 import { TechniqueCard } from '../components/TechniqueCard'
-import { SectionHead } from '../components/SectionHead'
 import type { Mastery } from '../types/judodex'
+import { Surtitre } from '../components/Surtitre'
 
 const MASTERY: { value: Mastery; label: string }[] = [
   { value: 'unknown', label: 'À découvrir' },
@@ -16,7 +16,7 @@ const MASTERY: { value: Mastery; label: string }[] = [
 ]
 
 const toggle = (active: boolean) =>
-  `tap annot inline-flex h-7 items-center border px-2.5 transition ${active ? 'border-ink bg-ink text-field' : 'border-edge text-soft hover:border-ink hover:text-ink'}`
+  `tap inline-flex h-8 items-center border px-2.5 text-[13px] font-medium transition ${active ? 'border-ink bg-ink text-field' : 'border-edge text-soft hover:border-ink hover:text-ink'}`
 
 export function BrowseScreen({ dex }: { dex: Judodex }) {
   const f = useBrowseFilters(dex)
@@ -25,22 +25,17 @@ export function BrowseScreen({ dex }: { dex: Judodex }) {
   return (
     <div className="mx-auto max-w-[1200px] px-4 sm:px-7">
       {/* Titre de recueil */}
-      <header className="flex flex-wrap items-end justify-between gap-5 pb-8 pt-10">
+      <header className="flex flex-wrap items-end justify-between gap-5 pb-8 pt-10 sm:pt-20">
         <div>
-          <div className="flex items-center gap-3">
-            <span className="annot border border-ink px-1.5 py-1 leading-none">Catalogue complet</span>
-          </div>
-          <h1 className="display mt-5">Techniques</h1>
-          <div className="mt-4 flex items-center gap-3">
-            <span className="dimension w-20" />
-            <span className="annot text-faint">
-              {f.count === dex.techniques.length ? `${dex.techniques.length} fiches` : `${f.count} fiches sur ${dex.techniques.length}`}
-            </span>
-          </div>
+          <Surtitre className="monte">Le catalogue</Surtitre>
+          <h1 className="display monte mt-5" style={{ '--d': '80ms' } as React.CSSProperties}>Techniques</h1>
+          <p className="monte mt-3 text-[15px] text-soft" style={{ '--d': '160ms' } as React.CSSProperties}>
+            {f.count === dex.techniques.length ? `${dex.techniques.length} fiches` : `${f.count} fiches sur ${dex.techniques.length}`}
+          </p>
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
-        <div className="flex items-stretch">
+        <div className="flex items-stretch border border-edge">
           {([
             ['family', 'Par famille'],
             ['belt', 'Par ceinture'],
@@ -49,8 +44,8 @@ export function BrowseScreen({ dex }: { dex: Judodex }) {
               key={mode}
               onClick={() => f.setGroupBy(mode)}
               aria-pressed={f.groupBy === mode}
-              className={`tap annot -ml-px inline-flex items-center border px-3 py-2 transition first:ml-0 ${
-                f.groupBy === mode ? 'z-10 border-ink bg-ink text-field' : 'border-ink hover:bg-ink hover:text-field'
+              className={`tap inline-flex items-center px-3 py-1.5 text-[14px] font-medium transition ${
+                f.groupBy === mode ? 'bg-ink text-field' : 'text-soft hover:text-ink'
               }`}
             >
               {label}
@@ -59,13 +54,13 @@ export function BrowseScreen({ dex }: { dex: Judodex }) {
         </div>
         <button
           onClick={() => setOpenFilters((o) => !o)}
-          className={`tap annot flex h-8 shrink-0 items-center gap-2 border px-3 transition ${
-            openFilters || f.active ? 'border-ink bg-ink text-field' : 'border-ink hover:bg-ink hover:text-field'
+          className={`tap flex h-[34px] shrink-0 items-center gap-2 border px-3 text-[14px] font-medium transition ${
+            openFilters || f.active ? 'border-ink text-ink' : 'border-edge text-soft hover:border-ink hover:text-ink'
           }`}
           aria-expanded={openFilters}
         >
           Filtrer
-          {f.active > 0 && <span className="grid size-4 place-items-center bg-signal text-field">{f.active}</span>}
+          {f.active > 0 && <span className="grid size-5 place-items-center bg-signal text-[12px] font-semibold text-field">{f.active}</span>}
         </button>
         </div>
       </header>
@@ -73,9 +68,9 @@ export function BrowseScreen({ dex }: { dex: Judodex }) {
       <AnimatePresence initial={false}>
         {openFilters && (
           <fm.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
-            <div className="flex flex-wrap items-center gap-x-7 gap-y-3 border-y border-ink py-3.5">
+            <div className="flex flex-wrap items-center gap-x-7 gap-y-3 border-y border-rule py-4">
               <div className="flex flex-wrap items-center gap-1.5">
-                <span className="annot mr-1 text-faint">Ceinture</span>
+                <span className="mr-1 text-[13px] text-faint">Ceinture</span>
                 {BELTS.map((b) => (
                   <button key={b.id} onClick={() => f.setBelt(b.id)} className={`${toggle(f.filters.belt === b.id)} inline-flex items-center gap-1.5`}>
                     <BeltMark belt={b.id} width={16} height={6} />
@@ -84,18 +79,18 @@ export function BrowseScreen({ dex }: { dex: Judodex }) {
                 ))}
               </div>
               <div className="flex flex-wrap items-center gap-1.5">
-                <span className="annot mr-1 text-faint">État</span>
+                <span className="mr-1 text-[13px] text-faint">État</span>
                 {MASTERY.map((m) => (
                   <button key={m.value} onClick={() => f.setMastery(m.value)} className={toggle(f.filters.mastery === m.value)}>
                     {m.label}
                   </button>
                 ))}
-                <button onClick={f.toggleTokui} title="Vos techniques de prédilection" className={toggle(f.filters.tokuiOnly)}>
+                <button onClick={f.toggleTokui} title="Tes techniques de prédilection" className={toggle(f.filters.tokuiOnly)}>
                   Tokui-waza
                 </button>
               </div>
               {f.active > 0 && (
-                <button onClick={f.clear} className="tap annot ml-auto inline-flex items-center text-signal hover:underline">
+                <button onClick={f.clear} className="tap ml-auto inline-flex items-center text-[13px] font-medium text-signal hover:underline">
                   Réinitialiser
                 </button>
               )}
@@ -105,32 +100,31 @@ export function BrowseScreen({ dex }: { dex: Judodex }) {
       </AnimatePresence>
 
       {f.count === 0 ? (
-        <div className="plate my-10 grid-paper py-28 text-center">
-          <p className="font-jp text-6xl text-rule">無</p>
-          <p className="mt-5 text-sm text-soft">Aucune technique ne correspond à ces filtres.</p>
-          <button onClick={f.clear} className="annot mt-5 border border-ink px-3 py-2 hover:bg-ink hover:text-field">
+        <div className="my-10 bg-plate py-24 text-center">
+          <p lang="ja" aria-hidden className="font-jp text-6xl text-edge">無</p>
+          <p className="mt-5 text-[15px] text-soft">Aucune technique ne correspond à ces filtres.</p>
+          <button onClick={f.clear} className="tap mt-5 border border-edge px-4 py-2 text-[14px] font-medium hover:border-ink">
             Réinitialiser
           </button>
         </div>
       ) : f.groupBy === 'belt' ? (
         <>
           {f.beltSections.map((section) => (
-            <section key={section.belt.id} className="py-10">
-              <div className="mb-6 flex items-start gap-5 border-b border-ink pb-5">
+            <section key={section.belt.id} id={`ceinture-${section.belt.id}`} className="py-10">
+              <div className="mb-6 flex items-start gap-5 border-b border-rule pb-5">
                 <span className="mt-1 shrink-0">
                   <BeltMark belt={section.belt.id} width={64} height={16} />
                 </span>
                 <div className="min-w-0 flex-1">
                   <div className="flex flex-wrap items-center gap-2.5">
-                    <span className="annot shrink-0 border border-ink px-1.5 py-1 leading-none">{section.belt.kyu}</span>
-                    <h2 className="text-[17px] font-semibold tracking-[-0.01em]">{section.belt.plate}</h2>
+                    <h2 className="font-jp text-[1.6rem] font-bold leading-tight">{section.belt.plate}</h2>
+                    <span className="text-[13px] text-faint">{section.belt.kyu}</span>
                   </div>
-                  <p className="mt-1.5 max-w-lg text-[12px] leading-relaxed text-soft">{section.belt.focus}</p>
+                  <p className="mt-1.5 max-w-lg text-[14px] leading-relaxed text-soft">{section.belt.focus}</p>
                 </div>
-                <div className="hidden shrink-0 text-right sm:block">
-                  <div className="font-mono text-2xl font-semibold leading-none">{section.mastered}</div>
-                  <div className="annot mt-1 text-faint">/ {section.techniques.length}</div>
-                </div>
+                <p className="hidden shrink-0 pt-2 text-[13px] tabular-nums text-faint sm:block">
+                  {section.mastered} acquise{section.mastered > 1 ? 's' : ''} sur {section.techniques.length}
+                </p>
               </div>
               <Grid dex={dex} list={section.techniques} />
             </section>
@@ -138,18 +132,15 @@ export function BrowseScreen({ dex }: { dex: Judodex }) {
 
           {f.offSection.length > 0 && (
             <section className="py-10">
-              <div className="mb-6 flex items-start gap-5 border-b border-ink pb-5">
+              <div className="mb-6 flex items-start gap-5 border-b border-rule pb-5">
                 <span className="mt-1 h-4 w-16 shrink-0 border-t border-dashed border-rule" />
                 <div className="min-w-0 flex-1">
-                  <h2 className="text-[17px] font-semibold tracking-[-0.01em]">Répertoire complémentaire</h2>
-                  <p className="mt-1.5 max-w-lg text-[12px] leading-relaxed text-soft">
+                  <h2 className="font-jp text-[1.6rem] font-bold leading-tight">Répertoire complémentaire</h2>
+                  <p className="mt-1.5 max-w-lg text-[14px] leading-relaxed text-soft">
                     Techniques du catalogue qui ne figurent sur aucune planche de passage de grade.
                   </p>
                 </div>
-                <div className="hidden shrink-0 text-right sm:block">
-                  <div className="font-mono text-2xl font-semibold leading-none">{f.offSection.length}</div>
-                  <div className="annot mt-1 text-faint">fiches</div>
-                </div>
+                <p className="hidden shrink-0 pt-2 text-[13px] tabular-nums text-faint sm:block">{f.offSection.length} fiches</p>
               </div>
               <Grid dex={dex} list={f.offSection} />
             </section>
@@ -160,23 +151,19 @@ export function BrowseScreen({ dex }: { dex: Judodex }) {
           const meta = GROUP_META[section.group]
           const done = section.techniques.filter((t) => dex.getProgress(t.slug).mastery === 'mastered').length
           return (
-            <section key={section.group} className="py-10" style={{ '--fam': meta.color, '--fam-hi': meta.colorHi } as React.CSSProperties}>
+            <section key={section.group} id={section.group} className="py-10" style={{ '--fam': meta.color, '--fam-hi': meta.colorHi } as React.CSSProperties}>
               {/* Cartouche de famille */}
-              <div className="mb-6 flex items-start gap-5 border-b border-ink pb-5">
-                <span className="font-jp shrink-0 whitespace-nowrap leading-none text-(--fam)" style={{ fontSize: kanjiSize(meta.kanji, 'family') }}>
-                  {meta.kanji}
-                </span>
+              <div className="mb-6 flex items-start gap-5 border-b border-rule pb-5">
                 <div className="min-w-0 flex-1">
-                  <div className="flex flex-wrap items-center gap-2.5">
-                    <h2 className="text-[17px] font-semibold tracking-[-0.01em]">{meta.name}</h2>
-                    <span className="font-jp text-[14px] text-faint">{meta.jp}</span>
+                  <div className="flex flex-wrap items-baseline gap-3">
+                    <h2 className="font-jp text-[1.6rem] font-bold leading-tight">{meta.name}</h2>
+                    <span lang="ja" className="font-jp text-[1.1rem] text-(--fam)">{meta.jp}</span>
                   </div>
-                  <p className="mt-1.5 max-w-lg text-[12px] leading-relaxed text-soft">{meta.principle}</p>
+                  <p className="mt-1.5 max-w-lg text-[14px] leading-relaxed text-soft">{meta.principle}</p>
                 </div>
-                <div className="hidden shrink-0 text-right sm:block">
-                  <div className="font-mono text-2xl font-semibold leading-none">{done}</div>
-                  <div className="annot mt-1 text-faint">/ {section.techniques.length}</div>
-                </div>
+                <p className="hidden shrink-0 pt-2 text-[13px] tabular-nums text-faint sm:block">
+                  {done} acquise{done > 1 ? 's' : ''} sur {section.techniques.length}
+                </p>
               </div>
 
               {section.subs.length > 0 ? (
@@ -185,11 +172,10 @@ export function BrowseScreen({ dex }: { dex: Judodex }) {
                   .filter((sub) => sub.techniques.length > 0)
                   .map((sub) => (
                     <div key={sub.family} className="mb-8 last:mb-0">
-                      <SectionHead
-                        title={FAMILY_META[sub.family].label}
-                        jp={FAMILY_META[sub.family].kanji}
-                        aside={`${sub.techniques.length}`}
-                      />
+                      <h3 className="mb-3 flex items-baseline gap-2 text-[15px] font-semibold">
+                        {FAMILY_META[sub.family].label}
+                        <span className="text-[13px] font-normal text-faint">{FAMILY_META[sub.family].short} · {sub.techniques.length}</span>
+                      </h3>
                       <Grid dex={dex} list={sub.techniques} />
                     </div>
                   ))
@@ -207,9 +193,20 @@ export function BrowseScreen({ dex }: { dex: Judodex }) {
 /**
  * Les cellules sont jointives : la grille dessine son propre quadrillage.
  * La dernière rangée est complétée par des cases vides pour que le tableau
- * reste rectangulaire, comme sur une planche imprimée.
+ * reste rectangulaire, et cela à chaque largeur : le nombre de colonnes
+ * change, le nombre de cases à combler aussi.
  */
+const COLONNES = [2, 3, 4, 5] as const
+/** Visibilité d'une case vide, pour chacun des quatre paliers de la grille. */
+const VISIBLE = [
+  ['block', 'hidden'],
+  ['sm:block', 'sm:hidden'],
+  ['md:block', 'md:hidden'],
+  ['lg:block', 'lg:hidden'],
+] as const
+
 function Grid({ dex, list }: { dex: Judodex; list: Judodex['techniques'] }) {
+  const manque = COLONNES.map((n) => (n - (list.length % n)) % n)
   return (
     <div className="grid grid-cols-2 border-l border-t border-rule sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
       {list.map((t) => (
@@ -222,11 +219,11 @@ function Grid({ dex, list }: { dex: Judodex; list: Judodex['techniques'] }) {
           />
         </div>
       ))}
-      {Array.from({ length: (5 - (list.length % 5)) % 5 }, (_, i) => (
+      {Array.from({ length: Math.max(...manque) }, (_, i) => (
         <div
           key={`vide-${i}`}
           aria-hidden
-          className={`grid-fine hidden border-b border-r border-rule opacity-40 lg:block ${i >= (3 - (list.length % 3)) % 3 ? '' : ''}`}
+          className={`border-b border-r border-rule ${VISIBLE.map(([oui, non], palier) => (i < manque[palier] ? oui : non)).join(' ')}`}
         />
       ))}
     </div>

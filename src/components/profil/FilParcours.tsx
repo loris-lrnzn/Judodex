@@ -45,7 +45,7 @@ export function FilParcours({ courante, vue, aller }: Props) {
                 <span className={`annot shrink-0 tabular-nums ${active ? 'text-signal' : ''}`}>
                   {faite ? '✓' : n + 1}
                 </span>
-                <span className="min-w-0 whitespace-nowrap text-[12.5px] font-medium sm:truncate">{e.titre}</span>
+                <span className="min-w-0 whitespace-nowrap text-[13.5px] font-medium sm:truncate">{e.titre}</span>
                 <span
                   aria-hidden
                   className={`absolute inset-x-0 bottom-0 h-[3px] transition-transform duration-200 ${

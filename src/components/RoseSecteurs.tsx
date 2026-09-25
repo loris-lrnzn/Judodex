@@ -162,15 +162,16 @@ export function RoseSecteurs({ repertoire, tokui, actif = null, ouvert = null, o
               x={x}
               y={y - 2}
               textAnchor="middle"
-              className="font-mono"
               fontSize="16"
               fontWeight="600"
+              style={{ fontVariantNumeric: 'tabular-nums' }}
               fill={couvert(s) ? 'var(--c-ink)' : 'var(--c-faint)'}
             >
               {repertoire[s]}
             </text>
-            <text x={x} y={y + 10} textAnchor="middle" className="font-mono" fontSize="8" letterSpacing="1.2" fill="var(--c-faint)">
-              {directionMeta(s).court}
+            {/* Le coin en toutes lettres : « ARD » ne se lisait qu'avec la légende. */}
+            <text x={x} y={y + 11} textAnchor="middle" fontSize="9.5" fill="var(--c-faint)">
+              {directionMeta(s).label.toLowerCase()}
             </text>
           </g>
         )

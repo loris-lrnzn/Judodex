@@ -47,62 +47,41 @@ export class Garde extends Component<Props, State> {
 
     return (
       <div className="mx-auto max-w-[1200px] px-4 pb-24 pt-16 sm:px-7">
-        <div className="plate grid-paper p-5 sm:p-10">
-          <span className="annot border border-signal px-1.5 py-1 leading-none text-signal">Interruption</span>
-
-          <h1 className="display mt-5">
+        <div>
+          <h1 className="display">
             {horsLigne ? (
-              <>
-                Cet écran
-                <br />
-                n'est pas
-                <br />
-                hors ligne.
-              </>
+              'Cet écran n\'est pas disponible hors ligne.'
             ) : périmé ? (
-              <>
-                Le carnet
-                <br />
-                a été mis à jour.
-              </>
+              'Le carnet a été mis à jour.'
             ) : (
-              <>
-                Quelque chose
-                <br />
-                s'est cassé.
-              </>
+              'Quelque chose s\'est cassé.'
             )}
           </h1>
 
-          <div className="mt-5 flex items-center gap-3">
-            <span className="dimension w-28" />
-            <span className="annot text-faint">中断 · INTERRUPTION</span>
-          </div>
-
-          <p className="mt-6 max-w-lg text-[15px] leading-[1.7] text-soft">
+          <p className="mt-5 max-w-lg text-[15px] leading-[1.7] text-soft">
             {horsLigne
-              ? "Vous êtes sans réseau et cette partie du carnet n'a pas encore été mise de côté sur l'appareil. Elle sera disponible dès la prochaine ouverture avec du réseau."
+              ? "Tu es sans réseau et cette partie du carnet n'a pas encore été mise de côté sur l'appareil. Elle sera disponible dès la prochaine ouverture avec du réseau."
               : périmé
-                ? "Une nouvelle version est en ligne et cette page travaillait encore sur l'ancienne. Rechargez : rien n'est perdu."
-                : "Cet écran n'a pas pu s'afficher. Votre progression est enregistrée dans ce navigateur et n'est pas touchée."}
+                ? "Une nouvelle version est en ligne et cette page travaillait encore sur l'ancienne. Recharge : rien n'est perdu."
+                : "Cet écran n'a pas pu s'afficher. Ta progression est enregistrée dans ce navigateur et n'est pas touchée."}
           </p>
 
           <div className="mt-8 flex flex-col gap-2 sm:flex-row sm:flex-wrap">
             <button
               onClick={() => window.location.reload()}
-              className="tap annot inline-flex items-center justify-center bg-signal px-5 py-3 text-center text-field transition hover:brightness-110"
+              className="tap inline-flex items-center justify-center bg-signal px-5 py-3 text-center text-[15px] font-semibold text-field transition hover:brightness-110"
             >
-              {horsLigne ? 'Réessayer' : 'Recharger le carnet'} →
+              {horsLigne ? 'Réessayer' : 'Recharger le carnet'}
             </button>
             <a
               href="/"
-              className="tap annot inline-flex items-center justify-center border border-ink px-5 py-3 text-center transition hover:bg-ink hover:text-field"
+              className="tap inline-flex items-center justify-center border border-edge px-5 py-3 text-center transition hover:border-ink text-[14px] font-medium"
             >
               Revenir à l'accueil
             </a>
           </div>
 
-          <p className="annot mt-8 max-w-lg leading-relaxed text-faint">{this.state.erreur.message}</p>
+          <p className="mt-8 max-w-lg font-mono text-[12.5px] leading-relaxed text-faint">{this.state.erreur.message}</p>
         </div>
       </div>
     )

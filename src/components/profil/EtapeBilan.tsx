@@ -109,7 +109,7 @@ export function EtapeBilan({ dex, bilan, aller }: Props) {
           )}
           <button
             onClick={() => aller(suite.etape)}
-            className="mt-4 inline-flex bg-signal px-5 py-3 text-[12px] font-bold uppercase tracking-[0.14em] text-field transition hover:brightness-110"
+            className="mt-4 inline-flex bg-signal px-5 py-3 text-[15px] font-semibold text-field transition hover:brightness-110"
           >
             {suite.bouton} →
           </button>
@@ -128,7 +128,7 @@ export function EtapeBilan({ dex, bilan, aller }: Props) {
       {/* Les systèmes, une ligne chacun. */}
       {bilan.mesSystemes.length > 0 && (
         <div className="mt-10">
-          <h3 className="annot mb-2 border-b border-ink pb-2 text-faint">Tes techniques de prédilection</h3>
+          <h3 className="annot mb-2 border-b border-edge pb-2 text-faint">Tes techniques de prédilection</h3>
           <ul>
             {bilan.mesSystemes.map((s) => (
               <li key={s.arme.slug} className="border-b border-rule/60 py-2.5">
@@ -154,7 +154,7 @@ export function EtapeBilan({ dex, bilan, aller }: Props) {
 
       {/* Le sol, sur son propre axe. */}
       <div className="mt-10">
-        <h3 className="annot mb-2 border-b border-ink pb-2 text-faint">
+        <h3 className="annot mb-2 border-b border-edge pb-2 text-faint">
           Quand ça finit au sol
           <span className="ml-2 text-rule">寝技</span>
         </h3>
@@ -193,7 +193,7 @@ export function EtapeBilan({ dex, bilan, aller }: Props) {
         </p>
         <Link
           to={{ name: 'reglages' }}
-          className="annot shrink-0 border border-ink px-3 py-2.5 transition hover:bg-ink hover:text-field"
+          className="shrink-0 border border-edge px-3 py-2.5 transition hover:border-ink text-[14px] font-medium"
         >
           Régler les directions
         </Link>

@@ -25,17 +25,16 @@ export function Etape({ id, compte, onPrecedente, onSuivante, suivant, children 
   return (
     <section aria-labelledby={`etape-${id}`} className="pt-10">
       <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-        <span className="annot text-signal tabular-nums">
-          Étape {i + 1} / {ETAPES.length}
+        <span className="annot tabular-nums text-faint">
+          Étape {i + 1} sur {ETAPES.length}
         </span>
-        <span className="font-jp text-[13px] text-faint">{meta.jp}</span>
         {compte && <span className="annot ml-auto text-faint">{compte}</span>}
       </div>
 
-      <h1 id={`etape-${id}`} className="mt-3 text-[30px] font-semibold leading-[1.1] tracking-[-0.03em] sm:text-[38px]">
+      <h1 id={`etape-${id}`} className="font-jp mt-3 text-[30px] font-extrabold leading-[1.1] sm:text-[40px]">
         {meta.question}
       </h1>
-      <p className="mt-3 max-w-xl text-[15px] leading-[1.7] text-soft">{meta.but}</p>
+      <p className="mt-3 max-w-xl text-[16px] leading-[1.7] text-soft">{meta.but}</p>
 
       <div className="mt-8">{children}</div>
 
@@ -51,7 +50,7 @@ export function Etape({ id, compte, onPrecedente, onSuivante, suivant, children 
         {!dernier && (
           <button
             onClick={onSuivante}
-            className="ml-auto bg-signal px-6 py-3 text-[12px] font-bold uppercase tracking-[0.14em] text-field transition hover:brightness-110"
+            className="ml-auto bg-signal px-6 py-3 text-[15px] font-semibold text-field transition hover:brightness-110"
           >
             {suivant ?? 'Continuer'} →
           </button>

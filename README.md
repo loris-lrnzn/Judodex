@@ -8,7 +8,7 @@ React 19 · TypeScript strict · Tailwind CSS 4 · Framer Motion · Vite 6 · Vi
 ```bash
 npm install
 npm run dev       # http://localhost:5173
-npm run test      # 66 tests, dont un parcours applicatif complet
+npm run test      # 123 tests, dont un parcours applicatif complet
 npm run audit     # contrôle de mise en page de 320 à 1440 pixels
 npm run build
 npm run preview   # nécessaire pour vérifier le fonctionnement hors ligne
@@ -400,34 +400,69 @@ Ashi-gatame-jime, un étranglement par la jambe, portait la vidéo de
 Ude-hishigi-ashi-gatame, une clé de bras. La vidéo a été retirée plutôt que de
 montrer une autre technique, et un test empêche la régression.
 
-## La direction artistique — planche technique
+## La direction artistique — un carnet de judoka
 
-Le judo s'enseigne sur des planches annotées. L'interface en reprend le
-vocabulaire, et rien n'y est décoratif.
+La première version habillait l'interface en planche technique : papier
+millimétré, réticules aux angles, lignes de cote, annotations en capitales
+mono, rapporteur gradué. Tout y était justifié, et tout ensemble faisait
+écran : on lisait le décor avant le judo. Il n'en reste que ce qui appartient
+au judo.
 
-- **Papier millimétré** en substrat des planches, **réticules de repérage**
-  aux angles, **lignes de cote** à traits d'extrémité, **cartouches de figure**
-  numérotés.
+- **Le tatami pour fond**, un vert profond et franchement chromatique ; le
+  **vermillon**, sa complémentaire, pour ce qui appelle une action ; la
+  **couleur des ceintures** pour la progression.
 - **Les kanji sont le sujet**, pas un ornement. Chaque technique est
   identifiée par ses idéogrammes, chaque famille par le sien. Leur corps
   s'adapte au nombre de caractères, de un à cinq, pour qu'un nom long ne se
   casse jamais en deux lignes.
-- **La progression lue comme un angle**, sur un rapporteur gradué de quinze en
-  quinze degrés. Le judo est une affaire d'angles, et le relevé central affiche
-  une part accomplie, jamais un décompte.
-- **Le niveau se lit à la graduation** autant qu'à la couleur de ceinture :
-  cinq traits dont le rang est rempli.
-- **Le tampon de contrôle** marque une technique acquise, apposé de travers.
+- **Les titres en mincho**, comme les noms japonais qu'ils accompagnent ; le
+  texte courant en sans-serif, à 15 pixels au moins, les mentions à 13.
+- **Le sol du dojo.** Chaque page s'ouvre sur une surface de combat vue d'en
+  haut, posée comme au judo : des carrés de deux mètres faits de deux tapis
+  d'un mètre sur deux, couchés puis debout en damier. Le joint est marqué d'une
+  ombre et d'un liseré de lumière, et la trame de chaque tapis suit son sens. Il s'efface vers le
+  bas : il pose le lieu, puis laisse lire. Un grain très fin ôte au vert son
+  air d'aplat d'écran.
+- **Le cachet.** La marque du carnet est un hanko vermillon, 柔 gravé en
+  réserve, dans l'en-tête, l'icône et les aperçus de partage ; c'est la même
+  marque que le tampon, apposé de travers, qui valide une technique acquise.
+- **柔道 en creux**, monumental, en tête de l'accueil : le trait seul, pour
+  qu'il porte la page sans disputer la lecture au titre.
+- **Une seule entrée en scène** par page : le kanji se trace de haut en bas,
+  dans le sens où il s'écrit, puis surtitre, titre, texte et vidéo montent
+  l'un après l'autre. Rien ne bouge ensuite, sauf au survol.
+- **Le pied de page** porte les deux principes de Jigoro Kano, 精力善用 et
+  自他共栄, le plan du carnet et ses sources.
+- **Aucun angle arrondi.**
 
-Trois couleurs seulement : le trait, le bleu de repérage, le rouge de
-signalement. Les familles reprennent des teintes de crayon technique. En thème
-sombre, la planche devient un cyanotype, bleu de Prusse et traits clairs.
+Le carnet **tutoie**, partout : c'est l'usage du tapis.
 
-Typographie IBM Plex Sans pour les titres et le texte, IBM Plex Mono pour
-toutes les annotations et cotations, Shippori Mincho réservé aux seuls
-idéogrammes. Aucun angle arrondi. Le texte courant tient 13 pour 1 sur le fond,
-les légendes 5,9, le vermillon de signalement 5, et les cinq teintes de famille
-de 7,7 à 11.
+Typographie IBM Plex Sans pour le texte, Shippori Mincho pour les titres et
+les idéogrammes, IBM Plex Mono réservé aux touches de clavier et aux adresses. Le texte
+courant tient 7:1 contre le fond, le vermillon 4.5:1, les cinq teintes de
+famille au moins 7:1 ; `npm run contraste` le vérifie.
+
+### Ce que l'accueil montre, et dans quel ordre
+
+Un nouveau venu trouve à droite du titre **la technique du jour** : tirée du
+programme de la ceinture préparée, pourvue d'une démonstration, la même toute
+la journée. C'est de quoi commencer sans rien avoir à choisir. Dès qu'il y a
+une progression, cette place revient au relevé chiffré.
+
+Viennent ensuite, dans l'ordre où on les cherche en ouvrant le carnet : ce
+qu'on a **en cours de travail**, la **planche du grade préparé**, puis les
+**cinq familles**, dont chacune mène à sa section du catalogue
+(`/techniques#ashi-waza`). Les carrés d'état de la planche ont leur légende ;
+une liste de situations d'étude de plus de huit lignes se replie.
+
+### La fiche
+
+Sur téléphone, l'ordre du document fait l'ordre de lecture : le nom, **la
+démonstration**, puis le texte et les réglages. Sur grand écran, la vidéo
+occupe la troisième colonne sur toute la hauteur de l'en-tête. Le fil
+d'Ariane mène à la famille. La navigation d'une fiche à l'autre suit l'ordre
+du catalogue affiché — famille, puis sous-famille — et s'arrête aux deux
+bouts au lieu de boucler.
 
 ## Mise en page et contrôle
 
@@ -465,8 +500,8 @@ src/
 │  └─ useUi.ts               Thème, focus, défilement, connexion
 ├─ components/               AppShell, Link, CommandPalette, ChoixTechnique,
 │                            TechniqueCard, RoseSecteurs, GrilleSituations,
-│                            Protractor, Seal, BeltMark, SectionHead,
-│                            YouTubeFacade, LazyImage, Toast
+│                            Seal, BeltMark, SectionHead, StudyList,
+│                            DemoPlayer, YouTubeFacade, QuizVideo, Toast
 │  └─ profil/                Le parcours du bilan : FilParcours, Etape,
 │                            les cinq étapes, et leurs pièces communes
 ├─ screens/                  HomeScreen, BrowseScreen, TechniqueScreen,
@@ -568,7 +603,7 @@ sert tel quel.
 npm run build      # tsc + vite + pré-rendu + service worker + robots/sitemap/llms
 npm run serve      # sert dist/ comme l'hébergeur (fichier d'abord, compression)
 npm run contraste  # vérifie la palette contre les seuils WCAG
-npm run og         # regénère public/og.png, l'aperçu de partage
+npm run og         # regénère public/og.png et les 104 cartes de partage
 ```
 
 **Le domaine.** Il est écrit à un seul endroit, `VITE_SITE_URL` dans `.env`, et

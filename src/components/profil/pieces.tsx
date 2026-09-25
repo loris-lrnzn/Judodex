@@ -32,7 +32,7 @@ export function LigneTechnique({ t, note, fort }: { t: Technique; note?: string;
       >
         <span className="h-3.5 w-[3px] shrink-0" style={{ background: group.color }} aria-hidden />
         <span className="min-w-0 flex-1">
-          <span className={`block truncate text-[13.5px] leading-snug ${fort ? 'font-semibold' : ''}`}>{t.name}</span>
+          <span className={`block truncate text-[14px] leading-snug ${fort ? 'font-semibold' : ''}`}>{t.name}</span>
           {note && <span className="annot block truncate text-faint">{note}</span>}
         </span>
         {fort && (
@@ -75,7 +75,7 @@ export function Compte({ n, sur, label, jp }: { n: number; sur: number; label: s
         <span className="text-[15px] leading-none text-faint tabular-nums">/{sur}</span>
       </div>
       <div className="annot mt-2 truncate">{label}</div>
-      <div className="font-jp truncate text-[11px] text-faint">{jp}</div>
+      <div className="font-jp truncate text-[12.5px] text-faint">{jp}</div>
     </div>
   )
 }
@@ -100,7 +100,7 @@ export function LigneBranche({ b, onBasculer }: { b: Branche; onBasculer: () => 
           <span className="flex min-w-0 flex-wrap items-baseline gap-x-2 gap-y-1">
             <Link
               to={{ name: 'technique', slug: b.cible.slug }}
-              className={`min-w-0 text-[13.5px] transition-colors hover:text-signal ${b.retenue ? '' : 'text-soft'}`}
+              className={`min-w-0 text-[14px] transition-colors hover:text-signal ${b.retenue ? '' : 'text-soft'}`}
             >
               {b.cible.name}
             </Link>
@@ -252,7 +252,7 @@ export function ListeCochable({
                 <span className="min-w-0 flex-1">
                   <Link
                     to={{ name: 'technique', slug: t.slug }}
-                    className={`block truncate text-[13.5px] transition-colors hover:text-signal ${acquise ? '' : 'text-soft'}`}
+                    className={`block truncate text-[14px] transition-colors hover:text-signal ${acquise ? '' : 'text-soft'}`}
                   >
                     {t.name}
                   </Link>
@@ -343,7 +343,7 @@ export function CarteSysteme({
 
       {/* Replié, on garde le verdict : c'est la seule ligne qu'on veut pouvoir
           comparer d'une arme à l'autre sans rien ouvrir. */}
-      <p className={`px-4 pb-4 text-[13.5px] leading-relaxed text-soft sm:px-5 ${ouverte ? 'border-b border-ink' : ''}`}>
+      <p className={`px-4 pb-4 text-[14px] leading-relaxed text-soft sm:px-5 ${ouverte ? 'border-b border-ink' : ''}`}>
         {s.verdict}
       </p>
 
@@ -356,7 +356,7 @@ export function CarteSysteme({
                 : `${s.montees} suite${s.montees > 1 ? 's' : ''} cochée${s.montees > 1 ? 's' : ''}.`}
             </p>
             {nu ? (
-              <button onClick={onToutRetenir} className="annot shrink-0 border border-ink px-2.5 py-1.5 transition hover:bg-ink hover:text-field">
+              <button onClick={onToutRetenir} className="shrink-0 border border-edge px-2.5 py-1.5 transition hover:border-ink text-[14px] font-medium">
                 Je fais tout ça
               </button>
             ) : (
@@ -438,7 +438,7 @@ export function ChoixArmes({
             title={tokui ? 'Tokui-waza : déclarée sur sa fiche, elle est là d\'office' : undefined}
             className={`annot border px-2.5 py-1.5 transition ${
               choisie
-                ? 'border-signal bg-signal text-field'
+                ? 'border-ink bg-ink text-field'
                 : 'border-edge text-soft hover:border-ink hover:text-ink'
             } ${tokui ? 'cursor-default' : ''}`}
           >

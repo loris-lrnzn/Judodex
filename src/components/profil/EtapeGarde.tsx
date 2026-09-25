@@ -26,7 +26,7 @@ export function EtapeGarde({ profil }: { profil: ReturnType<typeof useProfil> })
               onClick={() => profil.setGarde(g)}
               aria-pressed={profil.garde === g}
               className={`min-w-[9rem] flex-1 border p-4 text-left transition ${
-                profil.garde === g ? 'border-signal bg-signal text-field' : 'border-edge text-soft hover:border-ink hover:text-ink'
+                profil.garde === g ? 'border-ink bg-ink text-field' : 'border-edge text-soft hover:border-ink hover:text-ink'
               }`}
             >
               <span className="block text-[17px] font-semibold capitalize leading-none">Garde {g}</span>

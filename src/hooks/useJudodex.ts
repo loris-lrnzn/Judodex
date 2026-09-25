@@ -263,17 +263,26 @@ export function useJudodex(data: JudodexData) {
     [techniques],
   )
 
-  /** Voisins dans l'ordre du catalogue, pour la navigation d'une fiche à l'autre. */
+  /**
+   * L'ordre dans lequel le catalogue s'affiche : par famille, puis par
+   * sous-famille. Le fichier de données suit un autre ordre, et y naviguer
+   * menait d'o-goshi à une clé de bras.
+   */
+  const catalogueOrder = useMemo(
+    () => sections.flatMap((s) => (s.subs.length ? s.subs.flatMap((sub) => sub.techniques) : s.techniques)),
+    [sections],
+  )
+
+  /** Voisins dans l'ordre du catalogue, pour la navigation d'une fiche à l'autre.
+   *  Aux deux bouts, rien : boucler de la dernière clé à la première
+   *  projection ferait croire à un voisinage qui n'existe pas. */
   const neighbours = useCallback(
-    (slug: string) => {
-      const i = techniques.findIndex((t) => t.slug === slug)
+    (slug: string): { prev: Technique | null; next: Technique | null } => {
+      const i = catalogueOrder.findIndex((t) => t.slug === slug)
       if (i === -1) return { prev: null, next: null }
-      return {
-        prev: techniques[(i - 1 + techniques.length) % techniques.length],
-        next: techniques[(i + 1) % techniques.length],
-      }
+      return { prev: catalogueOrder[i - 1] ?? null, next: catalogueOrder[i + 1] ?? null }
     },
-    [techniques],
+    [catalogueOrder],
   )
 
   return {

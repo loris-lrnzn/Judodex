@@ -5,10 +5,10 @@ import { useState } from 'react'
  * Le bouton de lecture reprend le vocabulaire de la planche : un carré tracé,
  * pas une pastille.
  */
-export function YouTubeFacade({ id, title }: { id: string; title: string }) {
+export function YouTubeFacade({ id, title, bare = false }: { id: string; title: string; bare?: boolean }) {
   const [active, setActive] = useState(false)
   return (
-    <div className="plate relative aspect-video w-full overflow-hidden">
+    <div className={`relative aspect-video w-full overflow-hidden ${bare ? 'bg-plate' : 'plate'}`}>
       {active ? (
         <iframe
           className="absolute inset-0 size-full"
@@ -25,7 +25,7 @@ export function YouTubeFacade({ id, title }: { id: string; title: string }) {
               <path d="M0 0l16 9-16 9z" />
             </svg>
           </span>
-          <span className="annot absolute bottom-2 left-2 bg-ink px-1.5 py-0.5 text-field">Vidéo</span>
+          {!bare && <span className="annot absolute bottom-2 left-2 bg-ink px-1.5 py-0.5 text-field">Vidéo</span>}
         </button>
       )}
     </div>

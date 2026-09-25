@@ -104,12 +104,35 @@ describe('parcours applicatif', () => {
     expect(screen.getByRole('heading', { name: 'Répertoire complémentaire' })).toBeTruthy()
   })
 
+  it('mène chaque famille de l’accueil à sa section du catalogue', async () => {
+    render(<App />)
+    const jambe = await screen.findByRole('link', { name: /Jambe/ })
+    expect(jambe.getAttribute('href')).toBe('/techniques#ashi-waza')
+  })
+
+  it('suit l’ordre du catalogue d’une fiche à l’autre, sans boucler', async () => {
+    history.replaceState(null, '', '/technique/o-goshi')
+    render(<App />)
+    const voisines = await screen.findByRole('navigation', { name: /Techniques voisines/i })
+    const liens = within(voisines).getAllByRole('link').map((a) => a.getAttribute('href'))
+    // O-goshi ouvre la hanche : il vient après la dernière technique de bras.
+    expect(liens).toEqual(['/technique/uchi-mata-sukashi', '/technique/uki-goshi'])
+  })
+
+  it('ne propose pas de fiche précédente à la première du catalogue', async () => {
+    history.replaceState(null, '', '/technique/ippon-seoi-nage')
+    render(<App />)
+    const voisines = await screen.findByRole('navigation', { name: /Techniques voisines/i })
+    expect(within(voisines).getAllByRole('link')).toHaveLength(1)
+    expect(within(voisines).queryByText(/Technique précédente/)).toBeNull()
+  })
+
   it('ouvre la recherche et y trouve une technique par son kanji', async () => {
     const user = userEvent.setup()
     render(<App />)
     await user.keyboard('/')
     const dialog = await screen.findByRole('dialog', { name: /Rechercher/i })
-    await user.type(within(dialog).getByRole('searchbox'), '大腰')
+    await user.type(within(dialog).getByRole('combobox'), '大腰')
     expect(await within(dialog).findByText('O-Goshi')).toBeTruthy()
   })
 })
@@ -167,8 +190,16 @@ describe('planche de la ceinture noire', () => {
   it('mène du Dojo à la planche de la ceinture noire', async () => {
     history.replaceState(null, '', '/dojo')
     render(<App />)
-    const lien = await screen.findByRole('link', { name: /Ceinture noire/i })
+    // La carte du Dojo, et non le plan du carnet en pied de page.
+    const lien = await screen.findByRole('link', { name: /Ceinture noire.*trois premiers dan/i })
     expect(lien.getAttribute('href')).toBe('/dojo/ceinture-noire')
+  })
+
+  it('porte en pied de page le plan du carnet et ses sources', async () => {
+    render(<App />)
+    const plan = screen.getByRole('navigation', { name: /Plan du carnet/i })
+    expect(within(plan).getByRole('link', { name: 'Ceinture noire' }).getAttribute('href')).toBe('/dojo/ceinture-noire')
+    expect(screen.getByRole('link', { name: /progression française, France Judo/i }).getAttribute('href')).toContain('ffjudo.com')
   })
 })
 
@@ -255,8 +286,8 @@ describe('bilan personnel', () => {
 
     await user.click(cellule)
     await user.click(await screen.findByRole('button', { name: /Chercher une autre technique/i }))
-    await user.type(await screen.findByRole('searchbox', { name: /Chercher une technique/i }), 'ippon')
-    await user.click(await screen.findByRole('button', { name: /Ippon-Seoi-Nage/i }))
+    await user.type(await screen.findByRole('combobox', { name: /Chercher une technique/i }), 'ippon')
+    await user.click(await screen.findByRole('option', { name: /Ippon-Seoi-Nage/i }))
 
     await waitFor(() =>
       expect(
