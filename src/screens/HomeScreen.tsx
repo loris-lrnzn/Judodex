@@ -357,7 +357,7 @@ export function HomeScreen({ dex }: { dex: Judodex }) {
               ))}
               <div className="bg-field p-4 sm:col-span-3">
                 <Link to={{ name: 'profil' }} className="annot text-signal transition-colors hover:underline">
-                  Relever tes secteurs de chute →
+                  Construire ton système dans Mon judo →
                 </Link>
               </div>
             </div>
@@ -444,7 +444,7 @@ export function HomeScreen({ dex }: { dex: Judodex }) {
         <section className="pb-14">
           <SectionHead
             title="Tokui-waza"
-            aside={<Link to={{ name: 'profil' }} className="transition-colors hover:text-signal">Voir le bilan →</Link>}
+            aside={<Link to={{ name: 'profil' }} className="transition-colors hover:text-signal">Construire mon judo →</Link>}
           />
           <p className="mb-4 max-w-xl text-[15px] leading-relaxed text-soft">
             Ton tokui-waza, c'est la technique dont tu fais ton arme : celle que tu cherches, que tu places, et

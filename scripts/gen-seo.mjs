@@ -140,7 +140,7 @@ const llms = [
   `- [Accueil](${base}/) : progression et programme de la ceinture préparée.`,
   `- [Catalogue complet](${base}/techniques) : les ${techniques.length} techniques, par famille ou par ceinture.`,
   `- [Dojo](${base}/dojo) : séance de révision espacée sur la démonstration filmée ou le sens du nom.`,
-  `- [Mon judo](${base}/mon-judo) : bilan personnel — directions de projection, situations de garde, systèmes d'attaque.`,
+  `- [Mon judo](${base}/mon-judo) : construire son judo étape par étape — technique de prédilection, quatre coins de chute, réponses aux réactions de uke, entrées selon la garde, finition au sol — et en tirer une carte à partager.`,
   `- [Ceinture noire](${base}/dojo/ceinture-noire) : programme des 1er, 2e et 3e dan (katas, listes, tirage du jury).`,
   '',
   '## Techniques par famille',

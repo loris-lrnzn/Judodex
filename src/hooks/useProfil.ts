@@ -33,7 +33,7 @@ export const normaliserProfil = (p: Partial<Profil> | null | undefined): Profil 
 })
 
 /**
- * Réglages personnels du bilan. Ils ne décrivent pas un niveau — le carnet
+ * Réglages de lecture. Ils ne décrivent pas un niveau — le carnet
  * s'en charge — mais la manière dont le pratiquant lit son propre judo.
  */
 export function useProfil() {

@@ -3,7 +3,7 @@ import { AnimatePresence, m as fm } from 'framer-motion'
 /** Retour discret en bas d'écran, qui disparaît de lui-même. */
 export function Toast({ message }: { message: string | null }) {
   return (
-    <div className="pointer-events-none fixed inset-x-0 bottom-6 z-[60] flex justify-center px-4">
+    <div className="non-imprime pointer-events-none fixed inset-x-0 bottom-6 z-[60] flex justify-center px-4">
       <AnimatePresence>
         {message && (
           <fm.div

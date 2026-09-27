@@ -45,9 +45,13 @@ const RESUMES: Partial<Record<Route['name'], { titre: string; description: strin
       "Dix questions sur la démonstration filmée ou sur le sens du nom. Chaque réponse replanifie la révision de la technique.",
   },
   profil: {
-    titre: 'Mon judo — bilan personnel',
+    titre: 'Mon judo — construis ton judo',
     description:
-      "Où tombent tes adversaires, ce que tu sais opposer dans chaque garde, et ce que tu fais quand uke se défend.",
+      'Ta technique, les quatre coins où tu fais tomber, ce que tu fais quand uke résiste, tes entrées et ta finition au sol : ton judo, étape par étape, sur une carte à garder.',
+  },
+  carteJudo: {
+    titre: 'Une carte de judo',
+    description: 'Un judo construit sur Judodex : sa technique, ses coins, son système et sa finition au sol. Construis le tien.',
   },
   reglages: {
     titre: 'Réglages',

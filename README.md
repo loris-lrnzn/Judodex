@@ -8,7 +8,7 @@ React 19 · TypeScript strict · Tailwind CSS 4 · Framer Motion · Vite 6 · Vi
 ```bash
 npm install
 npm run dev       # http://localhost:5173
-npm run test      # 123 tests, dont un parcours applicatif complet
+npm run test      # 134 tests, dont un parcours applicatif complet
 npm run audit     # contrôle de mise en page de 320 à 1440 pixels
 npm run build
 npm run preview   # nécessaire pour vérifier le fonctionnement hors ligne
@@ -131,112 +131,74 @@ consacrer une séance au programme du grade préparé.
 
 Source : https://www.ffjudo.com/progression-francaise
 
-## Mon judo, ou le parcours en cinq questions
+## Mon judo, construit de A à Z
 
-Le reste de l'application dit ce qu'on connaît. Cette planche-là, `/mon-judo`,
-dit ce qu'on **sait faire, et dans quelle direction** — ce qui n'est pas la
-même chose et compte davantage sur un tapis.
+Le reste du carnet dit ce qu'on connaît. `/mon-judo` sert à **composer son
+judo**, et c'est pour cela qu'il ne lit rien du reste : ni les techniques
+marquées acquises, ni les tokui-waza des fiches. On part d'une page blanche,
+comme on décrirait son judo à son professeur, et l'état est rangé à part
+(`judodex:mon-judo:v1`).
 
-Elle a d'abord été un relevé : six sections déployées d'un bloc, qui
-répondaient à six questions sans jamais en poser aucune, et dont on ne savait
-par quel bout les prendre. Elle demande maintenant **une chose à la fois**,
-dans l'ordre où les réponses s'appellent l'une l'autre — la garde décide des
-coins, les coins font la matière du système, le système donne le bilan. Le fil
-du haut laisse revenir en arrière ou sauter à la fin : il guide, il n'enferme
-pas.
+Une première version partait du carnet : le répertoire était ce qu'on avait
+coché ailleurs, et le bilan en faisait la lecture. On y constatait son judo
+sans jamais le construire.
 
-1. **Ta garde.** Droitier ou gaucher, en un clic, avec une rose de
-   démonstration qui bascule en miroir sous les yeux. Un premier écran auquel
-   on répond vaut mieux qu'un premier écran qu'on subit.
-2. **Ton répertoire.** La rose des huit directions et les quatre coins où uke
-   tombe. Le plan est vu depuis tori : il se tient en bas de planche, uke lui
-   fait face au-dessus. Les directions sont stockées dans le repère de uke —
-   son avant, sa droite — et la vue les fait donc pivoter d'un demi-tour :
-   l'arrière de uke se lit en haut, et sa droite à gauche, puisqu'il nous fait
-   face. Un rayon par direction, dont la longueur compte les techniques et dont
-   le trait plein compte les tokui-waza ; un secteur vide est hachuré.
+Sept étapes, une question chacune, et **la carte se remplit à côté** à chaque
+choix — sur téléphone, elle se résume en quatre jauges sous la question.
 
-   **Chaque quartier se clique** et ouvre la liste de toutes les projections du
-   catalogue qui y tombent, acquises ou non. On coche celles qu'on sait faire :
-   elles entrent au répertoire, ici comme partout ailleurs dans le carnet, avec
-   leur première révision programmée. Le clic sur la planche ne se devinant pas
-   tout seul, un `+` est dessiné dans chaque quartier, et le même geste est
-   offert deux fois en clair sur les cartes voisines — un `+` à droite de
-   l'intitulé, un `+ Ajouter` sous la fin de chaque liste.
-3. **Tes situations.** Deux axes croisés — la garde relative, *même garde* ou
-   *garde croisée*, et ce que fait uke : il vient, il fuit, il contourne, il
-   bloque. Huit cases, tenues dès qu'une attaque du répertoire s'y applique.
-   Une seule suffit. La garde absente d'un lien vaut « les deux », parce que
-   c'est une restriction et non un renseignement ; le déplacement absent, lui,
-   ne remplit rien — sinon la grille serait pleine dès le premier jour et ne
-   montrerait plus aucun trou.
+1. **Toi.** Un prénom, facultatif, qui signe la carte ; la garde, droitier ou
+   gaucher — migi-kumi, hidari-kumi. Tout le reste se lit dans ce sens.
+2. **Ta technique.** Le tokui-waza, choisi parmi les soixante-neuf
+   projections, par famille ou par nom. Une fois pris, il se montre : la
+   démonstration, le coin où il fait tomber, le nombre de suites que le
+   catalogue lui connaît.
+3. **Tes coins.** Les quatre coins de chute, vus depuis tori — l'arrière de
+   uke en haut, sa droite à gauche, uke au centre. Un coin vide est hachuré.
+   On touche un coin, on y range jusqu'à trois techniques ; le catalogue
+   propose d'abord ce que la technique de prédilection y enchaîne.
+4. **Ses réactions.** Il bloque, il recule, il se penche, il esquive : pour
+   chacune, une suite. Le catalogue propose en tête les liens qui déclarent
+   cette défense ou ce déplacement, puis les autres suites de la technique,
+   puis les techniques de son propre judo qui font tomber **dans un autre
+   coin** — c'est ce changement de direction qui fait un système, et chaque
+   proposition dit si elle en change. Les contres que la technique expose
+   sont signalés en dessous : ils ne font pas une étape, on les lit au moment
+   où ils comptent.
+5. **Tes entrées.** Même garde ou garde croisée, uke qui vient, fuit,
+   contourne ou bloque : huit cases, une technique chacune. Un bouton place
+   la technique de prédilection partout où le catalogue la place.
+6. **Au sol.** Le passage quand uke tombe mal — ceux que le catalogue attache
+   aux projections choisies — puis la manière de finir : immobiliser,
+   étrangler ou luxer.
+7. **Ta carte.** Le résultat, d'un coup d'œil : quatre jauges, la planche des
+   coins, l'arbre des réactions, la grille des entrées, la chaîne au sol. À
+   côté, **les trois choses à travailler**, jamais plus, dans l'ordre où les
+   choses se construisent, chacune ramenant à son étape.
 
-   **Chaque case se clique**, exactement comme un quartier de la rose, et ouvre
-   la liste des techniques du catalogue relevées dans ce cas. L'étape a d'abord
-   été muette — on y lisait un manque sans pouvoir rien y faire, seule des cinq
-   à ne proposer aucun geste. C'est le même panneau cochable que le répertoire,
-   `ListeCochable`, écrit une fois pour les deux.
+À chaque étape, un bouton ouvre tout le catalogue : les suggestions guident,
+elles ne limitent pas. Un point marque ce que le catalogue relie aux choix
+déjà faits ; le reste est proposé sans prétendre à rien.
 
-   Le catalogue ne dit le déplacement de uke que là où quelqu'un l'a écrit, et
-   il l'a écrit pour quatre-vingts liens sur trois cent cinquante. Un judoka qui
-   place son seoi-nage quand uke avance doit pouvoir le dire même si aucun lien
-   ne l'atteste : le `+` d'une case range la technique choisie dans ce cas, et
-   `profil.situations` garde ces attributions, comme `profil.corrections` garde
-   les directions corrigées. Le catalogue propose, le pratiquant a le dernier
-   mot sur son propre judo — la couverture additionne les deux.
+**La carte sort de l'écran** de trois manières :
 
-   Ce que l'étape modifie s'arrête aux situations : décocher une technique la
-   retire de ce cas et de rien d'autre. Un tokui-waza reste un tokui-waza,
-   qu'on l'emploie ou non quand uke avance. Ce que le catalogue range ici, en
-   revanche, ne se décoche pas : il n'a pas à être contredit d'un clic
-   distrait, et la case le dit au survol.
-4. **Ton système.** Une technique de prédilection, ce que uke oppose, ce qu'on
-   fait de sa réponse. Elles se choisissent parmi les techniques du répertoire
-   pourvues d'au moins une liaison ; les tokui-waza y sont d'office. La carte
-   d'une technique range ses suites en quatre : *il se défend, j'enchaîne* ;
-   *j'insiste* — le redoublement, seul lien du catalogue qui pointe vers sa
-   propre fiche ; *il tombe mal, j'enchaîne au sol* ; et *ce que je prends*,
-   les contres qu'elle expose.
+- **En image.** `html-to-image`, chargé au premier clic seulement, rend la
+  carte à deux fois la résolution de l'écran. Une image ne voit pas les
+  polices de la page ; on les lui donne, mais seulement les tranches dont la
+  carte emploie un caractère — Shippori Mincho découpe le japonais en une
+  centaine de fichiers. Mesuré : moins d'une seconde.
+- **Par un lien.** La carte tient entière dans son adresse,
+  `/mon-judo/carte/<code>` : pas de compte, pas de serveur. Celui qui l'ouvre
+  la voit, peut la télécharger ou l'imprimer, et est invité à construire la
+  sienne ; sa propre carte n'est pas touchée. Le code est relu par le même
+  `normaliser` que le stockage : un lien trafiqué ne fait rien entrer
+  d'inconnu.
+- **Sur papier.** À l'impression, la palette passe au clair — imprimer le
+  tapis vert viderait une cartouche pour rien — et tout ce qui n'est pas la
+  carte se retire.
 
-   L'écran a d'abord parlé d'armes, de portes et de systèmes « à monter » —
-   trois métaphores de mon cru empilées sur un lexique japonais déjà exigeant.
-   Il dit maintenant *technique préférée*, *fait tomber en avant droit*, *rien
-   de coché*. Le titre du groupe au sol disait même « ça ne tombe pas, je
-   continue au sol », ce qui ne veut rien dire : si uke ne tombe pas, on reste
-   debout. Il tombe mal — sur le ventre, sur le côté, pas sur le dos — et c'est
-   de là qu'on enchaîne.
-
-   Le catalogue propose, le pratiquant retient. Une version antérieure faisait
-   l'inverse — tout coché d'office, on retirait — mais on ne sentait alors nulle
-   part qu'on construisait : tout était déjà là. Et la proposition n'est pas une
-   limite : un `+` par groupe ouvre le sélecteur de techniques, restreint à ce
-   qui a un sens pour ce groupe. Une branche ajoutée ainsi est retenue d'office.
-   Les cartes sont repliées et gardent leur verdict visible : c'est la seule
-   ligne qu'on veut comparer d'une arme à l'autre sans rien ouvrir.
-5. **Ton bilan.** Trois chiffres, puis **une seule chose à faire** — jamais
-   trois. Un bilan qui énumère quatre manques n'en fait traiter aucun : on
-   désigne le plus gênant dans l'ordre où les choses se construisent, avec les
-   techniques qui le comblent et le bouton qui ramène à l'étape concernée.
-   Suivent les verdicts des armes, une ligne chacun, et le sol sur son propre
-   axe — le ne-waza ne se lit pas en secteurs : les trois manières de conclure,
-   immobiliser, étrangler, luxer, chacune disant par quelle projection du
-   répertoire on y arrive.
-
-Le verdict d'une arme n'est pas une note mais une phrase : deux portes et une
-sortie au sol, ou bien tout qui part du même côté. Ne comptent comme portes que
-les suites **retenues**, **acquises**, et tombant dans un autre secteur que
-l'arme — une suite qu'on ne sait pas encore faire n'ouvre rien.
-
-Le calcul du bilan vit dans `useBilan`, l'état du parcours dans `useParcours`,
-chaque étape dans son fichier sous `components/profil/` : l'écran n'est plus
-qu'un aiguillage de cent-soixante-dix lignes, contre mille auparavant.
-
-Un mot sur le stockage, parce qu'il a mordu une fois. `useLocalStorage` rend le
-JSON tel qu'il a été écrit : un carnet enregistré avant l'ajout d'un champ n'en
-a pas trace, et le champ arrive `undefined` au lieu de son défaut — la page
-tombait entière à la première lecture. Le profil, les systèmes et le parcours
-passent donc chacun par un `normaliser()` à la lecture comme à l'écriture, et
-ajouter un champ demain ne cassera pas les carnets d'aujourd'hui.
+La logique vit dans `lib/monjudo.ts`, sans interface : l'état et sa
+relecture, les suggestions de chaque étape, la lecture qu'en fait la carte,
+les priorités et l'encodage du lien. Elle a ses propres tests.
 
 ### Les réglages, `/reglages`
 
@@ -245,21 +207,19 @@ formulaire de trente-cinq sélecteurs au bas du bilan, et la sauvegarde derrièr
 un menu « ⋯ » qui cachait un effacement définitif sans rien en dire. La page les
 rassemble, et le menu ne fait plus qu'y conduire.
 
-- **La garde**, la même que sur le bilan, où elle ouvre le parcours.
+- **La garde**, la même que la première étape de Mon judo : la changer ici change la carte.
 - **Les directions.** Trente-cinq des soixante-neuf projections admettent
   plusieurs lectures selon la forme enseignée, et le pratiquant peut les
   corriger lui-même ; les trente-quatre autres, celles dont la direction ne fait
   pas débat, ne sont pas proposées. Un filtre montre les seules corrections
   faites.
-- **La sauvegarde.** Le fichier exporté est passé en version 2 : il emporte la
-  progression comme avant, et désormais le profil — garde et directions
-  corrigées — et les systèmes montés, sans quoi une restauration rendrait un
-  répertoire sans la lecture qu'on en avait faite. Les fichiers version 1
-  restent lisibles. À la relecture, rien n'entre qui ne soit reconnu : une garde
+- **La sauvegarde.** Le fichier exporté est en version 3 : la progression,
+  les directions corrigées et la carte de Mon judo. Les fichiers version 1 et
+  2 restent lisibles ; les systèmes de l'ancien bilan qu'emportait la
+  version 2 sont laissés de côté, aucun écran ne les lisant plus. À la relecture, rien n'entre qui ne soit reconnu : une garde
   inconnue retombe sur droite, une direction inventée disparaît.
-- **L'effacement**, qui ne touche que les acquis. La garde, les directions et
-  les systèmes sont des réglages : ils survivent, et la page le dit avant qu'on
-  clique.
+- **L'effacement**, qui ne touche que les acquis. Les directions et Mon judo
+  survivent, et la page le dit avant qu'on clique.
 
 ### Les liens du catalogue
 
@@ -367,13 +327,33 @@ hors écran, que le navigateur refuse de faire jouer dans un cadre invisible.
 Le délai avant que l'image apparaisse est ainsi passé de 3,9 à 1,3 seconde en
 médiane, mesuré dans un navigateur sans interface, donc plutôt pessimiste.
 
+Le lecteur attend de s'être déclaré prêt avant d'être interrogé : la
+surveillance de sa lecture démarrait avant, et levait une erreur à chaque
+séance. Il est aussi, cette fois réellement, construit une seule fois : une
+dépendance mal posée le recréait à chaque question, et avec lui la poignée de
+main avec YouTube. Mesuré sur quatre questions enchaînées, l'image apparaît
+entre 1,4 et 2,5 secondes.
+
 La réponse donnée, la vidéo entière réapparaît avec son titre et ses commandes.
 Les touches 1 à 4 répondent, Entrée enchaîne.
 
+La préparation tient dans un écran de téléphone, bouton compris : quoi
+réviser en quatre grandes cases, dont le nombre dit ce qu'on va trouver, puis
+deux réglages à deux positions. Tout a une valeur par défaut ; on peut lancer
+sans rien toucher. Le grade préparé n'apparaît que lorsqu'on révise son
+programme, et une seule technique filmée suffit à une séance sur la
+démonstration, les leurres se tirant dans tout le catalogue.
+
+Pendant la séance, le pied de page se retire. La barre de progression garde la
+couleur de chaque réponse, et la bonne réponse passe en négatif une fois le
+choix fait.
+
 La séance se termine par un bilan et non par un écran de fin de partie : le
 score, la précision, la meilleure série, puis le détail des dix questions, avec
-pour chacune le résultat, la fiche accessible d'un clic et la date de sa
-prochaine révision.
+pour chacune le résultat, la fiche accessible d'un clic et le moment de sa
+prochaine révision, dit comme on le dit : aujourd'hui, demain, dans trois
+jours. Avant ce détail, un bouton reprend aussitôt les techniques manquées,
+tant que la démonstration est fraîche.
 
 ## Les démonstrations filmées
 
@@ -482,30 +462,29 @@ src/
 │  ├─ belts.ts               Les six planches de la progression française
 │  ├─ secteurs.ts            Huit directions, quatre secteurs de chute
 │  ├─ situations.ts          Garde relative × déplacement de uke, couverture
-│  ├─ systeme.ts             Montage d'un système d'attaque et son verdict
+│  ├─ monjudo.ts             Mon judo : état, suggestions, carte, lien partagé
+│  ├─ exportCarte.ts         La carte en image, par lien, sur papier
 │  ├─ search.ts              Index et score de correspondance approchée
 │  ├─ srs.ts                 Révision espacée (boîtes de Leitner)
 │  ├─ quiz.ts                Génération des questions
-│  ├─ backup.ts              Export et import du carnet (v2)
+│  ├─ backup.ts              Export et import du carnet (v3)
 │  └─ motionFeatures.ts      Animations chargées à part
 ├─ hooks/
 │  ├─ useJudodex.ts          Catalogue, progression, statistiques, files
-│  ├─ useBilan.ts            Tout ce que le bilan sait d'un judo
-│  ├─ useParcours.ts         Les cinq étapes et où l'on en est
-│  ├─ useProfil.ts           Garde et directions corrigées
-│  ├─ useSystemes.ts         Armes, branches retenues, branches ajoutées
+│  ├─ useMonJudo.ts          L'état de Mon judo, rangé à part du carnet
+│  ├─ useProfil.ts           Directions corrigées
 │  ├─ useBrowseFilters.ts    Affinage local du catalogue
 │  ├─ useRoute.ts            Routeur sur l'History API
 │  ├─ useLocalStorage.ts     Persistance différée
 │  └─ useUi.ts               Thème, focus, défilement, connexion
 ├─ components/               AppShell, Link, CommandPalette, ChoixTechnique,
-│                            TechniqueCard, RoseSecteurs, GrilleSituations,
-│                            Seal, BeltMark, SectionHead, StudyList,
-│                            DemoPlayer, YouTubeFacade, QuizVideo, Toast
-│  └─ profil/                Le parcours du bilan : FilParcours, Etape,
-│                            les cinq étapes, et leurs pièces communes
+│                            Palette, TechniqueCard, Seal, BeltMark,
+│                            SectionHead, Surtitre, StudyList, DemoPlayer,
+│                            YouTubeFacade, QuizVideo, Toast
+│  └─ monjudo/               CarteJudo, les sept étapes et leurs pièces
 ├─ screens/                  HomeScreen, BrowseScreen, TechniqueScreen,
-│                            TrainScreen, DanScreen, ProfilScreen, ReglagesScreen
+│                            TrainScreen, DanScreen, MonJudoScreen,
+│                            CarteRecueScreen, ReglagesScreen
 ├─ __tests__/                Logique métier et parcours applicatif (jsdom)
 └─ data/
    ├─ links.json             Les liens, fichier d'écriture
@@ -513,7 +492,7 @@ src/
 ```
 
 Aucun écran ne contient de logique métier : tout vient de `useJudodex`, et
-le bilan de `useBilan`, qui s'appuie dessus.
+Mon judo de `lib/monjudo.ts`.
 
 ## Décisions techniques
 

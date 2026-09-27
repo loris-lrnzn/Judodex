@@ -17,7 +17,8 @@ import { useHead } from './hooks/useHead'
 // Les écrans secondaires sortent du chargement initial.
 const TechniqueScreen = lazy(() => import('./screens/TechniqueScreen').then((m) => ({ default: m.TechniqueScreen })))
 const TrainScreen = lazy(() => import('./screens/TrainScreen').then((m) => ({ default: m.TrainScreen })))
-const ProfilScreen = lazy(() => import('./screens/ProfilScreen').then((m) => ({ default: m.ProfilScreen })))
+const MonJudoScreen = lazy(() => import('./screens/MonJudoScreen').then((m) => ({ default: m.MonJudoScreen })))
+const CarteRecueScreen = lazy(() => import('./screens/CarteRecueScreen').then((m) => ({ default: m.CarteRecueScreen })))
 const DanScreen = lazy(() => import('./screens/DanScreen').then((m) => ({ default: m.DanScreen })))
 const ReglagesScreen = lazy(() => import('./screens/ReglagesScreen').then((m) => ({ default: m.ReglagesScreen })))
 
@@ -65,7 +66,8 @@ export default function App() {
                 {route.name === 'home' && <HomeScreen dex={dex} />}
                 {route.name === 'browse' && <BrowseScreen dex={dex} />}
                 {route.name === 'technique' && <TechniqueScreen slug={route.slug} dex={dex} onNavigate={go} />}
-                {route.name === 'profil' && <ProfilScreen dex={dex} />}
+                {route.name === 'profil' && <MonJudoScreen dex={dex} onNotify={notify} />}
+                {route.name === 'carteJudo' && <CarteRecueScreen code={route.code} dex={dex} onNotify={notify} />}
                 {route.name === 'train' && <TrainScreen dex={dex} onNavigate={go} />}
                 {route.name === 'dan' && <DanScreen dan={route.dan} dex={dex} />}
                 {route.name === 'reglages' && <ReglagesScreen dex={dex} onNotify={notify} />}

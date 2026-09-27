@@ -58,15 +58,15 @@ export function TrainScreen({ dex, onNavigate }: Props) {
 
   const pools: { value: Pool; label: string; list: Technique[]; hint: string }[] = useMemo(
     () => [
-      { value: 'review', label: 'Révision du jour', list: dex.session(SESSION), hint: "Les techniques dont l'échéance est atteinte" },
+      { value: 'review', label: 'Révision du jour', list: dex.session(SESSION), hint: 'Ce qui arrive à échéance' },
       {
         value: 'belt',
-        label: `Programme ceinture ${dex.currentGroup.belt.name.toLowerCase()}`,
+        label: `Ceinture ${dex.currentGroup.belt.name.toLowerCase()}`,
         list: dex.currentGroup.techniques,
-        hint: `Le programme du grade que tu prépares, ${dex.currentGroup.belt.kyu}`,
+        hint: `Le programme du ${dex.currentGroup.belt.kyu}`,
       },
-      { value: 'discover', label: 'Découverte', list: dex.suggestions, hint: "Des techniques que tu n'as pas encore abordées" },
-      { value: 'all', label: 'Tout le catalogue', list: dex.techniques, hint: `Tirage libre parmi les ${dex.techniques.length} techniques` },
+      { value: 'discover', label: 'Découverte', list: dex.suggestions, hint: 'Ce que tu n\'as pas abordé' },
+      { value: 'all', label: 'Tout le catalogue', list: dex.techniques, hint: 'Tirage libre' },
     ],
     [dex],
   )
@@ -79,9 +79,12 @@ export function TrainScreen({ dex, onNavigate }: Props) {
    * sur la traduction plutôt que de rester choisi et grisé à la fois.
    */
   const videoPossible = useMemo(() => (pools.find((p) => p.value === pool)?.list ?? []).some((t) => clipFor(t) !== null), [pools, pool])
+  const listeChoisie = pools.find((p) => p.value === pool)?.list ?? []
   useEffect(() => {
-    if (!videoPossible && mode === 'video') setMode('translation')
-  }, [videoPossible, mode])
+    // Une liste vide — la ceinture noire, qui n'a pas de programme de kyu —
+    // ne dit rien du support : on ne touche à rien.
+    if (!videoPossible && mode === 'video' && listeChoisie.length > 0) setMode('translation')
+  }, [videoPossible, mode, listeChoisie.length])
 
   /**
    * La file est tirée dès l'écran de réglage, et non au clic : le lecteur peut
@@ -91,10 +94,11 @@ export function TrainScreen({ dex, onNavigate }: Props) {
     const source = pools.find((x) => x.value === pool)?.list ?? []
     const utilisables = mode === 'video' ? source.filter((t) => clipFor(t) !== null) : source
     return [...utilisables].sort(() => Math.random() - 0.5).slice(0, SESSION)
-    // La file ne se retire pas à chaque réponse : seuls le périmètre et le
-    // support la renouvellent.
+    // La file ne se retire pas à chaque réponse : le périmètre, le support et
+    // le grade préparé la renouvellent, ainsi que le retour à la préparation —
+    // sans quoi la révision du jour proposait encore ce qu'on venait de revoir.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pool, mode])
+  }, [pool, mode, dex.currentBelt, queue === null])
 
   const premierExtrait = useMemo(() => (filePrete[0] ? clipFor(filePrete[0]) : null), [filePrete])
 
@@ -108,6 +112,15 @@ export function TrainScreen({ dex, onNavigate }: Props) {
     }
     return max
   }, [resultats])
+
+  /** Les techniques manquées de la séance, pour les reprendre aussitôt. */
+  const manquees = useMemo(
+    () =>
+      [...new Set(resultats.filter((r) => !r.correct).map((r) => r.slug))]
+        .map((slug) => dex.bySlug.get(slug))
+        .filter((t): t is Technique => !!t),
+    [resultats, dex.bySlug],
+  )
 
   const enCours = !!queue && step < (queue?.length ?? 0)
   /** Vrai quand une question est affichée. */
@@ -125,8 +138,7 @@ export function TrainScreen({ dex, onNavigate }: Props) {
     [dex.techniques],
   )
 
-  const start = () => {
-    const list = filePrete
+  const start = (list: Technique[] = filePrete) => {
     if (!list.length) return
     setQueue(list)
     setStep(0)
@@ -198,137 +210,161 @@ export function TrainScreen({ dex, onNavigate }: Props) {
 
   const finished = queue && step >= queue.length
 
+  // Pendant une séance, le pied de page se retire : on est sur le tapis, pas
+  // dans le carnet.
+  useEffect(() => {
+    document.documentElement.toggleAttribute('data-seance', enSeance)
+    return () => document.documentElement.removeAttribute('data-seance')
+  }, [enSeance])
+
   return (
     <div className="mx-auto max-w-3xl px-4 sm:px-8">
-      {/* Écran de préparation */}
+      {/* Écran de préparation.
+          Il tient dans un écran de téléphone, bouton compris : quoi réviser
+          en quatre grandes cases, deux réglages à deux positions, et la
+          séance. Tout a une valeur par défaut raisonnable ; on peut lancer
+          sans rien toucher. */}
       {!queue && (
-        <div className="pb-14 pt-12 sm:pt-20">
+        <div className="pb-14 pt-6 sm:pt-20">
           <Surtitre className="monte">Révision espacée</Surtitre>
-          <h1 className="display monte mt-5" style={{ '--d': '80ms' } as React.CSSProperties}>Dojo</h1>
-          <p className="monte mt-5 max-w-xl text-[16px] leading-[1.7] text-soft" style={{ '--d': '160ms' } as React.CSSProperties}>
-            Dix questions, sur la démonstration filmée ou sur le sens du nom. Chaque réponse ajuste la date de la prochaine révision :
-            juste, la technique revient plus tard ; fausse, elle revient demain. Le carnet retient tout.
+          <h1 className="display monte mt-3 sm:mt-5" style={{ '--d': '80ms' } as React.CSSProperties}>Dojo</h1>
+          <p className="monte mt-3 max-w-xl text-[15px] leading-[1.6] text-soft sm:mt-4 sm:text-[16px]" style={{ '--d': '160ms' } as React.CSSProperties}>
+            Dix questions. Juste, la technique revient plus tard ; manquée, elle revient demain.
           </p>
 
-          <div className="mt-10 border-t border-rule">
-          <Field label="Que réviser">
-            {pools.map((p) =>
-              // La ceinture noire n'a pas de programme de kyu à réviser : le
-              // périmètre renvoie alors vers le programme des dan, plus bas.
-              p.value === 'belt' && dex.currentBelt === 'noire' ? (
-                <Link
-                  key={p.value}
-                  to={{ name: 'dan', dan: 1 }}
-                  title="Le programme des trois premiers dan"
-                  className={`${pill(false)} flex items-center gap-1.5`}
-                >
-                  {p.label}
-                  <span className="opacity-70">→</span>
-                </Link>
-              ) : (
-                <button
-                  key={p.value}
-                  onClick={() => setPool(p.value)}
-                  disabled={p.list.length === 0}
-                  title={p.list.length === 0 ? 'Aucune technique dans ce groupe' : p.hint}
-                  className={pill(pool === p.value)}
-                >
-                  {p.label}
-                  <span className="ml-1.5 tabular-nums opacity-60">{p.list.length}</span>
-                </button>
-              ),
-            )}
-          </Field>
-          {/* Le grade préparé ne compte que pour réviser son programme : ailleurs,
-              c'était une ligne de réglage sans effet sur la séance. */}
-          {pool === 'belt' && (
-          <Field label="Je prépare">
-            {dex.beltGroups.map((g) => {
-              const on = g.belt.id === dex.currentBelt
-              return (
-                <button
-                  key={g.belt.id}
-                  onClick={() => {
-                    dex.setCurrentBelt(g.belt.id)
-                    // Le programme de la ceinture noire n'est pas révisable ici.
-                    if (g.belt.id === 'noire' && pool === 'belt') setPool('all')
-                  }}
-                  aria-pressed={on}
-                  title={g.belt.kyu}
-                  className={`${pill(on)} flex items-center gap-2`}
-                >
-                  <BeltMark belt={g.belt.id} width={20} height={7} />
-                  {g.belt.name}
-                  {g.techniques.length > 0 && (
-                    <span className="tabular-nums opacity-60">
-                      {g.mastered}/{g.techniques.length}
+          <div className="monte mt-6 sm:mt-8" style={{ '--d': '240ms' } as React.CSSProperties}>
+            <p id="que-reviser" className="text-[14px] font-medium text-soft">Que réviser</p>
+            <div role="group" aria-labelledby="que-reviser" className="mt-2.5 grid grid-cols-2 gap-2 sm:grid-cols-4">
+              {pools.map((p) => {
+                const on = pool === p.value
+                // La case du grade reste toujours ouvrable, même vide : c'est
+                // elle qui donne accès au choix de la ceinture. La fermer pour
+                // la ceinture noire enfermait dans ce choix.
+                const vide = p.list.length === 0 && p.value !== 'belt'
+                const noire = p.value === 'belt' && dex.currentBelt === 'noire'
+                const contenu = (
+                  <>
+                    {on && <span aria-hidden className="absolute inset-x-0 top-0 h-[3px] bg-signal" />}
+                    <span className="font-jp block text-[1.6rem] font-bold leading-none tabular-nums sm:text-[1.9rem]">{noire ? '—' : p.list.length}</span>
+                    <span className="mt-2 block text-[14.5px] font-semibold leading-tight sm:mt-3">{p.label}</span>
+                    <span className={`mt-1 block text-[12.5px] leading-snug ${on ? 'text-soft' : 'text-faint'}`}>
+                      {noire ? 'Le programme des dan' : vide && p.value === 'review' ? 'Rien d\'échu aujourd\'hui' : p.hint}
                     </span>
-                  )}
-                </button>
-              )
-            })}
-          </Field>
-          )}
-          <Field label="Question">
-            {MODES.map((m) => (
+                  </>
+                )
+                const cls = `relative flex min-w-0 flex-col items-start justify-start border p-3 text-left transition sm:p-4 ${
+                  on ? 'border-ink bg-plate' : 'border-edge hover:border-ink'
+                } disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:border-edge`
+                return (
+                  <button key={p.value} onClick={() => setPool(p.value)} disabled={vide} aria-pressed={on} className={cls}>
+                    {contenu}
+                  </button>
+                )
+              })}
+            </div>
+
+            {/* Le choix du grade préparé reste toujours visible. */}
+              <div role="group" aria-labelledby="je-prepare" className="mt-3 flex flex-wrap items-center gap-1.5">
+                <span id="je-prepare" className="mr-1 text-[13px] text-faint">Je prépare</span>
+                {dex.beltGroups.map((g) => {
+                  const on = g.belt.id === dex.currentBelt
+                  return (
+                    <button
+                      key={g.belt.id}
+                      onClick={() => {
+                        dex.setCurrentBelt(g.belt.id)
+                      }}
+                      aria-pressed={on}
+                      title={g.belt.kyu}
+                      className={`tap inline-flex h-8 items-center gap-1.5 border px-2.5 text-[13px] font-medium transition ${
+                        on ? 'border-ink bg-ink text-field' : 'border-edge text-soft hover:border-ink hover:text-ink'
+                      }`}
+                    >
+                      <BeltMark belt={g.belt.id} width={16} height={6} />
+                      {g.belt.name}
+                    </button>
+                  )
+                })}
+              </div>
+
+            {pool === 'belt' && dex.currentBelt === 'noire' && (
+              <p className="mt-3 border-l-[3px] border-edge bg-plate px-4 py-3 text-[14px] leading-relaxed text-soft">
+                La ceinture noire ne s'obtient pas sur une liste de techniques mais par l'examen des dan.{' '}
+                <Link to={{ name: 'dan', dan: 1 }} className="font-medium text-ink underline decoration-edge underline-offset-4 hover:decoration-ink">
+                  Voir le programme des trois premiers dan →
+                </Link>
+              </p>
+            )}
+
+            <div className="mt-5 grid gap-x-6 gap-y-3.5 sm:mt-6 sm:grid-cols-2">
+              <Bascule
+                label="Question"
+                valeur={mode}
+                options={MODES.map((m) => ({
+                  value: m.value,
+                  label: m.label,
+                  // Une liste vide ne dit rien du support : c'est le bouton de
+                  // séance qui se grise, pas le choix.
+                  disabled: m.value === 'video' && !videoPossible && listeChoisie.length > 0,
+                  title:
+                    m.value === 'video' && !videoPossible && listeChoisie.length > 0
+                      ? "Aucune de ces techniques n'a de démonstration filmée"
+                      : undefined,
+                }))}
+                onChange={setMode}
+              />
+              <Bascule
+                label="Réponse"
+                valeur={format}
+                options={[
+                  { value: 'choice' as Format, label: 'Choix multiple' },
+                  { value: 'recall' as Format, label: 'De mémoire' },
+                ]}
+                onChange={setFormat}
+              />
+            </div>
+
+            <div className="mt-6 flex flex-col gap-3 sm:mt-7 sm:flex-row sm:items-center sm:gap-5">
               <button
-                key={m.value}
-                onClick={() => setMode(m.value)}
-                disabled={m.value === 'video' && !videoPossible}
-                title={m.value === 'video' && !videoPossible ? 'Aucune de ces techniques n\'a de démonstration filmée' : undefined}
-                className={pill(mode === m.value)}
+                onClick={() => start()}
+                disabled={filePrete.length === 0}
+                className="tap group inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap bg-signal px-7 py-4 text-[16px] font-semibold text-field transition hover:brightness-110 disabled:opacity-30"
               >
-                {m.label}
+                Commencer la séance
+                {filePrete.length > 0 && (
+                  <span className="font-normal opacity-75">· {filePrete.length} question{filePrete.length > 1 ? 's' : ''}</span>
+                )}
               </button>
-            ))}
-          </Field>
-
-          <Field label="Réponse">
-            <button onClick={() => setFormat('choice')} className={pill(format === 'choice')}>
-              Choix multiple
-            </button>
-            <button onClick={() => setFormat('recall')} className={pill(format === 'recall')}>
-              De mémoire
-            </button>
-          </Field>
+              <p className="text-[13px] leading-relaxed text-faint">
+                {MODES.find((m) => m.value === mode)!.hint}.{' '}
+                {format === 'choice' ? 'Quatre propositions, une seule juste.' : 'Tu la nommes, puis tu te notes.'}
+                {best[mode] !== undefined && <> Record : {best[mode]}/{SESSION}.</>}
+              </p>
+            </div>
           </div>
 
-          <div className="mt-7 flex flex-wrap items-center gap-4">
-            <button
-              onClick={start}
-              disabled={pools.find((p) => p.value === pool)!.list.length === 0}
-              className="bg-signal px-7 py-3.5 text-[15px] font-semibold text-field transition hover:brightness-110 disabled:opacity-30"
-            >
-              Commencer la séance
-            </button>
-            <p className="max-w-sm text-[13px] leading-relaxed text-faint">
-              {MODES.find((m) => m.value === mode)!.hint}. {format === 'choice' ? 'Quatre propositions, une seule correcte.' : 'Tu récites de mémoire, puis tu t\'évalues.'}
-              {best[mode] !== undefined && ` Record : ${best[mode]}/${SESSION}.`}
+          {dex.stats.due === 0 && dex.stats.learning > 0 && (
+            <p className="mt-8 border-l-[3px] border-edge bg-plate p-4 text-[14px] leading-relaxed text-soft">
+              Aucune révision n'est due aujourd'hui. Tes {dex.stats.learning} techniques en cours reviendront à leur échéance. Tu peux
+              tout de même lancer une séance libre.
             </p>
-          </div>
+          )}
 
           {/* Passage de grade : le programme du 1er dan, hors séance de révision. */}
-          <Link
-            to={{ name: 'dan', dan: 1 }}
-            className="group mt-10 flex min-w-0 items-center gap-4 bg-plate p-5 sm:p-6"
-          >
+          <Link to={{ name: 'dan', dan: 1 }} className="group mt-12 flex min-w-0 items-center gap-5 border-t border-rule pt-6">
+            <span lang="ja" aria-hidden className="font-jp shrink-0 text-[2.4rem] font-bold leading-none text-faint">
+              黒帯
+            </span>
             <span className="min-w-0 flex-1">
               <span className="font-jp block text-[1.3rem] font-bold leading-tight underline-offset-4 group-hover:underline">
                 Ceinture noire
               </span>
-              <span className="mt-1.5 block text-[14px] leading-relaxed text-soft">
+              <span className="mt-1 block text-[14px] leading-relaxed text-soft">
                 Le programme des trois premiers dan, unité par unité : les katas de l'UV1, les listes de l'UV2 et le tirage du jury.
               </span>
             </span>
             <span aria-hidden className="vector-push shrink-0 text-faint group-hover:text-ink">→</span>
           </Link>
-
-          {dex.stats.due === 0 && dex.stats.learning > 0 && (
-            <p className="mt-8 border-l-[3px] border-signal bg-plate p-4 text-[14px] leading-relaxed text-soft">
-              Aucune révision n'est due aujourd'hui. Tes {dex.stats.learning} techniques en cours reviendront à leur échéance. Tu peux
-              tout de même lancer une séance libre.
-            </p>
-          )}
         </div>
       )}
 
@@ -341,8 +377,14 @@ export function TrainScreen({ dex, onNavigate }: Props) {
           {/* Barre de progression de séance */}
           <div className="mb-8 flex items-center gap-4">
             <div className="flex flex-1 gap-1">
+              {/* Chaque question garde sa couleur : juste, manquée, en cours. */}
               {queue.map((_, i) => (
-                <span key={i} className={`h-[5px] flex-1 transition ${i < step ? 'bg-signal' : i === step ? 'bg-ink' : 'bg-rule'}`} />
+                <span
+                  key={i}
+                  className={`h-[5px] flex-1 transition-colors duration-300 ${
+                    resultats[i] ? (resultats[i].correct ? 'bg-ink' : 'bg-signal') : i === step ? 'bg-soft/60' : 'bg-rule'
+                  }`}
+                />
               ))}
             </div>
             <span className="text-[13px] tabular-nums text-faint">
@@ -358,9 +400,12 @@ export function TrainScreen({ dex, onNavigate }: Props) {
           {/* L'indice */}
           <div className="mt-5">
             {mode === 'translation' && (
-              <div className="grid min-h-44 place-items-center bg-plate p-8 text-center">
+              <div className="grid min-h-44 place-items-center bg-plate px-5 py-8 text-center sm:p-10">
                 <div>
-                  <p className="font-jp text-4xl font-bold leading-tight">« {current.translation} »</p>
+                  {/* Guillemets insécables : jamais un « » » seul sur sa ligne. */}
+                  <p className="font-jp text-[clamp(1.8rem,6vw,2.6rem)] font-bold leading-tight [text-wrap:balance]">
+                    «&nbsp;{current.translation}&nbsp;»
+                  </p>
                   <p className="mt-3 text-[13px] text-faint">{FAMILY_META[current.family].label}</p>
                 </div>
               </div>
@@ -389,11 +434,13 @@ export function TrainScreen({ dex, onNavigate }: Props) {
                 {question.choices.map((c, i) => {
                   const isAnswer = c.slug === question.answer.slug
                   const isPicked = c.slug === picked
-                  let cls = 'border-rule hover:border-ink'
+                  // Une seule couleur de fond par état : la bonne réponse passe
+                  // en négatif, l'erreur se cerne de vermillon, le reste s'efface.
+                  let cls = 'border-edge bg-plate/50 hover:border-ink hover:bg-plate'
                   if (picked) {
                     if (isAnswer) cls = 'border-ink bg-ink text-field'
-                    else if (isPicked) cls = 'border-signal bg-signal text-field'
-                    else cls = 'border-rule opacity-45'
+                    else if (isPicked) cls = 'border-signal bg-field text-ink'
+                    else cls = 'border-rule bg-plate/50 opacity-40'
                   }
                   return (
                     <fm.button
@@ -402,14 +449,24 @@ export function TrainScreen({ dex, onNavigate }: Props) {
                       disabled={!!picked}
                       animate={picked && isPicked && !isAnswer ? { x: [0, -5, 5, -3, 3, 0] } : {}}
                       style={familyVars(c.family)}
-                      className={`flex items-center gap-3 border bg-plate px-3.5 py-3.5 text-left transition ${cls}`}
+                      className={`flex min-h-[60px] items-center gap-3 border px-3.5 py-3 text-left transition ${cls}`}
                     >
-                      <span className="grid size-6 shrink-0 place-items-center border border-rule text-[12px] tabular-nums text-faint">{i + 1}</span>
+                      <span
+                        className={`grid size-6 shrink-0 place-items-center border text-[12px] font-semibold tabular-nums ${
+                          picked && isAnswer ? 'border-field/40 text-field' : picked && isPicked ? 'border-signal bg-signal text-field' : 'border-rule text-faint'
+                        }`}
+                      >
+                        {picked && isAnswer ? '✓' : picked && isPicked ? '✕' : i + 1}
+                      </span>
                       <span className="min-w-0 flex-1">
                         <span className="block truncate text-[15px] font-semibold">{c.name}</span>
-                        {picked && <span className="block truncate text-[13px] opacity-70">{c.translation}</span>}
+                        {picked && <span className="block truncate text-[13px] opacity-75">{c.translation}</span>}
                       </span>
-                      {picked && <span className="font-jp shrink-0 text-xl text-(--fam)">{c.kanji}</span>}
+                      {picked && (
+                        <span lang="ja" className={`font-jp shrink-0 text-xl font-bold ${isAnswer ? 'text-field' : 'text-(--fam)'}`}>
+                          {c.kanji}
+                        </span>
+                      )}
                     </fm.button>
                   )
                 })}
@@ -510,6 +567,33 @@ export function TrainScreen({ dex, onNavigate }: Props) {
             ))}
           </dl>
 
+          {/* Ce qu'on fait maintenant, avant le détail : reprendre tout de suite
+              ce qui a été manqué, tant que la démonstration est fraîche. */}
+          <div className="mt-9 flex flex-col gap-2 sm:flex-row sm:flex-wrap">
+            {manquees.length > 0 && (
+              <button
+                onClick={() => start(manquees)}
+                className="tap inline-flex items-center justify-center gap-2 bg-signal px-6 py-3.5 text-[15px] font-semibold text-field transition hover:brightness-110"
+              >
+                Reprendre {manquees.length === 1 ? 'la manquée' : `les ${manquees.length} manquées`}
+              </button>
+            )}
+            <button
+              onClick={quit}
+              className={`tap inline-flex items-center justify-center px-6 py-3.5 text-[15px] font-semibold transition ${
+                manquees.length > 0 ? 'border border-edge hover:border-ink' : 'bg-signal text-field hover:brightness-110'
+              }`}
+            >
+              Nouvelle séance
+            </button>
+            <button
+              onClick={() => onNavigate({ name: 'home' })}
+              className="tap inline-flex items-center justify-center px-4 py-3.5 text-[15px] font-medium text-soft underline decoration-edge underline-offset-4 hover:text-ink"
+            >
+              Retour au carnet
+            </button>
+          </div>
+
           {/* Le détail, question par question */}
           <div className="mt-10">
             <SectionHead title="Détail de la séance" aside={`${resultats.length} questions`} />
@@ -539,11 +623,7 @@ export function TrainScreen({ dex, onNavigate }: Props) {
                         {t.translation}
                       </span>
                     </span>
-                    {due && (
-                      <span className="hidden shrink-0 text-[13px] text-faint sm:block">
-                        revue le {new Date(due).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' })}
-                      </span>
-                    )}
+                    {due && <span className="shrink-0 text-[13px] text-faint">{quand(due)}</span>}
                     <span aria-hidden className="vector-push text-faint group-hover:text-ink">→</span>
                   </Link>
                 )
@@ -556,37 +636,51 @@ export function TrainScreen({ dex, onNavigate }: Props) {
             </p>
           </div>
 
-          <div className="mt-10 flex flex-wrap gap-2">
-            <button
-              onClick={quit}
-              className="border border-edge px-5 py-3 text-[15px] font-medium transition hover:border-ink"
-            >
-              Nouvelle séance
-            </button>
-            <button
-              onClick={() => onNavigate({ name: 'home' })}
-              className="bg-ink px-5 py-3 text-[15px] font-semibold text-field transition hover:bg-soft"
-            >
-              Retour au carnet
-            </button>
-          </div>
         </fm.div>
       )}
     </div>
   )
 }
 
-const pill = (active: boolean) =>
-  `tap inline-flex h-9 items-center border px-3.5 text-[14px] font-medium transition disabled:opacity-25 ${
-    active ? 'border-ink bg-ink text-field' : 'border-edge text-soft hover:border-ink hover:text-ink'
-  }`
+/** Échéance dite comme on la dit : aujourd'hui, demain, dans trois jours. */
+function quand(due: string): string {
+  const jours = Math.round((new Date(due).setHours(0, 0, 0, 0) - new Date().setHours(0, 0, 0, 0)) / 86_400_000)
+  if (jours <= 0) return "revient aujourd'hui"
+  if (jours === 1) return 'revient demain'
+  return `revient dans ${jours} jours`
+}
 
-/** Ligne de formulaire : intitulé en marge, choix à droite. */
-function Field({ label, children }: { label: string; children: React.ReactNode }) {
+/** Réglage à deux positions : un intitulé, et un interrupteur segmenté. */
+function Bascule<T extends string>({
+  label,
+  valeur,
+  options,
+  onChange,
+}: {
+  label: string
+  valeur: T
+  options: { value: T; label: string; disabled?: boolean; title?: string }[]
+  onChange: (v: T) => void
+}) {
   return (
-    <div className="grid gap-2 border-b border-rule py-5 sm:grid-cols-[130px_1fr] sm:gap-6">
-      <p className="pt-2 text-[14px] font-medium text-soft">{label}</p>
-      <div className="flex flex-wrap gap-1.5">{children}</div>
+    <div className="min-w-0">
+      <p className="text-[14px] font-medium text-soft">{label}</p>
+      <div role="group" aria-label={label} className="mt-2 grid grid-cols-2 border border-edge">
+        {options.map((o) => (
+          <button
+            key={o.value}
+            onClick={() => onChange(o.value)}
+            disabled={o.disabled}
+            title={o.title}
+            aria-pressed={valeur === o.value}
+            className={`tap min-w-0 px-3 py-2.5 text-[14px] font-medium transition disabled:cursor-not-allowed disabled:opacity-30 ${
+              valeur === o.value ? 'bg-ink text-field' : 'text-soft hover:text-ink'
+            }`}
+          >
+            {o.label}
+          </button>
+        ))}
+      </div>
     </div>
   )
 }
@@ -608,7 +702,7 @@ function Verdict({
 }) {
   const due = dex.getProgress(t.slug).due
   return (
-    <div className="flex flex-wrap items-center justify-between gap-3 border-l-[3px] border-signal bg-plate px-4 py-3">
+    <div className={`flex flex-wrap items-center justify-between gap-3 border-l-[3px] bg-plate px-4 py-3 ${correct ? 'border-ink' : 'border-signal'}`}>
       <div className="min-w-0">
         <p className="text-[15px]">
           <span className={`font-semibold ${correct ? 'text-ink' : 'text-signal'}`}>{correct ? 'Juste.' : 'Manqué.'}</span>{' '}

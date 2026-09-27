@@ -187,6 +187,32 @@ describe('planche de la ceinture noire', () => {
     expect(screen.getByRole('link', { name: /3e dan/i }).getAttribute('href')).toBe('/dojo/ceinture-noire/3e-dan')
   })
 
+  it("laisse toujours choisir le grade préparé, quoi qu'on révise", async () => {
+    const user = userEvent.setup()
+    history.replaceState(null, '', '/dojo')
+    render(<App />)
+    await screen.findByRole('heading', { name: 'Dojo' })
+    expect(screen.getByRole('group', { name: 'Je prépare' })).toBeTruthy()
+    await user.click(screen.getByRole('button', { name: /Ceinture jaune.*programme/ }))
+    expect(screen.getByRole('group', { name: 'Je prépare' })).toBeTruthy()
+  })
+
+  it('laisse revenir sur une autre ceinture après avoir choisi la noire', async () => {
+    const user = userEvent.setup()
+    history.replaceState(null, '', '/dojo')
+    render(<App />)
+    await user.click(await screen.findByRole('button', { name: /Ceinture jaune.*programme/ }))
+    const grades = screen.getByRole('group', { name: 'Je prépare' })
+    await user.click(within(grades).getByRole('button', { name: /Noire$/ }))
+    // La ceinture noire se prépare par l'examen des dan : on le dit, sans
+    // retirer le choix du grade.
+    expect(screen.getByRole('link', { name: /Voir le programme des trois premiers dan/ })).toBeTruthy()
+    expect(screen.getByRole('button', { name: /Commencer la séance/i }).hasAttribute('disabled')).toBe(true)
+    await user.click(within(grades).getByRole('button', { name: /Orange$/ }))
+    expect(screen.getByRole('button', { name: /Ceinture orange.*programme/ }).getAttribute('aria-pressed')).toBe('true')
+    expect(screen.getByRole('button', { name: /Commencer la séance/i }).hasAttribute('disabled')).toBe(false)
+  })
+
   it('mène du Dojo à la planche de la ceinture noire', async () => {
     history.replaceState(null, '', '/dojo')
     render(<App />)
@@ -203,111 +229,79 @@ describe('planche de la ceinture noire', () => {
   })
 })
 
-describe('bilan personnel', () => {
-  it('ouvre le bilan sur la première question du parcours', async () => {
+describe('Mon judo, construit de A à Z', () => {
+  const MJ = 'judodex:mon-judo:v1'
+
+  it('part d’une page blanche, sans rien lire du carnet', async () => {
     const user = userEvent.setup()
-    history.replaceState(null, '', '/mon-judo')
-    render(<App />)
-
-    // Le parcours commence par la garde : une question, pas un relevé.
-    expect(await screen.findByRole('heading', { level: 1, name: /droitier ou gaucher/i })).toBeTruthy()
-
-    await user.click(screen.getByRole('button', { name: /Continuer/i }))
-    expect(await screen.findByRole('heading', { level: 1, name: /qu.est-ce que tu sais faire/i })).toBeTruthy()
-    // Carnet vide : la planche invite à la remplir plutôt que de constater.
-    expect(screen.getByText(/Ta planche est vide/i)).toBeTruthy()
-  })
-
-  it('place les techniques acquises sur la rose et renverse en garde gauche', async () => {
-    const user = userEvent.setup()
-    // O-soto-gari tombe en arrière droit, o-uchi-gari en arrière gauche.
+    // Des techniques acquises et un tokui-waza dans le carnet : Mon judo n'en tient aucun compte.
     localStorage.setItem(
       'judodex:progress:v1',
-      JSON.stringify({
-        'o-soto-gari': { mastery: 'mastered', tokui: true, updatedAt: '2026-01-01' },
-        'o-uchi-gari': { mastery: 'mastered', tokui: false, updatedAt: '2026-01-01' },
-      }),
+      JSON.stringify({ 'o-goshi': { mastery: 'mastered', tokui: true, updatedAt: '' }, 'o-soto-gari': { mastery: 'mastered', tokui: false, updatedAt: '' } }),
     )
-    // On entre directement à l'étape du répertoire.
-    localStorage.setItem('judodex:parcours:v1', JSON.stringify({ courante: 'repertoire', vues: ['garde'] }))
     history.replaceState(null, '', '/mon-judo')
     render(<App />)
-
-    expect(await screen.findByRole('heading', { level: 1, name: /qu.est-ce que tu sais faire/i })).toBeTruthy()
-    expect(screen.queryByText(/Ta planche est vide/i)).toBeNull()
-    expect(screen.getAllByRole('link', { name: /O-Soto-Gari/i }).length).toBeGreaterThan(0)
-    // La rose se lit depuis tori, qui se tient en bas de planche.
-    expect(screen.getByRole('img', { name: /vue depuis tori/i })).toBeTruthy()
-    expect(screen.getByText(/2 coins sur quatre/i)).toBeTruthy()
-
-    // La garde gauche renverse la lecture sans rien perdre : on repasse par
-    // l'étape qui la porte, puis on revient au répertoire.
-    await user.click(screen.getByRole('button', { name: /Ta garde/i }))
-    await user.click(await screen.findByRole('button', { name: /Garde gauche/i }))
-    await user.click(screen.getByRole('button', { name: /Ton répertoire/i }))
-
-    await waitFor(() => expect(screen.getByText(/2 coins sur quatre/i)).toBeTruthy())
-    expect(screen.getAllByRole('link', { name: /O-Soto-Gari/i }).length).toBeGreaterThan(0)
+    expect(await screen.findByRole('heading', { name: /Qui monte sur le tapis/ })).toBeTruthy()
+    const fil = screen.getByRole('navigation', { name: /Étapes de Mon judo/ })
+    await user.click(within(fil).getByRole('button', { name: /Tes coins/ }))
+    expect(await screen.findByRole('heading', { name: /Où fais-tu tomber/ })).toBeTruthy()
+    // Quatre coins vides dans la planche de l'étape, autant dans l'aperçu de la carte.
+    expect(screen.getAllByText('Personne ne tombe ici').length).toBeGreaterThanOrEqual(4)
   })
 
-  it("laisse agir à l'étape des situations, comme sur la rose", async () => {
+  it('construit un judo étape par étape et le montre sur la carte', async () => {
     const user = userEvent.setup()
-    localStorage.setItem('judodex:parcours:v1', JSON.stringify({ courante: 'situations', vues: ['garde'] }))
     history.replaceState(null, '', '/mon-judo')
     render(<App />)
-
-    expect(await screen.findByRole('heading', { level: 1, name: /d.où sais-tu partir/i })).toBeTruthy()
-
-    // Une case de la grille s'ouvre et propose de cocher, comme un quartier.
-    await user.click(screen.getAllByRole('button', { name: /Garde croisée, il fuit/i })[0])
-    const panneau = await screen.findByRole('group', { name: /Garde croisée, il fuit/i })
-
-    const cases = within(panneau).getAllByRole('switch', { name: /à ton répertoire/i })
-    expect(cases.length).toBeGreaterThan(0)
-    expect(cases[0].getAttribute('aria-checked')).toBe('false')
-    await user.click(cases[0])
-    await waitFor(() => expect(cases[0].getAttribute('aria-checked')).toBe('true'))
+    await user.type(await screen.findByLabelText(/Ton prénom/), 'Loris')
+    await user.click(screen.getByRole('radio', { name: /Gaucher/ }))
+    await user.click(screen.getByRole('button', { name: /C’est parti/ }))
+    await user.click((await screen.findAllByRole('button', { name: /Seoi-Otoshi/ }))[0])
+    await user.click(screen.getByRole('button', { name: /Continuer/ }))
+    expect(await screen.findByRole('heading', { name: /Où fais-tu tomber/ })).toBeTruthy()
+    const fil = screen.getByRole('navigation', { name: /Étapes de Mon judo/ })
+    await user.click(within(fil).getByRole('button', { name: /Ta carte/ }))
+    const carte = await screen.findByRole('article', { name: 'Le judo de Loris' })
+    expect(within(carte).getByText('Gaucher', { exact: false })).toBeTruthy()
+    expect(within(carte).getAllByText('Seoi-Otoshi').length).toBeGreaterThan(0)
   })
 
-  it("laisse ranger soi-même une technique dans un cas que le catalogue ignore", async () => {
+  it('propose aux réactions les suites de la technique, et dit ce qu’elle expose', async () => {
     const user = userEvent.setup()
-    // Ippon-seoi-nage est au répertoire, mais aucun de ses liens n'atteste
-    // « uke avance » : sans le geste du pratiquant, la case reste vide.
-    localStorage.setItem(
-      'judodex:progress:v1',
-      JSON.stringify({ 'ippon-seoi-nage': { mastery: 'mastered', tokui: false, updatedAt: '2026-01-01' } }),
-    )
-    localStorage.setItem('judodex:parcours:v1', JSON.stringify({ courante: 'situations', vues: ['garde'] }))
+    localStorage.setItem(MJ, JSON.stringify({ tokui: 'o-uchi-gari', courante: 'reactions' }))
     history.replaceState(null, '', '/mon-judo')
     render(<App />)
-
-    const cellule = (await screen.findAllByRole('button', { name: /Même garde, il vient/i }))[0]
-    expect(cellule.getAttribute('aria-label')).toMatch(/aucune technique/i)
-
-    await user.click(cellule)
-    await user.click(await screen.findByRole('button', { name: /Chercher une autre technique/i }))
-    await user.type(await screen.findByRole('combobox', { name: /Chercher une technique/i }), 'ippon')
-    await user.click(await screen.findByRole('option', { name: /Ippon-Seoi-Nage/i }))
-
-    await waitFor(() =>
-      expect(
-        screen.getAllByRole('button', { name: /Même garde, il vient/i })[0].getAttribute('aria-label'),
-      ).toMatch(/1 technique/i),
-    )
+    await user.click(await screen.findByRole('tab', { name: /Il recule/ }))
+    const panneau = screen.getByRole('tabpanel')
+    // Le redoublement quand uke retire sa jambe est écrit dans le catalogue.
+    await user.click(within(panneau).getAllByRole('button', { name: /O-Uchi-Gari/ })[0])
+    expect(screen.getByRole('tab', { name: /Il recule/ }).textContent).toMatch(/O-Uchi-Gari/)
+    expect(screen.getByText(/Attention à ce qu’il peut te renvoyer/)).toBeTruthy()
+    expect(screen.getAllByText('O-Uchi-Gaeshi').length).toBeGreaterThan(0)
   })
 
-  it('mène du parcours au bilan, qui ne donne qu\'une chose à faire', async () => {
-    localStorage.setItem('judodex:parcours:v1', JSON.stringify({ courante: 'bilan', vues: [] }))
+  it('ne donne jamais plus de trois choses à travailler', async () => {
+    localStorage.setItem(MJ, JSON.stringify({ courante: 'carte' }))
     history.replaceState(null, '', '/mon-judo')
     render(<App />)
-
-    expect(await screen.findByRole('heading', { level: 1, name: /voilà ton judo/i })).toBeTruthy()
-    expect(screen.getByText(/La prochaine chose à faire/i)).toBeTruthy()
-    // Carnet vide : on renvoie à l'étape du répertoire, pas ailleurs.
-    expect(screen.getByRole('button', { name: /Remplir ma planche/i })).toBeTruthy()
+    const titre = await screen.findByRole('heading', { name: 'À travailler en priorité' })
+    const liste = titre.parentElement!.querySelector('ol')!
+    expect(liste.querySelectorAll('li').length).toBe(3)
   })
 
-  it('expose le bilan dans la navigation principale', async () => {
+  it('ouvre une carte reçue par lien, sans toucher à la sienne', async () => {
+    const { encoder, normaliser } = await import('../lib/monjudo')
+    const connue = () => true
+    const code = encoder({ ...normaliser({}, connue), prenom: 'Aiko', tokui: 'uchi-mata' })
+    localStorage.setItem(MJ, JSON.stringify({ prenom: 'Loris' }))
+    history.replaceState(null, '', `/mon-judo/carte/${code}`)
+    render(<App />)
+    expect(await screen.findByRole('heading', { name: 'Le judo de Aiko' })).toBeTruthy()
+    expect(screen.getByRole('link', { name: /Construire mon judo/ }).getAttribute('href')).toBe('/mon-judo')
+    expect(JSON.parse(localStorage.getItem(MJ)!).prenom).toBe('Loris')
+  })
+
+  it('expose Mon judo dans la navigation principale', async () => {
     render(<App />)
     const nav = screen.getByRole('navigation', { name: /Navigation principale/i })
     expect(within(nav).getByRole('link', { name: /Mon judo/i }).getAttribute('href')).toBe('/mon-judo')

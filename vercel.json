@@ -19,6 +19,10 @@
       "destination": "/index.html"
     },
     {
+      "source": "/mon-judo/:path*",
+      "destination": "/index.html"
+    },
+    {
       "source": "/reglages",
       "destination": "/index.html"
     },

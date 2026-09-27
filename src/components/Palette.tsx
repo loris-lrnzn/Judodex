@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import { createPortal } from 'react-dom'
 import { AnimatePresence, m as fm } from 'framer-motion'
 import type { Judodex } from '../hooks/useJudodex'
 import { FAMILY_META, familyVars, kanjiSize } from '../lib/families'
@@ -34,11 +35,17 @@ export function Palette({
 }) {
   const trap = useFocusTrap<HTMLDivElement>(open)
   useScrollLock(open)
-  return (
+  // La fenêtre se rend à la racine du document. Posée dans la page, elle
+  // héritait du repère de tout ancêtre transformé — l'entrée en scène des
+  // étapes en est un — et s'ouvrait au-dessus de l'écran, le défilement
+  // bloqué, sans moyen de la ramener.
+  return createPortal(
     <AnimatePresence>
       {open && (
         <fm.div
-          className="fixed inset-0 z-50 flex items-start justify-center bg-[rgba(3,14,9,0.72)] px-3 pt-[max(0.75rem,env(safe-area-inset-top))] backdrop-blur-[3px] sm:px-4 sm:pt-[12vh]"
+          // Le voile défile : une fenêtre plus haute que l'écran se lit
+          // toujours en entier, jusqu'à son bord supérieur.
+          className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto overscroll-contain bg-[rgba(3,14,9,0.72)] px-3 pb-3 pt-[max(0.75rem,env(safe-area-inset-top))] backdrop-blur-[3px] sm:px-4 sm:pt-[12vh]"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -55,7 +62,7 @@ export function Palette({
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.18, ease: [0.2, 0.7, 0.2, 1] }}
             onClick={(e) => e.stopPropagation()}
-            className="relative flex max-h-[calc(100svh-1.5rem)] w-full max-w-[640px] flex-col overflow-hidden border border-edge bg-field shadow-[0_40px_120px_-24px_rgba(0,0,0,.85)] sm:max-h-[76vh]"
+            className="relative flex max-h-[calc(100dvh-1.5rem)] w-full max-w-[640px] flex-col overflow-hidden border border-edge bg-field shadow-[0_40px_120px_-24px_rgba(0,0,0,.85)] sm:max-h-[76dvh]"
           >
             {/* Le trait vermillon des surtitres, en tête de la fenêtre. */}
             <span aria-hidden className="absolute inset-x-0 top-0 h-[2px] bg-signal" />
@@ -63,7 +70,8 @@ export function Palette({
           </fm.div>
         </fm.div>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body,
   )
 }
 

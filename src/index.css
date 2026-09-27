@@ -128,7 +128,11 @@ body::before {
   to { opacity: 1; transform: none; }
 }
 .monte {
-  animation: monte 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  /* « backwards » et non « both » : une fois l'entrée jouée, l'élément rend
+     sa transformation. En la gardant, même neutre, il devenait le repère de
+     tout élément fixe qu'il contient — une fenêtre de recherche s'ouvrait
+     alors par rapport à lui, et non à l'écran. */
+  animation: monte 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) backwards;
   animation-delay: var(--d, 0ms);
 }
 @keyframes trace {
@@ -137,7 +141,7 @@ body::before {
 }
 /* Le kanji se trace de haut en bas, dans le sens où il s'écrit. */
 .trace {
-  animation: trace 1.1s cubic-bezier(0.3, 0.6, 0.2, 1) both;
+  animation: trace 1.1s cubic-bezier(0.3, 0.6, 0.2, 1) backwards;
   animation-delay: var(--d, 0ms);
 }
 
@@ -150,15 +154,13 @@ body::before {
    la boîte. */
 .champ-palette:focus-visible { outline: none; }
 
-/* Les quartiers de la rose sont des boutons dessinés. L'anneau de focus par
-   défaut cerne la boîte englobante du chemin — un rectangle qui déborde du
-   disque — au lieu du quartier : on le remplace par un trait sur le quartier
-   lui-même, qui reste une indication de focus bien visible. */
-.rose-secteur:focus-visible {
-  outline: none;
-  stroke: var(--c-blue);
-  stroke-width: 2.5;
+/* Hachure d'un manque : la même que les coins vides de la rose. */
+.hachure {
+  background-image: repeating-linear-gradient(45deg, var(--c-rule) 0 1px, transparent 1px 6px);
 }
+
+/* En séance au dojo, le pied de page se retire. */
+[data-seance] .pied-de-page { display: none; }
 
 * { scrollbar-width: thin; scrollbar-color: var(--c-rule) transparent; }
 
@@ -301,4 +303,41 @@ a, button, select, summary, [role='button'] {
    bandeau se glisse dessous et se rehausse d'autant. */
 .safe-t {
   padding-top: env(safe-area-inset-top);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   IMPRESSION — la carte de judo sur une feuille
+
+   Imprimer le tapis vert viderait une cartouche pour rien : sur papier, la
+   palette passe au clair, l’encre reste pour le trait et le texte. Tout ce
+   qui n’est pas la carte se retire.
+   ═══════════════════════════════════════════════════════════════════════ */
+@media print {
+  :root {
+    --c-field: #ffffff;
+    --c-plate: #f3f5f2;
+    --c-ink: #111a15;
+    --c-soft: #2f3a33;
+    --c-faint: #56625a;
+    --c-rule: #c9d1cb;
+    --c-edge: #8e9a92;
+    --c-signal: #c2331c;
+    --c-te: #1d5b86;
+    --c-koshi: #9a4c14;
+    --c-ashi: #4a7219;
+    --c-sutemi: #7a3683;
+    --c-ne: #8a6710;
+  }
+  body::before,
+  .non-imprime,
+  .tatami,
+  nav[aria-label='Navigation principale'] {
+    display: none !important;
+  }
+  body { background: #fff; }
+  /* Une transition en cours imprimerait une couleur à mi-chemin. */
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+  main { padding: 0 !important; }
+  .carte-judo { break-inside: avoid; }
+  @page { size: A4; margin: 12mm; }
 }

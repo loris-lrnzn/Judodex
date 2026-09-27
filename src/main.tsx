@@ -27,7 +27,8 @@ if ('serviceWorker' in navigator && import.meta.env.PROD) {
 const ÉCRANS: Partial<Record<ReturnType<typeof parseRoute>['name'], () => Promise<unknown>>> = {
   technique: () => import('./screens/TechniqueScreen'),
   train: () => import('./screens/TrainScreen'),
-  profil: () => import('./screens/ProfilScreen'),
+  profil: () => import('./screens/MonJudoScreen'),
+  carteJudo: () => import('./screens/CarteRecueScreen'),
   dan: () => import('./screens/DanScreen'),
   reglages: () => import('./screens/ReglagesScreen'),
 }

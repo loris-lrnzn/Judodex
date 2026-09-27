@@ -1,6 +1,5 @@
 import type { ProgressMap } from '../types/judodex'
 import type { Profil } from '../hooks/useProfil'
-import type { BrancheLibre, EtatSystemes } from '../hooks/useSystemes'
 import type { Direction } from './secteurs'
 import { CASES, type Case } from './situations'
 
@@ -9,42 +8,46 @@ const FORMAT = 'judodex-progress'
 /**
  * Le carnet entier, tel qu'il se sauvegarde.
  *
- * La version 1 ne portait que la progression. La 2 y ajoute le profil — garde
- * et directions corrigées — et les systèmes montés, sans quoi une restauration
- * rendrait un répertoire sans la lecture qu'on en avait faite. Les fichiers
- * version 1 restent lisibles : leurs champs manquants valent défaut.
+ * La version 1 ne portait que la progression. La 2 y ajoutait le profil —
+ * garde et directions corrigées — et les systèmes de l'ancien bilan. La 3
+ * remplace ces systèmes par Mon judo, construit de A à Z. Les fichiers
+ * version 1 et 2 restent lisibles : leurs champs manquants valent défaut, et
+ * les systèmes de la version 2, qu'aucun écran ne lit plus, sont laissés de
+ * côté.
  */
 export interface Backup {
   format: typeof FORMAT
-  version: 1 | 2
+  version: 1 | 2 | 3
   exportedAt: string
   progress: ProgressMap
   profil?: Profil
-  systemes?: EtatSystemes
+  /** Mon judo tel qu'il est rangé ; relu par `normaliser` à la restauration. */
+  monJudo?: unknown
 }
 
 /** Ce qu'une restauration rend à l'application. */
 export interface Restauration {
   progress: ProgressMap
   profil: Profil | null
-  systemes: EtatSystemes | null
+  /** Brut : c'est l'écran, qui connaît le catalogue, qui le relit. */
+  monJudo: unknown | null
 }
 
 export interface ADeposer {
   progress: ProgressMap
   profil: Profil
-  systemes: EtatSystemes
+  monJudo: unknown
 }
 
 /** Télécharge le carnet sous forme de fichier JSON. */
-export function exportProgress({ progress, profil, systemes }: ADeposer) {
+export function exportProgress({ progress, profil, monJudo }: ADeposer) {
   const payload: Backup = {
     format: FORMAT,
-    version: 2,
+    version: 3,
     exportedAt: new Date().toISOString(),
     progress,
     profil,
-    systemes,
+    monJudo,
   }
   const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' })
   const url = URL.createObjectURL(blob)
@@ -75,26 +78,6 @@ function lireProfil(p: unknown): Profil | null {
   return { garde: brut.garde === 'gauche' ? 'gauche' : 'droite', corrections, situations }
 }
 
-function lireSystemes(s: unknown): EtatSystemes | null {
-  if (!s || typeof s !== 'object') return null
-  const brut = s as Partial<EtatSystemes>
-  const retenues: Record<string, string[]> = {}
-  for (const [arme, liste] of Object.entries(brut.retenues ?? {}))
-    if (Array.isArray(liste)) retenues[arme] = liste.filter((c): c is string => typeof c === 'string')
-  const TYPES = ['enchainement', 'redoublement', 'contre', 'liaison-sol']
-  const libres: Record<string, BrancheLibre[]> = {}
-  for (const [arme, liste] of Object.entries(brut.libres ?? {}))
-    if (Array.isArray(liste))
-      libres[arme] = liste.filter(
-        (b): b is BrancheLibre => !!b && typeof b === 'object' && typeof b.slug === 'string' && TYPES.includes(b.type),
-      )
-  return {
-    armes: Array.isArray(brut.armes) ? brut.armes.filter((a): a is string => typeof a === 'string') : [],
-    retenues,
-    libres,
-  }
-}
-
 /** Lit un fichier de sauvegarde, ou lève une erreur claire. */
 export async function importProgress(file: File): Promise<Restauration> {
   const parsed = JSON.parse(await file.text()) as Partial<Backup>
@@ -113,5 +96,9 @@ export async function importProgress(file: File): Promise<Restauration> {
       ...(typeof e.due === 'string' ? { due: e.due } : {}),
     }
   }
-  return { progress: clean, profil: lireProfil(parsed.profil), systemes: lireSystemes(parsed.systemes) }
+  return {
+    progress: clean,
+    profil: lireProfil(parsed.profil),
+    monJudo: parsed.monJudo && typeof parsed.monJudo === 'object' ? parsed.monJudo : null,
+  }
 }

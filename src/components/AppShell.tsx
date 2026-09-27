@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import type { Route } from '../hooks/useRoute'
 import { Link } from './Link'
+import { Signature } from './Marque'
 import { PROGRESSION_SOURCE } from '../lib/belts'
 
 interface Props {
@@ -32,24 +33,6 @@ function Engrenage() {
 }
 
 /**
- * Le cachet du carnet : un hanko vermillon, l'idéogramme de la souplesse
- * gravé en réserve. C'est la même marque que le tampon qui valide une
- * technique acquise.
- */
-function Hanko({ size = 30 }: { size?: number }) {
-  return (
-    <span
-      aria-hidden
-      className="font-jp relative grid shrink-0 place-items-center bg-signal font-extrabold leading-none text-field transition-transform duration-300 group-hover:-rotate-6"
-      style={{ width: size, height: size, fontSize: size * 0.62 }}
-    >
-      <span className="absolute inset-[2px] border border-field/35" />
-      柔
-    </span>
-  )
-}
-
-/**
  * Pied de page. Un carnet de référence dit d'où il tient ce qu'il avance, et
  * le judo a sa devise : les deux principes que Jigoro Kano a donnés à sa
  * méthode.
@@ -64,13 +47,10 @@ function PiedDePage() {
     { to: { name: 'reglages' }, label: 'Réglages et sauvegarde' },
   ]
   return (
-    <footer className="mt-24 border-t border-rule">
+    <footer className="pied-de-page non-imprime mt-24 border-t border-rule">
       <div className="mx-auto grid max-w-[1200px] gap-12 px-4 py-14 sm:px-7 md:grid-cols-2 lg:grid-cols-[1.1fr_1.3fr_0.8fr]">
         <div className="min-w-0">
-          <div className="flex items-center gap-3">
-            <Hanko size={36} />
-            <span className="font-jp text-[1.5rem] font-bold leading-none">Judodex</span>
-          </div>
+          <Signature className="text-[1.9rem]" />
           <p className="mt-5 max-w-sm text-[14px] leading-relaxed text-soft">
             Le carnet du judoka : les techniques du judo, leur décomposition, et la mémoire de ce que tu travailles.
           </p>
@@ -153,7 +133,8 @@ export function AppShell({ route, annonce, onSearch, children }: Props) {
   const isActive = (r: Route) =>
     r.name === route.name ||
     (r.name === 'browse' && route.name === 'technique') ||
-    (r.name === 'train' && route.name === 'dan')
+    (r.name === 'train' && route.name === 'dan') ||
+    (r.name === 'profil' && route.name === 'carteJudo')
 
   return (
     <div className="min-h-dvh">
@@ -166,12 +147,15 @@ export function AppShell({ route, annonce, onSearch, children }: Props) {
           `backdrop-filter` fait de son élément le bloc conteneur de tout ce
           qu'il contient, et la barre d'onglets, pourtant fixée au bas de la
           fenêtre, se serait accrochée au bas de l'en-tête. */}
-      <header className="safe-t sticky top-0 z-30 border-b border-rule">
+      <header className="entete-site non-imprime safe-t sticky top-0 z-30 border-b border-rule">
         <span aria-hidden className="absolute inset-0 -z-10 bg-field/95 backdrop-blur" />
         <div className="mx-auto flex h-14 max-w-[1200px] items-stretch pl-[max(0.75rem,env(safe-area-inset-left))] pr-[max(0.75rem,env(safe-area-inset-right))] sm:pl-[max(1.75rem,env(safe-area-inset-left))] sm:pr-[max(1.75rem,env(safe-area-inset-right))]">
           <Link to={{ name: 'home' }} className="tap group flex shrink-0 items-center gap-2.5 pr-2 sm:pr-4" aria-label="Accueil Judodex">
-            <Hanko />
-            <span className="font-jp text-[1.15rem] font-bold leading-none tracking-[-0.01em] sm:hidden lg:inline">Judodex</span>
+            <Signature
+              className="text-[1.45rem]"
+              texteClassName="sm:hidden lg:inline"
+              marqueClassName="transition-transform duration-300 group-hover:-rotate-6"
+            />
           </Link>
 
           {/*

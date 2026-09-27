@@ -1,7 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { importProgress } from '../lib/backup'
 import { SECTEURS, secteurDe } from '../lib/secteurs'
-import { normaliser } from '../hooks/useSystemes'
 import { normaliserProfil } from '../hooks/useProfil'
 import { couverture } from '../lib/situations'
 import { buildIndex, fuzzyScore, normalize, searchIndex } from '../lib/search'
@@ -663,20 +662,6 @@ describe('les quartiers de la rose', () => {
 })
 
 describe('carnets enregistrés avant un ajout de champ', () => {
-  it("rend les systèmes lisibles quand un champ manque", () => {
-    // Panne réelle : un carnet écrit avant l'ajout de `libres` rendait
-    // `etat.libres` undefined, et l'écran entier tombait à la première lecture.
-    // useLocalStorage rend le JSON tel qu'il a été écrit, sans le fusionner
-    // avec le défaut : toute lecture passe donc par normaliser().
-    expect(normaliser({ armes: ['o-goshi'], retenues: { 'o-goshi': ['contre:x'] } })).toEqual({
-      armes: ['o-goshi'],
-      retenues: { 'o-goshi': ['contre:x'] },
-      libres: {},
-    })
-    expect(normaliser({})).toEqual({ armes: [], retenues: {}, libres: {} })
-    expect(normaliser(undefined)).toEqual({ armes: [], retenues: {}, libres: {} })
-  })
-
   it('rend le profil lisible quand un champ manque', () => {
     expect(normaliserProfil({ garde: 'gauche' })).toEqual({ garde: 'gauche', corrections: {}, situations: {} })
     expect(normaliserProfil(undefined)).toEqual({ garde: 'droite', corrections: {}, situations: {} })
@@ -704,7 +689,7 @@ describe('sauvegarde du carnet', () => {
     },
   }
 
-  it('rend le profil et les systèmes d\'un fichier version 2', async () => {
+  it('rend le profil d\'un fichier version 2 et laisse ses systèmes de côté', async () => {
     const r = await importProgress(fichier(v2))
     expect(r.progress['o-goshi'].tokui).toBe(true)
     expect(r.profil).toEqual({
@@ -712,18 +697,21 @@ describe('sauvegarde du carnet', () => {
       corrections: { 'kata-guruma': 'av-d' },
       situations: { 'ippon-seoi-nage': ['ai-yotsu:avance'] },
     })
-    expect(r.systemes).toEqual({
-      armes: ['o-goshi'],
-      retenues: { 'o-goshi': ['contre:ushiro-goshi'] },
-      libres: { 'o-goshi': [{ type: 'liaison-sol', slug: 'kesa-gatame' }] },
-    })
+    // Les systèmes de l'ancien bilan n'ont plus d'écran : Mon judo part de zéro.
+    expect(r.monJudo).toBeNull()
+  })
+
+  it('rend Mon judo d\'un fichier version 3', async () => {
+    const monJudo = { prenom: 'Loris', tokui: 'seoi-otoshi', garde: 'gauche' }
+    const r = await importProgress(fichier({ ...v2, version: 3, systemes: undefined, monJudo }))
+    expect(r.monJudo).toEqual(monJudo)
   })
 
   it('lit encore un fichier version 1, sans profil ni systèmes', async () => {
     const r = await importProgress(fichier({ ...v2, version: 1, profil: undefined, systemes: undefined }))
     expect(r.progress['o-goshi'].mastery).toBe('mastered')
     expect(r.profil).toBeNull()
-    expect(r.systemes).toBeNull()
+    expect(r.monJudo).toBeNull()
   })
 
   it('écarte ce qu\'un fichier trafiqué contiendrait', async () => {
@@ -737,8 +725,6 @@ describe('sauvegarde du carnet', () => {
     // Une garde inconnue retombe sur droite, une direction inventée disparaît.
     // Une case inventée ne franchit pas la relecture non plus.
     expect(r.profil).toEqual({ garde: 'droite', corrections: {}, situations: {} })
-    // Une forme de lien inventée ne franchit pas la relecture.
-    expect(r.systemes).toEqual({ armes: [], retenues: {}, libres: { a: [] } })
   })
 
   it('refuse un fichier qui n\'est pas une sauvegarde', async () => {

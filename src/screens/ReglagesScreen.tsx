@@ -1,7 +1,8 @@
-import { useRef, useState } from 'react'
+import { useCallback, useRef, useState } from 'react'
 import type { Judodex } from '../hooks/useJudodex'
 import { useProfil } from '../hooks/useProfil'
-import { useSystemes } from '../hooks/useSystemes'
+import { useMonJudo } from '../hooks/useMonJudo'
+import { normaliser } from '../lib/monjudo'
 import { Link } from '../components/Link'
 import { SectionHead } from '../components/SectionHead'
 import { exportProgress, importProgress } from '../lib/backup'
@@ -24,7 +25,8 @@ interface Props {
  */
 export function ReglagesScreen({ dex, onNotify }: Props) {
   const profil = useProfil()
-  const systemes = useSystemes()
+  const connue = useCallback((s: string) => dex.bySlug.has(s), [dex.bySlug])
+  const monJudo = useMonJudo(connue)
   const fichier = useRef<HTMLInputElement>(null)
   const [filtre, setFiltre] = useState(false)
 
@@ -32,11 +34,11 @@ export function ReglagesScreen({ dex, onNotify }: Props) {
 
   const restaurer = async (f: File) => {
     try {
-      const { progress, profil: p, systemes: s } = await importProgress(f)
+      const { progress, profil: p, monJudo: m } = await importProgress(f)
       dex.replaceProgress(progress)
       if (p) profil.remplacer(p)
-      if (s) systemes.remplacer(s)
-      onNotify(p || s ? 'Carnet restauré' : 'Progression restaurée')
+      if (m) monJudo.remplacer(normaliser(m, connue))
+      onNotify(p || m ? 'Carnet restauré' : 'Progression restaurée')
     } catch (err) {
       onNotify(err instanceof Error ? err.message : 'Import impossible')
     }
@@ -60,18 +62,18 @@ export function ReglagesScreen({ dex, onNotify }: Props) {
       <div className="mt-12">
         <SectionHead title="Ta garde" />
         <p className="mb-4 max-w-xl text-[14px] leading-relaxed text-soft">
-          Elle renverse la lecture des secteurs en miroir : un gaucher n'a pas les mêmes coins. Le bilan s'y adapte, et
-          la même bascule s'y trouve aussi, pour comparer d'un clic.
+          Elle renverse la lecture des coins en miroir : un gaucher ne fait pas tomber du même côté. C'est la même
+          garde que la première étape de Mon judo ; la changer ici change ta carte.
         </p>
         <div className="flex flex-wrap items-center gap-3">
           <div className="flex border border-edge">
             {(['droite', 'gauche'] as const).map((g) => (
               <button
                 key={g}
-                onClick={() => profil.setGarde(g)}
-                aria-pressed={profil.garde === g}
+                onClick={() => monJudo.setGarde(g)}
+                aria-pressed={monJudo.mj.garde === g}
                 className={`min-h-11 px-4 text-[13px] capitalize transition sm:min-h-0 sm:py-2.5 ${
-                  profil.garde === g ? 'bg-ink text-field' : 'text-soft hover:text-ink'
+                  monJudo.mj.garde === g ? 'bg-ink text-field' : 'text-soft hover:text-ink'
                 }`}
               >
                 {g}
@@ -79,11 +81,11 @@ export function ReglagesScreen({ dex, onNotify }: Props) {
             ))}
           </div>
           <p className="annot min-w-0 flex-1 text-faint">
-            {profil.garde === 'droite' ? 'Lecture pour un droitier.' : 'Lecture renversée pour un gaucher.'}
+            {monJudo.mj.garde === 'droite' ? 'Lecture pour un droitier.' : 'Lecture renversée pour un gaucher.'}
           </p>
         </div>
         <p className="annot mt-3 max-w-xl leading-relaxed text-faint">
-          À ne pas confondre avec la garde relative du bilan ({GARDES.map((g) => g.label.toLowerCase()).join(', ')}) :
+          À ne pas confondre avec la garde relative des entrées ({GARDES.map((g) => g.label.toLowerCase()).join(', ')}) :
           celle-là décrit une opposition entre deux judokas, celle-ci te décrit toi.
         </p>
       </div>
@@ -94,10 +96,10 @@ export function ReglagesScreen({ dex, onNotify }: Props) {
         <p className="max-w-xl text-[14px] leading-relaxed text-soft">
           La direction d'une projection dépend de la forme enseignée. {A_CONFIRMER.length} des{' '}
           {Object.keys(DIRECTION_OF).length} projections du catalogue admettent plusieurs lectures : si ton club en
-          enseigne une autre, corrige-la ici, et la rose du bilan suivra. Les autres, celles dont la direction ne fait
+          enseigne une autre, corrige-la ici, et les coins de ta carte suivront. Les autres, celles dont la direction ne fait
           pas débat, ne sont pas proposées.
         </p>
-        {profil.garde === 'gauche' && (
+        {monJudo.mj.garde === 'gauche' && (
           <p className="annot mt-2 max-w-xl leading-relaxed text-faint">
             Les directions se saisissent toujours en garde droite. La rose les renverse ensuite pour ta garde.
           </p>
@@ -172,14 +174,14 @@ export function ReglagesScreen({ dex, onNotify }: Props) {
         <SectionHead title="Sauvegarde" />
         <p className="max-w-xl text-[14px] leading-relaxed text-soft">
           Le carnet vit dans ce navigateur seul. Un fichier exporté emporte tout : les techniques acquises et leurs
-          échéances de révision, ta garde, tes directions corrigées et tes systèmes montés.
+          échéances de révision, tes directions corrigées et ta carte de Mon judo.
         </p>
 
         <dl className="mt-5 grid gap-x-8 gap-y-3 border-y border-rule py-4 sm:grid-cols-3">
           {[
             { k: 'Techniques suivies', v: `${dex.stats.mastered + dex.stats.learning} sur ${dex.stats.total}` },
             { k: 'Directions corrigées', v: corrigees || 'aucune' },
-            { k: 'Systèmes montés', v: systemes.retouchees || 'aucun' },
+            { k: 'Mon judo', v: monJudo.mj.tokui ? dex.bySlug.get(monJudo.mj.tokui)?.name ?? '—' : 'à construire' },
           ].map(({ k, v }) => (
             <div key={k} className="min-w-0">
               <dt className="annot text-faint">{k}</dt>
@@ -191,7 +193,7 @@ export function ReglagesScreen({ dex, onNotify }: Props) {
         <div className="mt-5 flex flex-wrap gap-3">
           <button
             onClick={() => (
-              exportProgress({ progress: dex.progress, profil, systemes: systemes.etat }),
+              exportProgress({ progress: dex.progress, profil, monJudo: monJudo.mj }),
               onNotify('Carnet exporté')
             )}
             className="bg-signal px-5 py-3 text-[15px] font-semibold text-field transition hover:brightness-110"

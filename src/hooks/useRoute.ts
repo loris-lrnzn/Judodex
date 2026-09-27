@@ -8,12 +8,15 @@ export type Route =
   | { name: 'train' }
   | { name: 'reglages' }
   | { name: 'dan'; dan: 1 | 2 | 3 }
+  /** Une carte de judo reçue par lien : elle tient entière dans l'adresse. */
+  | { name: 'carteJudo'; code: string }
   /** Adresse qui ne correspond à rien : on le dit, plutôt que de servir l'accueil. */
   | { name: 'notFound'; path: string }
 
 export function parseRoute(pathname: string): Route {
   const parts = pathname.replace(/^\/+|\/+$/g, '').split('/')
   if (parts[0] === 'techniques') return { name: 'browse' }
+  if (parts[0] === 'mon-judo' && parts[1] === 'carte' && parts[2]) return { name: 'carteJudo', code: parts[2] }
   if (parts[0] === 'mon-judo') return { name: 'profil' }
   if (parts[0] === 'reglages') return { name: 'reglages' }
   if (parts[0] === 'technique' && parts[1]) return { name: 'technique', slug: decodeURIComponent(parts[1]) }
@@ -27,7 +30,7 @@ export function parseRoute(pathname: string): Route {
 }
 
 export const routePath = (r: Route): string =>
-  r.name === 'browse' ? '/techniques' : r.name === 'technique' ? `/technique/${r.slug}` : r.name === 'profil' ? '/mon-judo' : r.name === 'reglages' ? '/reglages' : r.name === 'train' ? '/dojo' : r.name === 'dan' ? `/dojo/ceinture-noire${r.dan === 1 ? '' : `/${r.dan}e-dan`}` : r.name === 'notFound' ? r.path : '/'
+  r.name === 'browse' ? '/techniques' : r.name === 'technique' ? `/technique/${r.slug}` : r.name === 'profil' ? '/mon-judo' : r.name === 'carteJudo' ? `/mon-judo/carte/${r.code}` : r.name === 'reglages' ? '/reglages' : r.name === 'train' ? '/dojo' : r.name === 'dan' ? `/dojo/ceinture-noire${r.dan === 1 ? '' : `/${r.dan}e-dan`}` : r.name === 'notFound' ? r.path : '/'
 
 /**
  * Défile jusqu'à l'élément d'ancre. L'écran visé peut être chargé à part et
