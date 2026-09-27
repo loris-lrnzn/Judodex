@@ -3,7 +3,7 @@
  *
  * Une carte de partage n'est pas une capture de la page : elle est lue à la
  * taille d'une vignette dans une conversation. On y met donc trois choses,
- * grandes : le nom, ce que c'est, et le sol de tatami et le cachet qui font
+ * grandes : le nom, ce que c'est, et le sol de tatami et la marque qui font
  * reconnaître le carnet.
  *
  * Les cent quatre fiches en ont chacune la leur. Partager o-goshi et partager
@@ -44,7 +44,7 @@ const TEINTES = {
 }
 
 /*
- * La carte reprend l'ouverture des pages : le tatami posé en damier, le cachet
+ * La carte reprend l'ouverture des pages : le tatami posé en damier, le J noué
  * vermillon, un surtitre à trait rouge, le nom en mincho. Le kanji se dresse
  * à droite, en colonne, à la teinte de la famille.
  */
@@ -58,10 +58,9 @@ const STYLE = `
          url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='288' height='288'%3E%3Cdefs%3E%3Cpattern id='h' width='4' height='4' patternUnits='userSpaceOnUse'%3E%3Cpath d='M0 .5H4' stroke='rgba(237,243,234,0.04)'/%3E%3C/pattern%3E%3Cpattern id='v' width='4' height='4' patternUnits='userSpaceOnUse'%3E%3Cpath d='M.5 0V4' stroke='rgba(237,243,234,0.04)'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='144' height='144' fill='url(%23h)'/%3E%3Crect x='144' width='144' height='144' fill='url(%23v)'/%3E%3Crect y='144' width='144' height='144' fill='url(%23v)'/%3E%3Crect x='144' y='144' width='144' height='144' fill='url(%23h)'/%3E%3Cpath fill='none' stroke='rgba(0,0,0,0.45)' d='M0 .5H288M0 144.5H288M.5 0V288M144.5 0V288M0 72.5H144M216.5 0V144M72.5 144V288M144 216.5H288'/%3E%3Cpath fill='none' stroke='rgba(237,243,234,0.06)' d='M0 1.5H288M0 145.5H288M1.5 0V288M145.5 0V288M0 73.5H144M217.5 0V144M73.5 144V288M144 217.5H288'/%3E%3C/svg%3E");
        background-position:0 0,-72px -40px}
   .marque{position:absolute;top:56px;left:80px;display:flex;align-items:center;gap:18px}
-  .hanko{width:58px;height:58px;background:#ff6c53;color:#0f2e20;display:grid;place-items:center;
-         font-family:'Shippori Mincho B1',serif;font-weight:800;font-size:38px;line-height:1;position:relative}
-  .hanko::after{content:'';position:absolute;inset:4px;border:2px solid rgba(15,46,32,.35)}
-  .nom{font-family:'Shippori Mincho B1',serif;font-weight:800;font-size:36px;line-height:1}
+  .nom{font-family:'Shippori Mincho B1',serif;font-weight:800;font-size:44px;line-height:1;letter-spacing:-.01em;
+       display:flex;align-items:baseline}
+  .nom svg{height:.864em;width:.764em;transform:translateY(.07em);overflow:visible}
   .corps{position:absolute;left:80px;right:420px;bottom:84px}
   .surtitre{display:flex;align-items:center;gap:18px;font-size:26px;font-weight:500;color:#cadacc}
   .surtitre::before{content:'';width:48px;height:2px;background:#ff6c53}
@@ -72,6 +71,13 @@ const STYLE = `
          writing-mode:vertical-rl;white-space:nowrap}
   .creux{color:transparent;-webkit-text-stroke:2px #3d8b67}
 `
+
+/** Le J noué, qui fait l'initiale du nom : même tracé que src/components/Marque.tsx. */
+const J_NOUE = `<svg viewBox="60 76 336 380" aria-hidden="true">
+  <path d="M300 150V316A100 100 0 0 1 110 360" fill="none" stroke="#ff6c53" stroke-width="80"/>
+  <rect x="112" y="104" width="284" height="80" fill="#ff6c53"/>
+  <rect x="242" y="86" width="116" height="116" fill="#ff6c53" stroke="#0f2e20" stroke-width="20"/>
+</svg>`
 
 const echappe = (s) =>
   String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
@@ -91,7 +97,7 @@ function carte({ surtitre, titre, texte, kanji, teinte, creux = false, taille = 
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@500;600&family=Shippori+Mincho+B1:wght@800&display=swap" rel="stylesheet">
 <style>${STYLE}</style></head><body>
   <div class="sol"></div>
-  <div class="marque"><span class="hanko">柔</span><span class="nom">Judodex</span></div>
+  <div class="marque"><span class="nom">${J_NOUE}udodex</span></div>
   <div class="corps">
     <div class="surtitre">${echappe(surtitre)}</div>
     <h1 style="font-size:${taille}px">${echappe(titre)}</h1>

@@ -1,10 +1,18 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <!-- Le cachet du carnet : un hanko vermillon sur le tapis, l'idéogramme de
-       la souplesse gravé en réserve. Il tient dans la zone sûre d'une icône
-       masquable. -->
+  <!-- Le J noué, sur le tapis : la ceinture fait la barre du J, le nœud tient
+       à l'angle, le pan qui pend dessine le fût et la boucle. Deux coutures
+       courent le long de la ceinture. La marque tient dans la zone sûre d'une
+       icône masquable. Sous 32 px, c'est favicon.svg qui prend le relais. -->
   <rect width="512" height="512" fill="#0f2e20"/>
-  <rect x="96" y="96" width="320" height="320" fill="#ff6c53"/>
-  <rect x="116" y="116" width="280" height="280" fill="none" stroke="#0f2e20" stroke-opacity=".35" stroke-width="6"/>
-  <text x="256" y="336" font-family="Shippori Mincho B1, Noto Serif JP, serif" font-size="210" font-weight="800"
-        text-anchor="middle" fill="#0f2e20">柔</text>
+  <g transform="translate(256 256) scale(.86) translate(-234 -280)">
+    <path d="M300 150V320A96 96 0 0 1 117 360.6" fill="none" stroke="#ff6c53" stroke-width="64"/>
+    <path d="M300 150V320A96 96 0 0 1 117 360.6" fill="none" stroke="#0f2e20" stroke-opacity=".4" stroke-width="27"/>
+    <path d="M300 150V320A96 96 0 0 1 117 360.6" fill="none" stroke="#ff6c53" stroke-width="21"/>
+    <rect x="120" y="112" width="272" height="64" fill="#ff6c53"/>
+    <path d="M120 132.5H392M120 155.5H392" stroke="#0f2e20" stroke-opacity=".4" stroke-width="3"/>
+    <g transform="rotate(-6 300 144)">
+      <rect x="248" y="94" width="104" height="100" fill="#ff6c53" stroke="#0f2e20" stroke-width="14"/>
+      <path d="M254 100L346 188" stroke="#0f2e20" stroke-width="9"/>
+    </g>
+  </g>
 </svg>

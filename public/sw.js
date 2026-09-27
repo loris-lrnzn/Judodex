@@ -7,7 +7,7 @@
  * disponibles ensuite — ce qui, dans un dojo sans réseau, revient à ne rien
  * promettre du tout. */
 const VERSION = 'judodex-dev'
-const PRECACHE = ['/', '/techniques', '/dojo', '/mon-judo', '/reglages', '/icon.svg', '/manifest.webmanifest']
+const PRECACHE = ['/', '/techniques', '/dojo', '/mon-judo', '/reglages', '/icon.svg', '/favicon.svg', '/apple-touch-icon.png', '/manifest.webmanifest']
 
 /* Le serveur répond « Vary: Origin » sur les ressources versionnées. Les
    fichiers pré-chargés le sont par le service worker, qui n'envoie pas
