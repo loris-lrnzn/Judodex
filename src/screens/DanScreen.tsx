@@ -357,7 +357,8 @@ export function DanScreen({ dan: danId, dex }: Props) {
   }, [danId, dan, dex])
 
   return (
-    <div className="mx-auto max-w-3xl px-4 pb-16 sm:px-8">
+    <div className="mx-auto max-w-[1200px] px-4 pb-16 sm:px-7">
+      <div className="max-w-3xl">
       <div className="pt-12">
         <Link to={{ name: 'train' }} className="tap -ml-1 inline-flex h-8 items-center px-1 text-[13px] text-faint transition-colors hover:text-ink">
           ← Dojo
@@ -427,6 +428,7 @@ export function DanScreen({ dan: danId, dex }: Props) {
       </fm.div>
 
       <p className="annot mt-14 border-t border-rule pt-5 text-faint">Programme officiel · {DAN_SOURCE}</p>
+      </div>
     </div>
   )
 }

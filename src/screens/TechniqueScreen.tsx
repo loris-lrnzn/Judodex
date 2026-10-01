@@ -254,7 +254,7 @@ export function TechniqueScreen({ slug, dex, onNavigate }: Props) {
                 key={v.slug}
                 to={{ name: 'technique', slug: v.slug }}
                 style={familyVars(v.family)}
-                className="tap flex items-center gap-2 border border-rule px-3 py-2 text-[14px] font-medium transition-colors hover:border-ink"
+                className="tap flex items-center gap-2 bg-plate/60 px-3.5 py-2 text-[14px] font-medium transition-colors hover:bg-plate"
               >
                 <span lang="ja" className="font-jp whitespace-nowrap leading-none text-(--fam)">{v.kanji}</span>
                 {v.name}

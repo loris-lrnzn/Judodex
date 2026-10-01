@@ -110,19 +110,20 @@ export function BrowseScreen({ dex }: { dex: Judodex }) {
       ) : f.groupBy === 'belt' ? (
         <>
           {f.beltSections.map((section) => (
-            <section key={section.belt.id} id={`ceinture-${section.belt.id}`} className="py-10">
-              <div className="mb-6 flex items-start gap-5 border-b border-rule pb-5">
-                <span className="mt-1 shrink-0">
-                  <BeltMark belt={section.belt.id} width={64} height={16} />
+            <section key={section.belt.id} id={`ceinture-${section.belt.id}`} className="py-12">
+              {/* La ceinture ouvre son chapitre comme l'idéogramme ouvre une famille. */}
+              <div className="mb-10 flex items-end gap-5 sm:gap-7">
+                <span className="shrink-0 pb-2">
+                  <BeltMark belt={section.belt.id} width={96} height={24} />
                 </span>
                 <div className="min-w-0 flex-1">
-                  <div className="flex flex-wrap items-center gap-2.5">
-                    <h2 className="font-jp text-[1.6rem] font-bold leading-tight">{section.belt.plate}</h2>
+                  <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                    <h2 className="font-jp text-[1.9rem] font-bold leading-none sm:text-[2.2rem]">{section.belt.plate}</h2>
                     <span className="text-[13px] text-faint">{section.belt.kyu}</span>
                   </div>
-                  <p className="mt-1.5 max-w-lg text-[14px] leading-relaxed text-soft">{section.belt.focus}</p>
+                  <p className="mt-2 max-w-lg text-[14px] leading-relaxed text-soft">{section.belt.focus}</p>
                 </div>
-                <p className="hidden shrink-0 pt-2 text-[13px] tabular-nums text-faint sm:block">
+                <p className="hidden shrink-0 pb-1 text-[13px] tabular-nums text-faint sm:block">
                   {section.mastered} acquise{section.mastered > 1 ? 's' : ''} sur {section.techniques.length}
                 </p>
               </div>
@@ -132,15 +133,15 @@ export function BrowseScreen({ dex }: { dex: Judodex }) {
 
           {f.offSection.length > 0 && (
             <section className="py-10">
-              <div className="mb-6 flex items-start gap-5 border-b border-rule pb-5">
-                <span className="mt-1 h-4 w-16 shrink-0 border-t border-dashed border-rule" />
+              <div className="mb-10 flex items-end gap-5 sm:gap-7">
+                <span className="mb-3 h-6 w-24 shrink-0 border-t-2 border-dashed border-rule" />
                 <div className="min-w-0 flex-1">
-                  <h2 className="font-jp text-[1.6rem] font-bold leading-tight">Répertoire complémentaire</h2>
-                  <p className="mt-1.5 max-w-lg text-[14px] leading-relaxed text-soft">
+                  <h2 className="font-jp text-[1.9rem] font-bold leading-none sm:text-[2.2rem]">Répertoire complémentaire</h2>
+                  <p className="mt-2 max-w-lg text-[14px] leading-relaxed text-soft">
                     Techniques du catalogue qui ne figurent sur aucune planche de passage de grade.
                   </p>
                 </div>
-                <p className="hidden shrink-0 pt-2 text-[13px] tabular-nums text-faint sm:block">{f.offSection.length} fiches</p>
+                <p className="hidden shrink-0 pb-1 text-[13px] tabular-nums text-faint sm:block">{f.offSection.length} fiches</p>
               </div>
               <Grid dex={dex} list={f.offSection} />
             </section>
@@ -151,17 +152,25 @@ export function BrowseScreen({ dex }: { dex: Judodex }) {
           const meta = GROUP_META[section.group]
           const done = section.techniques.filter((t) => dex.getProgress(t.slug).mastery === 'mastered').length
           return (
-            <section key={section.group} id={section.group} className="py-10" style={{ '--fam': meta.color, '--fam-hi': meta.colorHi } as React.CSSProperties}>
-              {/* Cartouche de famille */}
-              <div className="mb-6 flex items-start gap-5 border-b border-rule pb-5">
-                <div className="min-w-0 flex-1">
-                  <div className="flex flex-wrap items-baseline gap-3">
-                    <h2 className="font-jp text-[1.6rem] font-bold leading-tight">{meta.name}</h2>
+            <section key={section.group} id={section.group} className="py-12" style={{ '--fam': meta.color, '--fam-hi': meta.colorHi } as React.CSSProperties}>
+              {/* Le chapitre s'ouvre sur son idéogramme, monumental, à la teinte de
+                  la famille : on sait où l'on est avant d'avoir lu un mot. */}
+              <div className="mb-10 flex items-end gap-5 sm:gap-7">
+                <span
+                  lang="ja"
+                  aria-hidden
+                  className="font-jp -mb-1 select-none text-[4.6rem] font-extrabold leading-[0.8] text-(--fam) sm:text-[6.4rem]"
+                >
+                  {meta.kanji}
+                </span>
+                <div className="min-w-0 flex-1 pb-1">
+                  <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                    <h2 className="font-jp text-[1.9rem] font-bold leading-none sm:text-[2.2rem]">{meta.name}</h2>
                     <span lang="ja" className="font-jp text-[1.1rem] text-(--fam)">{meta.jp}</span>
                   </div>
-                  <p className="mt-1.5 max-w-lg text-[14px] leading-relaxed text-soft">{meta.principle}</p>
+                  <p className="mt-2 max-w-lg text-[14px] leading-relaxed text-soft">{meta.principle}</p>
                 </div>
-                <p className="hidden shrink-0 pt-2 text-[13px] tabular-nums text-faint sm:block">
+                <p className="hidden shrink-0 pb-1 text-[13px] tabular-nums text-faint sm:block">
                   {done} acquise{done > 1 ? 's' : ''} sur {section.techniques.length}
                 </p>
               </div>
@@ -191,39 +200,21 @@ export function BrowseScreen({ dex }: { dex: Judodex }) {
 }
 
 /**
- * Les cellules sont jointives : la grille dessine son propre quadrillage.
- * La dernière rangée est complétée par des cases vides pour que le tableau
- * reste rectangulaire, et cela à chaque largeur : le nombre de colonnes
- * change, le nombre de cases à combler aussi.
+ * Les techniques sont posées sur le tapis : des tuiles de ton plus clair que
+ * le fond, séparées par une gouttière. Une grille de filets aurait dessiné
+ * cent quatre cadres ; ici le fond et le ton font le travail du trait, et le
+ * kanji, seul, tient le devant de la scène.
  */
-const COLONNES = [2, 3, 4, 5] as const
-/** Visibilité d'une case vide, pour chacun des quatre paliers de la grille. */
-const VISIBLE = [
-  ['block', 'hidden'],
-  ['sm:block', 'sm:hidden'],
-  ['md:block', 'md:hidden'],
-  ['lg:block', 'lg:hidden'],
-] as const
-
 function Grid({ dex, list }: { dex: Judodex; list: Judodex['techniques'] }) {
-  const manque = COLONNES.map((n) => (n - (list.length % n)) % n)
   return (
-    <div className="grid grid-cols-2 border-l border-t border-rule sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+    <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
       {list.map((t) => (
-        <div key={t.slug} className="border-b border-r border-rule">
-          <TechniqueCard
-            technique={t}
-            number={dex.numberOf.get(t.slug) ?? 0}
-            progress={dex.getProgress(t.slug)}
-            belt={dex.beltOfTechnique(t.slug)}
-          />
-        </div>
-      ))}
-      {Array.from({ length: Math.max(...manque) }, (_, i) => (
-        <div
-          key={`vide-${i}`}
-          aria-hidden
-          className={`border-b border-r border-rule ${VISIBLE.map(([oui, non], palier) => (i < manque[palier] ? oui : non)).join(' ')}`}
+        <TechniqueCard
+          key={t.slug}
+          technique={t}
+          number={dex.numberOf.get(t.slug) ?? 0}
+          progress={dex.getProgress(t.slug)}
+          belt={dex.beltOfTechnique(t.slug)}
         />
       ))}
     </div>

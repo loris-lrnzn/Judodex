@@ -28,7 +28,7 @@ export const TechniqueCard = memo(function TechniqueCard({ technique: t, progres
     <Link
       to={{ name: 'technique', slug: t.slug }}
       style={familyVars(t.family)}
-      className="card-cv group relative flex h-full min-h-[176px] flex-col overflow-hidden px-4 pb-4 pt-4 transition-colors duration-300 hover:bg-plate"
+      className="card-cv group relative flex h-full min-h-[176px] flex-col overflow-hidden bg-plate/60 px-4 pb-4 pt-4 transition-colors duration-300 hover:bg-plate"
     >
       {/* Le nom japonais, au corps de la carte : il porte la famille par sa
           teinte et glisse d'un cran au survol, dans le sens du geste. */}

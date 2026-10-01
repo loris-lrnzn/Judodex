@@ -49,7 +49,8 @@ export function ReglagesScreen({ dex, onNotify }: Props) {
   const liste = filtre ? A_CONFIRMER.filter((slug) => slug in profil.corrections) : A_CONFIRMER
 
   return (
-    <div className="mx-auto max-w-3xl px-4 pb-16 sm:px-8">
+    <div className="mx-auto max-w-[1200px] px-4 pb-16 sm:px-7">
+      <div className="max-w-3xl">
       {/* ── En-tête ── */}
       <div className="pt-12 sm:pt-20">
         <Surtitre className="monte">Ton carnet</Surtitre>
@@ -249,6 +250,7 @@ export function ReglagesScreen({ dex, onNotify }: Props) {
       <p className="annot mt-14 border-t border-rule pt-5 text-faint">
         Aucune donnée ne quitte ton appareil · 設定
       </p>
+      </div>
     </div>
   )
 }

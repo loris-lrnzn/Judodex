@@ -218,7 +218,10 @@ export function TrainScreen({ dex, onNavigate }: Props) {
   }, [enSeance])
 
   return (
-    <div className="mx-auto max-w-3xl px-4 sm:px-8">
+    <div className="mx-auto max-w-[1200px] px-4 sm:px-7">
+      {/* La préparation s'aligne sur le bord des autres écrans ; la séance, elle,
+          se centre : une question se lit au milieu de l'écran. */}
+      <div className={`max-w-3xl ${queue ? 'mx-auto' : ''}`}>
       {queue && <h1 className="sr-only">Séance du dojo</h1>}
 
       {/* Écran de préparation.
@@ -653,6 +656,7 @@ export function TrainScreen({ dex, onNavigate }: Props) {
 
         </fm.div>
       )}
+      </div>
     </div>
   )
 }
