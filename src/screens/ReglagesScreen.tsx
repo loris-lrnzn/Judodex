@@ -36,7 +36,7 @@ export function ReglagesScreen({ dex, onNotify }: Props) {
 
   const restaurer = async (f: File) => {
     try {
-      const { progress, profil: p, monJudo: m } = await importProgress(f)
+      const { progress, profil: p, monJudo: m } = await importProgress(f, connue)
       dex.replaceProgress(progress)
       if (p) profil.remplacer(p)
       if (m) monJudo.remplacer(normaliser(m, connue))

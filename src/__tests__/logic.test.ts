@@ -689,6 +689,29 @@ describe('sauvegarde du carnet', () => {
     },
   }
 
+  it('écarte les clés piégées, les valeurs hors bornes et les fiches inconnues', async () => {
+    const piege = JSON.parse(
+      '{"format":"judodex-progress","version":3,"progress":{"__proto__":{"mastery":"mastered","tokui":true,"updatedAt":""},' +
+        '"o-goshi":{"mastery":"learning","tokui":false,"updatedAt":"","box":99,"due":"demain"},' +
+        '"uchi-mata-hanche":{"mastery":"learning","tokui":false,"updatedAt":"","box":2.5,"due":"2026-10-05"},' +
+        '"fiche-fantome":{"mastery":"mastered","tokui":false,"updatedAt":""}},' +
+        '"profil":{"garde":"droite","corrections":{"__proto__":"av"},"situations":{}}}',
+    )
+    const r = await importProgress(fichier(piege), (slug) => all.some((t) => t.slug === slug))
+    expect(Object.keys(r.progress).sort()).toEqual(['o-goshi', 'uchi-mata-hanche'])
+    expect(r.progress['o-goshi'].box).toBeUndefined()
+    expect(r.progress['o-goshi'].due).toBeUndefined()
+    expect(r.progress['uchi-mata-hanche'].box).toBeUndefined()
+    expect(r.progress['uchi-mata-hanche'].due).toBe('2026-10-05')
+    expect(Object.getPrototypeOf(r.progress)).toBe(Object.prototype)
+    expect(Object.keys(r.profil!.corrections)).toEqual([])
+  })
+
+  it('refuse un fichier trop lourd pour être une sauvegarde', async () => {
+    const gros = new File(['x'.repeat(2 * 1024 * 1024 + 1)], 'gros.json', { type: 'application/json' })
+    await expect(importProgress(gros)).rejects.toThrow(/trop lourd/)
+  })
+
   it('rend le profil d\'un fichier version 2 et laisse ses systèmes de côté', async () => {
     const r = await importProgress(fichier(v2))
     expect(r.progress['o-goshi'].tokui).toBe(true)

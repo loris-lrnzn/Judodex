@@ -37,12 +37,12 @@ function Nom({ t, fort = false, petit = false, retour = false }: { t: Technique;
 function Bloc({ titre, jp, children, className = '' }: { titre: string; jp: string; children: React.ReactNode; className?: string }) {
   return (
     <section className={`min-w-0 ${className}`}>
-      <h3 className="mb-3 flex items-baseline gap-2 border-b border-rule pb-2">
+      <h2 className="mb-3 flex items-baseline gap-2 border-b border-rule pb-2">
         <span className="text-[13px] font-semibold uppercase tracking-[0.08em] text-soft">{titre}</span>
         <span lang="ja" className="font-jp text-[12px] text-faint">
           {jp}
         </span>
-      </h3>
+      </h2>
       {children}
     </section>
   )

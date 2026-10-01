@@ -1,4 +1,4 @@
-import { Suspense, lazy, useCallback, useEffect, useRef, useState } from 'react'
+import { Suspense, useCallback, useEffect, useRef, useState } from 'react'
 import { LazyMotion, MotionConfig, m as fm } from 'framer-motion'
 import rawData from './data/techniques.json'
 import type { JudodexData } from './types/judodex'
@@ -13,14 +13,9 @@ import { BrowseScreen } from './screens/BrowseScreen'
 import { IntrouvableScreen } from './screens/IntrouvableScreen'
 import { Garde } from './components/Garde'
 import { useHead } from './hooks/useHead'
+import { ecrans } from './ecrans'
 
-// Les écrans secondaires sortent du chargement initial.
-const TechniqueScreen = lazy(() => import('./screens/TechniqueScreen').then((m) => ({ default: m.TechniqueScreen })))
-const TrainScreen = lazy(() => import('./screens/TrainScreen').then((m) => ({ default: m.TrainScreen })))
-const MonJudoScreen = lazy(() => import('./screens/MonJudoScreen').then((m) => ({ default: m.MonJudoScreen })))
-const CarteRecueScreen = lazy(() => import('./screens/CarteRecueScreen').then((m) => ({ default: m.CarteRecueScreen })))
-const DanScreen = lazy(() => import('./screens/DanScreen').then((m) => ({ default: m.DanScreen })))
-const ReglagesScreen = lazy(() => import('./screens/ReglagesScreen').then((m) => ({ default: m.ReglagesScreen })))
+const { technique: TechniqueScreen, train: TrainScreen, profil: MonJudoScreen, carteJudo: CarteRecueScreen, dan: DanScreen, reglages: ReglagesScreen } = ecrans
 
 const data = rawData as unknown as JudodexData
 

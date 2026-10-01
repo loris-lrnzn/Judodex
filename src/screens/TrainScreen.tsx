@@ -219,6 +219,8 @@ export function TrainScreen({ dex, onNavigate }: Props) {
 
   return (
     <div className="mx-auto max-w-3xl px-4 sm:px-8">
+      {queue && <h1 className="sr-only">Séance du dojo</h1>}
+
       {/* Écran de préparation.
           Il tient dans un écran de téléphone, bouton compris : quoi réviser
           en quatre grandes cases, deux réglages à deux positions, et la
@@ -332,7 +334,7 @@ export function TrainScreen({ dex, onNavigate }: Props) {
               >
                 Commencer la séance
                 {filePrete.length > 0 && (
-                  <span className="font-normal opacity-75">· {filePrete.length} question{filePrete.length > 1 ? 's' : ''}</span>
+                  <span className="font-normal">· {filePrete.length} question{filePrete.length > 1 ? 's' : ''}</span>
                 )}
               </button>
               <p className="text-[13px] leading-relaxed text-faint">

@@ -31,7 +31,7 @@ export function DemoPlayer({ technique: t, fallback }: { technique: Technique; f
 
   return (
     <>
-      <YouTubeFacade key={id} id={id} title={`${t.name} — démonstration ${SOURCES[source].label}`} bare />
+      <YouTubeFacade key={id} id={id} title={`${t.name} — démonstration ${SOURCES[source].label}`} bare priorite />
       <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-[13px]">
         {available.length > 1 ? (
           <div className="flex gap-1" role="group" aria-label="Source de la démonstration">

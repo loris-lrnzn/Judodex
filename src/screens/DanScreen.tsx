@@ -126,13 +126,15 @@ function PlancheKata({ kata, dan, dex }: { kata: Kata; dan: Dan; dex: Judodex })
           <div className="flex shrink-0 border border-edge">
             <button
               onClick={() => setComplet(false)}
-              className={`px-3 py-2 text-[13px] font-medium transition ${!complet ? 'bg-ink text-field' : 'text-soft hover:text-ink'}`}
+              aria-pressed={!complet}
+              className={`tap px-3 py-2 text-[13px] font-medium transition ${!complet ? 'bg-ink text-field' : 'text-soft hover:text-ink'}`}
             >
               {dan.kata.seriesNageNoKata} séries
             </button>
             <button
               onClick={() => setComplet(true)}
-              className={`px-3 py-2 text-[13px] font-medium transition ${complet ? 'bg-ink text-field' : 'text-soft hover:text-ink'}`}
+              aria-pressed={complet}
+              className={`tap px-3 py-2 text-[13px] font-medium transition ${complet ? 'bg-ink text-field' : 'text-soft hover:text-ink'}`}
             >
               Kata complet
             </button>

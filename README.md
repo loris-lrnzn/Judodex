@@ -8,7 +8,7 @@ React 19 · TypeScript strict · Tailwind CSS 4 · Framer Motion · Vite 6 · Vi
 ```bash
 npm install
 npm run dev       # http://localhost:5173
-npm run test      # 145 tests, dont un parcours applicatif complet
+npm run test      # 151 tests, dont un parcours applicatif complet
 npm run audit     # contrôle de mise en page de 320 à 1440 pixels
 npm run build
 npm run preview   # nécessaire pour vérifier le fonctionnement hors ligne
@@ -423,7 +423,9 @@ Typographie IBM Plex Sans pour le texte, Shippori Mincho pour les titres et
 les idéogrammes, IBM Plex Mono réservé aux touches de clavier et aux adresses.
 Les polices sont servies par le site : IBM Plex par `@fontsource`, Shippori
 Mincho réduite aux caractères du carnet par `npm run polices` (la police
-complète pèse 15 Mo par graisse ; deux fichiers de 120 Ko suffisent). Après
+complète pèse 15 Mo par graisse). Chaque graisse tient en deux fichiers, un
+latin de 37 Ko et un japonais de 88 Ko : presque tous les titres sont en
+latin, et le navigateur ne télécharge les kanji que si la page en affiche. Après
 l'ajout d'un kanji nouveau, relancer cette commande. Le texte
 courant tient 7:1 contre le fond, le vermillon 4.5:1, les cinq teintes de
 famille au moins 7:1 ; `npm run contraste` le vérifie.
@@ -600,6 +602,36 @@ et seule la lecture appelle YouTube (`youtube-nocookie.com`). Une
 Content-Security-Policy dans `vercel.json` le garantit : si une page tente de
 charger autre chose, le navigateur le refuse. Ajouter une origine externe
 demande donc de l'ajouter à la politique, ce qui se voit en relecture.
+
+**Le chargement.** Les pages sont prérendues, puis React les reprend. Deux
+pièges y étaient, tous deux mesurés plutôt que supposés, avec un processeur
+ralenti quatre fois et une connexion à 1,6 Mbit/s :
+
+- `React.lazy` suspend toujours au premier rendu, même sur un module déjà
+  téléchargé : la page prérendue disparaissait derrière « Chargement… » avant de
+  revenir. Décalage de mise en page de **0,49** sur la fiche, le dojo et Mon
+  judo, 0 depuis. `src/lib/ecrans.tsx` donne à `lazy` un objet qui rappelle
+  tout de suite quand le module est là ; `src/__tests__/ecrans.test.tsx` rend
+  l'écran côté serveur pour s'en assurer, et échoue avec une promesse ordinaire.
+- Les fonctionnalités d'animation chargées étaient `domMax`, qui ajoute le glisser
+  et les animations de mise en page. Le carnet n'en emploie aucune : `domAnimation`
+  suffit, et le fragment passe de 28 à 14 Ko compressés.
+
+Une fois la page affichée, les autres écrans se téléchargent au repos, sauf
+pour qui économise ses données ou navigue en 2G. Aucune interaction ne dépasse
+110 ms dans les mêmes conditions.
+
+**La sécurité.** La sauvegarde importée est relue champ par champ : taille
+bornée, clés `__proto__` écartées, boîtes de révision entières entre 0 et 5,
+échéances au format AAAA-MM-JJ, fiches inconnues du catalogue ignorées. En-têtes
+en plus de ceux déjà posés : `Cross-Origin-Opener-Policy`,
+`upgrade-insecure-requests`, et une `Permissions-Policy` qui refuse paiement,
+USB, série et Bluetooth. Les dépendances sont sans vulnérabilité connue
+(`npm audit`).
+
+**L'accessibilité** est contrôlée avec axe-core sur les écrans principaux, en
+mobile et en bureau, et sur leurs états : recherche ouverte, séance en cours,
+réponse donnée, filtres, étapes de Mon judo. Aucune violation.
 
 **La sauvegarde.** Le carnet ne vit que dans le navigateur. L'accueil rappelle
 d'exporter quand la dernière sauvegarde a plus de trente jours (« Plus tard »

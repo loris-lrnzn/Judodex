@@ -1,6 +1,11 @@
 /**
  * Réduit Shippori Mincho B1 aux caractères que le carnet affiche, et écrit
- * src/fonts/ : deux fichiers woff2 (700 et 800) et leur feuille de style.
+ * src/fonts/ : par graisse (700 et 800), un fichier woff2 latin et un fichier
+ * japonais, avec leur feuille de style.
+ *
+ * Le latin est séparé du japonais parce que presque tous les titres sont en
+ * latin : le navigateur ne télécharge le fichier des kanji que si la page en
+ * affiche, et le titre de l'accueil n'attend plus 120 Ko pour sa police.
  *
  * La police complète pèse 15 Mo par graisse. Google la découpe en une centaine
  * de tranches ; servies par le site, elles faisaient passer la feuille de
@@ -50,7 +55,20 @@ for (let c = 0x20; c <= 0x17f; c++) caracteres.add(String.fromCodePoint(c))
 for (let c = 0x2010; c <= 0x2027; c++) caracteres.add(String.fromCodePoint(c))
 for (let c = 0x3000; c <= 0x303f; c++) caracteres.add(String.fromCodePoint(c)) // ponctuation japonaise
 for (let c = 0x3041; c <= 0x30ff; c++) caracteres.add(String.fromCodePoint(c)) // hiragana, katakana
-const texte = [...caracteres].filter((c) => c.codePointAt(0) > 0x1f).join('')
+const estLatin = (c) => {
+  const p = c.codePointAt(0)
+  return p <= 0x24f || (p >= 0x2000 && p <= 0x206f) || p === 0x20ac || p === 0x2122
+}
+const tous = [...caracteres].filter((c) => c.codePointAt(0) > 0x1f)
+const jeux = {
+  latin: tous.filter(estLatin).join(''),
+  japonais: tous.filter((c) => !estLatin(c)).join(''),
+}
+// Ce que chaque fichier a le droit de servir : le latin, ou tout le reste.
+const PLAGES = {
+  latin: 'U+0000-024F, U+2000-206F, U+20AC, U+2122',
+  japonais: 'U+0250-1FFF, U+2070-20AB, U+20AD-2121, U+2123-10FFFF',
+}
 
 const cache = join(racine, 'node_modules/.cache/polices')
 mkdirSync(cache, { recursive: true })
@@ -65,16 +83,20 @@ for (const { poids, source } of GRAISSES) {
     if (!rep.ok) throw new Error(`${source} : HTTP ${rep.status}`)
     writeFileSync(local, Buffer.from(await rep.arrayBuffer()))
   }
-  const sortie = await subsetFont(readFileSync(local), texte, { targetFormat: 'woff2' })
-  writeFileSync(join(racine, `src/fonts/shippori-mincho-b1-${poids}.woff2`), sortie)
-  css += `@font-face {
+  for (const [jeu, texte] of Object.entries(jeux)) {
+    const sortie = await subsetFont(readFileSync(local), texte, { targetFormat: 'woff2' })
+    const nom = `shippori-mincho-b1-${jeu}-${poids}.woff2`
+    writeFileSync(join(racine, 'src/fonts', nom), sortie)
+    css += `@font-face {
   font-family: 'Shippori Mincho B1';
   font-style: normal;
   font-display: swap;
   font-weight: ${poids};
-  src: url(./shippori-mincho-b1-${poids}.woff2) format('woff2');
+  src: url(./${nom}) format('woff2');
+  unicode-range: ${PLAGES[jeu]};
 }
 `
-  console.log(`polices : ${poids} — ${(sortie.length / 1024).toFixed(1)} ko, ${caracteres.size} caractères.`)
+    console.log(`polices : ${poids} ${jeu} — ${(sortie.length / 1024).toFixed(1)} ko, ${[...texte].length} caractères.`)
+  }
 }
 writeFileSync(join(racine, 'src/fonts/shippori-mincho-b1.css'), css)

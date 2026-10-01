@@ -29,7 +29,7 @@ const fichiers = readdirSync(assets)
 
 // Les polices sont servies par le site : le texte et les kanji du carnet ne
 // doivent pas attendre le réseau.
-const polices = readdirSync(assets).filter((f) => /^(ibm-plex-(sans|mono)-latin-\d+-normal|shippori-mincho-b1-\d+)-.*\.woff2$/.test(f)).sort()
+const polices = readdirSync(assets).filter((f) => /^(ibm-plex-(sans|mono)-latin-\d+-normal|shippori-mincho-b1-(latin|japonais)-\d+)-.*\.woff2$/.test(f)).sort()
 
 const empreinte = createHash('sha256')
   .update(fichiers.map((f) => readFileSync(join(assets, f))).join(''))

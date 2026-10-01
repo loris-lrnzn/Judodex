@@ -13,6 +13,7 @@ import '@fontsource/ibm-plex-mono/latin-600.css'
 import './fonts/shippori-mincho-b1.css'
 import './index.css'
 import App from './App'
+import { ecrans } from './ecrans'
 import { parseRoute } from './hooks/useRoute'
 
 // Hors-ligne : indispensable dans un dojo sans réseau.
@@ -32,18 +33,9 @@ if ('serviceWorker' in navigator && import.meta.env.PROD) {
  * Le contenu disparaît sous les yeux de quelqu'un en train de le lire, et le
  * navigateur compte le second affichage comme le vrai.
  *
- * Les chemins d'import sont les mêmes que ceux d'`App` : le module est donc
- * déjà là quand `lazy` le redemande, et la reprise se fait d'un seul coup.
+ * Attendre ne suffit pas : encore faut-il que l'écran se rende sans suspendre
+ * (voir lib/ecrans.tsx), ce que `React.lazy` ne sait pas faire.
  */
-const ÉCRANS: Partial<Record<ReturnType<typeof parseRoute>['name'], () => Promise<unknown>>> = {
-  technique: () => import('./screens/TechniqueScreen'),
-  train: () => import('./screens/TrainScreen'),
-  profil: () => import('./screens/MonJudoScreen'),
-  carteJudo: () => import('./screens/CarteRecueScreen'),
-  dan: () => import('./screens/DanScreen'),
-  reglages: () => import('./screens/ReglagesScreen'),
-}
-
 const démarrer = () =>
   createRoot(document.getElementById('root')!).render(
     <StrictMode>
@@ -53,6 +45,33 @@ const démarrer = () =>
 
 // Un fragment introuvable n'empêche pas de démarrer : la garde d'App le dira
 // mieux qu'une page blanche.
-const attendu = ÉCRANS[parseRoute(window.location.pathname).name]
-if (attendu) void attendu().catch(() => {}).then(démarrer)
+const attendu = ecrans[parseRoute(window.location.pathname).name as keyof typeof ecrans]
+if (attendu) void attendu.precharger().catch(() => {}).then(démarrer)
 else démarrer()
+
+/**
+ * Une fois la page affichée, on télécharge les autres écrans pendant que le
+ * navigateur est au repos : le premier clic sur Dojo ou Mon judo ne part plus
+ * sur le réseau, et ne passe pas par « Chargement… » sur une connexion lente.
+ * Un visiteur qui économise ses données, ou dont la connexion est lente, n'y
+ * est pas soumis : l'écran se chargera au moment où il le demandera.
+ */
+const connexion = (navigator as Navigator & { connection?: { saveData?: boolean; effectiveType?: string } }).connection
+if (!connexion?.saveData && !/(^|-)2g$/.test(connexion?.effectiveType ?? '')) {
+  const auRepos = (f: () => void) => {
+    if (typeof requestIdleCallback === 'function') requestIdleCallback(f, { timeout: 4000 })
+    else setTimeout(f, 2000) // Safari ne connaît pas requestIdleCallback
+  }
+  // Quelques secondes après le chargement : plus tôt, ces fragments se
+  // disputent la bande passante avec l'image et les polices de la page, et
+  // retardent son affichage complet sur une connexion lente (mesuré).
+  window.addEventListener('load', () => {
+    setTimeout(
+      () =>
+        auRepos(() => {
+          for (const e of Object.values(ecrans)) void e.precharger().catch(() => {})
+        }),
+      3000,
+    )
+  })
+}

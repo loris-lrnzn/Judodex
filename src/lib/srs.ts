@@ -26,7 +26,8 @@ export const addDays = (days: number, from = new Date()) => {
 
 /** Prochaine boîte et prochaine échéance après une réponse. */
 export function schedule(entry: ProgressEntry | undefined, correct: boolean): { box: number; due: string } {
-  const current = entry?.box ?? 0
+  // Une boîte absente ou illisible (stockage modifié à la main) vaut la première.
+  const current = Number.isInteger(entry?.box) ? Math.min(Math.max(entry!.box!, 0), MAX_BOX) : 0
   const box = correct ? Math.min(current + 1, MAX_BOX) : 0
   return { box, due: addDays(INTERVALS[box]) }
 }

@@ -99,7 +99,7 @@ export function CommandPalette({ open, dex, onClose, onSelect }: Props) {
         </div>
       )}
 
-      <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain">
+      <div tabIndex={0} aria-label="Résultats de la recherche" role="region" className="min-h-0 flex-1 overflow-y-auto overscroll-contain">
         {!cherche && <p className="px-4 pb-1 pt-3.5 text-[13px] text-faint sm:px-5">Pour débuter</p>}
         {cherche && results.length === 0 ? (
           <Aucun requete={query} />

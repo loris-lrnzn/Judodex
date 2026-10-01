@@ -41,3 +41,13 @@ describe('jours de révision en heure locale', () => {
     expect(jourLocal(new Date(2026, 0, 5))).toBe('2026-01-05')
   })
 })
+
+describe('boîte de Leitner illisible', () => {
+  it('retombe sur la première boîte au lieu de produire une date absurde', () => {
+    const entree = (box: number) => ({ mastery: 'learning' as const, tokui: false, updatedAt: '', box })
+    expect(schedule(entree(Number.NaN), true).box).toBe(1)
+    expect(schedule(entree(-4), true).box).toBe(1)
+    expect(schedule(entree(99), true).box).toBe(5)
+    expect(schedule(entree(99), true).due).toMatch(/^\d{4}-\d{2}-\d{2}$/)
+  })
+})

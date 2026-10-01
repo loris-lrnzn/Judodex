@@ -116,7 +116,10 @@ function TechniqueDuJour({ dex }: { dex: Judodex }) {
         <img
           src={`/miniatures/${video}.webp`}
           alt=""
-          loading="lazy"
+          width={480}
+          height={270}
+          decoding="async"
+          fetchPriority="high"
           className="absolute inset-0 size-full object-cover transition duration-500 group-hover:scale-[1.03]"
         />
         {/* Le dégradé porte le nom japonais et couvre l'incrustation du titre
@@ -300,7 +303,7 @@ export function HomeScreen({ dex }: { dex: Judodex }) {
                   <BeltMark belt={g.belt.id} width={20} height={7} />
                   {g.belt.name}
                   {g.techniques.length > 0 && (
-                    <span className="opacity-60">
+                    <span className="opacity-75">
                       {g.mastered}/{g.techniques.length}
                     </span>
                   )}
