@@ -7,6 +7,7 @@ import { StudyList } from '../components/StudyList'
 import { SectionHead } from '../components/SectionHead'
 import { Seal } from '../components/Seal'
 import { Link } from '../components/Link'
+import { CEINTURES } from '../hooks/useRoute'
 import { BeltMark } from '../components/BeltMark'
 import type { Mastery, Technique } from '../types/judodex'
 import { Surtitre } from '../components/Surtitre'
@@ -279,8 +280,7 @@ export function HomeScreen({ dex }: { dex: Judodex }) {
             return (
               <Link
                 key={g}
-                to={{ name: 'browse' }}
-                hash={g}
+                to={{ name: 'famille', group: g }}
                 style={{ '--fam': meta.color, '--fam-hi': meta.colorHi } as React.CSSProperties}
                 className={`group relative flex gap-5 overflow-hidden bg-plate/60 p-4 transition-colors duration-300 hover:bg-plate sm:min-h-[260px] sm:flex-col sm:gap-0 sm:p-5 ${i === GROUPS.length - 1 && GROUPS.length % 2 ? 'sm:col-span-2 lg:col-span-1' : ''}`}
               >
@@ -374,6 +374,12 @@ export function HomeScreen({ dex }: { dex: Judodex }) {
                 {dex.currentGroup.belt.phase} · Valeurs : <span className="text-ink">{dex.currentGroup.belt.values}</span>
               </p>
               <p className="mt-3 max-w-md text-[15px] leading-relaxed text-soft">{dex.currentGroup.belt.focus}</p>
+              <Link
+                to={CEINTURES.includes(dex.currentGroup.belt.id) ? { name: 'ceinture', belt: dex.currentGroup.belt.id } : { name: 'dan', dan: 1 }}
+                className="mt-3 inline-block text-[14px] font-medium text-ink underline decoration-edge underline-offset-4 hover:decoration-ink"
+              >
+                {CEINTURES.includes(dex.currentGroup.belt.id) ? 'La page de cette ceinture →' : 'Le programme des dan →'}
+              </Link>
             </div>
             {dex.currentGroup.techniques.length > 0 && (
               <div className="sm:text-right">

@@ -7,7 +7,7 @@ import { buildIndex, fuzzyScore, normalize, searchIndex } from '../lib/search'
 import { makeQuestion } from '../lib/quiz'
 import { clipFor } from '../components/QuizVideo'
 import { parseRoute, routePath } from '../hooks/useRoute'
-import { headFor } from '../lib/head'
+import { court, headFor, horsIndex } from '../lib/head'
 import { jsonLdFor } from '../lib/jsonld'
 import { BELTS, beltFor, beltIndex, beltSlugs, sectionOf, situationsFor } from '../lib/belts'
 import { addDays, isDue, reviewQueue, schedule, today } from '../lib/srs'
@@ -785,6 +785,41 @@ describe('en-tête et données structurées', () => {
       expect(description.length).toBeLessThanOrEqual(160)
       expect(title).toContain(t.name)
     }
+  })
+
+  it('coupe de préférence sur la fin d’une phrase, jamais au milieu d’un mot', () => {
+    const phrase = 'Une première phrase assez longue pour peser dans un résumé de moteur de recherche. Une seconde phrase qui déborde largement de la limite fixée pour ce test.'
+    expect(court(phrase, 100)).toBe('Une première phrase assez longue pour peser dans un résumé de moteur de recherche.')
+    // Sans phrase assez longue avant la limite, on coupe sur un mot.
+    const coupe = court('mot '.repeat(60), 50)
+    expect(coupe.endsWith('…')).toBe(true)
+    expect(coupe).not.toMatch(/mo…$/)
+    expect(coupe.length).toBeLessThanOrEqual(50)
+  })
+
+  it('ne laisse aucune fiche avec un résumé coupé net en pleine proposition', () => {
+    for (const t of all) {
+      const { description } = headFor({ name: 'technique', slug: t.slug }, t)
+      if (description.endsWith('…')) expect(description).toMatch(/\S…$/)
+      else expect(description).toMatch(/[.!?»)]$/)
+    }
+  })
+
+  it('garde hors de l’index ce qui n’a pas de texte à chercher', () => {
+    expect(horsIndex({ name: 'reglages' })).toBe(true)
+    expect(horsIndex({ name: 'carteJudo', code: 'abc' })).toBe(true)
+    expect(horsIndex({ name: 'notFound', path: '/x' })).toBe(true)
+    expect(horsIndex({ name: 'technique', slug: 'inconnu' }, null)).toBe(true)
+    expect(horsIndex({ name: 'home' })).toBe(false)
+    expect(horsIndex({ name: 'technique', slug: all[0].slug }, all[0])).toBe(false)
+    expect(horsIndex({ name: 'browse' })).toBe(false)
+  })
+
+  it('présente l’accueil par ce que les gens cherchent', () => {
+    const h = headFor({ name: 'home' })
+    expect(h.title).toMatch(/techniques de judo/i)
+    expect(h.description).toMatch(/techniques de judo/i)
+    expect(h.description.length).toBeLessThanOrEqual(160)
   })
 
   it('déclare chaque technique comme une procédure en étapes', () => {

@@ -30,6 +30,8 @@ if (!existsSync(join(dist, 'index.html'))) {
 }
 
 const data = JSON.parse(readFileSync(join(racine, 'src/data/techniques.json'), 'utf8'))
+// Les ceintures et les familles publiées : le même fichier que le routeur.
+const pagesDeSection = JSON.parse(readFileSync(join(racine, 'src/data/routes.json'), 'utf8'))
 
 /*
  * L'adresse introuvable est rendue elle aussi, sous le nom que l'hébergeur
@@ -49,6 +51,11 @@ const routes = [
   '/dojo/ceinture-noire',
   '/dojo/ceinture-noire/2e-dan',
   '/dojo/ceinture-noire/3e-dan',
+  '/ceintures',
+  ...pagesDeSection.ceintures.map((c) => `/ceinture/${c}`),
+  ...pagesDeSection.familles.map((g) => `/famille/${g}`),
+  '/lexique',
+  '/a-propos',
   ...(data.techniques ?? []).map((t) => `/technique/${t.slug}`),
   INTROUVABLE,
 ]

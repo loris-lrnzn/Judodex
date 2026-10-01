@@ -6,6 +6,7 @@
  * Le domaine vient de VITE_SITE_URL, l'unique endroit où il est écrit.
  */
 import { readFileSync, writeFileSync, existsSync } from 'node:fs'
+import { execSync } from 'node:child_process'
 import { fileURLToPath } from 'node:url'
 import { dirname, join } from 'node:path'
 
@@ -35,9 +36,24 @@ if (!existsSync(dist)) {
 }
 
 const data = JSON.parse(readFileSync(join(racine, 'src/data/techniques.json'), 'utf8'))
+const sections = JSON.parse(readFileSync(join(racine, 'src/data/routes.json'), 'utf8'))
 const techniques = data.techniques ?? []
 /** Date du dernier relevé, au format que lisent les moteurs. */
 const maj = (data.scrapedAt ?? new Date().toISOString()).slice(0, 10)
+
+/*
+ * Date de la dernière modification du site lui-même — pas du catalogue. Les
+ * pages de structure (accueil, ceintures, familles, lexique) changent quand le
+ * code change ; déclarer la date du relevé de la nomenclature leur donnerait
+ * des semaines de retard. À défaut d'historique git, on retombe sur le relevé.
+ */
+let majSite = maj
+try {
+  const d = execSync('git log -1 --format=%cs', { cwd: racine, stdio: ['ignore', 'pipe', 'ignore'] }).toString().trim()
+  if (/^\d{4}-\d{2}-\d{2}$/.test(d) && d > maj) majSite = d
+} catch {
+  /* pas de dépôt git : on garde la date du relevé */
+}
 
 const pages = [
   { loc: '/', priority: '1.0', changefreq: 'monthly' },
@@ -47,7 +63,12 @@ const pages = [
   { loc: '/dojo/ceinture-noire', priority: '0.7', changefreq: 'yearly' },
   { loc: '/dojo/ceinture-noire/2e-dan', priority: '0.6', changefreq: 'yearly' },
   { loc: '/dojo/ceinture-noire/3e-dan', priority: '0.6', changefreq: 'yearly' },
-  { loc: '/reglages', priority: '0.2', changefreq: 'yearly' },
+  // Les pages qui répondent à ce qu'on cherche : un programme, une famille, un mot.
+  { loc: '/ceintures', priority: '0.9', changefreq: 'monthly' },
+  ...sections.ceintures.map((c) => ({ loc: `/ceinture/${c}`, priority: '0.9', changefreq: 'monthly' })),
+  ...sections.familles.map((g) => ({ loc: `/famille/${g}`, priority: '0.8', changefreq: 'monthly' })),
+  { loc: '/lexique', priority: '0.8', changefreq: 'monthly' },
+  { loc: '/a-propos', priority: '0.4', changefreq: 'yearly' },
   ...techniques.map((t) => ({ loc: `/technique/${t.slug}`, priority: '0.8', changefreq: 'yearly', technique: t })),
 ]
 
@@ -78,7 +99,7 @@ const xml = [
   '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">',
   ...pages.map(
     (p) =>
-      `  <url><loc>${base}${p.loc}</loc><lastmod>${maj}</lastmod><changefreq>${p.changefreq}</changefreq><priority>${p.priority}</priority>${extras(p)}</url>`,
+      `  <url><loc>${base}${p.loc}</loc><lastmod>${p.technique ? maj : majSite}</lastmod><changefreq>${p.changefreq}</changefreq><priority>${p.priority}</priority>${extras(p)}</url>`,
   ),
   '</urlset>',
   '',
@@ -135,6 +156,8 @@ const llms = [
   '',
   "Le site est une application consultable hors ligne ; toutes les pages sont également servies en HTML complet. Les adresses de fiche suivent la forme `/technique/<slug>`.",
   '',
+  `Tout le texte du site — les ${techniques.length} fiches (présentation, trois phases, points clés, enchaînements), le programme de chaque ceinture, les familles de techniques et le lexique — tient dans un seul fichier : [llms-full.txt](${base}/llms-full.txt).`,
+  '',
   '## Pages principales',
   '',
   `- [Accueil](${base}/) : progression et programme de la ceinture préparée.`,
@@ -142,6 +165,13 @@ const llms = [
   `- [Dojo](${base}/dojo) : séance de révision espacée sur la démonstration filmée ou le sens du nom.`,
   `- [Mon judo](${base}/mon-judo) : construire son judo étape par étape — technique de prédilection, quatre coins de chute, réponses aux réactions de uke, entrées selon la garde, finition au sol — et en tirer une carte à partager.`,
   `- [Ceinture noire](${base}/dojo/ceinture-noire) : programme des 1er, 2e et 3e dan (katas, listes, tirage du jury).`,
+  `- [Les ceintures de judo](${base}/ceintures) : le programme de chaque passage de grade, de la blanche à la noire — ${sections.ceintures.map((c) => `[${c}](${base}/ceinture/${c})`).join(', ')}.`,
+  `- [Lexique du judo](${base}/lexique) : le vocabulaire japonais du judo, terme par terme.`,
+  `- [À propos](${base}/a-propos) : méthode, sources et limites du carnet.`,
+  '',
+  '## Familles de techniques',
+  '',
+  ...sections.familles.map((g) => `- [${g}](${base}/famille/${g})`),
   '',
   '## Techniques par famille',
   '',

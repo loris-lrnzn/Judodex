@@ -29,6 +29,26 @@
     {
       "source": "/technique/:slug",
       "destination": "/index.html"
+    },
+    {
+      "source": "/ceintures",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/ceinture/:belt",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/famille/:group",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/lexique",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/a-propos",
+      "destination": "/index.html"
     }
   ],
   "headers": [
@@ -51,7 +71,7 @@
       ]
     },
     {
-      "source": "/(sitemap.xml|robots.txt|llms.txt)",
+      "source": "/(sitemap.xml|robots.txt|llms.txt|llms-full.txt)",
       "headers": [
         {
           "key": "Cache-Control",

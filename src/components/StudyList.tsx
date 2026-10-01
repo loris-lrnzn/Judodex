@@ -5,6 +5,8 @@ import type { StudySituation } from '../types/judodex'
 interface Props {
   title: string
   items: StudySituation[]
+  /** Niveau du titre : h4 sous une planche de l'accueil, h3 sous un h2 de page. */
+  niveau?: 'h3' | 'h4'
 }
 
 /** Au-delà, la liste se replie : quatorze lignes d'un bloc écrasent la planche. */
@@ -15,7 +17,7 @@ const REPLI = 6
  * mais elles constituent l'essentiel du travail demandé, surtout au sol.
  * Chaque ligne déplie sa démonstration.
  */
-export function StudyList({ title, items }: Props) {
+export function StudyList({ title, items, niveau: Titre = 'h4' }: Props) {
   const [open, setOpen] = useState<string | null>(null)
   const [tout, setTout] = useState(false)
   if (items.length === 0) return null
@@ -28,7 +30,7 @@ export function StudyList({ title, items }: Props) {
   return (
     <div className="min-w-0">
       <div className="mb-1 flex items-baseline justify-between gap-3 border-b border-edge pb-2">
-        <h4 className="text-[15px] font-semibold">{title}</h4>
+        <Titre className="text-[15px] font-semibold">{title}</Titre>
         <span className="text-[13px] tabular-nums text-faint">{items.length}</span>
       </div>
       <ul>

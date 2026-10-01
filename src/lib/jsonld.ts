@@ -3,6 +3,12 @@ import { routePath } from '../hooks/useRoute'
 import { SITE, SITE_URL } from './head'
 import donnees from '../data/techniques.json'
 import type { Technique } from '../types/judodex'
+import { beltOf } from './belts'
+import { CEINTURES } from '../hooks/useRoute'
+import { FAMILY_META, GROUP_META } from './families'
+import { FAMILLE_TEXTE } from './contenuSeo'
+import { questionsCeinture, questionsCeintures, questionsFamille, questionsTechnique, type Question } from './faq'
+import { TERMES } from './lexique'
 
 /**
  * Ce que la page déclare d'elle-même en données structurées.
@@ -167,11 +173,38 @@ function technique(t: Technique) {
     filDAriane([
       { nom: 'Judodex', chemin: '/' },
       { nom: 'Techniques', chemin: '/techniques' },
+      { nom: GROUP_META[FAMILY_META[t.family].group].name, chemin: `/famille/${FAMILY_META[t.family].group}` },
       { nom: t.name, chemin: `/technique/${t.slug}` },
     ]),
   ]
   return graphe
 }
+
+/** Les questions de la page, déclarées comme telles : un moteur génératif y lit des paires question-réponse prêtes à citer. */
+const faq = (questions: Question[]) => ({
+  '@type': 'FAQPage',
+  mainEntity: questions.map(({ q, a }) => ({
+    '@type': 'Question',
+    name: q,
+    acceptedAnswer: { '@type': 'Answer', text: a },
+  })),
+})
+
+/** Une liste nommée de pages, comme celle qu'un moteur affiche en carrousel. */
+const itemList = (elements: { nom: string; chemin: string }[]) => ({
+  '@type': 'ItemList',
+  numberOfItems: elements.length,
+  itemListOrder: 'https://schema.org/ItemListOrderAscending',
+  itemListElement: elements.map((e, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: e.nom,
+    url: SITE_URL + e.chemin,
+  })),
+})
+
+const toutes = () => (donnees as { techniques?: Technique[] }).techniques ?? []
+const nomDe = (slug: string) => toutes().find((t) => t.slug === slug)?.name ?? slug
 
 /** Nom lisible de chaque écran, pour le fil d'Ariane. */
 const NOMS: Partial<Record<Route['name'], string>> = {
@@ -199,7 +232,7 @@ export function jsonLdFor(route: Route, t?: Technique | null, total = 104): obje
 
   if (route.name === 'technique') {
     if (!t) return null
-    return { '@context': 'https://schema.org', '@graph': [base, JUDO, ...technique(t)] }
+    return { '@context': 'https://schema.org', '@graph': [base, JUDO, ...technique(t), faq(questionsTechnique(t, nomDe))] }
   }
 
   if (route.name === 'browse') {
@@ -245,6 +278,155 @@ export function jsonLdFor(route: Route, t?: Technique | null, total = 104): obje
 
   if (route.name === 'home') {
     return { '@context': 'https://schema.org', '@graph': [base, JUDO, EDITEUR] }
+  }
+
+  if (route.name === 'ceintures') {
+    return {
+      '@context': 'https://schema.org',
+      '@graph': [
+        base,
+        JUDO,
+        {
+          '@type': 'CollectionPage',
+          '@id': `${SITE_URL}/ceintures#page`,
+          url: `${SITE_URL}/ceintures`,
+          name: 'Les ceintures de judo : le programme de la blanche à la noire',
+          inLanguage: 'fr',
+          isPartOf: { '@id': `${SITE_URL}/#site` },
+          about: { '@id': `${SITE_URL}/#judo` },
+          dateModified: MAJ,
+          mainEntity: itemList([
+            ...CEINTURES.map((c) => ({ nom: `Ceinture ${beltOf(c).name.toLowerCase()} (${beltOf(c).kyu})`, chemin: `/ceinture/${c}` })),
+            { nom: 'Ceinture noire (1er dan)', chemin: '/dojo/ceinture-noire' },
+          ]),
+        },
+        faq(questionsCeintures()),
+        filDAriane([
+          { nom: 'Judodex', chemin: '/' },
+          { nom: 'Ceintures de judo', chemin: '/ceintures' },
+        ]),
+      ],
+    }
+  }
+
+  if (route.name === 'ceinture') {
+    const b = beltOf(route.belt)
+    const couleur = b.name.toLowerCase()
+    const chemin = `/ceinture/${route.belt}`
+    const imposees = [...b.nage, ...b.katame]
+    return {
+      '@context': 'https://schema.org',
+      '@graph': [
+        base,
+        JUDO,
+        {
+          '@type': 'CollectionPage',
+          '@id': `${SITE_URL}${chemin}#page`,
+          url: `${SITE_URL}${chemin}`,
+          name: `Ceinture ${couleur} de judo : le programme (${b.kyu})`,
+          description: `${b.plate}. ${b.focus}`,
+          inLanguage: 'fr',
+          isPartOf: { '@id': `${SITE_URL}/#site` },
+          about: { '@id': `${SITE_URL}/#judo` },
+          dateModified: MAJ,
+          mainEntity: itemList(imposees.map((slug) => ({ nom: nomDe(slug), chemin: `/technique/${slug}` }))),
+        },
+        faq(questionsCeinture(route.belt, nomDe)),
+        filDAriane([
+          { nom: 'Judodex', chemin: '/' },
+          { nom: 'Ceintures de judo', chemin: '/ceintures' },
+          { nom: `Ceinture ${couleur}`, chemin },
+        ]),
+      ],
+    }
+  }
+
+  if (route.name === 'famille') {
+    const texte = FAMILLE_TEXTE[route.group]
+    const meta = GROUP_META[route.group]
+    const chemin = `/famille/${route.group}`
+    const liste = toutes().filter((t) => FAMILY_META[t.family].group === route.group)
+    return {
+      '@context': 'https://schema.org',
+      '@graph': [
+        base,
+        JUDO,
+        {
+          '@type': 'CollectionPage',
+          '@id': `${SITE_URL}${chemin}#page`,
+          url: `${SITE_URL}${chemin}`,
+          name: texte.h1,
+          description: texte.intro[0],
+          inLanguage: 'fr',
+          isPartOf: { '@id': `${SITE_URL}/#site` },
+          about: { '@id': `${SITE_URL}/#judo` },
+          dateModified: MAJ,
+          mainEntity: itemList(liste.map((t) => ({ nom: `${t.name} — ${t.translation}`, chemin: `/technique/${t.slug}` }))),
+        },
+        faq(questionsFamille(route.group, liste)),
+        filDAriane([
+          { nom: 'Judodex', chemin: '/' },
+          { nom: 'Techniques', chemin: '/techniques' },
+          { nom: meta.name, chemin },
+        ]),
+      ],
+    }
+  }
+
+  if (route.name === 'lexique') {
+    return {
+      '@context': 'https://schema.org',
+      '@graph': [
+        base,
+        JUDO,
+        {
+          '@type': 'DefinedTermSet',
+          '@id': `${SITE_URL}/lexique#termes`,
+          url: `${SITE_URL}/lexique`,
+          name: 'Lexique du judo',
+          inLanguage: 'fr',
+          about: { '@id': `${SITE_URL}/#judo` },
+          dateModified: MAJ,
+          hasDefinedTerm: TERMES.map((t) => ({
+            '@type': 'DefinedTerm',
+            '@id': `${SITE_URL}/lexique#${t.id}`,
+            name: t.nom,
+            alternateName: [t.jp, t.sens],
+            description: t.definition,
+            url: `${SITE_URL}/lexique#${t.id}`,
+            inDefinedTermSet: { '@id': `${SITE_URL}/lexique#termes` },
+          })),
+        },
+        filDAriane([
+          { nom: 'Judodex', chemin: '/' },
+          { nom: 'Lexique du judo', chemin: '/lexique' },
+        ]),
+      ],
+    }
+  }
+
+  if (route.name === 'aPropos') {
+    return {
+      '@context': 'https://schema.org',
+      '@graph': [
+        base,
+        JUDO,
+        EDITEUR,
+        {
+          '@type': 'AboutPage',
+          '@id': `${SITE_URL}/a-propos#page`,
+          url: `${SITE_URL}/a-propos`,
+          name: 'À propos de Judodex : méthode et sources',
+          inLanguage: 'fr',
+          isPartOf: { '@id': `${SITE_URL}/#site` },
+          about: { '@id': `${SITE_URL}/#editeur` },
+        },
+        filDAriane([
+          { nom: 'Judodex', chemin: '/' },
+          { nom: 'À propos', chemin: '/a-propos' },
+        ]),
+      ],
+    }
   }
 
   if (route.name === 'dan') {

@@ -8,6 +8,7 @@ import { BeltMark } from '../components/BeltMark'
 import { TechniqueCard } from '../components/TechniqueCard'
 import type { Mastery } from '../types/judodex'
 import { Surtitre } from '../components/Surtitre'
+import { Link } from '../components/Link'
 
 const MASTERY: { value: Mastery; label: string }[] = [
   { value: 'unknown', label: 'À découvrir' },
@@ -170,9 +171,14 @@ export function BrowseScreen({ dex }: { dex: Judodex }) {
                   </div>
                   <p className="mt-2 max-w-lg text-[14px] leading-relaxed text-soft">{meta.principle}</p>
                 </div>
-                <p className="hidden shrink-0 pb-1 text-[13px] tabular-nums text-faint sm:block">
-                  {done} acquise{done > 1 ? 's' : ''} sur {section.techniques.length}
-                </p>
+                <div className="hidden shrink-0 pb-1 text-right text-[13px] sm:block">
+                  <p className="tabular-nums text-faint">
+                    {done} acquise{done > 1 ? 's' : ''} sur {section.techniques.length}
+                  </p>
+                  <Link to={{ name: 'famille', group: section.group }} className="mt-1 inline-block text-ink underline decoration-edge underline-offset-4 hover:decoration-ink">
+                    La page de la famille →
+                  </Link>
+                </div>
               </div>
 
               {section.subs.length > 0 ? (

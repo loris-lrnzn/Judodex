@@ -8,6 +8,10 @@ import { Seal } from '../components/Seal'
 import { Link } from '../components/Link'
 import { BeltMark } from '../components/BeltMark'
 import { beltOf } from '../lib/belts'
+import { CEINTURES } from '../hooks/useRoute'
+import { Faq } from '../components/PageSeo'
+import { questionsTechnique } from '../lib/faq'
+import { termeParId } from '../lib/lexique'
 import type { Mastery, Technique } from '../types/judodex'
 
 /**
@@ -81,7 +85,7 @@ export function TechniqueScreen({ slug, dex, onNavigate }: Props) {
           Techniques
         </Link>
         <span aria-hidden>›</span>
-        <Link to={{ name: 'browse' }} hash={meta.group} className="tap inline-flex items-center py-2 hover:text-ink">
+        <Link to={{ name: 'famille', group: meta.group }} className="tap inline-flex items-center py-2 hover:text-ink">
           {group.name}
         </Link>
         <span aria-hidden>›</span>
@@ -117,7 +121,15 @@ export function TechniqueScreen({ slug, dex, onNavigate }: Props) {
           <p className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1.5 text-[14px] text-faint">
             <span className="flex items-center gap-2">
               <BeltMark belt={beltId} width={26} height={8} />
-              {belt ? `Ceinture ${belt.name.toLowerCase()}, ${belt.kyu}` : 'Hors progression française'}
+              {belt && beltId && CEINTURES.includes(beltId) ? (
+                <Link to={{ name: 'ceinture', belt: beltId }} className="underline decoration-rule underline-offset-4 transition-colors hover:text-ink hover:decoration-ink">
+                  Ceinture {belt.name.toLowerCase()}, {belt.kyu}
+                </Link>
+              ) : belt ? (
+                `Ceinture ${belt.name.toLowerCase()}, ${belt.kyu}`
+              ) : (
+                'Hors progression française'
+              )}
             </span>
             {/* Le point séparateur ne doit jamais ouvrir une ligne : sur
                 téléphone, la famille et le niveau passent ensemble dessous. */}
@@ -204,7 +216,15 @@ export function TechniqueScreen({ slug, dex, onNavigate }: Props) {
                 <span lang="ja" aria-hidden className="font-jp block text-[2.6rem] font-bold leading-none text-(--fam)">
                   {ph.kanji}
                 </span>
-                <h3 className="font-jp mt-4 text-[1.3rem] font-bold leading-tight">{ph.label}</h3>
+                <h3 className="font-jp mt-4 text-[1.3rem] font-bold leading-tight">
+                  {termeParId(ph.label.toLowerCase()) ? (
+                    <Link to={{ name: 'lexique' }} hash={ph.label.toLowerCase()} title={`Que veut dire « ${ph.label} » ?`} className="underline decoration-rule decoration-dotted underline-offset-[6px] transition-colors hover:decoration-ink">
+                      {ph.label}
+                    </Link>
+                  ) : (
+                    ph.label
+                  )}
+                </h3>
                 <p className="mt-0.5 text-[13px] text-faint">{ph.meaning}</p>
                 <p className="mt-3 text-[15px] leading-[1.7] text-soft">{ph.description}</p>
               </fm.li>
@@ -268,6 +288,8 @@ export function TechniqueScreen({ slug, dex, onNavigate }: Props) {
           </div>
         </section>
       )}
+
+      <Faq titre={`Questions sur ${t.name}`} questions={questionsTechnique(t, (slug) => dex.bySlug.get(slug)?.name ?? slug)} />
 
       <nav aria-label="Techniques voisines" className="grid border-t border-rule sm:grid-cols-2">
         {prev && <NavCard t={prev} dir="prev" />}

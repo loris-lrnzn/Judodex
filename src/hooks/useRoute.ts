@@ -1,4 +1,11 @@
 import { useCallback, useEffect, useState } from 'react'
+import routes from '../data/routes.json'
+import type { BeltId } from '../lib/belts'
+import type { FamilyGroup } from '../types/judodex'
+
+/** Les adresses de ceinture et de famille que le site publie : un seul fichier, lu aussi par les scripts de build. */
+export const CEINTURES = routes.ceintures as BeltId[]
+export const FAMILLES = routes.familles as FamilyGroup[]
 
 export type Route =
   | { name: 'home' }
@@ -8,6 +15,13 @@ export type Route =
   | { name: 'train' }
   | { name: 'reglages' }
   | { name: 'dan'; dan: 1 | 2 | 3 }
+  /** Le programme de chaque ceinture, de la jaune à la marron, et leur vue d'ensemble. */
+  | { name: 'ceintures' }
+  | { name: 'ceinture'; belt: BeltId }
+  /** Une famille de techniques : bras, hanche, jambe, sacrifice, sol. */
+  | { name: 'famille'; group: FamilyGroup }
+  | { name: 'lexique' }
+  | { name: 'aPropos' }
   /** Une carte de judo reçue par lien : elle tient entière dans l'adresse. */
   | { name: 'carteJudo'; code: string }
   /** Adresse qui ne correspond à rien : on le dit, plutôt que de servir l'accueil. */
@@ -19,6 +33,11 @@ export function parseRoute(pathname: string): Route {
   if (parts[0] === 'mon-judo' && parts[1] === 'carte' && parts[2]) return { name: 'carteJudo', code: parts[2] }
   if (parts[0] === 'mon-judo') return { name: 'profil' }
   if (parts[0] === 'reglages') return { name: 'reglages' }
+  if (parts[0] === 'ceintures' && !parts[1]) return { name: 'ceintures' }
+  if (parts[0] === 'ceinture' && CEINTURES.includes(parts[1] as BeltId) && !parts[2]) return { name: 'ceinture', belt: parts[1] as BeltId }
+  if (parts[0] === 'famille' && FAMILLES.includes(parts[1] as FamilyGroup) && !parts[2]) return { name: 'famille', group: parts[1] as FamilyGroup }
+  if (parts[0] === 'lexique' && !parts[1]) return { name: 'lexique' }
+  if (parts[0] === 'a-propos' && !parts[1]) return { name: 'aPropos' }
   if (parts[0] === 'technique' && parts[1]) return { name: 'technique', slug: decodeURIComponent(parts[1]) }
   if (parts[0] === 'dojo' && parts[1] === 'ceinture-noire') {
     const dan = parts[2] === '2e-dan' ? 2 : parts[2] === '3e-dan' ? 3 : 1
@@ -29,8 +48,38 @@ export function parseRoute(pathname: string): Route {
   return { name: 'notFound', path: pathname }
 }
 
-export const routePath = (r: Route): string =>
-  r.name === 'browse' ? '/techniques' : r.name === 'technique' ? `/technique/${r.slug}` : r.name === 'profil' ? '/mon-judo' : r.name === 'carteJudo' ? `/mon-judo/carte/${r.code}` : r.name === 'reglages' ? '/reglages' : r.name === 'train' ? '/dojo' : r.name === 'dan' ? `/dojo/ceinture-noire${r.dan === 1 ? '' : `/${r.dan}e-dan`}` : r.name === 'notFound' ? r.path : '/'
+export const routePath = (r: Route): string => {
+  switch (r.name) {
+    case 'browse':
+      return '/techniques'
+    case 'technique':
+      return `/technique/${r.slug}`
+    case 'profil':
+      return '/mon-judo'
+    case 'carteJudo':
+      return `/mon-judo/carte/${r.code}`
+    case 'reglages':
+      return '/reglages'
+    case 'train':
+      return '/dojo'
+    case 'dan':
+      return `/dojo/ceinture-noire${r.dan === 1 ? '' : `/${r.dan}e-dan`}`
+    case 'ceintures':
+      return '/ceintures'
+    case 'ceinture':
+      return `/ceinture/${r.belt}`
+    case 'famille':
+      return `/famille/${r.group}`
+    case 'lexique':
+      return '/lexique'
+    case 'aPropos':
+      return '/a-propos'
+    case 'notFound':
+      return r.path
+    default:
+      return '/'
+  }
+}
 
 /**
  * Défile jusqu'à l'élément d'ancre. L'écran visé peut être chargé à part et

@@ -15,7 +15,19 @@ import { Garde } from './components/Garde'
 import { useHead } from './hooks/useHead'
 import { ecrans } from './ecrans'
 
-const { technique: TechniqueScreen, train: TrainScreen, profil: MonJudoScreen, carteJudo: CarteRecueScreen, dan: DanScreen, reglages: ReglagesScreen } = ecrans
+const {
+  technique: TechniqueScreen,
+  train: TrainScreen,
+  profil: MonJudoScreen,
+  carteJudo: CarteRecueScreen,
+  dan: DanScreen,
+  reglages: ReglagesScreen,
+  ceintures: CeinturesScreen,
+  ceinture: CeintureScreen,
+  famille: FamilleScreen,
+  lexique: LexiqueScreen,
+  aPropos: AProposScreen,
+} = ecrans
 
 const data = rawData as unknown as JudodexData
 
@@ -47,6 +59,22 @@ export default function App() {
     return () => window.removeEventListener('keydown', onKey)
   }, [])
 
+  // Un nouvel écran, ou une nouvelle fiche, repart de zéro : animation et garde d'erreur comprises.
+  // Le premier rendu reprend une page déjà affichée : il ne rejoue pas l'entrée.
+  // Dès qu'on change d'écran, le drapeau tombe et les entrées reprennent.
+  const prerendu = useRef(typeof document !== 'undefined' && document.documentElement.hasAttribute('data-prerendu'))
+  const premiereRoute = useRef(true)
+  useEffect(() => {
+    if (premiereRoute.current) {
+      premiereRoute.current = false
+      return
+    }
+    prerendu.current = false
+    document.documentElement.removeAttribute('data-prerendu')
+  }, [route])
+
+  const cle = route.name + ('slug' in route ? route.slug : 'belt' in route ? route.belt : 'group' in route ? route.group : '')
+
   const go = useCallback((r: Route, opts?: { hash?: string }) => navigate(r, opts), [navigate])
 
   return (
@@ -55,8 +83,8 @@ export default function App() {
       <MotionConfig reducedMotion="user">
         <AppShell route={route} annonce={annonce} onSearch={() => setPaletteOpen(true)}>
           {/* Pas d'animation de sortie : l'écran suivant ne doit jamais attendre. */}
-          <fm.div key={route.name + ('slug' in route ? route.slug : '')} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.2 }}>
-            <Garde key={route.name + ('slug' in route ? route.slug : '')}>
+          <fm.div key={cle} initial={prerendu.current ? false : { opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.2 }}>
+            <Garde key={cle}>
             <Suspense fallback={<div className="annot py-32 text-center text-faint">Chargement…</div>}>
                 {route.name === 'home' && <HomeScreen dex={dex} />}
                 {route.name === 'browse' && <BrowseScreen dex={dex} />}
@@ -66,6 +94,11 @@ export default function App() {
                 {route.name === 'train' && <TrainScreen dex={dex} onNavigate={go} />}
                 {route.name === 'dan' && <DanScreen dan={route.dan} dex={dex} />}
                 {route.name === 'reglages' && <ReglagesScreen dex={dex} onNotify={notify} />}
+                {route.name === 'ceintures' && <CeinturesScreen dex={dex} />}
+                {route.name === 'ceinture' && <CeintureScreen belt={route.belt} dex={dex} />}
+                {route.name === 'famille' && <FamilleScreen group={route.group} dex={dex} />}
+                {route.name === 'lexique' && <LexiqueScreen dex={dex} />}
+                {route.name === 'aPropos' && <AProposScreen dex={dex} />}
                 {route.name === 'notFound' && <IntrouvableScreen path={route.path} />}
             </Suspense>
             </Garde>

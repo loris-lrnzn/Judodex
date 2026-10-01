@@ -36,8 +36,18 @@ if ('serviceWorker' in navigator && import.meta.env.PROD) {
  * Attendre ne suffit pas : encore faut-il que l'écran se rende sans suspendre
  * (voir lib/ecrans.tsx), ce que `React.lazy` ne sait pas faire.
  */
+/**
+ * Quand la page vient d'être écrite d'avance, son contenu est déjà à l'écran,
+ * entrée en scène comprise. React le reconstruit : sans précaution, chaque bloc
+ * repartirait de transparent et rejouerait son animation, le texte disparaissant
+ * puis revenant sous les yeux du lecteur — et la LCP ne compte que le second
+ * affichage. On pose un drapeau, que la première navigation retire.
+ */
+const racine = document.getElementById('root')!
+if (racine.childElementCount > 0) document.documentElement.setAttribute('data-prerendu', '')
+
 const démarrer = () =>
-  createRoot(document.getElementById('root')!).render(
+  createRoot(racine).render(
     <StrictMode>
       <App />
     </StrictMode>,

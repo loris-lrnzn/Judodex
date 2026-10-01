@@ -36,7 +36,7 @@ const empreinte = createHash('sha256')
   .digest('hex')
   .slice(0, 10)
 
-const precache = ['/', '/techniques', '/dojo', '/mon-judo', '/reglages', '/icon.svg', '/favicon.svg', '/apple-touch-icon.png', '/icon-192.png', '/icon-512.png', '/og.png', '/manifest.webmanifest', ...fichiers.map((f) => `/assets/${f}`), ...polices.map((f) => `/assets/${f}`)]
+const precache = ['/', '/techniques', '/dojo', '/mon-judo', '/reglages', '/ceintures', '/lexique', '/a-propos', '/icon.svg', '/favicon.svg', '/apple-touch-icon.png', '/icon-192.png', '/icon-512.png', '/og.png', '/manifest.webmanifest', ...fichiers.map((f) => `/assets/${f}`), ...polices.map((f) => `/assets/${f}`)]
 
 const chemin = join(dist, 'sw.js')
 let sw = readFileSync(chemin, 'utf8')

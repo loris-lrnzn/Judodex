@@ -42,8 +42,11 @@ function PiedDePage() {
     { to: { name: 'home' }, label: 'Carnet' },
     { to: { name: 'browse' }, label: 'Les 104 techniques' },
     { to: { name: 'train' }, label: 'Dojo' },
+    { to: { name: 'ceintures' }, label: 'Les ceintures' },
     { to: { name: 'dan', dan: 1 }, label: 'Ceinture noire' },
+    { to: { name: 'lexique' }, label: 'Lexique du judo' },
     { to: { name: 'profil' }, label: 'Mon judo' },
+    { to: { name: 'aPropos' }, label: 'À propos' },
     { to: { name: 'reglages' }, label: 'Réglages et sauvegarde' },
   ]
   return (

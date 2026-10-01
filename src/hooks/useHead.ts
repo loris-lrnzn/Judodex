@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { headFor, SITE } from '../lib/head'
+import { headFor, horsIndex, SITE } from '../lib/head'
 import { jsonLdFor } from '../lib/jsonld'
 import type { Route } from './useRoute'
 import type { Technique } from '../types/judodex'
@@ -49,12 +49,19 @@ export function useHead(route: Route, technique?: Technique | null, total?: numb
     document.title = title
     meta('name', 'description', description)
 
-    lien('canonical', canonical)
+    const exclue = horsIndex(route, technique)
+    if (route.name === 'notFound' || (route.name === 'technique' && !technique)) {
+      // Une adresse qui n'existe pas n'a pas de forme canonique : en poser une
+      // reviendrait à la déclarer.
+      document.head.querySelectorAll('link[rel="canonical"], link[rel="alternate"][hreflang]').forEach((l) => l.remove())
+    } else {
+      lien('canonical', canonical)
 
-    // Le site n'existe qu'en français : on le dit, plutôt que de laisser un
-    // moteur multilingue supposer qu'il manque des traductions.
-    lien('alternate', canonical, 'fr-FR')
-    lien('alternate', canonical, 'x-default')
+      // Le site n'existe qu'en français : on le dit, plutôt que de laisser un
+      // moteur multilingue supposer qu'il manque des traductions.
+      lien('alternate', canonical, 'fr-FR')
+      lien('alternate', canonical, 'x-default')
+    }
 
     // Ce que voit celui à qui on partage l'adresse.
     meta('property', 'og:title', title)
@@ -85,9 +92,8 @@ export function useHead(route: Route, technique?: Technique | null, total?: numb
       if (!marque) document.head.appendChild(el)
     }
 
-    // Une page introuvable ne doit pas entrer dans l'index — pas davantage
-    // une fiche dont le slug ne correspond à aucune technique.
-    const introuvable = route.name === 'notFound' || (route.name === 'technique' && !technique)
+    // Hors de l'index : l'adresse inconnue, la fiche sans technique, les réglages
+    // et les cartes partagées (voir `horsIndex`).
     /*
      * Sans consigne, Google tronque le résumé et n'affiche qu'une vignette.
      * Les fiches ont une image de partage et une démonstration filmée : on
@@ -97,7 +103,7 @@ export function useHead(route: Route, technique?: Technique | null, total?: numb
     meta(
       'name',
       'robots',
-      introuvable
+      exclue
         ? 'noindex, follow'
         : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
     )

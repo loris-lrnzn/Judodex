@@ -262,7 +262,7 @@ export const TERMES: Terme[] = [
     sens: 'Un point entier',
     categorie: 'combat',
     definition:
-      "Le score maximal, qui met fin au combat : une projection franche sur le dos avec force et vitesse, un abandon, ou une immobilisation tenue le temps réglementaire. C'est l'idéal que vise toute technique de judo.",
+      "Le score maximal, qui met fin au combat : une projection franche sur le dos avec force et vitesse, un abandon, ou une immobilisation tenue 20 secondes. C'est l'idéal que vise toute technique de judo.",
     voir: ['waza-ari', 'osaekomi'],
   },
   {
@@ -271,7 +271,8 @@ export const TERMES: Terme[] = [
     jp: '技あり',
     sens: 'Presque un ippon',
     categorie: 'combat',
-    definition: "Un score inférieur à l'ippon : la technique était bonne mais lui manquait un élément, la force, la vitesse ou la chute sur le dos.",
+    definition:
+      "Un score inférieur à l'ippon : la technique était bonne mais lui manquait un élément, la force, la vitesse ou la chute sur le dos. Au sol, une immobilisation de 10 à 19 secondes vaut waza-ari.",
     voir: ['ippon', 'yuko'],
   },
   {
@@ -281,8 +282,8 @@ export const TERMES: Terme[] = [
     sens: 'Efficace',
     categorie: 'combat',
     definition:
-      "Un score inférieur au waza-ari, attribué à une technique qui projetait uke sans réunir assez de force, de vitesse ou de contrôle. Il a été supprimé des règles de la Fédération internationale de judo en 2017, mais le mot reste courant au dojo et dans les catégories où l'on garde la notation d'origine.",
-    voir: ['waza-ari', 'ippon'],
+      "Un score inférieur au waza-ari. Supprimé des règles de la Fédération internationale de judo en 2017, il y est revenu en 2025, pour l'olympiade qui mène aux Jeux de Los Angeles 2028. Au sol, il est attribué dès 5 secondes d'immobilisation ; debout, il récompense une projection qui n'atteint pas le waza-ari, par exemple une chute sur le côté, sur le coude ou sur les fesses.",
+    voir: ['waza-ari', 'ippon', 'osaekomi'],
   },
   {
     id: 'shido',
@@ -310,7 +311,7 @@ export const TERMES: Terme[] = [
     sens: 'Immobilisation',
     categorie: 'combat',
     definition:
-      "L'annonce qui déclenche le chronomètre quand uke est immobilisé sur le dos. Si l'immobilisation est tenue le temps requis, elle vaut ippon ; si uke s'en libère, l'arbitre annonce toketa.",
+      "L'annonce qui déclenche le chronomètre quand uke est immobilisé sur le dos. Tenue 5 secondes, l'immobilisation vaut yuko ; 10 secondes, waza-ari ; 20 secondes, ippon. Si uke s'en libère avant, l'arbitre annonce toketa.",
     techniques: ['kesa-gatame', 'yoko-shiho-gatame'],
     famille: 'ne-waza',
     voir: ['osaekomi-waza', 'toketa'],

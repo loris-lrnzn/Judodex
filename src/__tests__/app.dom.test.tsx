@@ -104,10 +104,35 @@ describe('parcours applicatif', () => {
     expect(screen.getByRole('heading', { name: 'Répertoire complémentaire' })).toBeTruthy()
   })
 
-  it('mène chaque famille de l’accueil à sa section du catalogue', async () => {
+  it('mène chaque famille de l’accueil à sa propre page', async () => {
     render(<App />)
     const jambe = await screen.findByRole('link', { name: /Jambe/ })
-    expect(jambe.getAttribute('href')).toBe('/techniques#ashi-waza')
+    expect(jambe.getAttribute('href')).toBe('/famille/ashi-waza')
+  })
+
+  it('affiche la page d’une famille, avec son texte, sa liste et ses questions', async () => {
+    history.replaceState(null, '', '/famille/koshi-waza')
+    render(<App />)
+    expect(await screen.findByRole('heading', { level: 1, name: /Koshi-waza : les techniques de hanche/ })).toBeTruthy()
+    expect(screen.getAllByRole('link', { name: /O-Goshi/ }).length).toBeGreaterThan(0)
+    expect(screen.getByRole('heading', { name: 'Questions fréquentes' })).toBeTruthy()
+    expect(screen.getByText(/Qu'est-ce que les koshi-waza en judo/)).toBeTruthy()
+  })
+
+  it('affiche le programme d’une ceinture, technique par technique', async () => {
+    history.replaceState(null, '', '/ceinture/jaune')
+    render(<App />)
+    expect(await screen.findByRole('heading', { level: 1, name: /Ceinture jaune de judo : le programme/ })).toBeTruthy()
+    expect(screen.getAllByRole('link', { name: /De-Ashi-Barai/ }).length).toBeGreaterThan(0)
+    expect(screen.getByText(/Quelles techniques faut-il connaître pour la ceinture jaune de judo/)).toBeTruthy()
+  })
+
+  it('affiche le lexique, terme par terme, chacun avec son ancre', async () => {
+    history.replaceState(null, '', '/lexique')
+    render(<App />)
+    expect(await screen.findByRole('heading', { level: 1, name: /Lexique du judo/ })).toBeTruthy()
+    expect(document.getElementById('kuzushi')).toBeTruthy()
+    expect(document.getElementById('dan')).toBeTruthy()
   })
 
   it('suit l’ordre du catalogue d’une fiche à l’autre, sans boucler', async () => {
