@@ -1,6 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "installCommand": "dnf install -y nss nspr atk at-spi2-atk cups-libs libdrm libxkbcommon libXcomposite libXdamage libXfixes libXrandr mesa-libgbm pango cairo alsa-lib > /dev/null && npm install",
+  "installCommand": "(dnf install -y nss nspr atk at-spi2-atk cups-libs libdrm libxkbcommon libXcomposite libXdamage libXfixes libXrandr mesa-libgbm pango cairo alsa-lib > /dev/null || echo 'dnf : bibliothèques de Chromium non installées, les pages ne seront pas pré-rendues') && npm install",
   "rewrites": [
     {
       "source": "/techniques",
@@ -19,11 +19,35 @@
       "destination": "/index.html"
     },
     {
+      "source": "/mon-judo/:path*",
+      "destination": "/index.html"
+    },
+    {
       "source": "/reglages",
       "destination": "/index.html"
     },
     {
       "source": "/technique/:slug",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/ceintures",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/ceinture/:belt",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/famille/:group",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/lexique",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/a-propos",
       "destination": "/index.html"
     }
   ],
@@ -47,7 +71,7 @@
       ]
     },
     {
-      "source": "/(sitemap.xml|robots.txt|llms.txt)",
+      "source": "/(sitemap.xml|robots.txt|llms.txt|llms-full.txt)",
       "headers": [
         {
           "key": "Cache-Control",
@@ -77,6 +101,10 @@
       "source": "/(.*)",
       "headers": [
         {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; script-src 'self' https://www.youtube.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' data: blob:; frame-src https://www.youtube-nocookie.com https://www.youtube.com; manifest-src 'self'; worker-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests"
+        },
+        {
           "key": "X-Content-Type-Options",
           "value": "nosniff"
         },
@@ -90,11 +118,15 @@
         },
         {
           "key": "Permissions-Policy",
-          "value": "camera=(), microphone=(), geolocation=(), interest-cohort=()"
+          "value": "camera=(), microphone=(), geolocation=(), payment=(), usb=(), serial=(), bluetooth=(), interest-cohort=()"
         },
         {
           "key": "Strict-Transport-Security",
           "value": "max-age=63072000; includeSubDomains; preload"
+        },
+        {
+          "key": "Cross-Origin-Opener-Policy",
+          "value": "same-origin"
         }
       ]
     }

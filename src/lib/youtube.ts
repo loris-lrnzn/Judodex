@@ -41,3 +41,19 @@ export function loadYouTubeApi(): Promise<YtNamespace> {
   })
   return pending
 }
+
+let prechauffe = false
+
+/**
+ * Ouvre la connexion vers le lecteur au moment où l'on s'approche d'une
+ * vidéo, pas avant : une préconnexion écrite dans la page révélerait l'adresse
+ * du visiteur à Google dès l'ouverture, qu'il regarde une vidéo ou non.
+ */
+export function prechauffer() {
+  if (prechauffe) return
+  prechauffe = true
+  const lien = document.createElement('link')
+  lien.rel = 'preconnect'
+  lien.href = 'https://www.youtube-nocookie.com'
+  document.head.appendChild(lien)
+}

@@ -1,7 +1,7 @@
 import { chromium } from 'playwright'
 
 const BASE = process.env.BASE || 'http://localhost:4173'
-const ROUTES = ['/', '/techniques', '/technique/o-goshi', '/dojo', '/mon-judo', '/dojo/ceinture-noire', '/dojo/ceinture-noire/2e-dan', '/dojo/ceinture-noire/3e-dan']
+const ROUTES = ['/', '/techniques', '/technique/o-goshi', '/dojo', '/mon-judo', '/dojo/ceinture-noire', '/dojo/ceinture-noire/2e-dan', '/dojo/ceinture-noire/3e-dan', '/ceintures', '/ceinture/jaune', '/ceinture/bleue', '/famille/koshi-waza', '/famille/ne-waza', '/lexique', '/a-propos']
 const VIEWPORTS = [
   { name: 'iPhone SE', width: 320, height: 568 },
   { name: 'iPhone 12', width: 390, height: 844 },

@@ -74,15 +74,19 @@ export function QuizVideo({ clip, revealed }: Props) {
   const chargee = useRef<string | null>(null)
   const [visible, setVisible] = useState(false)
 
-  // Création unique du lecteur, puis surveillance de son état.
+  // Création unique du lecteur, puis surveillance de son état. Le lecteur
+  // vit toute la séance : les questions suivantes ne font que changer de
+  // vidéo, plus bas. Le recréer à chaque question coûtait la poignée de main
+  // avec YouTube à chaque fois.
   useEffect(() => {
     let annule = false
     let poll: number | undefined
+    /** Les méthodes du lecteur n'existent qu'une fois qu'il s'est déclaré prêt. */
+    let pret = false
 
     loadYouTubeApi().then((YT) => {
       if (annule || !holder.current) return
       const c = clipRef.current
-      console.log('[T] création du lecteur')
       player.current = new YT.Player(holder.current, {
         videoId: c.id,
         playerVars: {
@@ -102,18 +106,20 @@ export function QuizVideo({ clip, revealed }: Props) {
         events: {
           onReady: (e: { target: YtPlayer }) => {
             if (annule) return
+            pret = true
             e.target.mute()
-            chargee.current = c.id
-            console.log('[T] lecteur prêt')
-            e.target.playVideo()
+            // La question a pu changer pendant la poignée de main.
+            const actuel = clipRef.current
+            if (actuel.id !== c.id) e.target.loadVideoById({ videoId: actuel.id, startSeconds: actuel.start })
+            else e.target.playVideo()
+            chargee.current = actuel.id
           },
           onStateChange: (e: { data: number; target: YtPlayer }) => {
             if (annule) return
             // Fin de vidéo : on revient sur l'extrait, jamais sur le générique.
             if (e.data === YT.PlayerState.ENDED) {
               e.target.seekTo(clipRef.current.start, true)
-              console.log('[T] lecteur prêt')
-            e.target.playVideo()
+              e.target.playVideo()
             }
             if (e.data !== YT.PlayerState.PLAYING) setVisible(false)
           },
@@ -122,18 +128,14 @@ export function QuizVideo({ clip, revealed }: Props) {
 
       poll = window.setInterval(() => {
         const p = player.current
-        if (!p || annule) return
-        const etat = p.getPlayerState()
-        const tt = p.getCurrentTime()
-        console.log(`[trace] état ${etat} · temps ${tt.toFixed(2)} · départ ${clipRef.current.start}`)
-        if (etat !== YT.PlayerState.PLAYING) return setVisible(false)
-        const t = tt
+        if (!p || annule || !pret) return
+        if (p.getPlayerState() !== YT.PlayerState.PLAYING) return setVisible(false)
+        const t = p.getCurrentTime()
         const c2 = clipRef.current
         if (t >= c2.duration - 1.5) {
           p.seekTo(c2.start, true)
           return
         }
-        if (t >= c2.start + DELAI) console.log('[T] image découverte')
         setVisible(t >= c2.start + DELAI)
       }, 150)
     })
@@ -143,8 +145,9 @@ export function QuizVideo({ clip, revealed }: Props) {
       window.clearInterval(poll)
       player.current?.destroy()
       player.current = null
+      chargee.current = null
     }
-  }, [clip.id])
+  }, [])
 
   // Question suivante : on change de vidéo sans reconstruire le lecteur.
   // Précharger la suivante pendant la correction a été essayé et abandonné :
@@ -153,13 +156,14 @@ export function QuizVideo({ clip, revealed }: Props) {
   useEffect(() => {
     setVisible(false)
     const p = player.current
-    if (!p || revealed) return
+    // Tant que le lecteur ne s'est pas déclaré prêt, c'est lui qui prendra la
+    // bonne vidéo à son réveil.
+    if (!p || revealed || chargee.current === null) return
     if (chargee.current === clip.id) {
       p.seekTo(clip.start, true)
       p.playVideo()
       return
     }
-    console.log('[T] chargement vidéo ' + clip.id)
     p.loadVideoById({ videoId: clip.id, startSeconds: clip.start })
     chargee.current = clip.id
   }, [clip.id, clip.start, revealed])

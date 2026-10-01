@@ -21,8 +21,8 @@ export function DemoPlayer({ technique: t, fallback }: { technique: Technique; f
   if (!source) {
     return (
       <>
-        <div className="plate grid aspect-video place-items-center overflow-hidden">{fallback}</div>
-        <p className="annot mt-2 text-faint">Aucune démonstration filmée disponible</p>
+        <div className="grid aspect-video place-items-center overflow-hidden bg-plate">{fallback}</div>
+        <p className="mt-3 text-[13px] text-faint">Aucune démonstration filmée disponible.</p>
       </>
     )
   }
@@ -31,17 +31,17 @@ export function DemoPlayer({ technique: t, fallback }: { technique: Technique; f
 
   return (
     <>
-      <YouTubeFacade key={id} id={id} title={`${t.name} — démonstration ${SOURCES[source].label}`} />
-      <div className="mt-2 flex flex-wrap items-center gap-2">
+      <YouTubeFacade key={id} id={id} title={`${t.name} — démonstration ${SOURCES[source].label}`} bare priorite />
+      <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-[13px]">
         {available.length > 1 ? (
-          <div className="flex items-stretch">
+          <div className="flex gap-1" role="group" aria-label="Source de la démonstration">
             {available.map((s) => (
               <button
                 key={s}
                 onClick={() => setSource(s)}
                 aria-pressed={source === s}
-                className={`tap annot -ml-px inline-flex items-center border px-2.5 py-1.5 transition first:ml-0 ${
-                  source === s ? 'z-10 border-ink bg-ink text-field' : 'border-edge text-soft hover:border-ink hover:text-ink'
+                className={`tap inline-flex h-8 items-center px-2.5 font-medium transition ${
+                  source === s ? 'bg-ink text-field' : 'text-soft hover:text-ink'
                 }`}
               >
                 {SOURCES[s].label}
@@ -49,9 +49,9 @@ export function DemoPlayer({ technique: t, fallback }: { technique: Technique; f
             ))}
           </div>
         ) : (
-          <span className="annot text-faint">{SOURCES[source].label}</span>
+          <span className="font-medium text-soft">{SOURCES[source].label}</span>
         )}
-        <span className="annot text-faint">{SOURCES[source].hint}</span>
+        <span className="text-faint">{SOURCES[source].hint}</span>
       </div>
     </>
   )

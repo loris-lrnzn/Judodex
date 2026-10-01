@@ -8,17 +8,26 @@ import type { ProgressEntry, Technique } from '../types/judodex'
 export const INTERVALS = [0, 1, 3, 7, 21, 60] as const
 export const MAX_BOX = INTERVALS.length - 1
 
-export const today = () => new Date().toISOString().slice(0, 10)
+/**
+ * Jour civil local, au format AAAA-MM-JJ. `toISOString` donnerait le jour UTC :
+ * en France, entre minuit et 2 h, « aujourd'hui » serait encore hier et les
+ * échéances glisseraient d'un jour.
+ */
+export const jourLocal = (d = new Date()) =>
+  `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+
+export const today = () => jourLocal()
 
 export const addDays = (days: number, from = new Date()) => {
   const d = new Date(from)
   d.setDate(d.getDate() + days)
-  return d.toISOString().slice(0, 10)
+  return jourLocal(d)
 }
 
 /** Prochaine boîte et prochaine échéance après une réponse. */
 export function schedule(entry: ProgressEntry | undefined, correct: boolean): { box: number; due: string } {
-  const current = entry?.box ?? 0
+  // Une boîte absente ou illisible (stockage modifié à la main) vaut la première.
+  const current = Number.isInteger(entry?.box) ? Math.min(Math.max(entry!.box!, 0), MAX_BOX) : 0
   const box = correct ? Math.min(current + 1, MAX_BOX) : 0
   return { box, due: addDays(INTERVALS[box]) }
 }

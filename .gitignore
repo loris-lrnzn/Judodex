@@ -4,3 +4,5 @@ dist
 .env.local
 *.local
 .env
+# Rushes et rendus vidéo : trop lourds pour le dépôt.
+video/

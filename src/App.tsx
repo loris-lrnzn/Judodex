@@ -1,4 +1,4 @@
-import { Suspense, lazy, useCallback, useEffect, useRef, useState } from 'react'
+import { Suspense, useCallback, useEffect, useRef, useState } from 'react'
 import { LazyMotion, MotionConfig, m as fm } from 'framer-motion'
 import rawData from './data/techniques.json'
 import type { JudodexData } from './types/judodex'
@@ -13,13 +13,21 @@ import { BrowseScreen } from './screens/BrowseScreen'
 import { IntrouvableScreen } from './screens/IntrouvableScreen'
 import { Garde } from './components/Garde'
 import { useHead } from './hooks/useHead'
+import { ecrans } from './ecrans'
 
-// Les écrans secondaires sortent du chargement initial.
-const TechniqueScreen = lazy(() => import('./screens/TechniqueScreen').then((m) => ({ default: m.TechniqueScreen })))
-const TrainScreen = lazy(() => import('./screens/TrainScreen').then((m) => ({ default: m.TrainScreen })))
-const ProfilScreen = lazy(() => import('./screens/ProfilScreen').then((m) => ({ default: m.ProfilScreen })))
-const DanScreen = lazy(() => import('./screens/DanScreen').then((m) => ({ default: m.DanScreen })))
-const ReglagesScreen = lazy(() => import('./screens/ReglagesScreen').then((m) => ({ default: m.ReglagesScreen })))
+const {
+  technique: TechniqueScreen,
+  train: TrainScreen,
+  profil: MonJudoScreen,
+  carteJudo: CarteRecueScreen,
+  dan: DanScreen,
+  reglages: ReglagesScreen,
+  ceintures: CeinturesScreen,
+  ceinture: CeintureScreen,
+  famille: FamilleScreen,
+  lexique: LexiqueScreen,
+  aPropos: AProposScreen,
+} = ecrans
 
 const data = rawData as unknown as JudodexData
 
@@ -51,24 +59,46 @@ export default function App() {
     return () => window.removeEventListener('keydown', onKey)
   }, [])
 
-  const go = useCallback((r: Route) => navigate(r), [navigate])
+  // Un nouvel écran, ou une nouvelle fiche, repart de zéro : animation et garde d'erreur comprises.
+  // Le premier rendu reprend une page déjà affichée : il ne rejoue pas l'entrée.
+  // Dès qu'on change d'écran, le drapeau tombe et les entrées reprennent.
+  const prerendu = useRef(typeof document !== 'undefined' && document.documentElement.hasAttribute('data-prerendu'))
+  const premiereRoute = useRef(true)
+  useEffect(() => {
+    if (premiereRoute.current) {
+      premiereRoute.current = false
+      return
+    }
+    prerendu.current = false
+    document.documentElement.removeAttribute('data-prerendu')
+  }, [route])
+
+  const cle = route.name + ('slug' in route ? route.slug : 'belt' in route ? route.belt : 'group' in route ? route.group : '')
+
+  const go = useCallback((r: Route, opts?: { hash?: string }) => navigate(r, opts), [navigate])
 
   return (
     <NavProvider value={go}>
     <LazyMotion features={() => import('./lib/motionFeatures').then((m) => m.default)} strict>
       <MotionConfig reducedMotion="user">
-        <AppShell route={route} dex={dex} annonce={annonce} onSearch={() => setPaletteOpen(true)}>
+        <AppShell route={route} annonce={annonce} onSearch={() => setPaletteOpen(true)}>
           {/* Pas d'animation de sortie : l'écran suivant ne doit jamais attendre. */}
-          <fm.div key={route.name + ('slug' in route ? route.slug : '')} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.2 }}>
-            <Garde key={route.name + ('slug' in route ? route.slug : '')}>
+          <fm.div key={cle} initial={prerendu.current ? false : { opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.2 }}>
+            <Garde key={cle}>
             <Suspense fallback={<div className="annot py-32 text-center text-faint">Chargement…</div>}>
                 {route.name === 'home' && <HomeScreen dex={dex} />}
                 {route.name === 'browse' && <BrowseScreen dex={dex} />}
                 {route.name === 'technique' && <TechniqueScreen slug={route.slug} dex={dex} onNavigate={go} />}
-                {route.name === 'profil' && <ProfilScreen dex={dex} />}
+                {route.name === 'profil' && <MonJudoScreen dex={dex} onNotify={notify} />}
+                {route.name === 'carteJudo' && <CarteRecueScreen code={route.code} dex={dex} onNotify={notify} />}
                 {route.name === 'train' && <TrainScreen dex={dex} onNavigate={go} />}
                 {route.name === 'dan' && <DanScreen dan={route.dan} dex={dex} />}
                 {route.name === 'reglages' && <ReglagesScreen dex={dex} onNotify={notify} />}
+                {route.name === 'ceintures' && <CeinturesScreen dex={dex} />}
+                {route.name === 'ceinture' && <CeintureScreen belt={route.belt} dex={dex} />}
+                {route.name === 'famille' && <FamilleScreen group={route.group} dex={dex} />}
+                {route.name === 'lexique' && <LexiqueScreen dex={dex} />}
+                {route.name === 'aPropos' && <AProposScreen dex={dex} />}
                 {route.name === 'notFound' && <IntrouvableScreen path={route.path} />}
             </Suspense>
             </Garde>

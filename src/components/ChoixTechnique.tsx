@@ -1,9 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { AnimatePresence, m as fm } from 'framer-motion'
 import type { Judodex } from '../hooks/useJudodex'
-import { FAMILY_META, familyVars } from '../lib/families'
-import { useFocusTrap, useScrollLock } from '../hooks/useUi'
-import { BeltMark } from './BeltMark'
+import { Aucun, ChampRecherche, LISTE_ID, LigneTechnique, Palette, PiedPalette, optionId } from './Palette'
 import type { Technique } from '../types/judodex'
 
 interface Props {
@@ -33,8 +30,6 @@ interface Props {
  * de recherche donne accès à tout.
  */
 export function ChoixTechnique({ open, dex, titre, aide, proposees, exclues, onChoisir, onClose }: Props) {
-  const trap = useFocusTrap<HTMLDivElement>(open)
-  useScrollLock(open)
   const inputRef = useRef<HTMLInputElement>(null)
   const [query, setQuery] = useState('')
   const [cursor, setCursor] = useState(0)
@@ -75,91 +70,54 @@ export function ChoixTechnique({ open, dex, titre, aide, proposees, exclues, onC
     }
   }
 
+  const cherche = query.trim().length > 0
+
   return (
-    <AnimatePresence>
-      {open && (
-        <fm.div
-          className="fixed inset-0 z-50 flex items-start justify-center bg-ink/25 px-4 pt-[10vh] backdrop-blur-[2px]"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          onClick={onClose}
-        >
-          <fm.div
-            ref={trap}
-            role="dialog"
-            aria-modal
-            aria-label={titre}
-            initial={{ opacity: 0, y: -12, scale: 0.99 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.16 }}
-            onClick={(e) => e.stopPropagation()}
-            className="w-full max-w-xl overflow-hidden border border-ink bg-field shadow-[0_30px_80px_-30px_rgba(0,0,0,.55)]"
-          >
-            <div className="flex items-center gap-2 bg-ink px-3 py-1.5 text-field">
-              <span className="font-mono text-[10px] opacity-60">＋</span>
-              <span className="text-[13px] font-bold tracking-wide">{titre.toUpperCase()}</span>
-              <span className="ml-auto font-mono text-[10px] opacity-60">{resultats.length} au choix</span>
-            </div>
+    <Palette open={open} label={titre} onClose={onClose}>
+      <div className="flex shrink-0 items-baseline gap-3 px-4 pt-4 sm:px-5">
+        <span className="font-jp text-[1.2rem] font-bold leading-tight">{titre}</span>
+        <span className="ml-auto shrink-0 text-[13px] tabular-nums text-faint">{resultats.length} au choix</span>
+      </div>
 
-            <div className="flex items-center gap-3 border-b border-ink px-4">
-              <input
-                ref={inputRef}
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                onKeyDown={onKeyDown}
-                placeholder="Chercher dans tout le catalogue…"
-                className="font-jp h-14 flex-1 appearance-none bg-transparent text-[17px] outline-none placeholder:font-sans placeholder:text-[14px] placeholder:text-faint"
-                type="search"
-                enterKeyHint="go"
-                autoComplete="off"
-                autoCorrect="off"
-                autoCapitalize="off"
-                spellCheck={false}
-                aria-label="Chercher une technique"
+      <ChampRecherche
+        inputRef={inputRef}
+        value={query}
+        onChange={setQuery}
+        onKeyDown={onKeyDown}
+        onClose={onClose}
+        placeholder="Chercher dans tout le catalogue…"
+        label="Chercher une technique"
+        actif={resultats[cursor] ? optionId(resultats[cursor].slug) : undefined}
+        ouvert={resultats.length > 0}
+      />
+
+      <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain">
+        {!cherche && aide && <p className="px-4 pb-1 pt-3.5 text-[13px] leading-relaxed text-faint sm:px-5">{aide}</p>}
+        {resultats.length === 0 ? (
+          cherche ? (
+            <Aucun requete={query} />
+          ) : (
+            <p className="px-5 py-10 text-center text-[14px] text-faint">Tout est déjà là.</p>
+          )
+        ) : (
+          <ul id={LISTE_ID} role="listbox" aria-label="Techniques" className="pb-1.5">
+            {resultats.map((t, i) => (
+              <LigneTechnique
+                key={t.slug}
+                t={t}
+                dex={dex}
+                requete={query}
+                actif={i === cursor}
+                action="ajouter"
+                onChoisir={() => choisir(t)}
+                onSurvol={() => setCursor(i)}
               />
-              <kbd className="hidden border border-rule px-1.5 py-0.5 font-mono text-[10px] text-faint sm:block">esc</kbd>
-            </div>
+            ))}
+          </ul>
+        )}
+      </div>
 
-            {!query && aide && <p className="annot px-4 pt-3 leading-relaxed text-faint">{aide}</p>}
-
-            <ul className="max-h-[46svh] overflow-y-auto overscroll-contain p-1.5 sm:max-h-[52vh]">
-              {resultats.length === 0 && (
-                <li className="px-3 py-8 text-center text-sm text-faint">
-                  {query ? 'Aucune technique trouvée.' : 'Tout est déjà là.'}
-                </li>
-              )}
-              {resultats.map((t, i) => (
-                <li key={t.slug}>
-                  <button
-                    onMouseEnter={() => setCursor(i)}
-                    onClick={() => choisir(t)}
-                    style={familyVars(t.family)}
-                    className={`flex w-full items-center gap-3 px-3 py-2.5 text-left transition ${i === cursor ? 'bg-ink text-field' : ''}`}
-                  >
-                    <span className={`font-jp w-9 shrink-0 text-center text-xl leading-none ${i === cursor ? 'text-(--fam-lite)' : 'text-(--fam)'}`}>
-                      {t.kanji}
-                    </span>
-                    <span className="min-w-0 flex-1">
-                      <span className="font-jp block truncate text-sm font-bold">{t.name}</span>
-                      <span className={`block truncate text-[11px] ${i === cursor ? 'text-field/60' : 'text-faint'}`}>
-                        {t.translation} · {FAMILY_META[t.family].label}
-                      </span>
-                    </span>
-                    <BeltMark belt={dex.beltOfTechnique(t.slug)} width={20} height={6} />
-                  </button>
-                </li>
-              ))}
-            </ul>
-
-            <div className="annot flex items-center gap-5 border-t border-rule px-4 py-2.5 text-faint">
-              <span>↑↓ naviguer</span>
-              <span>↵ ajouter</span>
-            </div>
-          </fm.div>
-        </fm.div>
-      )}
-    </AnimatePresence>
+      <PiedPalette action="ajouter" compte={`${resultats.length} technique${resultats.length > 1 ? 's' : ''}`} />
+    </Palette>
   )
 }

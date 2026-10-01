@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Le J noué des petites tailles : sans coutures, trait plus gras, nœud
+       réduit à sa réserve, marque plus grande dans le carré. -->
+  <rect width="512" height="512" fill="#0f2e20"/>
+  <g transform="translate(256 256) scale(1.08) translate(-240 -270)">
+    <path d="M300 150V316A100 100 0 0 1 110 360" fill="none" stroke="#ff6c53" stroke-width="80"/>
+    <rect x="112" y="104" width="284" height="80" fill="#ff6c53"/>
+    <rect x="242" y="86" width="116" height="116" fill="#ff6c53" stroke="#0f2e20" stroke-width="20"/>
+  </g>
+</svg>

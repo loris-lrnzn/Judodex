@@ -48,7 +48,7 @@ function Ligne({ t, rang, dex, note }: { t: Technique; rang?: string; dex: Judod
         {rang && <span className="annot w-6 shrink-0 text-faint">{rang}</span>}
         <span className="h-3.5 w-[3px] shrink-0" style={{ background: group.color }} aria-hidden />
         <span className="min-w-0 flex-1">
-          <span className="block truncate text-[13.5px] leading-snug">{t.name}</span>
+          <span className="block truncate text-[14px] leading-snug">{t.name}</span>
           <span className="annot block truncate text-faint">{note ?? t.translation}</span>
         </span>
         {acquise && (
@@ -71,7 +71,7 @@ function LigneSansFiche({ label, rang }: { label: string; rang?: string }) {
         {rang && <span className="annot w-6 shrink-0">{rang}</span>}
         <span className="h-3.5 w-[3px] shrink-0 bg-rule" aria-hidden />
         <span className="min-w-0 flex-1">
-          <span className="block truncate text-[13.5px] leading-snug">{nom}</span>
+          <span className="block truncate text-[14px] leading-snug">{nom}</span>
           <span className="annot block truncate">{sens ?? 'Hors du catalogue'}</span>
         </span>
         <span className="font-jp shrink-0 text-[13px]">{kanji}</span>
@@ -83,10 +83,10 @@ function LigneSansFiche({ label, rang }: { label: string; rang?: string }) {
 function Encart({ title, items }: { title: string; items: string[] }) {
   return (
     <div className="min-w-0">
-      <div className="annot mb-2 border-b border-ink pb-2">{title}</div>
+      <div className="annot mb-2 border-b border-edge pb-2">{title}</div>
       <ul className="space-y-1.5">
         {items.map((x) => (
-          <li key={x} className="flex gap-2.5 text-[13px] leading-relaxed text-soft">
+          <li key={x} className="flex gap-2.5 text-[14px] leading-relaxed text-soft">
             <span className="mt-[7px] h-px w-2.5 shrink-0 bg-rule" aria-hidden />
             <span className="min-w-0">{x}</span>
           </li>
@@ -98,7 +98,7 @@ function Encart({ title, items }: { title: string; items: string[] }) {
 
 function Criteres({ uv }: { uv: Uv }) {
   return (
-    <div className="mt-10 grid gap-8 border-t border-ink pt-8 sm:grid-cols-2">
+    <div className="mt-10 grid gap-8 border-t border-rule pt-8 sm:grid-cols-2">
       <Encart title="Règlement" items={uv.regles} />
       <Encart title="Ce que le jury regarde" items={uv.criteres} />
     </div>
@@ -120,19 +120,21 @@ function PlancheKata({ kata, dan, dex }: { kata: Kata; dan: Dan; dex: Judodex })
           <h2 className="text-[15px] font-semibold">
             {kata.name} <span className="font-jp ml-1.5 text-faint">{kata.jp}</span>
           </h2>
-          <p className="mt-2 max-w-lg text-[13px] leading-relaxed text-soft">{kata.resume}</p>
+          <p className="mt-2 max-w-lg text-[14px] leading-relaxed text-soft">{kata.resume}</p>
         </div>
         {partiel && (
           <div className="flex shrink-0 border border-edge">
             <button
               onClick={() => setComplet(false)}
-              className={`px-3 py-2 text-[11px] uppercase tracking-[0.1em] transition ${!complet ? 'bg-signal text-field' : 'text-soft hover:text-ink'}`}
+              aria-pressed={!complet}
+              className={`tap px-3 py-2 text-[13px] font-medium transition ${!complet ? 'bg-ink text-field' : 'text-soft hover:text-ink'}`}
             >
               {dan.kata.seriesNageNoKata} séries
             </button>
             <button
               onClick={() => setComplet(true)}
-              className={`px-3 py-2 text-[11px] uppercase tracking-[0.1em] transition ${complet ? 'bg-signal text-field' : 'text-soft hover:text-ink'}`}
+              aria-pressed={complet}
+              className={`tap px-3 py-2 text-[13px] font-medium transition ${complet ? 'bg-ink text-field' : 'text-soft hover:text-ink'}`}
             >
               Kata complet
             </button>
@@ -145,10 +147,10 @@ function PlancheKata({ kata, dan, dex }: { kata: Kata; dan: Dan; dex: Judodex })
           <div className="mt-8 grid gap-x-10 gap-y-8 sm:grid-cols-2">
             {series.map((s) => (
               <div key={s.num} className="min-w-0">
-                <div className="mb-1 flex items-center gap-2.5 border-b border-ink pb-2">
-                  <span className="annot shrink-0 border border-ink px-1.5 py-0.5 leading-none">{s.num}</span>
-                  <span className="annot min-w-0 truncate">{s.label}</span>
-                  <span className="font-jp ml-auto shrink-0 text-[12px] text-faint">{s.jp}</span>
+                <div className="mb-1 flex items-center gap-2.5 border-b border-edge pb-2">
+                  <span className="shrink-0 text-[14px] font-semibold tabular-nums text-faint">{s.num}.</span>
+                  <span className="min-w-0 truncate text-[14px] font-semibold">{s.label}</span>
+                  <span className="font-jp ml-auto shrink-0 text-[13px] text-faint">{s.jp}</span>
                 </div>
                 <ul>
                   {s.slugs.map((slug, i) => {
@@ -171,9 +173,9 @@ function PlancheKata({ kata, dan, dex }: { kata: Kata; dan: Dan; dex: Judodex })
       {kata.sansFiches && (
         <div className="mt-8 grid gap-6 sm:grid-cols-3">
           {kata.sansFiches.map((s) => (
-            <div key={s.label} className="min-w-0 border-t border-ink pt-3">
+            <div key={s.label} className="min-w-0 border-t border-rule pt-3">
               <div className="annot">{s.label}</div>
-              <p className="mt-2 text-[13px] leading-relaxed text-soft">{s.body}</p>
+              <p className="mt-2 text-[14px] leading-relaxed text-soft">{s.body}</p>
             </div>
           ))}
         </div>
@@ -199,14 +201,14 @@ function PanneauKata({ dan, dex, uv }: { dan: Dan; dex: Judodex; uv: Uv }) {
       </div>
 
       {katas.length > 1 && (
-        <div className="mt-8 flex flex-wrap gap-2">
+        <div className="mt-8 flex flex-wrap gap-x-7 gap-y-1">
           {katas.map((k) => (
             <button
               key={k.id}
               onClick={() => setActif(k.id)}
               aria-pressed={k.id === actif}
-              className={`border px-3.5 py-2.5 text-[12px] transition ${
-                k.id === actif ? 'border-signal bg-signal text-field' : 'border-edge text-soft hover:border-ink hover:text-ink'
+              className={`tap inline-flex items-baseline border-b-2 px-0.5 pb-1.5 pt-1 text-[14px] font-medium transition-colors ${
+                k.id === actif ? 'border-ink text-ink' : 'border-transparent text-faint hover:text-ink'
               }`}
             >
               {k.name}
@@ -247,7 +249,7 @@ function PanneauTechnique({ dan, dex, uv }: { dan: Dan; dex: Judodex; uv: Uv }) 
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div className="min-w-0">
             <h2 className="text-[15px] font-semibold">Tirage du jury</h2>
-            <p className="mt-2 max-w-md text-[13px] leading-relaxed text-soft">{dan.tirage.note}</p>
+            <p className="mt-2 max-w-md text-[14px] leading-relaxed text-soft">{dan.tirage.note}</p>
             <p className="annot mt-2 max-w-md leading-relaxed text-faint">
               L'épreuve compte {dan.tirage.total} techniques. Les {dan.tirage.nage + dan.tirage.ne} tirées ici sont celles que
               le jury impose ; les {dan.tirage.total - dan.tirage.nage - dan.tirage.ne} défenses restent au choix du
@@ -256,7 +258,7 @@ function PanneauTechnique({ dan, dex, uv }: { dan: Dan; dex: Judodex; uv: Uv }) 
           </div>
           <button
             onClick={() => setTirage(tirerUv2(dan.id))}
-            className="shrink-0 bg-signal px-6 py-3.5 text-[12px] font-bold uppercase tracking-[0.14em] text-field transition hover:brightness-110"
+            className="shrink-0 bg-signal px-6 py-3.5 text-[15px] font-semibold text-field transition hover:brightness-110"
           >
             {tirage ? 'Retirer' : `Tirer les ${dan.tirage.nage + dan.tirage.ne} techniques`}
           </button>
@@ -271,11 +273,11 @@ function PanneauTechnique({ dan, dex, uv }: { dan: Dan; dex: Judodex; uv: Uv }) 
             className="mt-6 grid gap-x-10 gap-y-6 border-t border-rule pt-5 sm:grid-cols-2"
           >
             <div className="min-w-0">
-              <div className="annot mb-1 border-b border-ink pb-2">Debout · {dan.tirage.nage} techniques</div>
+              <div className="annot mb-1 border-b border-edge pb-2">Debout · {dan.tirage.nage} techniques</div>
               {rendre(tirage.nage)}
             </div>
             <div className="min-w-0">
-              <div className="annot mb-1 border-b border-ink pb-2">Au sol · {dan.tirage.ne} techniques</div>
+              <div className="annot mb-1 border-b border-edge pb-2">Au sol · {dan.tirage.ne} techniques</div>
               {rendre(tirage.ne)}
             </div>
           </fm.div>
@@ -283,7 +285,7 @@ function PanneauTechnique({ dan, dex, uv }: { dan: Dan; dex: Judodex; uv: Uv }) 
       </div>
 
       <div className="mt-12">
-        <SectionHead title={`Programme technique du ${dan.name}`} jp={dan.jp} aside={`${total} techniques`} />
+        <SectionHead title={`Programme technique du ${dan.name}`} aside={`${total} techniques`} />
         <div className="grid gap-x-10 gap-y-8 sm:grid-cols-2">
           {[...GROUPES_NAGE, ...GROUPES_NE].map((id) => {
             const g = groupeMeta(id)
@@ -291,9 +293,9 @@ function PanneauTechnique({ dan, dex, uv }: { dan: Dan; dex: Judodex; uv: Uv }) 
             if (slugs.length === 0) return null
             return (
               <div key={id} className="min-w-0">
-                <div className="mb-1 flex items-center gap-2.5 border-b border-ink pb-2">
+                <div className="mb-1 flex items-center gap-2.5 border-b border-edge pb-2">
                   <span className="annot min-w-0 truncate">{g.label}</span>
-                  <span className="font-jp shrink-0 text-[12px] text-faint">{g.jp}</span>
+                  <span className="font-jp shrink-0 text-[13px] text-faint">{g.jp}</span>
                   <span className="annot ml-auto shrink-0 text-faint">{slugs.length}</span>
                 </div>
                 <ul>
@@ -311,7 +313,7 @@ function PanneauTechnique({ dan, dex, uv }: { dan: Dan; dex: Judodex; uv: Uv }) 
           <div className="annot mb-1.5">
             Défense <span className="font-jp ml-1 text-faint">防御</span>
           </div>
-          <p className="text-[13px] leading-relaxed text-soft">
+          <p className="text-[14px] leading-relaxed text-soft">
             Deux techniques de défense au choix du candidat, prises dans la {dan.defense.toLowerCase()} des vingt attaques
             imposées. Les deux attaques et les deux défenses doivent être différentes. Le référentiel ne publie ces vingt
             attaques qu'en planche dessinée : leur liste n'est pas reprise ici, faute de source en toutes lettres.
@@ -355,23 +357,14 @@ export function DanScreen({ dan: danId, dex }: Props) {
   }, [danId, dan, dex])
 
   return (
-    <div className="mx-auto max-w-3xl px-4 pb-16 sm:px-8">
+    <div className="mx-auto max-w-[1200px] px-4 pb-16 sm:px-7">
+      <div className="max-w-3xl">
       <div className="pt-12">
-        <div className="flex flex-wrap items-center gap-3">
-          <span className="annot border border-ink px-1.5 py-1 leading-none">Passage de grade</span>
-          <Link
-            to={{ name: 'train' }}
-            className="annot -mr-2 ml-auto flex h-8 items-center px-2 text-faint transition-colors hover:text-signal"
-          >
-            ← Dojo
-          </Link>
-        </div>
-        <h1 className="display mt-5">Ceinture noire</h1>
-        <div className="mt-4 flex items-center gap-3">
-          <span className="dimension w-20" />
-          <span className="font-jp text-base tracking-[0.3em] text-faint">黒帯</span>
-        </div>
-        <p className="mt-6 max-w-xl text-[15px] leading-[1.7] text-soft">
+        <Link to={{ name: 'train' }} className="tap -ml-1 inline-flex h-8 items-center px-1 text-[13px] text-faint transition-colors hover:text-ink">
+          ← Dojo
+        </Link>
+        <h1 className="display mt-3">Ceinture noire</h1>
+        <p className="mt-5 max-w-xl text-[16px] leading-[1.7] text-soft">
           Chaque dan se compose de quatre unités de valeur, passées séparément et acquises définitivement. Les deux premières
           se préparent sur le tapis : le kata et la démonstration technique. Les listes qui suivent sont celles de la
           fédération.
@@ -379,29 +372,29 @@ export function DanScreen({ dan: danId, dex }: Props) {
       </div>
 
       {/* Grade préparé. Chaque grade a son adresse. */}
-      <div className="mt-10 flex flex-wrap gap-2">
+      <div className="mt-10 flex flex-wrap gap-x-7 gap-y-1">
         {DANS.map((d) => (
           <Link
             key={d.id}
             to={{ name: 'dan', dan: d.id }}
             aria-current={d.id === danId ? 'page' : undefined}
-            className={`border px-4 py-3 text-[13px] font-semibold transition ${
-              d.id === danId ? 'border-signal bg-signal text-field' : 'border-edge bg-plate text-soft hover:border-ink hover:text-ink'
+            className={`tap inline-flex items-baseline border-b-2 px-0.5 pb-1.5 pt-1 text-[15px] font-semibold transition-colors ${
+              d.id === danId ? 'border-ink text-ink' : 'border-transparent text-faint hover:text-ink'
             }`}
           >
             {d.name}
-            <span className="font-jp ml-2 text-[12px] opacity-70">{d.jp}</span>
+            <span className="font-jp ml-2 text-[14px] opacity-70">{d.jp}</span>
           </Link>
         ))}
       </div>
 
-      <p className="mt-5 max-w-xl text-[13.5px] leading-relaxed text-soft">{dan.resume}</p>
+      <p className="mt-5 max-w-xl text-[14px] leading-relaxed text-soft">{dan.resume}</p>
       <div className="annot mt-3 text-faint">
-        {avancee.acquises} des {avancee.total} techniques de ce grade sont marquées acquises dans votre carnet.
+        {avancee.acquises} des {avancee.total} techniques de ce grade sont marquées acquises dans ton carnet.
       </div>
 
       {/* Unités de valeur */}
-      <div className="mt-8 grid grid-cols-2 border-l border-t border-rule sm:grid-cols-4">
+      <div className="mt-8 grid grid-cols-2 gap-2 sm:grid-cols-4">
         {dan.uvs.map((u) => {
           const on = u.code === actif
           return (
@@ -409,8 +402,8 @@ export function DanScreen({ dan: danId, dex }: Props) {
               key={u.code}
               onClick={() => setActif(u.code)}
               aria-pressed={on}
-              className={`min-w-0 border-b border-r border-rule px-3 py-3.5 text-left transition ${
-                on ? 'bg-signal text-field' : 'bg-plate text-soft hover:text-ink'
+              className={`min-w-0 px-3.5 py-3.5 text-left transition ${
+                on ? 'bg-ink text-field' : 'bg-plate/60 text-soft hover:bg-plate hover:text-ink'
               }`}
             >
               <span className="annot block">{u.code}</span>
@@ -420,7 +413,7 @@ export function DanScreen({ dan: danId, dex }: Props) {
         })}
       </div>
 
-      <p className="mt-4 text-[13px] leading-relaxed text-soft">{uv.resume}</p>
+      <p className="mt-4 text-[14px] leading-relaxed text-soft">{uv.resume}</p>
 
       <fm.div
         key={`${danId}-${actif}`}
@@ -435,6 +428,7 @@ export function DanScreen({ dan: danId, dex }: Props) {
       </fm.div>
 
       <p className="annot mt-14 border-t border-rule pt-5 text-faint">Programme officiel · {DAN_SOURCE}</p>
+      </div>
     </div>
   )
 }

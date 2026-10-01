@@ -1,14 +1,13 @@
 import { describe, expect, it } from 'vitest'
 import { importProgress } from '../lib/backup'
 import { SECTEURS, secteurDe } from '../lib/secteurs'
-import { normaliser } from '../hooks/useSystemes'
 import { normaliserProfil } from '../hooks/useProfil'
 import { couverture } from '../lib/situations'
 import { buildIndex, fuzzyScore, normalize, searchIndex } from '../lib/search'
 import { makeQuestion } from '../lib/quiz'
 import { clipFor } from '../components/QuizVideo'
 import { parseRoute, routePath } from '../hooks/useRoute'
-import { headFor } from '../lib/head'
+import { court, headFor, horsIndex } from '../lib/head'
 import { jsonLdFor } from '../lib/jsonld'
 import { BELTS, beltFor, beltIndex, beltSlugs, sectionOf, situationsFor } from '../lib/belts'
 import { addDays, isDue, reviewQueue, schedule, today } from '../lib/srs'
@@ -663,20 +662,6 @@ describe('les quartiers de la rose', () => {
 })
 
 describe('carnets enregistrés avant un ajout de champ', () => {
-  it("rend les systèmes lisibles quand un champ manque", () => {
-    // Panne réelle : un carnet écrit avant l'ajout de `libres` rendait
-    // `etat.libres` undefined, et l'écran entier tombait à la première lecture.
-    // useLocalStorage rend le JSON tel qu'il a été écrit, sans le fusionner
-    // avec le défaut : toute lecture passe donc par normaliser().
-    expect(normaliser({ armes: ['o-goshi'], retenues: { 'o-goshi': ['contre:x'] } })).toEqual({
-      armes: ['o-goshi'],
-      retenues: { 'o-goshi': ['contre:x'] },
-      libres: {},
-    })
-    expect(normaliser({})).toEqual({ armes: [], retenues: {}, libres: {} })
-    expect(normaliser(undefined)).toEqual({ armes: [], retenues: {}, libres: {} })
-  })
-
   it('rend le profil lisible quand un champ manque', () => {
     expect(normaliserProfil({ garde: 'gauche' })).toEqual({ garde: 'gauche', corrections: {}, situations: {} })
     expect(normaliserProfil(undefined)).toEqual({ garde: 'droite', corrections: {}, situations: {} })
@@ -704,7 +689,30 @@ describe('sauvegarde du carnet', () => {
     },
   }
 
-  it('rend le profil et les systèmes d\'un fichier version 2', async () => {
+  it('écarte les clés piégées, les valeurs hors bornes et les fiches inconnues', async () => {
+    const piege = JSON.parse(
+      '{"format":"judodex-progress","version":3,"progress":{"__proto__":{"mastery":"mastered","tokui":true,"updatedAt":""},' +
+        '"o-goshi":{"mastery":"learning","tokui":false,"updatedAt":"","box":99,"due":"demain"},' +
+        '"uchi-mata-hanche":{"mastery":"learning","tokui":false,"updatedAt":"","box":2.5,"due":"2026-10-05"},' +
+        '"fiche-fantome":{"mastery":"mastered","tokui":false,"updatedAt":""}},' +
+        '"profil":{"garde":"droite","corrections":{"__proto__":"av"},"situations":{}}}',
+    )
+    const r = await importProgress(fichier(piege), (slug) => all.some((t) => t.slug === slug))
+    expect(Object.keys(r.progress).sort()).toEqual(['o-goshi', 'uchi-mata-hanche'])
+    expect(r.progress['o-goshi'].box).toBeUndefined()
+    expect(r.progress['o-goshi'].due).toBeUndefined()
+    expect(r.progress['uchi-mata-hanche'].box).toBeUndefined()
+    expect(r.progress['uchi-mata-hanche'].due).toBe('2026-10-05')
+    expect(Object.getPrototypeOf(r.progress)).toBe(Object.prototype)
+    expect(Object.keys(r.profil!.corrections)).toEqual([])
+  })
+
+  it('refuse un fichier trop lourd pour être une sauvegarde', async () => {
+    const gros = new File(['x'.repeat(2 * 1024 * 1024 + 1)], 'gros.json', { type: 'application/json' })
+    await expect(importProgress(gros)).rejects.toThrow(/trop lourd/)
+  })
+
+  it('rend le profil d\'un fichier version 2 et laisse ses systèmes de côté', async () => {
     const r = await importProgress(fichier(v2))
     expect(r.progress['o-goshi'].tokui).toBe(true)
     expect(r.profil).toEqual({
@@ -712,18 +720,21 @@ describe('sauvegarde du carnet', () => {
       corrections: { 'kata-guruma': 'av-d' },
       situations: { 'ippon-seoi-nage': ['ai-yotsu:avance'] },
     })
-    expect(r.systemes).toEqual({
-      armes: ['o-goshi'],
-      retenues: { 'o-goshi': ['contre:ushiro-goshi'] },
-      libres: { 'o-goshi': [{ type: 'liaison-sol', slug: 'kesa-gatame' }] },
-    })
+    // Les systèmes de l'ancien bilan n'ont plus d'écran : Mon judo part de zéro.
+    expect(r.monJudo).toBeNull()
+  })
+
+  it('rend Mon judo d\'un fichier version 3', async () => {
+    const monJudo = { prenom: 'Loris', tokui: 'seoi-otoshi', garde: 'gauche' }
+    const r = await importProgress(fichier({ ...v2, version: 3, systemes: undefined, monJudo }))
+    expect(r.monJudo).toEqual(monJudo)
   })
 
   it('lit encore un fichier version 1, sans profil ni systèmes', async () => {
     const r = await importProgress(fichier({ ...v2, version: 1, profil: undefined, systemes: undefined }))
     expect(r.progress['o-goshi'].mastery).toBe('mastered')
     expect(r.profil).toBeNull()
-    expect(r.systemes).toBeNull()
+    expect(r.monJudo).toBeNull()
   })
 
   it('écarte ce qu\'un fichier trafiqué contiendrait', async () => {
@@ -737,8 +748,6 @@ describe('sauvegarde du carnet', () => {
     // Une garde inconnue retombe sur droite, une direction inventée disparaît.
     // Une case inventée ne franchit pas la relecture non plus.
     expect(r.profil).toEqual({ garde: 'droite', corrections: {}, situations: {} })
-    // Une forme de lien inventée ne franchit pas la relecture.
-    expect(r.systemes).toEqual({ armes: [], retenues: {}, libres: { a: [] } })
   })
 
   it('refuse un fichier qui n\'est pas une sauvegarde', async () => {
@@ -776,6 +785,41 @@ describe('en-tête et données structurées', () => {
       expect(description.length).toBeLessThanOrEqual(160)
       expect(title).toContain(t.name)
     }
+  })
+
+  it('coupe de préférence sur la fin d’une phrase, jamais au milieu d’un mot', () => {
+    const phrase = 'Une première phrase assez longue pour peser dans un résumé de moteur de recherche. Une seconde phrase qui déborde largement de la limite fixée pour ce test.'
+    expect(court(phrase, 100)).toBe('Une première phrase assez longue pour peser dans un résumé de moteur de recherche.')
+    // Sans phrase assez longue avant la limite, on coupe sur un mot.
+    const coupe = court('mot '.repeat(60), 50)
+    expect(coupe.endsWith('…')).toBe(true)
+    expect(coupe).not.toMatch(/mo…$/)
+    expect(coupe.length).toBeLessThanOrEqual(50)
+  })
+
+  it('ne laisse aucune fiche avec un résumé coupé net en pleine proposition', () => {
+    for (const t of all) {
+      const { description } = headFor({ name: 'technique', slug: t.slug }, t)
+      if (description.endsWith('…')) expect(description).toMatch(/\S…$/)
+      else expect(description).toMatch(/[.!?»)]$/)
+    }
+  })
+
+  it('garde hors de l’index ce qui n’a pas de texte à chercher', () => {
+    expect(horsIndex({ name: 'reglages' })).toBe(true)
+    expect(horsIndex({ name: 'carteJudo', code: 'abc' })).toBe(true)
+    expect(horsIndex({ name: 'notFound', path: '/x' })).toBe(true)
+    expect(horsIndex({ name: 'technique', slug: 'inconnu' }, null)).toBe(true)
+    expect(horsIndex({ name: 'home' })).toBe(false)
+    expect(horsIndex({ name: 'technique', slug: all[0].slug }, all[0])).toBe(false)
+    expect(horsIndex({ name: 'browse' })).toBe(false)
+  })
+
+  it('présente l’accueil par ce que les gens cherchent', () => {
+    const h = headFor({ name: 'home' })
+    expect(h.title).toMatch(/techniques de judo/i)
+    expect(h.description).toMatch(/techniques de judo/i)
+    expect(h.description.length).toBeLessThanOrEqual(160)
   })
 
   it('déclare chaque technique comme une procédure en étapes', () => {

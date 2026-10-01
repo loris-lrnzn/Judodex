@@ -9,6 +9,7 @@ export function BeltMark({ belt, width = 26, height = 7 }: { belt: BeltId | null
         className="inline-block shrink-0 border-t border-dashed border-rule align-middle"
         style={{ width, height }}
         title="Hors progression française"
+        role="img"
         aria-label="Hors progression française"
       />
     )
@@ -18,6 +19,7 @@ export function BeltMark({ belt, width = 26, height = 7 }: { belt: BeltId | null
       className="relative inline-block shrink-0 align-middle"
       style={{ width, height, background: b.color, outline: '1px solid var(--c-faint)', outlineOffset: '-1px' }}
       title={`Ceinture ${b.name.toLowerCase()} · ${b.kyu}`}
+      role="img"
       aria-label={`Ceinture ${b.name.toLowerCase()}`}
     >
       <span className="absolute inset-y-0 left-1/2 w-[2px] -translate-x-1/2 bg-black/25" />
@@ -28,7 +30,7 @@ export function BeltMark({ belt, width = 26, height = 7 }: { belt: BeltId | null
 /** Échelle des cinq grades, celui atteint étant marqué. */
 export function BeltScale({ belt, height = 9 }: { belt: BeltId | null; height?: number }) {
   return (
-    <span className="flex items-end gap-[2px]" aria-label={belt ? `Ceinture ${beltOf(belt).name.toLowerCase()}` : "Hors progression"}>
+    <span className="flex items-end gap-[2px]" role="img" aria-label={belt ? `Ceinture ${beltOf(belt).name.toLowerCase()}` : "Hors progression"}>
       {BELTS.map((b) => {
         const on = b.id === belt
         return <span key={b.id} className="w-[4px]" style={{ height: on ? height : height * 0.45, background: on ? b.color : 'var(--c-rule)' }} />

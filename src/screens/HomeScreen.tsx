@@ -1,35 +1,37 @@
+import { useState } from 'react'
 import { m as fm } from 'framer-motion'
 import type { Judodex } from '../hooks/useJudodex'
 import { GROUPS, GROUP_META, familyVars, kanjiSize } from '../lib/families'
 import { PROGRESSION_SOURCE, situationsFor } from '../lib/belts'
 import { StudyList } from '../components/StudyList'
-import { Protractor } from '../components/Protractor'
 import { SectionHead } from '../components/SectionHead'
 import { Seal } from '../components/Seal'
 import { Link } from '../components/Link'
+import { CEINTURES } from '../hooks/useRoute'
 import { BeltMark } from '../components/BeltMark'
-import type { Technique } from '../types/judodex'
+import type { Mastery, Technique } from '../types/judodex'
+import { Surtitre } from '../components/Surtitre'
+import { derniereSauvegarde, dite, rappelNecessaire, rappelReporte, reporterRappel } from '../lib/sauvegarde'
 
-/** Entrée de relevé : repère, spécimen, désignation. */
+/** Une technique en cours : son nom japonais, son nom, sa traduction. */
 function Row({ t, dex }: { t: Technique; dex: Judodex }) {
   const p = dex.getProgress(t.slug)
-  const n = dex.numberOf.get(t.slug) ?? 0
   return (
     <Link
       to={{ name: 'technique', slug: t.slug }}
       style={familyVars(t.family)}
-      className="group -mx-3 flex min-w-0 items-center gap-3 border-b border-rule px-3 py-2.5 transition-colors hover:bg-ink hover:text-field sm:gap-4"
+      className="group flex min-w-0 items-center gap-4 border-b border-rule py-3"
     >
-      <span className="annot hidden w-8 shrink-0 text-faint transition-colors group-hover:text-field/55 sm:block">{String(n).padStart(3, '0')}</span>
       <span
-        className="font-jp w-[3.4rem] shrink-0 whitespace-nowrap text-center leading-none text-(--fam) transition-colors group-hover:text-(--fam-hi) sm:w-[4.6rem]"
+        lang="ja"
+        className="font-jp w-[4.4rem] shrink-0 whitespace-nowrap leading-none text-(--fam)"
         style={{ fontSize: kanjiSize(t.kanji, 'row') }}
       >
         {t.kanji}
       </span>
       <span className="min-w-0 flex-1">
-        <span className="block truncate text-[14px] font-semibold leading-tight">{t.name}</span>
-        <span className="block truncate text-[11px] text-faint transition-colors group-hover:text-field/55">{t.translation}</span>
+        <span className="block truncate text-[15px] font-semibold leading-tight underline-offset-4 group-hover:underline">{t.name}</span>
+        <span className="mt-0.5 block truncate text-[13px] text-faint">{t.translation}</span>
       </span>
       {p.mastery === 'mastered' && <Seal size={20} />}
       <BeltMark belt={dex.beltOfTechnique(t.slug)} />
@@ -37,17 +39,38 @@ function Row({ t, dex }: { t: Technique; dex: Judodex }) {
   )
 }
 
+const ETATS: { m: Mastery; label: string }[] = [
+  { m: 'mastered', label: 'Acquise' },
+  { m: 'learning', label: 'En cours' },
+  { m: 'unknown', label: 'À découvrir' },
+]
+
+/** État d'une technique en un carré. À découvrir : vide mais tracé, jamais
+ *  un carré fantôme. */
+function Etat({ m }: { m: Mastery }) {
+  return (
+    <span
+      aria-label={ETATS.find((e) => e.m === m)?.label}
+      role="img"
+      className="block size-2 shrink-0"
+      style={{
+        background: m === 'mastered' ? 'var(--c-ink)' : m === 'learning' ? 'var(--c-signal)' : 'transparent',
+        boxShadow: m === 'unknown' ? 'inset 0 0 0 1px var(--c-faint)' : undefined,
+      }}
+    />
+  )
+}
+
 /** Une colonne de la planche : les techniques imposées, avec leur état. */
-function PlateList({ title, jp, list, dex }: { title: string; jp: string; list: Technique[]; dex: Judodex }) {
+function PlateList({ title, list, dex }: { title: string; list: Technique[]; dex: Judodex }) {
   if (list.length === 0) return null
   const done = list.filter((t) => dex.getProgress(t.slug).mastery === 'mastered').length
   return (
     <div className="min-w-0">
-      <div className="mb-1 flex items-center gap-2.5 border-b border-ink pb-2">
-        <span className="annot">{title}</span>
-        <span className="font-jp text-[12px] text-faint">{jp}</span>
-        <span className="annot ml-auto text-faint">
-          {done}/{list.length}
+      <div className="mb-1 flex items-baseline justify-between gap-3 border-b border-edge pb-2">
+        <h4 className="text-[15px] font-semibold">{title}</h4>
+        <span className="text-[13px] tabular-nums text-faint">
+          {done} sur {list.length}
         </span>
       </div>
       <ul>
@@ -58,20 +81,15 @@ function PlateList({ title, jp, list, dex }: { title: string; jp: string; list: 
               <Link
                 to={{ name: 'technique', slug: t.slug }}
                 style={familyVars(t.family)}
-                className="group flex min-w-0 items-start gap-3.5 py-2.5 transition-colors hover:text-signal"
+                className="group flex min-w-0 items-start gap-3.5 py-2.5"
               >
-                {/* À découvrir : un carré vide mais tracé, jamais un carré fantôme. */}
-                <span
-                  className="mt-[7px] size-2 shrink-0"
-                  style={{
-                    background: m === 'mastered' ? 'var(--c-ink)' : m === 'learning' ? 'var(--c-signal)' : 'transparent',
-                    boxShadow: m === 'unknown' ? 'inset 0 0 0 1px var(--c-faint)' : undefined,
-                  }}
-                />
-                <span className="font-jp mt-[3px] w-[5rem] shrink-0 whitespace-nowrap text-[16px] leading-none text-(--fam)">{t.kanji}</span>
+                <span className="mt-[7px]">
+                  <Etat m={m} />
+                </span>
+                <span lang="ja" className="font-jp mt-[3px] w-[5rem] shrink-0 whitespace-nowrap text-[16px] leading-none text-(--fam)">{t.kanji}</span>
                 <span className="min-w-0 flex-1">
-                  <span className="block text-[13.5px] font-medium leading-snug">{t.name}</span>
-                  <span className="mt-0.5 block text-[11.5px] leading-snug text-faint">{t.translation}</span>
+                  <span className="block text-[14.5px] font-medium leading-snug underline-offset-4 group-hover:underline">{t.name}</span>
+                  <span className="mt-0.5 block text-[13px] leading-snug text-faint">{t.translation}</span>
                 </span>
               </Link>
             </li>
@@ -82,89 +100,223 @@ function PlateList({ title, jp, list, dex }: { title: string; jp: string; list: 
   )
 }
 
+/**
+ * Une technique par jour, tirée du programme préparé et pourvue d'une
+ * démonstration : de quoi commencer sans avoir rien à choisir. Le tirage suit
+ * la date, il reste le même toute la journée.
+ */
+function TechniqueDuJour({ dex }: { dex: Judodex }) {
+  const filmees = (dex.currentGroup.techniques.length ? dex.currentGroup.techniques : dex.techniques).filter((t) => t.youtubeId || t.ffjudoId)
+  if (filmees.length === 0) return null
+  const t = filmees[Math.floor(Date.now() / 86_400_000) % filmees.length]
+  const video = t.youtubeId ?? t.ffjudoId
+  return (
+    <Link to={{ name: 'technique', slug: t.slug }} style={familyVars(t.family)} className="group block min-w-0">
+      <p className="text-[13px] text-faint">Technique du jour</p>
+      <span className="relative mt-2 block aspect-video overflow-hidden bg-plate">
+        <img
+          src={`/miniatures/${video}.webp`}
+          alt=""
+          width={480}
+          height={270}
+          decoding="async"
+          fetchPriority="high"
+          className="absolute inset-0 size-full object-cover transition duration-500 group-hover:scale-[1.03]"
+        />
+        {/* Le dégradé porte le nom japonais et couvre l'incrustation du titre
+            que certaines démonstrations portent en bas à gauche. */}
+        <span aria-hidden className="absolute inset-0 bg-linear-to-t from-field via-field/40 to-transparent" />
+        <span lang="ja" className="font-jp absolute bottom-3 left-4 whitespace-nowrap text-[2.2rem] font-bold leading-none text-(--fam)">
+          {t.kanji}
+        </span>
+      </span>
+      <span className="font-jp mt-3 block text-[1.4rem] font-bold leading-tight underline-offset-4 group-hover:underline">{t.name}</span>
+      <span className="mt-0.5 block text-[14px] text-soft">{t.translation}</span>
+    </Link>
+  )
+}
+
+/** Le carnet ne vit que dans ce navigateur : on rappelle d'en garder une copie. */
+function RappelSauvegarde({ suivies }: { suivies: number }) {
+  // Lu au montage seulement : les pages sont écrites d'avance sans localStorage,
+  // le rappel ne figure donc jamais dans le HTML servi.
+  const [infos] = useState(() => ({ derniere: derniereSauvegarde(), reporte: rappelReporte() }))
+  const [masque, setMasque] = useState(false)
+  if (masque || !rappelNecessaire({ suivies, ...infos })) return null
+  return (
+    <aside aria-label="Sauvegarde du carnet" className="mb-2 flex flex-col gap-3 border border-rule px-4 py-3 text-[14px] sm:flex-row sm:items-center sm:justify-between">
+      <p className="text-soft">
+        Ton carnet ne vit que dans ce navigateur. Dernière sauvegarde : <span className="text-ink">{dite(infos.derniere)}</span>.
+      </p>
+      <div className="flex shrink-0 gap-4">
+        <Link to={{ name: 'reglages' }} className="font-semibold underline underline-offset-4 hover:text-signal">
+          Sauvegarder
+        </Link>
+        <button
+          onClick={() => {
+            reporterRappel()
+            setMasque(true)
+          }}
+          className="text-faint underline underline-offset-4 hover:text-ink"
+        >
+          Plus tard
+        </button>
+      </div>
+    </aside>
+  )
+}
+
 export function HomeScreen({ dex }: { dex: Judodex }) {
   const { stats } = dex
   const fresh = stats.mastered === 0 && stats.learning === 0
 
   return (
     <div className="mx-auto max-w-[1200px] px-4 sm:px-7">
-      {/* ── Planche d'ouverture ── */}
-      <section className="grid-paper plate mt-8 grid min-w-0 gap-8 p-5 sm:p-10 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
-        <div>
-          <div className="flex items-center gap-3">
-            <span className="annot border border-ink px-1.5 py-1 leading-none">Carnet de pratique</span>
-          </div>
+      {!fresh && (
+        <div className="pt-6">
+          <RappelSauvegarde suivies={stats.mastered + stats.learning} />
+        </div>
+      )}
+      {/* ── Ouverture ──
+          Le relevé n'apparaît qu'une fois qu'il y a quelque chose à relever :
+          à zéro, une jauge vide ne dit rien d'autre que « rien ». */}
+      <section className="grid min-w-0 gap-10 pb-8 pt-10 sm:pt-20 lg:grid-cols-[auto_minmax(0,1fr)_330px] lg:items-end lg:gap-x-14">
+        {/* 柔道, monumental et en creux, écrit de haut en bas comme il se lit :
+            la voie de la souplesse, en tête du carnet qui l'enseigne. */}
+        <p
+          lang="ja"
+          aria-hidden
+          className="font-jp kanji-creux trace hidden select-none self-stretch whitespace-nowrap text-[8.5rem] font-extrabold leading-[0.95] [writing-mode:vertical-rl] lg:block"
+        >
+          柔道
+        </p>
 
-          <h1 className="display mt-5">
-            {fresh ? (
-              <>
-                Apprendre
-                <br />
-                le judo,
-                <br />
-                geste par geste.
-              </>
-            ) : (
-              <>
-                Reprenons
-                <br />
-                le travail.
-              </>
-            )}
+        <div className="min-w-0">
+          <div className="monte" style={{ '--d': '0ms' } as React.CSSProperties}>
+            <Surtitre>Le carnet du judoka</Surtitre>
+          </div>
+          <h1 className="display monte mt-5" style={{ '--d': '80ms' } as React.CSSProperties}>
+            {fresh ? 'Apprendre le judo, geste par geste.' : 'Reprenons le travail.'}
           </h1>
 
-          {/* Cote sous le titre */}
-          <div className="mt-5 flex items-center gap-3">
-            <span className="dimension w-28" />
-            <span className="annot text-faint">柔道技図鑑 · JUDODEX</span>
-          </div>
-
-          <p className="mt-6 max-w-lg text-[15px] leading-[1.7] text-soft">
+          <p className="monte mt-6 max-w-[56ch] text-[17px] leading-[1.65] text-soft" style={{ '--d': '160ms' } as React.CSSProperties}>
             {fresh
-              ? "Chaque technique est décomposée en kuzushi, tsukuri et kake, démonstration à l'appui. Le carnet retient ce que vous travaillez et vous rappelle au bon moment ce qu'il faut revoir."
+              ? "Chaque technique est décomposée en kuzushi, tsukuri et kake, démonstration à l'appui. Le carnet retient ce que tu travailles et te rappelle au bon moment ce qu'il faut revoir."
               : `${stats.learning} technique${stats.learning > 1 ? 's sont' : ' est'} en cours de travail. Le dojo sait lesquelles doivent revenir aujourd'hui.`}
           </p>
 
-          <div className="mt-8 flex flex-col gap-2 sm:flex-row sm:flex-wrap">
+          <div className="monte mt-9 flex flex-col gap-2 sm:flex-row sm:flex-wrap" style={{ '--d': '240ms' } as React.CSSProperties}>
             {stats.due > 0 ? (
-              <Link to={{ name: 'train' }} className="tap annot inline-flex items-center justify-center bg-signal px-5 py-3 text-center text-field transition hover:brightness-110">
-                Réviser {stats.due} technique{stats.due > 1 ? 's' : ''} →
+              <Link to={{ name: 'train' }} className="tap group inline-flex items-center justify-center gap-2 bg-signal px-6 py-3.5 text-[15px] font-semibold text-field transition hover:brightness-110">
+                Réviser {stats.due} technique{stats.due > 1 ? 's' : ''}
+                <span aria-hidden className="vector-push">→</span>
               </Link>
             ) : (
-              <Link to={{ name: 'browse' }} className="tap annot inline-flex items-center justify-center bg-ink px-5 py-3 text-center text-field transition hover:bg-blue">
-                Ouvrir le catalogue →
+              <Link to={{ name: 'browse' }} className="tap group inline-flex items-center justify-center gap-2 bg-ink px-6 py-3.5 text-[15px] font-semibold text-field transition hover:bg-soft">
+                Ouvrir le catalogue
+                <span aria-hidden className="vector-push">→</span>
               </Link>
             )}
-            <Link to={{ name: 'train' }} className="tap annot inline-flex items-center justify-center border border-ink px-5 py-3 text-center transition hover:bg-ink hover:text-field">
+            <Link to={{ name: 'train' }} className="tap inline-flex items-center justify-center border border-edge bg-field/40 px-6 py-3.5 text-[15px] font-medium transition hover:border-ink">
               Séance au dojo
             </Link>
           </div>
         </div>
 
-        {/* Rapporteur */}
-        <fm.div initial={{ opacity: 0, rotate: -8 }} animate={{ opacity: 1, rotate: 0 }} transition={{ duration: 0.7 }} className="w-full max-w-[260px] justify-self-center">
-          <Protractor value={stats.mastered} total={stats.total} />
-          <div className="mt-2 grid grid-cols-3 border border-rule">
-            {[
-              { n: stats.learning, l: 'en cours' },
-              { n: stats.tokui, l: 'préférées' },
-              { n: stats.due, l: 'à revoir' },
-            ].map((k, i) => (
-              <div key={k.l} className={`min-w-0 px-2 py-2 text-center ${i < 2 ? 'border-r border-rule' : ''}`}>
-                <div className="font-mono text-lg font-semibold leading-none">{k.n}</div>
-                <div className="annot mt-1 text-faint">{k.l}</div>
-              </div>
+        {fresh ? (
+          <div className="monte min-w-0" style={{ '--d': '320ms' } as React.CSSProperties}>
+            <TechniqueDuJour dex={dex} />
+          </div>
+        ) : (
+          <div className="monte min-w-0" style={{ '--d': '320ms' } as React.CSSProperties}>
+            <p className="font-jp text-[2.6rem] font-bold leading-none">
+              {stats.mastered}
+              <span className="text-[1.4rem] text-faint"> / {stats.total}</span>
+            </p>
+            <p className="mt-2 text-[14px] text-soft">techniques acquises</p>
+            <div className="mt-3 h-[5px] w-full bg-rule" role="img" aria-label={`${stats.mastered} techniques acquises sur ${stats.total}`}>
+              <div className="h-full bg-signal" style={{ width: `${stats.total ? (stats.mastered / stats.total) * 100 : 0}%` }} />
+            </div>
+            <dl className="mt-5 grid grid-cols-3 gap-4 text-[13px]">
+              {[
+                { n: stats.learning, l: 'en cours' },
+                { n: stats.tokui, l: 'préférées' },
+                { n: stats.due, l: 'à revoir' },
+              ].map((k) => (
+                <div key={k.l} className="min-w-0">
+                  <dt className="text-faint">{k.l}</dt>
+                  <dd className="mt-0.5 text-[20px] font-semibold tabular-nums">{k.n}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        )}
+      </section>
+
+      {/* ── En cours ──
+          Avant la planche : c'est ce qu'on vient reprendre en ouvrant le carnet. */}
+      {dex.inProgress.length > 0 && (
+        <section className="pt-14">
+          <SectionHead title="En cours de travail" aside={`${dex.inProgress.length} fiches`} />
+          <div className="grid gap-x-10 md:grid-cols-2">
+            {dex.inProgress.slice(0, 8).map((t) => (
+              <Row key={t.slug} t={t} dex={dex} />
             ))}
           </div>
-        </fm.div>
+        </section>
+      )}
+
+      {/* ── Les cinq familles ──
+          La carte du catalogue vient avant la planche de grade : cinq grands
+          idéogrammes se comprennent tout de suite, une planche de passage
+          demande de savoir ce qu'on cherche. */}
+      <section className="pt-14">
+        <SectionHead title="Les cinq familles" aside={`${stats.mastered} sur ${stats.total} acquises`} />
+        <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-5">
+          {GROUPS.map((g, i) => {
+            const s = stats.byGroup[g]
+            const meta = GROUP_META[g]
+            const pct = s.total ? (s.mastered / s.total) * 100 : 0
+            return (
+              <Link
+                key={g}
+                to={{ name: 'famille', group: g }}
+                style={{ '--fam': meta.color, '--fam-hi': meta.colorHi } as React.CSSProperties}
+                className={`group relative flex gap-5 overflow-hidden bg-plate/60 p-4 transition-colors duration-300 hover:bg-plate sm:min-h-[260px] sm:flex-col sm:gap-0 sm:p-5 ${i === GROUPS.length - 1 && GROUPS.length % 2 ? 'sm:col-span-2 lg:col-span-1' : ''}`}
+              >
+                <span
+                  lang="ja"
+                  aria-hidden
+                  className="font-jp vector-push block w-[3.8rem] shrink-0 select-none text-[3.6rem] font-extrabold leading-[0.9] text-(--fam) sm:w-auto sm:text-[5.6rem] sm:leading-[0.85]"
+                >
+                  {meta.kanji}
+                </span>
+                <div className="flex min-w-0 flex-1 flex-col">
+                  <h3 className="font-jp text-[1.3rem] font-bold leading-tight underline-offset-4 group-hover:underline sm:mt-6 sm:text-[1.4rem]">{meta.name}</h3>
+                  <p className="mt-1 text-[14px] leading-snug text-soft sm:mt-1.5">{meta.principle}</p>
+                  {/* La jauge se pose au pied de la case, quelle que soit la
+                      longueur du principe, pour que les cinq restent alignées. */}
+                  <div className="mt-auto pt-4 sm:pt-6">
+                    <p className="mb-2 flex items-baseline justify-between text-[13px] tabular-nums text-faint">
+                      <span>{s.total} fiches</span>
+                      <span>{s.mastered} acquise{s.mastered > 1 ? 's' : ''}</span>
+                    </p>
+                    <div className="h-[3px] bg-rule">
+                      <fm.span className="block h-full bg-(--fam)" initial={{ width: 0 }} animate={{ width: `${pct}%` }} transition={{ duration: 0.8 }} />
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            )
+          })}
+        </div>
       </section>
 
       {/* ── Passage de grade ── */}
       <section className="pb-14 pt-14">
         <SectionHead
           title="Passage de grade"
-          jp="昇段"
-          aside={dex.currentGroup.techniques.length ? `${dex.currentGroup.mastered}/${dex.currentGroup.techniques.length}` : undefined}
+          aside={dex.currentGroup.techniques.length ? `${dex.currentGroup.mastered} sur ${dex.currentGroup.techniques.length} acquises` : undefined}
         />
 
         {/*
@@ -183,7 +335,7 @@ export function HomeScreen({ dex }: { dex: Judodex }) {
           <div
             role="group"
             aria-labelledby="choix-planche"
-            className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:items-center"
+            className="flex flex-wrap items-center gap-x-6 gap-y-1"
           >
             {dex.beltGroups.map((g) => {
             const on = g.belt.id === dex.currentBelt
@@ -193,12 +345,13 @@ export function HomeScreen({ dex }: { dex: Judodex }) {
                   onClick={() => dex.setCurrentBelt(g.belt.id)}
                   aria-pressed={on}
                   title={g.belt.kyu}
-                  className={`tap annot flex h-8 items-center gap-2 border px-2.5 transition ${on ? 'border-ink bg-ink text-field' : 'border-edge text-soft hover:border-ink hover:text-ink'}`}
+                  style={on ? { borderColor: g.belt.color } : undefined}
+                  className={`tap annot flex items-center gap-2 border-b-2 px-0.5 pb-1.5 pt-1 transition-colors ${on ? 'text-ink' : 'border-transparent text-faint hover:text-ink'}`}
                 >
                   <BeltMark belt={g.belt.id} width={20} height={7} />
                   {g.belt.name}
                   {g.techniques.length > 0 && (
-                    <span className="opacity-60">
+                    <span className="opacity-75">
                       {g.mastered}/{g.techniques.length}
                     </span>
                   )}
@@ -209,24 +362,29 @@ export function HomeScreen({ dex }: { dex: Judodex }) {
         </div>
 
         {/* La planche */}
-        <div className="plate grid-paper p-5 sm:p-7">
+        <div className="bg-plate p-5 sm:p-8">
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div className="min-w-0">
               <div className="flex flex-wrap items-center gap-3">
                 <BeltMark belt={dex.currentGroup.belt.id} width={54} height={12} />
-                <h3 className="text-[19px] font-semibold tracking-[-0.01em]">{dex.currentGroup.belt.plate}</h3>
+                <h3 className="font-jp text-[1.5rem] font-bold leading-tight">{dex.currentGroup.belt.plate}</h3>
                 <span className="annot text-faint">{dex.currentGroup.belt.kyu}</span>
               </div>
-              <p className="annot mt-2 text-faint">{dex.currentGroup.belt.phase}</p>
-              <p className="mt-2 max-w-md text-[13px] leading-relaxed text-soft">{dex.currentGroup.belt.focus}</p>
-              <p className="annot mt-3 text-faint">
-                Valeurs · <span className="text-ink">{dex.currentGroup.belt.values}</span>
+              <p className="annot mt-2 text-faint">
+                {dex.currentGroup.belt.phase} · Valeurs : <span className="text-ink">{dex.currentGroup.belt.values}</span>
               </p>
+              <p className="mt-3 max-w-md text-[15px] leading-relaxed text-soft">{dex.currentGroup.belt.focus}</p>
+              <Link
+                to={CEINTURES.includes(dex.currentGroup.belt.id) ? { name: 'ceinture', belt: dex.currentGroup.belt.id } : { name: 'dan', dan: 1 }}
+                className="mt-3 inline-block text-[14px] font-medium text-ink underline decoration-edge underline-offset-4 hover:decoration-ink"
+              >
+                {CEINTURES.includes(dex.currentGroup.belt.id) ? 'La page de cette ceinture →' : 'Le programme des dan →'}
+              </Link>
             </div>
             {dex.currentGroup.techniques.length > 0 && (
-              <div className="text-right">
-                <div className="font-mono text-3xl font-semibold leading-none">{Math.round(dex.currentGroup.ratio * 100)}%</div>
-                <div className="annot mt-1 text-faint">du programme</div>
+              <div className="sm:text-right">
+                <div className="font-jp text-[2.4rem] font-bold leading-none">{Math.round(dex.currentGroup.ratio * 100)} %</div>
+                <div className="annot mt-1 text-faint">acquis</div>
               </div>
             )}
           </div>
@@ -236,36 +394,44 @@ export function HomeScreen({ dex }: { dex: Judodex }) {
               {/* Part accordée à chaque domaine, telle que la planche l'imprime.
                   Ce n'est pas la proportion des techniques imposées. */}
               <div className="mt-6">
-                <p className="annot mb-2 text-faint">Part du programme</p>
+                <p className="annot mb-2 text-faint">Le programme se partage ainsi</p>
                 <div className="flex h-[6px] w-full">
-                  <span className="bg-ink" style={{ width: `${dex.currentGroup.belt.nagePart}%` }} />
+                  <span className="bg-soft" style={{ width: `${dex.currentGroup.belt.nagePart}%` }} />
                   <span className="bg-rule" style={{ width: `${100 - dex.currentGroup.belt.nagePart}%` }} />
                 </div>
                 <div className="annot mt-1.5 flex justify-between text-faint">
                   <span>{dex.currentGroup.belt.nagePart}% debout · nage-waza</span>
                   <span>{100 - dex.currentGroup.belt.nagePart}% sol · katame-waza</span>
                 </div>
-                <p className="mt-2 max-w-2xl text-[11px] leading-relaxed text-faint">
-                  Part accordée à chaque domaine par la planche. Elle ne suit pas le nombre de techniques imposées : au sol, le programme
-                  tient surtout dans les situations d'étude, listées plus bas.
+                <p className="mt-2 max-w-2xl text-[13px] leading-relaxed text-faint">
+                  Ce partage, celui de la fédération, ne suit pas le nombre de techniques : au sol, le programme repose surtout sur les
+                  situations d'étude, plus bas.
                 </p>
               </div>
 
-              <div className="mt-8 grid gap-x-12 gap-y-9 sm:grid-cols-2">
-                <PlateList title="Debout · nage-waza" jp="投技" list={dex.currentGroup.nage} dex={dex} />
-                <PlateList title="Au sol · katame-waza" jp="固技" list={dex.currentGroup.katame} dex={dex} />
+              {/* Les carrés d'état ne se devinent pas : ils se lisent ici. */}
+              <ul className="mt-8 flex flex-wrap gap-x-5 gap-y-1 text-[13px] text-faint" aria-label="Légende">
+                {ETATS.map((e) => (
+                  <li key={e.label} className="flex items-center gap-2">
+                    <Etat m={e.m} />
+                    {e.label}
+                  </li>
+                ))}
+              </ul>
+
+              <div className="mt-4 grid gap-x-12 gap-y-9 sm:grid-cols-2">
+                <PlateList title="Debout · nage-waza" list={dex.currentGroup.nage} dex={dex} />
+                <PlateList title="Au sol · katame-waza" list={dex.currentGroup.katame} dex={dex} />
               </div>
 
               {situationsFor(dex.currentGroup.belt.id).length > 0 && (
                 <div className="mt-10 grid gap-x-12 gap-y-9 sm:grid-cols-2">
                   <StudyList
                     title="Situations d'étude debout"
-                    jp="立技"
                     items={situationsFor(dex.currentGroup.belt.id).filter((x) => x.domain === 'nage')}
                   />
                   <StudyList
                     title="Situations d'étude au sol"
-                    jp="寝技"
                     items={situationsFor(dex.currentGroup.belt.id).filter((x) => x.domain === 'katame')}
                   />
                 </div>
@@ -278,28 +444,28 @@ export function HomeScreen({ dex }: { dex: Judodex }) {
             <div className="mt-6 grid gap-px bg-rule sm:grid-cols-3">
               {dex.currentGroup.belt.requirements.map((r) => (
                 <div key={r.title} className="bg-field p-4">
-                  <h4 className="annot">{r.title}</h4>
-                  <p className="mt-2 text-[12.5px] leading-relaxed text-soft">{r.body}</p>
+                  <h4 className="text-[15px] font-semibold">{r.title}</h4>
+                  <p className="mt-2 text-[14px] leading-relaxed text-soft">{r.body}</p>
                 </div>
               ))}
               <div className="bg-field p-4 sm:col-span-3">
                 <Link to={{ name: 'profil' }} className="annot text-signal transition-colors hover:underline">
-                  Relever vos secteurs de chute →
+                  Construire ton système dans Mon judo →
                 </Link>
               </div>
             </div>
           )}
 
           {dex.currentGroup.belt.exam && (
-            <div className="mt-6 border border-ink">
-              <div className="flex flex-wrap items-baseline gap-3 border-b border-ink bg-ink px-3 py-2 text-field">
+            <div className="mt-6 border border-edge">
+              <div className="flex flex-wrap items-baseline gap-3 border-b border-edge px-3 py-2.5">
                 <span className="annot">{dex.currentGroup.belt.exam.name}</span>
-                <span className="text-[11.5px] opacity-70">{dex.currentGroup.belt.exam.note}</span>
+                <span className="text-[13px] text-faint">{dex.currentGroup.belt.exam.note}</span>
               </div>
               <div className="grid gap-px bg-rule sm:grid-cols-4">
                 {dex.currentGroup.belt.exam.units.map((u) => (
                   <div key={u.code} className="bg-field px-3 py-4">
-                    <div className="font-mono text-[11px] text-signal">{u.code}</div>
+                    <div className="text-[13px] font-semibold text-signal">{u.code}</div>
                     <div className="mt-1.5 text-[14px] font-semibold leading-tight">{u.label}</div>
                   </div>
                 ))}
@@ -310,7 +476,7 @@ export function HomeScreen({ dex }: { dex: Judodex }) {
           <p className="annot mt-5 text-faint">{dex.currentGroup.belt.volume}</p>
         </div>
 
-        <p className="mt-4 text-[11.5px] leading-relaxed text-faint">
+        <p className="mt-4 max-w-[80ch] text-[13px] leading-relaxed text-faint">
           Programme relevé sur les planches de la{' '}
           <a href={PROGRESSION_SOURCE} target="_blank" rel="noreferrer" className="underline decoration-rule underline-offset-2 hover:decoration-ink">
             progression française de l'enseignement du judo
@@ -320,69 +486,16 @@ export function HomeScreen({ dex }: { dex: Judodex }) {
         </p>
       </section>
 
-      {/* ── En cours ── */}
-      {dex.inProgress.length > 0 && (
-        <section className="pb-14">
-          <SectionHead title="En cours de travail" jp="稽古中" aside={`${dex.inProgress.length} fiches`} />
-          <div className="grid gap-x-10 md:grid-cols-2">
-            {dex.inProgress.slice(0, 8).map((t) => (
-              <Row key={t.slug} t={t} dex={dex} />
-            ))}
-          </div>
-        </section>
-      )}
-
-      {/* ── Les cinq familles ── */}
-      <section className="py-14">
-        <SectionHead title="Familles" jp="五技" aside={`${stats.mastered}/${stats.total}`} />
-        <div className="grid border-l border-t border-rule sm:grid-cols-2 lg:grid-cols-3">
-          {GROUPS.map((g) => {
-            const s = stats.byGroup[g]
-            const meta = GROUP_META[g]
-            const pct = s.total ? (s.mastered / s.total) * 100 : 0
-            return (
-              <Link
-                key={g}
-                to={{ name: 'browse' }}
-                style={{ '--fam': meta.color, '--fam-hi': meta.colorHi } as React.CSSProperties}
-                className="group relative border-b border-r border-rule bg-plate p-5 transition-colors hover:bg-ink hover:text-field"
-              >
-                <div className="flex items-start justify-between">
-                  <span
-                    className="font-jp vector-push whitespace-nowrap leading-none text-(--fam) transition-colors group-hover:text-(--fam-hi)"
-                    style={{ fontSize: kanjiSize(meta.kanji, 'family') }}
-                  >
-                    {meta.kanji}
-                  </span>
-                  <span className="annot text-faint transition-colors group-hover:text-field/55">
-                    {s.mastered}/{s.total}
-                  </span>
-                </div>
-                <h3 className="mt-4 flex items-baseline gap-2 text-[16px] font-semibold">
-                  {meta.name}
-                  <span className="font-jp text-[13px] text-faint transition-colors group-hover:text-field/55">{meta.jp}</span>
-                </h3>
-                <p className="mt-1 text-[11.5px] leading-snug text-faint transition-colors group-hover:text-field/60">{meta.principle}</p>
-                <div className="dimension mt-4">
-                  <fm.span className="absolute left-0 top-0 h-px bg-signal" initial={{ width: 0 }} animate={{ width: `${pct}%` }} transition={{ duration: 0.8 }} />
-                </div>
-              </Link>
-            )
-          })}
-        </div>
-      </section>
-
       {/* ── Tokui-waza ── */}
       {dex.tokuiList.length > 0 && (
         <section className="pb-14">
           <SectionHead
             title="Tokui-waza"
-            jp="得意技"
-            aside={<Link to={{ name: 'profil' }} className="transition-colors hover:text-signal">Voir le bilan →</Link>}
+            aside={<Link to={{ name: 'profil' }} className="transition-colors hover:text-signal">Construire mon judo →</Link>}
           />
-          <p className="mb-4 max-w-xl text-[13px] leading-relaxed text-soft">
-            Votre tokui-waza, c'est la technique dont vous faites votre arme : celle que vous cherchez, que vous placez, et
-            autour de laquelle le reste s'organise. Marquez-la sur sa fiche.
+          <p className="mb-4 max-w-xl text-[15px] leading-relaxed text-soft">
+            Ton tokui-waza, c'est la technique dont tu fais ton arme : celle que tu cherches, que tu places, et
+            autour de laquelle le reste s'organise. Marque-la sur sa fiche.
           </p>
           <div className="flex flex-wrap gap-2">
             {dex.tokuiList.map((t) => (
@@ -390,10 +503,10 @@ export function HomeScreen({ dex }: { dex: Judodex }) {
                 key={t.slug}
                 to={{ name: 'technique', slug: t.slug }}
                 style={familyVars(t.family)}
-                className="group flex items-center gap-2.5 border border-signal px-3 py-2 transition hover:bg-signal hover:text-field"
+                className="flex items-center gap-2.5 border border-edge px-3 py-2 transition hover:border-ink"
               >
-                <span className="font-jp text-lg leading-none text-(--fam) transition-colors group-hover:text-field">{t.kanji}</span>
-                <span className="text-[13px] font-medium">{t.name}</span>
+                <span lang="ja" className="font-jp text-lg leading-none text-(--fam)">{t.kanji}</span>
+                <span className="text-[14px] font-medium">{t.name}</span>
               </Link>
             ))}
           </div>

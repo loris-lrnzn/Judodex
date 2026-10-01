@@ -1,15 +1,14 @@
 @import 'tailwindcss';
 
 /* ═══════════════════════════════════════════════════════════════════════
-   JUDODEX — Direction artistique « notation technique de mouvement »
+   JUDODEX — un carnet de judoka
 
-   Le judo s'enseigne par diagrammes : vecteurs de force, arcs de rotation,
-   empreintes de pas. L'interface est cette planche technique.
-   En thème sombre, la planche devient un cyanotype (bleu de Prusse).
+   Le tatami vert pour fond, le vermillon pour ce qui appelle une action, les
+   ceintures pour la progression. Les titres sont en mincho, comme les noms
+   japonais qu'ils accompagnent ; le texte courant reste en sans-serif.
 
-   Trois couleurs seulement : le trait, le bleu de repérage, le rouge de
-   signalement. Les familles se distinguent par leur glyphe de mouvement
-   autant que par leur teinte de crayon.
+   Le décor se limite à ce qui appartient au judo : le nom en idéogrammes,
+   le cachet de validation, la couleur des ceintures. Le reste est du texte.
 
    Toutes les teintes de texte tiennent le rapport 7:1 contre les deux fonds,
    le vermillon excepté : porté à 4.5:1, il reste un signal et non un corps de
@@ -74,29 +73,100 @@ body {
   font-feature-settings: 'ss02', 'cv05';
 }
 
-/* Titres de partie : jamais plus larges que leur colonne. */
+/* Le grain : un tapis n'est jamais un aplat. Un bruit très fin, fixe, posé
+   sous le contenu, suffit à ôter au vert son air de couleur d'écran. */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ── Le sol du dojo ───────────────────────────────────────────────────
+   Chaque page s'ouvre sur une surface de combat vue d'en haut, posée comme
+   au judo : des carrés de deux mètres, faits chacun de deux tapis d'un
+   mètre sur deux, couchés puis debout en damier. Le joint est marqué d'une
+   ombre et d'un liseré de lumière, et la trame de chaque tapis suit son
+   sens, ce qui fait lire le damier même de loin. Le sol s'efface vers le
+   bas : il pose le lieu, puis laisse lire. */
+.tatami {
+  background-image:
+    radial-gradient(ellipse 70% 60% at 50% 0%, rgba(237, 243, 234, 0.07), transparent 70%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='192' height='192'%3E%3Cdefs%3E%3Cpattern id='h' width='4' height='4' patternUnits='userSpaceOnUse'%3E%3Cpath d='M0 .5H4' stroke='rgba(237,243,234,0.035)'/%3E%3C/pattern%3E%3Cpattern id='v' width='4' height='4' patternUnits='userSpaceOnUse'%3E%3Cpath d='M.5 0V4' stroke='rgba(237,243,234,0.035)'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='96' height='96' fill='url(%23h)'/%3E%3Crect x='96' width='96' height='96' fill='url(%23v)'/%3E%3Crect y='96' width='96' height='96' fill='url(%23v)'/%3E%3Crect x='96' y='96' width='96' height='96' fill='url(%23h)'/%3E%3Cpath fill='none' stroke='rgba(0,0,0,0.42)' d='M0 .5H192M0 96.5H192M.5 0V192M96.5 0V192M0 48.5H96M144.5 0V96M48.5 96V192M96 144.5H192'/%3E%3Cpath fill='none' stroke='rgba(237,243,234,0.06)' d='M0 1.5H192M0 97.5H192M1.5 0V192M97.5 0V192M0 49.5H96M145.5 0V96M49.5 96V192M96 145.5H192'/%3E%3C/svg%3E");
+  background-position: center top, calc(50% - 96px) -1px;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, rgba(0, 0, 0, 0.55) 45%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0%, rgba(0, 0, 0, 0.55) 45%, transparent 100%);
+}
+
+/* Titres de partie, en mincho : jamais plus larges que leur colonne. */
 .display {
-  font-size: clamp(2.5rem, 11vw, 4.6rem);
-  font-weight: 700;
-  line-height: 0.9;
-  letter-spacing: -0.045em;
+  font-family: var(--font-jp);
+  font-size: clamp(2.5rem, 7.2vw, 4.75rem);
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: -0.015em;
   overflow-wrap: break-word;
   hyphens: auto;
+  text-wrap: balance;
+}
+
+/* Idéogramme en creux : le trait seul, pour un kanji monumental qui porte
+   la page sans disputer la lecture au titre. */
+.kanji-creux {
+  color: transparent;
+  -webkit-text-stroke: 1px var(--c-edge);
+}
+
+/* ── Entrée en scène ──────────────────────────────────────────────────
+   Une seule, à l'ouverture : les éléments de l'en-tête montent l'un après
+   l'autre. `--d` règle le retard de chacun. */
+@keyframes monte {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: none; }
+}
+.monte {
+  /* « backwards » et non « both » : une fois l'entrée jouée, l'élément rend
+     sa transformation. En la gardant, même neutre, il devenait le repère de
+     tout élément fixe qu'il contient — une fenêtre de recherche s'ouvrait
+     alors par rapport à lui, et non à l'écran. */
+  animation: monte 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) backwards;
+  animation-delay: var(--d, 0ms);
+}
+/* Page écrite d'avance : son entrée en scène a déjà eu lieu, on ne la rejoue pas
+   quand React reprend la main (voir main.tsx). */
+html[data-prerendu] .monte,
+html[data-prerendu] .trace {
+  animation: none;
+}
+@keyframes trace {
+  from { opacity: 0; transform: translateY(-10px); clip-path: inset(0 0 100% 0); }
+  to { opacity: 1; transform: none; clip-path: inset(0 0 0 0); }
+}
+/* Le kanji se trace de haut en bas, dans le sens où il s'écrit. */
+.trace {
+  animation: trace 1.1s cubic-bezier(0.3, 0.6, 0.2, 1) backwards;
+  animation-delay: var(--d, 0ms);
 }
 
 ::selection { background: var(--c-blue); color: var(--c-field); }
 
 :focus-visible { outline: 2px solid var(--c-blue); outline-offset: 2px; }
 
-/* Les quartiers de la rose sont des boutons dessinés. L'anneau de focus par
-   défaut cerne la boîte englobante du chemin — un rectangle qui déborde du
-   disque — au lieu du quartier : on le remplace par un trait sur le quartier
-   lui-même, qui reste une indication de focus bien visible. */
-.rose-secteur:focus-visible {
-  outline: none;
-  stroke: var(--c-blue);
-  stroke-width: 2.5;
+/* Le champ d'une fenêtre de recherche a le focus dès qu'elle s'ouvre, et la
+   fenêtre entière le signale : un anneau de plus y dessinait une boîte dans
+   la boîte. */
+.champ-palette:focus-visible { outline: none; }
+
+/* Hachure d'un manque : la même que les coins vides de la rose. */
+.hachure {
+  background-image: repeating-linear-gradient(45deg, var(--c-rule) 0 1px, transparent 1px 6px);
 }
+
+/* En séance au dojo, le pied de page se retire. */
+[data-seance] .pied-de-page { display: none; }
 
 * { scrollbar-width: thin; scrollbar-color: var(--c-rule) transparent; }
 
@@ -106,72 +176,21 @@ body {
 .rail-nav { scrollbar-width: none; }
 .rail-nav::-webkit-scrollbar { display: none; }
 
-/* ── Papier millimétré : substrat des planches ─────────────────────── */
-.grid-paper {
-  background-image:
-    linear-gradient(var(--c-grid) 1px, transparent 1px),
-    linear-gradient(90deg, var(--c-grid) 1px, transparent 1px);
-  background-size: 24px 24px;
-  background-position: -1px -1px;
-}
-.grid-fine {
-  background-image:
-    linear-gradient(var(--c-grid) 1px, transparent 1px),
-    linear-gradient(90deg, var(--c-grid) 1px, transparent 1px);
-  background-size: 8px 8px;
-}
-
-/* ── Réticules de repérage aux angles d'une planche ────────────────── */
+/* ── Cadre d'un bloc : un simple filet ────────────────────────────── */
 .plate {
   position: relative;
   border: 1px solid var(--c-rule);
 }
-.plate::before,
-.plate::after {
-  content: '';
-  position: absolute;
-  width: 11px;
-  height: 11px;
-  pointer-events: none;
-  background-image: linear-gradient(var(--c-ink), var(--c-ink)), linear-gradient(var(--c-ink), var(--c-ink));
-  background-size: 11px 1px, 1px 11px;
-  background-position: center, center;
-  background-repeat: no-repeat;
-  opacity: 0.55;
-}
-.plate::before { top: 4px; left: 4px; }
-.plate::after { bottom: 4px; right: 4px; }
 
-/* ── Ligne de cote : traits d'extrémité, comme sur un plan ─────────── */
-.dimension {
-  position: relative;
-  height: 1px;
-  background: var(--c-rule);
-}
-.dimension::before,
-.dimension::after {
-  content: '';
-  position: absolute;
-  top: -3px;
-  width: 1px;
-  height: 7px;
-  background: var(--c-ink);
-}
-.dimension::before { left: 0; }
-.dimension::after { right: 0; }
-
-/* ── Étiquettes d'annotation ───────────────────────────────────────── */
+/* ── Petites mentions : libellés, métadonnées, commandes secondaires ── */
 .annot {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  font-weight: 500;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.35;
 }
 
-/* ── Kuzushi : le déséquilibre, appliqué aux spécimens ─────────────── */
+/* ── Le cachet s'appose de travers, comme à la main ────────────────── */
 .tilt { transform: rotate(-4deg); }
-.tilt-r { transform: rotate(3deg); }
 
 /* ── Le sceau de validation : un tampon de contrôle, pas un ornement ─ */
 @keyframes stamp {
@@ -187,7 +206,7 @@ body {
 
 .card-cv {
   content-visibility: auto;
-  contain-intrinsic-size: auto 208px;
+  contain-intrinsic-size: auto 176px;
 }
 
 img.lazy { opacity: 0; transition: opacity 0.5s ease; }
@@ -290,4 +309,41 @@ a, button, select, summary, [role='button'] {
    bandeau se glisse dessous et se rehausse d'autant. */
 .safe-t {
   padding-top: env(safe-area-inset-top);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   IMPRESSION — la carte de judo sur une feuille
+
+   Imprimer le tapis vert viderait une cartouche pour rien : sur papier, la
+   palette passe au clair, l’encre reste pour le trait et le texte. Tout ce
+   qui n’est pas la carte se retire.
+   ═══════════════════════════════════════════════════════════════════════ */
+@media print {
+  :root {
+    --c-field: #ffffff;
+    --c-plate: #f3f5f2;
+    --c-ink: #111a15;
+    --c-soft: #2f3a33;
+    --c-faint: #56625a;
+    --c-rule: #c9d1cb;
+    --c-edge: #8e9a92;
+    --c-signal: #c2331c;
+    --c-te: #1d5b86;
+    --c-koshi: #9a4c14;
+    --c-ashi: #4a7219;
+    --c-sutemi: #7a3683;
+    --c-ne: #8a6710;
+  }
+  body::before,
+  .non-imprime,
+  .tatami,
+  nav[aria-label='Navigation principale'] {
+    display: none !important;
+  }
+  body { background: #fff; }
+  /* Une transition en cours imprimerait une couleur à mi-chemin. */
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+  main { padding: 0 !important; }
+  .carte-judo { break-inside: avoid; }
+  @page { size: A4; margin: 12mm; }
 }

@@ -1,4 +1,5 @@
 import { Link } from '../components/Link'
+import { Surtitre } from '../components/Surtitre'
 
 /**
  * L'adresse ne mène nulle part.
@@ -10,36 +11,30 @@ import { Link } from '../components/Link'
  */
 export function IntrouvableScreen({ path }: { path: string }) {
   return (
-    <div className="mx-auto max-w-[1200px] px-4 pb-24 pt-16 sm:px-7">
-      <div className="plate grid-paper p-5 sm:p-10">
-        <span className="annot border border-ink px-1.5 py-1 leading-none">Erreur 404</span>
+    <div className="mx-auto grid max-w-[1200px] gap-x-14 px-4 pb-24 pt-16 sm:px-7 lg:grid-cols-[auto_minmax(0,1fr)]">
+      {/* 無, « rien » : le même kanji creux que l'accueil, tracé de haut en bas. */}
+      <p lang="ja" aria-hidden className="font-jp kanji-creux trace hidden select-none self-start text-[9rem] font-extrabold leading-[0.95] lg:block">
+        無
+      </p>
+      <div>
+        <Surtitre>Erreur 404</Surtitre>
+        <h1 className="display mt-5">Cette page n'existe pas.</h1>
 
-        <h1 className="display mt-5">
-          Cette page
-          <br />
-          n'existe pas.
-        </h1>
-
-        <div className="mt-5 flex items-center gap-3">
-          <span className="dimension w-28" />
-          <span className="annot text-faint">迷子 · HORS PLANCHE</span>
-        </div>
-
-        <p className="mt-6 max-w-lg text-[15px] leading-[1.7] text-soft">
-          Rien ne répond à l'adresse <code className="font-mono text-[13.5px] text-ink">{path}</code>. Elle a peut-être
+        <p className="mt-5 max-w-lg text-[15px] leading-[1.7] text-soft">
+          Rien ne répond à l'adresse <code className="bg-plate px-1 font-mono text-[14px] text-ink">{path}</code>. Elle a peut-être
           été mal recopiée, ou la fiche qu'elle désignait a changé de nom.
         </p>
 
         <div className="mt-8 flex flex-col gap-2 sm:flex-row sm:flex-wrap">
           <Link
             to={{ name: 'browse' }}
-            className="tap annot inline-flex items-center justify-center bg-ink px-5 py-3 text-center text-field transition hover:bg-blue"
+            className="tap inline-flex items-center justify-center bg-ink px-5 py-3 text-center text-[15px] font-semibold text-field transition hover:bg-soft"
           >
-            Ouvrir le catalogue →
+            Ouvrir le catalogue
           </Link>
           <Link
             to={{ name: 'home' }}
-            className="tap annot inline-flex items-center justify-center border border-ink px-5 py-3 text-center transition hover:bg-ink hover:text-field"
+            className="tap inline-flex items-center justify-center border border-edge px-5 py-3 text-center transition hover:border-ink text-[14px] font-medium"
           >
             Revenir au carnet
           </Link>

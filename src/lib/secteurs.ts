@@ -188,7 +188,7 @@ export const secteurDe = (
   return dir ? directionMeta(dir).secteur : null
 }
 
-/** Les trois manières de conclure au sol, pour la seconde moitié du bilan. */
+/** Les trois manières de conclure au sol. */
 export const CONCLUSIONS = [
   { id: 'osaekomi-waza', label: 'Immobiliser', jp: '抑込技' },
   { id: 'shime-waza', label: 'Étrangler', jp: '絞技' },
