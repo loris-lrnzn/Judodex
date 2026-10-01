@@ -34,7 +34,7 @@ export function Tuile({
       aria-pressed={choisie}
       style={familyVars(t.family)}
       className={`group relative flex w-full min-w-0 items-center gap-3 border px-3.5 py-3 text-left transition disabled:cursor-not-allowed disabled:opacity-35 ${
-        choisie ? 'border-ink bg-ink text-field' : 'border-edge bg-plate/40 hover:border-ink hover:bg-plate'
+        choisie ? 'border-ink bg-ink text-field' : 'border-transparent bg-plate/60 hover:bg-plate'
       }`}
     >
       <span

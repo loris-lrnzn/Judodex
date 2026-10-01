@@ -257,9 +257,11 @@ export function TrainScreen({ dex, onNavigate }: Props) {
                     </span>
                   </>
                 )
+                // Le choix en cours garde son trait ; les autres sont des aplats,
+                // pas quatre cadres de plus sur l'écran.
                 const cls = `relative flex min-w-0 flex-col items-start justify-start border p-3 text-left transition sm:p-4 ${
-                  on ? 'border-ink bg-plate' : 'border-edge hover:border-ink'
-                } disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:border-edge`
+                  on ? 'border-ink bg-plate' : 'border-transparent bg-plate/60 hover:bg-plate'
+                } disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-plate/60`
                 return (
                   <button key={p.value} onClick={() => setPool(p.value)} disabled={vide} aria-pressed={on} className={cls}>
                     {contenu}
@@ -269,7 +271,7 @@ export function TrainScreen({ dex, onNavigate }: Props) {
             </div>
 
             {/* Le choix du grade préparé reste toujours visible. */}
-              <div role="group" aria-labelledby="je-prepare" className="mt-3 flex flex-wrap items-center gap-1.5">
+              <div role="group" aria-labelledby="je-prepare" className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-1">
                 <span id="je-prepare" className="mr-1 text-[13px] text-faint">Je prépare</span>
                 {dex.beltGroups.map((g) => {
                   const on = g.belt.id === dex.currentBelt
@@ -281,8 +283,9 @@ export function TrainScreen({ dex, onNavigate }: Props) {
                       }}
                       aria-pressed={on}
                       title={g.belt.kyu}
-                      className={`tap inline-flex h-8 items-center gap-1.5 border px-2.5 text-[13px] font-medium transition ${
-                        on ? 'border-ink bg-ink text-field' : 'border-edge text-soft hover:border-ink hover:text-ink'
+                      style={on ? { borderColor: g.belt.color } : undefined}
+                      className={`tap inline-flex items-center gap-1.5 border-b-2 px-0.5 pb-1.5 pt-1 text-[13px] font-medium transition-colors ${
+                        on ? 'text-ink' : 'border-transparent text-faint hover:text-ink'
                       }`}
                     >
                       <BeltMark belt={g.belt.id} width={16} height={6} />

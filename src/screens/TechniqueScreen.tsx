@@ -20,6 +20,8 @@ function columnSize(kanji: string): string {
   return ['4.2rem', '4.2rem', '3.6rem', '3rem', '2.6rem'][Math.min(Math.max(n, 1), 5) - 1]
 }
 
+const COLONNES: Record<number, string> = { 1: 'lg:grid-cols-1', 2: 'lg:grid-cols-2', 3: 'lg:grid-cols-3' }
+
 interface Props {
   slug: string
   dex: Judodex
@@ -68,6 +70,9 @@ export function TechniqueScreen({ slug, dex, onNavigate }: Props) {
   const keyPoints = t.keyPoints ?? []
   const beltId = dex.beltOfTechnique(t.slug)
   const belt = beltId ? beltOf(beltId) : null
+  // Deux sections au sol, trois debout : la grille suit le nombre de colonnes
+  // pleines, au lieu de laisser un tiers vide à droite.
+  const sections = [keyPoints.length, enchainements.length, contres.length].filter((n) => n > 0).length
 
   return (
     <article className="mx-auto max-w-[1200px] px-4 sm:px-7" style={familyVars(t.family)}>
@@ -210,7 +215,7 @@ export function TechniqueScreen({ slug, dex, onNavigate }: Props) {
 
       {/* ── Ce qu'il faut retenir, et où la technique mène ── */}
       {(keyPoints.length > 0 || enchainements.length > 0 || contres.length > 0) && (
-        <div className="grid gap-x-12 gap-y-12 border-t border-rule py-12 lg:grid-cols-3">
+        <div className={`grid gap-x-12 gap-y-12 border-t border-rule py-12 ${COLONNES[sections]}`}>
           {keyPoints.length > 0 && (
             <section className="min-w-0">
               <Titre aside={t.phases.length > 0 ? undefined : 'Au sol, le travail porte sur le contrôle et le poids'}>Points clés</Titre>

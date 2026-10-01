@@ -50,9 +50,8 @@ export function ReglagesScreen({ dex, onNotify }: Props) {
 
   return (
     <div className="mx-auto max-w-[1200px] px-4 pb-16 sm:px-7">
-      <div className="max-w-3xl">
       {/* ── En-tête ── */}
-      <div className="pt-12 sm:pt-20">
+      <div className="max-w-3xl pt-12 sm:pt-20">
         <Surtitre className="monte">Ton carnet</Surtitre>
         <h1 className="display monte mt-5" style={{ '--d': '80ms' } as React.CSSProperties}>Réglages</h1>
         <p className="monte mt-5 max-w-xl text-[16px] leading-[1.7] text-soft" style={{ '--d': '160ms' } as React.CSSProperties}>
@@ -61,8 +60,30 @@ export function ReglagesScreen({ dex, onNotify }: Props) {
         </p>
       </div>
 
+
+      {/* Quatre sections et une longue liste : à partir du bureau, un sommaire
+          reste sous les yeux, et la liste des directions se range sur deux
+          colonnes au lieu de dérouler trente-cinq lignes. */}
+      <div className="lg:grid lg:grid-cols-[170px_minmax(0,1fr)] lg:gap-x-16">
+        <nav aria-label="Sections des réglages" className="hidden lg:block">
+          <ul className="sticky top-24 mt-14 space-y-1 border-l border-rule">
+            {[
+              ['garde', 'Ta garde'],
+              ['directions', 'Directions'],
+              ['sauvegarde', 'Sauvegarde'],
+              ['effacer', 'Tout effacer'],
+            ].map(([id, label]) => (
+              <li key={id}>
+                <a href={`#${id}`} className="-ml-px block border-l border-transparent py-1.5 pl-4 text-[14px] text-faint transition-colors hover:border-ink hover:text-ink">
+                  {label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+        <div className="max-w-4xl">
       {/* ── Garde ── */}
-      <div className="mt-12">
+      <div id="garde" className="mt-12 scroll-mt-24">
         <SectionHead title="Ta garde" />
         <p className="mb-4 max-w-xl text-[14px] leading-relaxed text-soft">
           Elle renverse la lecture des coins en miroir : un gaucher ne fait pas tomber du même côté. C'est la même
@@ -94,7 +115,7 @@ export function ReglagesScreen({ dex, onNotify }: Props) {
       </div>
 
       {/* ── Directions ── */}
-      <div className="mt-14">
+      <div id="directions" className="mt-14 scroll-mt-24">
         <SectionHead title="Directions des projections" aside={corrigees ? `${corrigees} corrigées` : undefined} />
         <p className="max-w-xl text-[14px] leading-relaxed text-soft">
           La direction d'une projection dépend de la forme enseignée. {A_CONFIRMER.length} des{' '}
@@ -130,14 +151,14 @@ export function ReglagesScreen({ dex, onNotify }: Props) {
           )}
         </div>
 
-        <ul className="mt-5 border-t border-rule">
+        <ul className="mt-5 grid gap-x-12 border-b border-rule/60 md:grid-cols-2">
           {liste.map((slug) => {
             const t = dex.bySlug.get(slug)
             if (!t) return null
             const courante = directionDe(slug, 'droite', profil.corrections)!
             const corrigee = slug in profil.corrections
             return (
-              <li key={slug} className="flex min-w-0 flex-wrap items-center gap-x-3 gap-y-2 border-b border-rule/60 py-2.5">
+              <li key={slug} className="flex min-w-0 flex-wrap items-center gap-x-3 gap-y-2 border-t border-rule/60 py-2.5">
                 <Link
                   to={{ name: 'technique', slug }}
                   className="-my-2 min-w-0 flex-1 truncate py-3.5 text-[14px] transition-colors hover:text-signal"
@@ -173,7 +194,7 @@ export function ReglagesScreen({ dex, onNotify }: Props) {
       </div>
 
       {/* ── Sauvegarde ── */}
-      <div className="mt-14">
+      <div id="sauvegarde" className="mt-14 scroll-mt-24">
         <SectionHead title="Sauvegarde" />
         <p className="max-w-xl text-[14px] leading-relaxed text-soft">
           Le carnet vit dans ce navigateur seul. Un fichier exporté emporte tout : les techniques acquises et leurs
@@ -229,7 +250,7 @@ export function ReglagesScreen({ dex, onNotify }: Props) {
       </div>
 
       {/* ── Effacement ── */}
-      <div className="mt-14">
+      <div id="effacer" className="mt-14 scroll-mt-24">
         <SectionHead title="Tout effacer" />
         <p className="max-w-xl text-[14px] leading-relaxed text-soft">
           Efface la progression, les échéances de révision et les tokui-waza. La garde, les directions corrigées et les
@@ -250,6 +271,7 @@ export function ReglagesScreen({ dex, onNotify }: Props) {
       <p className="annot mt-14 border-t border-rule pt-5 text-faint">
         Aucune donnée ne quitte ton appareil · 設定
       </p>
+            </div>
       </div>
     </div>
   )

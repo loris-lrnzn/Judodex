@@ -11,7 +11,11 @@ import { Surtitre } from '../components/Surtitre'
  */
 export function IntrouvableScreen({ path }: { path: string }) {
   return (
-    <div className="mx-auto max-w-[1200px] px-4 pb-24 pt-16 sm:px-7">
+    <div className="mx-auto grid max-w-[1200px] gap-x-14 px-4 pb-24 pt-16 sm:px-7 lg:grid-cols-[auto_minmax(0,1fr)]">
+      {/* 無, « rien » : le même kanji creux que l'accueil, tracé de haut en bas. */}
+      <p lang="ja" aria-hidden className="font-jp kanji-creux trace hidden select-none self-start text-[9rem] font-extrabold leading-[0.95] lg:block">
+        無
+      </p>
       <div>
         <Surtitre>Erreur 404</Surtitre>
         <h1 className="display mt-5">Cette page n'existe pas.</h1>
