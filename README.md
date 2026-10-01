@@ -8,7 +8,7 @@ React 19 · TypeScript strict · Tailwind CSS 4 · Framer Motion · Vite 6 · Vi
 ```bash
 npm install
 npm run dev       # http://localhost:5173
-npm run test      # 134 tests, dont un parcours applicatif complet
+npm run test      # 145 tests, dont un parcours applicatif complet
 npm run audit     # contrôle de mise en page de 320 à 1440 pixels
 npm run build
 npm run preview   # nécessaire pour vérifier le fonctionnement hors ligne
@@ -183,9 +183,11 @@ déjà faits ; le reste est proposé sans prétendre à rien.
 
 - **En image.** `html-to-image`, chargé au premier clic seulement, rend la
   carte à deux fois la résolution de l'écran. Une image ne voit pas les
-  polices de la page ; on les lui donne, mais seulement les tranches dont la
-  carte emploie un caractère — Shippori Mincho découpe le japonais en une
-  centaine de fichiers. Mesuré : moins d'une seconde.
+  polices de la page ; on les lui donne, lues dans les `@font-face` de la
+  feuille de style, en ne gardant que les plages Unicode dont la carte emploie
+  un caractère. Les styles de la marque sont posés en ligne : une classe CSS
+  n'accompagne pas le nœud dans l'image, et le J sortait noir.
+  Mesuré : moins d'une seconde.
 - **Par un lien.** La carte tient entière dans son adresse,
   `/mon-judo/carte/<code>` : pas de compte, pas de serveur. Celui qui l'ouvre
   la voit, peut la télécharger ou l'imprimer, et est invité à construire la
@@ -418,7 +420,11 @@ au judo.
 Le carnet **tutoie**, partout : c'est l'usage du tapis.
 
 Typographie IBM Plex Sans pour le texte, Shippori Mincho pour les titres et
-les idéogrammes, IBM Plex Mono réservé aux touches de clavier et aux adresses. Le texte
+les idéogrammes, IBM Plex Mono réservé aux touches de clavier et aux adresses.
+Les polices sont servies par le site : IBM Plex par `@fontsource`, Shippori
+Mincho réduite aux caractères du carnet par `npm run polices` (la police
+complète pèse 15 Mo par graisse ; deux fichiers de 120 Ko suffisent). Après
+l'ajout d'un kanji nouveau, relancer cette commande. Le texte
 courant tient 7:1 contre le fond, le vermillon 4.5:1, les cinq teintes de
 famille au moins 7:1 ; `npm run contraste` le vérifie.
 
@@ -583,7 +589,22 @@ npm run build      # tsc + vite + pré-rendu + service worker + robots/sitemap/l
 npm run serve      # sert dist/ comme l'hébergeur (fichier d'abord, compression)
 npm run contraste  # vérifie la palette contre les seuils WCAG
 npm run og         # regénère public/og.png et les 104 cartes de partage
+npm run miniatures # récupère les miniatures des démonstrations dans public/miniatures
+npm run polices    # réduit Shippori Mincho aux caractères du carnet
+npm run icone      # regénère les icônes PNG (180, 192, 512) depuis icon.svg
 ```
+
+**La vie privée.** Un visiteur ne contacte que le site lui-même tant qu'il ne
+lance pas une vidéo : les polices et les miniatures sont servies localement,
+et seule la lecture appelle YouTube (`youtube-nocookie.com`). Une
+Content-Security-Policy dans `vercel.json` le garantit : si une page tente de
+charger autre chose, le navigateur le refuse. Ajouter une origine externe
+demande donc de l'ajouter à la politique, ce qui se voit en relecture.
+
+**La sauvegarde.** Le carnet ne vit que dans le navigateur. L'accueil rappelle
+d'exporter quand la dernière sauvegarde a plus de trente jours (« Plus tard »
+fait taire le rappel quatorze jours), à condition d'avoir au moins trois
+techniques suivies ; la date figure aussi sous le bouton d'export des réglages.
 
 **Le domaine.** Il est écrit à un seul endroit, `VITE_SITE_URL` dans `.env`, et
 sert au canonical, aux balises de partage, au sitemap et à `llms.txt`. Le changer là suffit ;

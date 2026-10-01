@@ -430,6 +430,15 @@ export function TrainScreen({ dex, onNavigate }: Props) {
           {/* Reconnaissance */}
           {format === 'choice' && (
             <>
+              {/* Le résultat n'est lisible qu'à l'œil (✓, ✕, couleurs) : la région
+                  existe avant la réponse, sans quoi un lecteur d'écran n'annonce rien. */}
+              <p role="status" className="sr-only">
+                {picked
+                  ? picked === question.answer.slug
+                    ? `Bonne réponse : ${question.answer.name}.`
+                    : `Mauvaise réponse. C'était ${question.answer.name}.`
+                  : ''}
+              </p>
               <div className="mt-5 grid gap-2 sm:grid-cols-2">
                 {question.choices.map((c, i) => {
                   const isAnswer = c.slug === question.answer.slug
@@ -459,7 +468,11 @@ export function TrainScreen({ dex, onNavigate }: Props) {
                         {picked && isAnswer ? '✓' : picked && isPicked ? '✕' : i + 1}
                       </span>
                       <span className="min-w-0 flex-1">
-                        <span className="block truncate text-[15px] font-semibold">{c.name}</span>
+                        <span className="block truncate text-[15px] font-semibold">
+                          {picked && isAnswer && <span className="sr-only">Bonne réponse : </span>}
+                          {picked && isPicked && !isAnswer && <span className="sr-only">Ta réponse : </span>}
+                          {c.name}
+                        </span>
                         {picked && <span className="block truncate text-[13px] opacity-75">{c.translation}</span>}
                       </span>
                       {picked && (

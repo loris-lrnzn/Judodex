@@ -300,7 +300,7 @@ export function CarteJudo({ mj, l, variante = 'affiche' }: Props) {
 
       {!petit && (
         <footer className="relative mt-8 flex items-center gap-3 border-t border-rule pt-4">
-          <Signature className="text-[1.3rem]" reserve="stroke-plate" />
+          <Signature className="text-[1.3rem]" reserve="plate" />
           <span className="ml-auto text-[12px] text-faint">Le carnet du judoka</span>
         </footer>
       )}

@@ -7,13 +7,18 @@
  * c'est la version simplifiée, sans coutures, qui est dessinée ici. La
  * version détaillée, avec ses coutures, est celle de l'icône (public/icon.svg).
  */
-export function JNoue({ className = '', reserve = 'stroke-field' }: { className?: string; reserve?: string }) {
+export function JNoue({ className = '', reserve = 'field' }: { className?: string; reserve?: 'field' | 'plate' }) {
+  // Les couleurs sont posées en style en ligne, pas par des classes : l'export
+  // de la carte en image n'emporte pas la feuille de style, et une classe
+  // laissait ici le J en noir. Les variables, elles, descendent de l'élément
+  // racine, dont l'export recopie les propriétés.
+  const signal = 'var(--color-signal)'
   return (
     <svg viewBox="60 76 336 380" aria-hidden className={`shrink-0 overflow-visible ${className}`}>
-      <path d="M300 150V316A100 100 0 0 1 110 360" fill="none" strokeWidth="80" className="stroke-signal" />
-      <rect x="112" y="104" width="284" height="80" className="fill-signal" />
+      <path d="M300 150V316A100 100 0 0 1 110 360" fill="none" strokeWidth="80" style={{ stroke: signal }} />
+      <rect x="112" y="104" width="284" height="80" style={{ fill: signal }} />
       {/* Le nœud, détouré d'un trait couleur du fond qui le détache de la ceinture. */}
-      <rect x="242" y="86" width="116" height="116" strokeWidth="20" className={`fill-signal ${reserve}`} />
+      <rect x="242" y="86" width="116" height="116" strokeWidth="20" style={{ fill: signal, stroke: `var(--color-${reserve})` }} />
     </svg>
   )
 }
@@ -32,7 +37,7 @@ export function Signature({
   className?: string
   texteClassName?: string
   marqueClassName?: string
-  reserve?: string
+  reserve?: 'field' | 'plate'
 }) {
   return (
     <span className={`font-jp inline-flex items-baseline font-extrabold leading-none tracking-[-0.01em] ${className}`}>

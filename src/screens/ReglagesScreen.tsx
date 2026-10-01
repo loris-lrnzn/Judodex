@@ -9,6 +9,7 @@ import { exportProgress, importProgress } from '../lib/backup'
 import { A_CONFIRMER, DIRECTIONS, DIRECTION_OF, directionDe, type Direction } from '../lib/secteurs'
 import { GARDES } from '../lib/situations'
 import { Surtitre } from '../components/Surtitre'
+import { derniereSauvegarde, dite } from '../lib/sauvegarde'
 
 interface Props {
   dex: Judodex
@@ -29,6 +30,7 @@ export function ReglagesScreen({ dex, onNotify }: Props) {
   const monJudo = useMonJudo(connue)
   const fichier = useRef<HTMLInputElement>(null)
   const [filtre, setFiltre] = useState(false)
+  const [derniere, setDerniere] = useState(derniereSauvegarde)
 
   const corrigees = Object.keys(profil.corrections).length
 
@@ -194,6 +196,7 @@ export function ReglagesScreen({ dex, onNotify }: Props) {
           <button
             onClick={() => (
               exportProgress({ progress: dex.progress, profil, monJudo: monJudo.mj }),
+              setDerniere(derniereSauvegarde()),
               onNotify('Carnet exporté')
             )}
             className="bg-signal px-5 py-3 text-[15px] font-semibold text-field transition hover:brightness-110"
@@ -221,6 +224,7 @@ export function ReglagesScreen({ dex, onNotify }: Props) {
         <p className="annot mt-3 max-w-xl leading-relaxed text-faint">
           Une restauration remplace le carnet en place. Exporte d'abord si tu tiens à l'état actuel.
         </p>
+        <p className="annot mt-1 text-faint">Dernière sauvegarde : {dite(derniere)}</p>
       </div>
 
       {/* ── Effacement ── */}

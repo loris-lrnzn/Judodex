@@ -19,7 +19,7 @@ export function YouTubeFacade({ id, title, bare = false }: { id: string; title: 
         />
       ) : (
         <button onClick={() => setActive(true)} className="group absolute inset-0 grid place-items-center" aria-label={`Lire la vidéo : ${title}`}>
-          <img src={`https://i.ytimg.com/vi/${id}/hqdefault.jpg`} alt="" loading="lazy" className="absolute inset-0 size-full object-cover transition duration-500 group-hover:scale-[1.03]" />
+          <img src={`/miniatures/${id}.webp`} alt="" loading="lazy" className="absolute inset-0 size-full object-cover transition duration-500 group-hover:scale-[1.03]" />
           <span className="relative grid size-14 place-items-center border-2 border-signal bg-field text-signal transition group-hover:bg-signal group-hover:text-field">
             <svg width="16" height="18" viewBox="0 0 16 18" fill="currentColor" aria-hidden>
               <path d="M0 0l16 9-16 9z" />

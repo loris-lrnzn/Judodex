@@ -2,6 +2,8 @@ import type { ProgressMap } from '../types/judodex'
 import type { Profil } from '../hooks/useProfil'
 import type { Direction } from './secteurs'
 import { CASES, type Case } from './situations'
+import { jourLocal } from './srs'
+import { noterSauvegarde } from './sauvegarde'
 
 const FORMAT = 'judodex-progress'
 
@@ -53,9 +55,10 @@ export function exportProgress({ progress, profil, monJudo }: ADeposer) {
   const url = URL.createObjectURL(blob)
   const a = document.createElement('a')
   a.href = url
-  a.download = `judodex-${new Date().toISOString().slice(0, 10)}.json`
+  a.download = `judodex-${jourLocal()}.json`
   a.click()
   URL.revokeObjectURL(url)
+  noterSauvegarde()
 }
 
 const DIRECTIONS: Direction[] = ['av', 'av-d', 'd', 'ar-d', 'ar', 'ar-g', 'g', 'av-g']

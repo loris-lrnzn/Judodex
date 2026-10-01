@@ -1,5 +1,16 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
+// Polices servies par le site lui-même : aucune requête vers Google, donc
+// aucune adresse IP transmise, et le dojo sans réseau garde son typographe.
+// Shippori Mincho est réduite aux caractères du carnet : npm run polices.
+import '@fontsource/ibm-plex-sans/latin-400.css'
+import '@fontsource/ibm-plex-sans/latin-500.css'
+import '@fontsource/ibm-plex-sans/latin-600.css'
+import '@fontsource/ibm-plex-sans/latin-700.css'
+import '@fontsource/ibm-plex-mono/latin-400.css'
+import '@fontsource/ibm-plex-mono/latin-500.css'
+import '@fontsource/ibm-plex-mono/latin-600.css'
+import './fonts/shippori-mincho-b1.css'
 import './index.css'
 import App from './App'
 import { parseRoute } from './hooks/useRoute'

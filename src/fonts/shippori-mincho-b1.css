@@ -1,0 +1,15 @@
+/* Produit par scripts/gen-polices.mjs — ne pas modifier à la main. */
+@font-face {
+  font-family: 'Shippori Mincho B1';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 700;
+  src: url(./shippori-mincho-b1-700.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'Shippori Mincho B1';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 800;
+  src: url(./shippori-mincho-b1-800.woff2) format('woff2');
+}

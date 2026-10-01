@@ -2,15 +2,12 @@
  * Sortir la carte de l’écran : en image, par un lien, sur papier.
  *
  * L’image est rendue par html-to-image, chargé au premier clic seulement. Une
- * image ne voit pas les polices de la page : on les lui donne, mais pas
- * toutes — Shippori Mincho découpe le japonais en une centaine de tranches,
- * et on n’embarque que celles dont la carte emploie un caractère.
+ * image ne voit pas les polices de la page : on les lui donne, lues dans les
+ * @font-face de la page. Quand une police est découpée par plages Unicode, on
+ * n’embarque que les tranches dont la carte emploie un caractère.
  */
 
-const POLICES =
-  'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Shippori+Mincho+B1:wght@700;800&display=swap'
-
-/** Plages Unicode d’un bloc @font-face, lues telles que Google les écrit. */
+/** Plages Unicode d’un bloc @font-face, lues telles que la feuille de style les écrit. */
 function plages(bloc: string): [number, number][] | null {
   const m = bloc.match(/unicode-range:\s*([^;]+);/)
   if (!m) return null
@@ -29,19 +26,37 @@ const enDataUrl = (blob: Blob) =>
     lecteur.readAsDataURL(blob)
   })
 
+/** Les @font-face de la page, avec l'adresse de la feuille qui les déclare. */
+function reglesDePolice(): { cssText: string; base: string }[] {
+  const regles: { cssText: string; base: string }[] = []
+  for (const feuille of Array.from(document.styleSheets)) {
+    let contenu: CSSRuleList
+    try {
+      contenu = feuille.cssRules
+    } catch {
+      continue // feuille d'une autre origine : illisible, et pas la nôtre
+    }
+    for (const regle of Array.from(contenu)) {
+      if (regle instanceof CSSFontFaceRule) regles.push({ cssText: regle.cssText, base: feuille.href ?? location.href })
+    }
+  }
+  return regles
+}
+
 /** Les polices dont le texte a besoin, fichiers compris, prêtes à embarquer. */
 async function policesPour(texte: string): Promise<string> {
-  const css = await (await fetch(POLICES)).text()
   const points = [...new Set([...texte].map((c) => c.codePointAt(0)!))]
-  const blocs = (css.match(/@font-face\s*{[^}]*}/g) ?? []).filter((bloc) => {
-    const p = plages(bloc)
+  const blocs = reglesDePolice().filter(({ cssText }) => {
+    if (/IBM Plex Mono/.test(cssText)) return false // la carte n'en emploie pas
+    const p = plages(cssText)
     return !p || points.some((c) => p.some(([lo, hi]) => c >= lo && c <= hi))
   })
   const embarques = await Promise.all(
-    blocs.map(async (bloc) => {
-      const url = bloc.match(/url\(([^)]+)\)/)?.[1]
-      if (!url) return bloc
-      return bloc.replace(url, await enDataUrl(await (await fetch(url)).blob()))
+    blocs.map(async ({ cssText, base }) => {
+      const url = cssText.match(/url\(["']?([^)"']+)["']?\)/)
+      if (!url) return cssText
+      const fichier = await (await fetch(new URL(url[1], base))).blob()
+      return cssText.replace(url[0], `url("${await enDataUrl(fichier)}")`)
     }),
   )
   return embarques.join('\n')

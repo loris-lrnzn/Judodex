@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { m as fm } from 'framer-motion'
 import type { Judodex } from '../hooks/useJudodex'
 import { GROUPS, GROUP_META, familyVars, kanjiSize } from '../lib/families'
@@ -9,6 +10,7 @@ import { Link } from '../components/Link'
 import { BeltMark } from '../components/BeltMark'
 import type { Mastery, Technique } from '../types/judodex'
 import { Surtitre } from '../components/Surtitre'
+import { derniereSauvegarde, dite, rappelNecessaire, rappelReporte, reporterRappel } from '../lib/sauvegarde'
 
 /** Une technique en cours : son nom japonais, son nom, sa traduction. */
 function Row({ t, dex }: { t: Technique; dex: Judodex }) {
@@ -112,7 +114,7 @@ function TechniqueDuJour({ dex }: { dex: Judodex }) {
       <p className="text-[13px] text-faint">Technique du jour</p>
       <span className="relative mt-2 block aspect-video overflow-hidden bg-plate">
         <img
-          src={`https://i.ytimg.com/vi/${video}/hqdefault.jpg`}
+          src={`/miniatures/${video}.webp`}
           alt=""
           loading="lazy"
           className="absolute inset-0 size-full object-cover transition duration-500 group-hover:scale-[1.03]"
@@ -130,12 +132,47 @@ function TechniqueDuJour({ dex }: { dex: Judodex }) {
   )
 }
 
+/** Le carnet ne vit que dans ce navigateur : on rappelle d'en garder une copie. */
+function RappelSauvegarde({ suivies }: { suivies: number }) {
+  // Lu au montage seulement : les pages sont écrites d'avance sans localStorage,
+  // le rappel ne figure donc jamais dans le HTML servi.
+  const [infos] = useState(() => ({ derniere: derniereSauvegarde(), reporte: rappelReporte() }))
+  const [masque, setMasque] = useState(false)
+  if (masque || !rappelNecessaire({ suivies, ...infos })) return null
+  return (
+    <aside aria-label="Sauvegarde du carnet" className="mb-2 flex flex-col gap-3 border border-rule px-4 py-3 text-[14px] sm:flex-row sm:items-center sm:justify-between">
+      <p className="text-soft">
+        Ton carnet ne vit que dans ce navigateur. Dernière sauvegarde : <span className="text-ink">{dite(infos.derniere)}</span>.
+      </p>
+      <div className="flex shrink-0 gap-4">
+        <Link to={{ name: 'reglages' }} className="font-semibold underline underline-offset-4 hover:text-signal">
+          Sauvegarder
+        </Link>
+        <button
+          onClick={() => {
+            reporterRappel()
+            setMasque(true)
+          }}
+          className="text-faint underline underline-offset-4 hover:text-ink"
+        >
+          Plus tard
+        </button>
+      </div>
+    </aside>
+  )
+}
+
 export function HomeScreen({ dex }: { dex: Judodex }) {
   const { stats } = dex
   const fresh = stats.mastered === 0 && stats.learning === 0
 
   return (
     <div className="mx-auto max-w-[1200px] px-4 sm:px-7">
+      {!fresh && (
+        <div className="pt-6">
+          <RappelSauvegarde suivies={stats.mastered + stats.learning} />
+        </div>
+      )}
       {/* ── Ouverture ──
           Le relevé n'apparaît qu'une fois qu'il y a quelque chose à relever :
           à zéro, une jauge vide ne dit rien d'autre que « rien ». */}

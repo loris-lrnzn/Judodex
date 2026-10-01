@@ -27,12 +27,16 @@ const fichiers = readdirSync(assets)
   .filter((f) => /\.(js|css)$/.test(f))
   .sort()
 
+// Les polices sont servies par le site : le texte et les kanji du carnet ne
+// doivent pas attendre le réseau.
+const polices = readdirSync(assets).filter((f) => /^(ibm-plex-(sans|mono)-latin-\d+-normal|shippori-mincho-b1-\d+)-.*\.woff2$/.test(f)).sort()
+
 const empreinte = createHash('sha256')
   .update(fichiers.map((f) => readFileSync(join(assets, f))).join(''))
   .digest('hex')
   .slice(0, 10)
 
-const precache = ['/', '/techniques', '/dojo', '/mon-judo', '/reglages', '/icon.svg', '/favicon.svg', '/apple-touch-icon.png', '/og.png', '/manifest.webmanifest', ...fichiers.map((f) => `/assets/${f}`)]
+const precache = ['/', '/techniques', '/dojo', '/mon-judo', '/reglages', '/icon.svg', '/favicon.svg', '/apple-touch-icon.png', '/icon-192.png', '/icon-512.png', '/og.png', '/manifest.webmanifest', ...fichiers.map((f) => `/assets/${f}`), ...polices.map((f) => `/assets/${f}`)]
 
 const chemin = join(dist, 'sw.js')
 let sw = readFileSync(chemin, 'utf8')

@@ -19,7 +19,7 @@ const APPARIER = { ignoreVary: true }
 
 const SHELL = `${VERSION}-shell`
 const MEDIA = `${VERSION}-media`
-const MEDIA_MAX = 300
+const MEDIA_MAX = 600
 
 self.addEventListener('install', (e) => {
   e.waitUntil(
@@ -94,9 +94,9 @@ self.addEventListener('fetch', (event) => {
     return
   }
 
-  // Images et polices distantes : cache d'abord (elles ne changent jamais).
+  // Images et polices : cache d'abord (elles ne changent jamais).
   const isMedia =
-    /\.(png|jpe?g|webp|svg|woff2?)$/i.test(url.pathname) || url.hostname.endsWith('ytimg.com') || url.hostname.endsWith('gstatic.com')
+    /\.(png|jpe?g|webp|svg|woff2?)$/i.test(url.pathname)
   if (isMedia) {
     event.respondWith(
       caches.match(request, APPARIER).then(
