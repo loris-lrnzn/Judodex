@@ -415,6 +415,17 @@ au judo.
   l'un après l'autre. Rien ne bouge ensuite, sauf au survol.
 - **Le pied de page** porte les deux principes de Jigoro Kano, 精力善用 et
   自他共栄, le plan du carnet et ses sources.
+- **Des aplats, pas des cadres.** Cent quatre cartes, quatre choix de dojo, des
+  dizaines de lignes de sélection : les entourer toutes d'un trait de 1 px
+  faisait de chaque écran un tableau. Les éléments à choisir sont des tuiles de
+  ton plus clair que le fond, séparées par une gouttière ; le trait est gardé
+  pour ce qui est sélectionné et pour les commandes à deux états, où il aide à
+  voir lequel est actif. Les grands choix d'un même niveau (ceintures, dan,
+  kata) sont des onglets soulignés, à la couleur de la ceinture quand il y en a
+  une.
+- **Un chapitre s'ouvre sur un grand signe** : l'idéogramme de la famille à
+  6 rem dans le catalogue, la ceinture agrandie dans la vue par grade, 無 sur la
+  page introuvable. On sait où l'on est avant d'avoir lu un mot.
 - **Aucun angle arrondi.**
 
 Le carnet **tutoie**, partout : c'est l'usage du tapis.
@@ -438,10 +449,21 @@ la journée. C'est de quoi commencer sans rien avoir à choisir. Dès qu'il y a
 une progression, cette place revient au relevé chiffré.
 
 Viennent ensuite, dans l'ordre où on les cherche en ouvrant le carnet : ce
-qu'on a **en cours de travail**, la **planche du grade préparé**, puis les
-**cinq familles**, dont chacune mène à sa section du catalogue
-(`/techniques#ashi-waza`). Les carrés d'état de la planche ont leur légende ;
-une liste de situations d'étude de plus de huit lignes se replie.
+qu'on a **en cours de travail**, les **cinq familles**, dont chacune mène à sa
+section du catalogue (`/techniques#ashi-waza`), puis la **planche du grade
+préparé**. Les familles passent avant la planche parce que cinq grands
+idéogrammes se comprennent d'un coup, alors qu'une planche de passage demande de
+savoir ce qu'on cherche. Dans la planche, « 0 % acquis » est la progression du
+pratiquant ; « le programme se partage ainsi », la répartition debout et sol que
+la fédération imprime : deux nombres différents qu'un même mot, « programme »,
+confondait. Les carrés d'état ont leur légende ; une liste de situations
+d'étude de plus de huit lignes se replie.
+
+Les pages qui n'ont pas besoin de la largeur (le dojo avant la séance, les
+réglages, la ceinture noire) s'alignent sur le bord des autres écrans, pas au
+centre : un titre qui saute d'une page à l'autre fait désordre. La séance, elle,
+se centre. Les réglages ont un sommaire qui reste sous les yeux dès le bureau, et
+la liste des directions se range sur deux colonnes.
 
 ### La fiche
 

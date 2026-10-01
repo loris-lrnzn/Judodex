@@ -201,14 +201,14 @@ function PanneauKata({ dan, dex, uv }: { dan: Dan; dex: Judodex; uv: Uv }) {
       </div>
 
       {katas.length > 1 && (
-        <div className="mt-8 flex flex-wrap gap-2">
+        <div className="mt-8 flex flex-wrap gap-x-7 gap-y-1">
           {katas.map((k) => (
             <button
               key={k.id}
               onClick={() => setActif(k.id)}
               aria-pressed={k.id === actif}
-              className={`border px-3.5 py-2.5 text-[13px] transition ${
-                k.id === actif ? 'border-ink bg-ink text-field' : 'border-edge text-soft hover:border-ink hover:text-ink'
+              className={`tap inline-flex items-baseline border-b-2 px-0.5 pb-1.5 pt-1 text-[14px] font-medium transition-colors ${
+                k.id === actif ? 'border-ink text-ink' : 'border-transparent text-faint hover:text-ink'
               }`}
             >
               {k.name}
