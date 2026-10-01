@@ -5,7 +5,9 @@ import { Link } from '../components/Link'
 import { Surtitre } from '../components/Surtitre'
 import { Fil } from '../components/PageSeo'
 
-const lien = 'text-ink underline decoration-edge underline-offset-4 hover:decoration-ink'
+const CONTACT = 'contact@judodex.fr'
+
+const lien ='text-ink underline decoration-edge underline-offset-4 hover:decoration-ink'
 
 /** Date du dernier relevé, dite en toutes lettres. */
 const releve = new Date((donnees as { scrapedAt?: string }).scrapedAt ?? Date.now()).toLocaleDateString('fr-FR', {
@@ -111,6 +113,13 @@ export function AProposScreen({ dex }: { dex: Judodex }) {
           serveur, aucun compte n'est demandé et aucun traceur n'est posé. Les polices et les miniatures sont servies par le site lui-même ; seule
           la lecture d'une vidéo contacte YouTube, au moment où tu la lances. Tu peux exporter ton carnet depuis les{' '}
           <Link to={{ name: 'reglages' }} className={lien}>réglages</Link>.
+        </p>
+      </Bloc>
+
+      <Bloc titre="Contact">
+        <p>
+          Une erreur dans une fiche, une technique manquante, une vidéo qui ne répond plus ou une question sur le carnet : écris à{' '}
+          <a href={`mailto:${CONTACT}`} className={lien}>{CONTACT}</a>.
         </p>
       </Bloc>
     </article>
