@@ -1,6 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "installCommand": "(dnf install -y nss nspr atk at-spi2-atk cups-libs libdrm libxkbcommon libXcomposite libXdamage libXfixes libXrandr mesa-libgbm pango cairo alsa-lib > /dev/null || echo 'dnf : bibliothèques de Chromium non installées, les pages ne seront pas pré-rendues') && npm install",
+  "installCommand": "sh scripts/vercel-install.sh",
   "rewrites": [
     {
       "source": "/techniques",
