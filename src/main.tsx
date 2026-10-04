@@ -1,5 +1,6 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
+import { Analytics } from '@vercel/analytics/react'
 // Polices servies par le site lui-même : aucune requête vers Google, donc
 // aucune adresse IP transmise, et le dojo sans réseau garde son typographe.
 // Shippori Mincho est réduite aux caractères du carnet : npm run polices.
@@ -50,6 +51,7 @@ const démarrer = () =>
   createRoot(racine).render(
     <StrictMode>
       <App />
+      <Analytics />
     </StrictMode>,
   )
 
