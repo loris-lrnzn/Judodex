@@ -269,7 +269,7 @@ export function ReglagesScreen({ dex, onNotify }: Props) {
       </div>
 
       <p className="annot mt-14 border-t border-rule pt-5 text-faint">
-        Aucune donnée ne quitte ton appareil · 設定
+        Ton carnet ne quitte pas ton appareil · 設定
       </p>
             </div>
       </div>

@@ -109,8 +109,9 @@ export function AProposScreen({ dex }: { dex: Judodex }) {
 
       <Bloc titre="Vie privée">
         <p>
-          La progression, la garde, les directions corrigées et la carte de Mon judo restent dans ton navigateur. Rien n'est envoyé à un
-          serveur, aucun compte n'est demandé et aucun traceur n'est posé. Les polices et les miniatures sont servies par le site lui-même ; seule
+          La progression, la garde, les directions corrigées et la carte de Mon judo restent dans ton navigateur : rien de tout cela n'est envoyé
+          à un serveur, et aucun compte n'est demandé. Le site compte seulement ses visites avec Vercel Analytics, sans cookie, sans
+          identifiant et sans te suivre d'une page ou d'un site à l'autre. Les polices et les miniatures sont servies par le site lui-même ; seule
           la lecture d'une vidéo contacte YouTube, au moment où tu la lances. Tu peux exporter ton carnet depuis les{' '}
           <Link to={{ name: 'reglages' }} className={lien}>réglages</Link>.
         </p>

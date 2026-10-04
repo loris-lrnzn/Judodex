@@ -69,6 +69,9 @@ self.addEventListener('fetch', (event) => {
   if (request.method !== 'GET') return
   const url = new URL(request.url)
 
+  // Mesure d'audience Vercel : jamais mise de côté, elle doit toujours venir du réseau.
+  if (url.pathname.startsWith('/_vercel/')) return
+
   // Navigation : réseau d'abord. Chaque page visitée est mise de côté, car
   // elles ne se valent plus — depuis le pré-rendu, le fichier d'une route
   // porte le contenu de cette route. Hors réseau, on sert donc la page exacte
